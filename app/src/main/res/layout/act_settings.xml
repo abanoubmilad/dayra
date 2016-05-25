@@ -1,0 +1,76 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/header" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edit_dayra"
+                style="@style/attendant_labels"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:hint="@string/label.dayra.name"
+                android:maxLength="30" />
+
+            <ImageView
+                android:id="@+id/spin_dayra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/ic_spin" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/cb_attend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/label.alert.last.attend"
+            android:textSize="@dimen/font_larger" />
+
+        <CheckBox
+            android:id="@+id/cb_visit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/label.alert.last.visit"
+            android:textSize="@dimen/font_larger" />
+
+        <CheckBox
+            android:id="@+id/cb_bday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/label.alert.bday"
+            android:textSize="@dimen/font_larger" />
+
+        <TextView
+            android:id="@+id/save"
+            style="@style/bottom_button"
+            android:text="@string/btn.save" />
+    </LinearLayout>
+
+</ScrollView>

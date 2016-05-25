@@ -1,0 +1,177 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/header" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label.choose.fields"
+                android:textSize="@dimen/font_larger" />
+
+            <CheckBox
+                android:id="@+id/cb_numbering"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/label.numbering" />
+
+            <CheckBox
+                android:id="@+id/cb_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/label.name" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_mobile1"
+                    style="@style/check_box"
+                    android:checked="true"
+                    android:text="@string/label.mobile1" />
+
+                <CheckBox
+                    android:id="@+id/cb_mobile2"
+                    style="@style/check_box"
+                    android:text="@string/label.mobile2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_classyear"
+                    style="@style/check_box"
+                    android:text="@string/label.class.year" />
+
+                <CheckBox
+                    android:id="@+id/cb_mobile3"
+                    style="@style/check_box"
+                    android:text="@string/label.mobile3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_study_work"
+                    style="@style/check_box"
+                    android:text="@string/label.study.work" />
+
+                <CheckBox
+                    android:id="@+id/cb_lphone"
+                    style="@style/check_box"
+                    android:text="@string/label.lphone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_lattend"
+                    style="@style/check_box"
+                    android:text="@string/label.last.attendance" />
+
+                <CheckBox
+                    android:id="@+id/cb_email"
+                    style="@style/check_box"
+                    android:text="@string/label.email" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_lvisit"
+                    style="@style/check_box"
+                    android:text="@string/label.last.visit" />
+
+                <CheckBox
+                    android:id="@+id/cb_comm"
+                    style="@style/check_box"
+                    android:text="@string/label.notes" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_site"
+                    style="@style/check_box"
+                    android:text="@string/label.site" />
+
+                <CheckBox
+                    android:id="@+id/cb_bday"
+                    style="@style/check_box"
+                    android:text="@string/label.bday" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_street"
+                    style="@style/check_box"
+                    android:text="@string/label.street" />
+
+                <CheckBox
+                    android:id="@+id/cb_priest"
+                    style="@style/check_box"
+                    android:text="@string/label.conf.father"
+                    android:textSize="@dimen/font_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_addr"
+                    style="@style/check_box"
+                    android:text="@string/label.address" />
+
+                <CheckBox
+                    android:id="@+id/cb_dates"
+                    style="@style/check_box"
+                    android:text="@string/label.attendance.dates" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/export_btn"
+        style="@style/bottom_button"
+        android:text="@string/btn.export" />
+
+</LinearLayout>

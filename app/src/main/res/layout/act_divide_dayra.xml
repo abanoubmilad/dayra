@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/header" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/label.divide.express"
+                android:textSize="@dimen/font_larger" />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:focusable="false"
+                android:text="@string/label.site"
+                android:textSize="20sp" />
+
+            <CheckBox
+                android:id="@+id/cb_classyear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label.class.year"
+                android:textSize="20sp" />
+
+            <TextView
+                style="@style/attendant_labels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_classyear"
+                    style="@style/attendant_labels"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="not specified yet" />
+
+                <ImageView
+                    android:id="@+id/spin_class_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_spin" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/divide_btn"
+        style="@style/bottom_button"
+        android:text="@string/btn.divide" />
+
+</LinearLayout>

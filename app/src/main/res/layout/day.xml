@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/attendant_labels"
+    android:layout_width="0dp"
+    android:layout_weight="0.3"
+    android:hint="@string/label.day"
+    android:inputType="number"
+    android:maxLength="2" />

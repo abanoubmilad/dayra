@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">dayra</string>
+    <string name="msg.updated">updated</string>
+    <string name="msg.added">added</string>
+    <string name="msg.no.results">no search results</string>
+    <string name="msg.no.contacts">no contacts</string>
+    <string name="msg.no.connections">no connections</string>
+    <string name="btn.export">export</string>
+    <string name="label.choose.fields">choose data fields</string>
+    <string name="btn.edit">edit</string>
+    <string name="btn.save">save</string>
+    <string name="btn.search">search</string>
+    <string name="label.dayra.name">dayra name</string>
+    <string name="btn.delete">delete</string>
+    <string name="btn.confirm">confirm</string>
+    <string name="label.remember">remember me</string>
+    <string name="btn.create">create</string>
+    <string name="btn.back">back</string>
+    <string name="copyright">dayra 3.2 ©%1$s\nAbanoub M. abanoubcs@gmail.com</string>
+    <string name="err.msg.db">error while connecting to database, please contact the developer</string>
+    <string name="label.name.required">name (required)</string>
+    <string name="label.name">name</string>
+    <string name="label.last.attendance">last attendance</string>
+    <string name="label.last.visit">last visit</string>
+    <string name="label.attendance.dates">attendance dates</string>
+    <string name="label.conf.father">confession father</string>
+    <string name="label.notes">notes</string>
+    <string name="label.bday">birthday</string>
+    <string name="label.email">email</string>
+    <string name="err.msg.invalid.vday">invalid last visit</string>
+    <string name="err.msg.invalid.bday">invalid birthday</string>
+    <string name="label.mobile1">mobile 1</string>
+    <string name="label.mobile2">mobile 2</string>
+    <string name="label.mobile3">mobile 3</string>
+    <string name="label.lphone">landphone</string>
+    <string name="label.day">day</string>
+    <string name="label.day.optional">day (optional)</string>
+    <string name="label.month">month</string>
+    <string name="label.year">year</string>
+    <string name="err.msg.duplicate.name">name is already used</string>
+    <string name="err.msg.dayra.name">invalid dayra name</string>
+    <string name="err.msg.site">invalid site</string>
+    <string name="err.msg.dayra.match">name does not match the current dayra name</string>
+    <string name="msg.dayra.created">dayra created</string>
+    <string name="msg.dayra.deleted">dayra deleted</string>
+    <string name="err.msg.dayra.delete">error while trying to delete dayra</string>
+    <string name="msg.dayra.exported">dayra exported</string>
+    <string name="err.msg.day">invalid day</string>
+    <string name="err.msg.month">invalid month</string>
+    <string name="err.msg.year">invalid year</string>
+    <string name="err.msg.invalid.name">invalid name, must be at least 4 characters long</string>
+    <string name="err.msg.email">invalid email</string>
+    <string name="subhead.search.name">searching name</string>
+    <string name="subhead.search.ldate">searching last attendance</string>
+    <string name="subhead.search.bday">searching birthday</string>
+    <string name="subhead.search.vlast">searching last visit</string>
+    <string name="subhead.search.attend.absence">searching attendance absence</string>
+    <string name="subhead.search.visit.absence">searching visit absence</string>
+    <string name="label.confirm.dayra">confirm dayra name</string>
+    <string name="subhead.today.attendance">updating today\'s attendance</string>
+    <string name="btn.add">add</string>
+    <string name="subhead.add.contact">adding a new contact</string>
+    <string name="subhead.display.contacts">displaying contacts</string>
+    <string name="subhead.advanced">advanced options</string>
+    <string name="subhead.contact">contact us</string>
+    <string name="subhead.transfer">copy contacts from dayra to phone</string>
+    <string name="subhead.export.pdf">exporting contacts pdf</string>
+    <string name="subhead.export.excel">exporting contacts excel</string>
+    <string name="subhead.display.contact">displaying contact details</string>
+    <string name="btn.map.add">add location on map</string>
+    <string name="btn.map.edit">edit location on map</string>
+    <string name="btn.map.display">display location on map</string>
+    <string name="subhead.display.locs">displaying locations</string>
+    <string name="err.msg.duplicate.dayra">app contains dayra with same name, delete it first</string>
+    <string name="subhead.register.attendance">registering attendance</string>
+    <string name="err.msg.invalid.date">invalid date</string>
+    <string name="msg.dayra.imported">dayra imported</string>
+    <string name="msg.dayra.replaced">dayra data replaced</string>
+    <string name="subhead.dayra.update">replacing current dayra data</string>
+    <string name="err.msg.import">dayra import error</string>
+    <string name="err.msg.invalid_file">invalid file</string>
+    <string name="btn.confirm.date">confirm date</string>
+    <string name="msg.no.dayra">no available dayra, create one</string>
+    <string name="label.select.dayra">Select dayra</string>
+    <string name="err.msg.open">error while connecting to database</string>
+    <string name="err.dayra.divide">error while dividing dayra</string>
+    <string name="err.copy.contacts">some contacts couldn\'t be copied</string>
+    <string name="msg.copy.success">contacts copied</string>
+    <string name="subhead.percentage">displaying attendance percentage</string>
+    <string name="label.numbering">auto numbering</string>
+    <string name="msg.dayra.renamed">dayra renamed</string>
+    <string name="label.site">site</string>
+    <string name="label.street">street</string>
+    <string name="label.class.year">class/year</string>
+    <string name="label.study.work">study/work</string>
+    <string name="label.address">address</string>
+    <string name="label.progress">progress</string>
+    <string name="label.contact">contact</string>
+    <string name="label.personal">personal</string>
+    <string name="msg.choose.field">choose at least one field to export</string>
+    <string name="btn.divide">divide dayra</string>
+    <string name="btn.copy.selected">copy selected contacts</string>
+    <string name="subhead.divide">dividing current dayra</string>
+    <string name="label.divide.express">create other databases by dividing this dayra into many databases (dayra), original database is kept unchanged.\n\ndivide dayra by:</string>
+    <string name="msg.dayra.divided">dayra divided</string>
+    <string name="label.tolerance">class/year tolerance in each dayra</string>
+    <string name="label.update.dayra">update dayra</string>
+    <string name="label.update.express">please read carefully before using this feature (always store a backup of dayra)\nreplacing dayra data fields by another dayra, data fields are replaced as following:\n if a new contact is found (new name), it will added to the current dayra\n if a contact already exists, the chosen fields will be replaced.</string>
+    <string name="btn.browse.dayra">browse dayra to replace data with</string>
+    <string name="err.msg.browse">you must browse dayra first</string>
+    <string name="label.choose.site">Choose site</string>
+    <string name="label.choose.street">Choose street</string>
+    <string name="label.choose.priest">Choose confession father</string>
+    <string name="label.choose.class.year">Choose class/year</string>
+    <string name="label_choose_study_work">Choose study/work</string>
+    <string name="label.add.site">add a new site</string>
+    <string name="label.add.class.year">add a new class/year</string>
+    <string name="msg.exported">exported</string>
+    <string name="err.msg.export">error while trying to export</string>
+    <string name="err.msg.explorer">you need a file explorer to complete this action</string>
+    <string name="label.choose.language">Choose language</string>
+    <string name="label.choose.search">Search by</string>
+    <string name="label.choose.photo">choose photo</string>
+    <string name="label.check.all">check all</string>
+    <string name="btn.send.sms">send to selected contacts</string>
+    <string name="subhead.sms">sending sms</string>
+    <string name="label.loading">loading, please wait</string>
+    <string name="label.sortby">sort by</string>
+    <string name="label.selectall">select all</string>
+    <string name="msg.no.available.entries">no available entries</string>
+    <string name="label.settings">alarm settings</string>
+    <string name="label.alert.last.attend">display alerts about last attendance dates</string>
+    <string name="label.alert.last.visit">display alerts about last visit dates</string>
+    <string name="label.alert.bday">display alerts about birthdays</string>
+    <string name="label.noti.last.attend">attendance absence updates</string>
+    <string name="label.noti.last.visit">visit absence updates</string>
+    <string name="label.noti.bday">today\'s birthdays</string>
+    <string name="label.noti.more">contacts number :</string>
+    <string name="label.noti.alarm.set">alram settings have been saved</string>
+    <string name="label.home.main">main</string>
+    <string name="label.home.out">export and copy contacts</string>
+    <string name="label.home.settings">options and settings</string>
+    <string name="subhead.edit.connections">edit connections</string>
+    <string name="subhead.display.connections">display connections</string>
+    <string name="subhead.import.contacts">copy contacts from phone to dayra</string>
+    <string name="btn.copy.all">copy all contacts</string>
+    <string name="msg.no.mobiles">no mobiles were selected</string>
+    <string name="subhead.edit.contact">editing contact</string>
+
+    <string-array name="language_menu">
+        <item>عربى</item>
+        <item>English</item>
+    </string-array>
+    <string-array name="search_menu">
+        <item>Name</item>
+        <item>Last attendance</item>
+        <item>Attendance absence</item>
+        <item>Last visit</item>
+        <item>Visit absence</item>
+        <item>Birthday</item>
+    </string-array>
+    <string-array name="photo_menu">
+        <item>Choose</item>
+        <item>Capture</item>
+        <item>Default</item>
+    </string-array>
+    <string-array name="home_menu">
+        <item>Search</item>
+        <item>Add contact</item>
+        <item>Display contacts</item>
+        <item>Display locations</item>
+        <item>register attendance</item>
+        <item>Attendance percentage</item>
+        <item>Send SMS</item>
+        <item>User\'s manuel</item>
+        <item>Like us</item>
+        <item>Contact developer</item>
+    </string-array>
+    <string-array name="sign_menu">
+        <item>Enter</item>
+        <item>Create new dayra</item>
+        <item>Import dayra file</item>
+        <item>Import dayra xls</item>
+        <item>Alarm settings</item>
+        <item>User\'s manuel</item>
+        <item>Language / اللغة</item>
+        <item>Like us</item>
+        <item>Contact developer</item>
+    </string-array>
+    <string-array name="out_menu">
+        <item>Copy contacts from phone to dayra</item>
+        <item>Copy contacts from dayra to phone</item>
+        <item>Export report pdf</item>
+        <item>Export contacts pdf</item>
+        <item>Export dayra file</item>
+        <item>Export dayra xls</item>
+    </string-array>
+    <string-array name="settings_menu">
+        <item>Replace data dayra</item>
+        <item>Divide dayra</item>
+        <item>Rename dayra</item>
+        <item>Delete dayra</item>
+    </string-array>
+    <string-array name="excel_header">
+        <item>name</item>
+        <item>class/year</item>
+        <item>study/work</item>
+        <item>mobile 1</item>
+        <item>mobile 2</item>
+        <item>mobile 3</item>
+        <item>landphone</item>
+        <item>email</item>
+        <item>site</item>
+        <item>street</item>
+        <item>address</item>
+        <item>notes</item>
+        <item>birthday</item>
+        <item>confession father</item>
+        <item>last attendance</item>
+        <item>attendance dates</item>
+        <item>last visit</item>
+        <item>reserved latitude</item>
+        <item>reserved longitude</item>
+        <item>reserved zoom</item>
+        <item>reserved picture path</item>
+    </string-array>
+    <string-array name="sort_menu">
+        <item>Name</item>
+        <item>Class/year</item>
+        <item>Study/work</item>
+        <item>Site</item>
+        <item>Street</item>
+        <item>Birthday</item>
+        <item>Confession father</item>
+        <item>Last attendance</item>
+        <item>Last visit</item>
+    </string-array>
+    <string-array name="home_icons" translatable="false">
+        <item>@mipmap/ic_search</item>
+        <item>@mipmap/ic_add</item>
+        <item>@mipmap/ic_display</item>
+        <item>@mipmap/ic_map</item>
+        <item>@mipmap/ic_update</item>
+        <item>@mipmap/ic_statis</item>
+        <item>@mipmap/ic_mess</item>
+        <item>@mipmap/ic_manual</item>
+        <item>@mipmap/ic_like</item>
+        <item>@mipmap/ic_contact</item>
+    </string-array>
+    <string-array name="sign_icons" translatable="false">
+        <item>@mipmap/ic_enter</item>
+        <item>@mipmap/ic_create</item>
+        <item>@mipmap/ic_file</item>
+        <item>@mipmap/ic_xls</item>
+        <item>@mipmap/ic_alarm</item>
+        <item>@mipmap/ic_manual</item>
+        <item>@mipmap/ic_lang</item>
+        <item>@mipmap/ic_like</item>
+        <item>@mipmap/ic_contact</item>
+    </string-array>
+    <string-array name="out_icons" translatable="false">
+        <item>@mipmap/ic_import</item>
+        <item>@mipmap/ic_copy</item>
+        <item>@mipmap/ic_pdf</item>
+        <item>@mipmap/ic_pdf</item>
+        <item>@mipmap/ic_file</item>
+        <item>@mipmap/ic_xls</item>
+    </string-array>
+    <string-array name="settings_icons" translatable="false">
+        <item>@mipmap/ic_replace</item>
+        <item>@mipmap/ic_divide</item>
+        <item>@mipmap/ic_rename</item>
+        <item>@mipmap/ic_delete</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
