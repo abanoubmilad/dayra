@@ -37,7 +37,7 @@ public class RegisterAttendance extends Activity {
     private ListView lv;
     private TextView addBtn, rateView;
     private ProgressDialog pBar;
-    private View chosenView;
+    private TextView flag;
     private ContactUpdate chosenAtt;
     private DB dbm;
     private int totalCount;
@@ -61,8 +61,7 @@ public class RegisterAttendance extends Activity {
         protected void onPostExecute(Void result) {
             chosenAtt.setDay("");
             chosenAtt.setSelected(true);
-            ((TextView) chosenView.findViewById(R.id.attendantday)).setText("");
-            chosenView.setBackgroundColor(Utility.update);
+            flag.setBackgroundColor(Utility.update);
             rateView.setText(++updatedCount + " / " + totalCount);
         }
 
@@ -90,8 +89,7 @@ public class RegisterAttendance extends Activity {
         protected void onPostExecute(Void result) {
             chosenAtt.setDay("");
             chosenAtt.setSelected(false);
-            ((TextView) chosenView.findViewById(R.id.attendantday)).setText("");
-            chosenView.setBackgroundColor(Utility.deupdate);
+            flag.setBackgroundColor(Utility.deupdate);
             rateView.setText(--updatedCount + " / " + totalCount);
         }
     }
@@ -176,7 +174,7 @@ public class RegisterAttendance extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                chosenView = arg1;
+                flag = (TextView) arg1.findViewById(R.id.flag);
                 chosenAtt = (ContactUpdate) parent.getItemAtPosition(position);
                 if (chosenAtt.isSelected())
                     new RemoveDateTask().execute();

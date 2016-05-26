@@ -24,7 +24,7 @@ import abanoubm.dayra.obj.GoogleContact;
 
 public class CopyPhoneDayra extends Activity {
     private ListView lv;
-    private View chosenView;
+    private TextView flag;
     private GoogleContact chosenAtt;
     private GoogleContactAdapter mAdapter;
 
@@ -42,7 +42,7 @@ public class CopyPhoneDayra extends Activity {
         protected void onPostExecute(Boolean result) {
             if (result) {
                 chosenAtt.setSelected(true);
-                chosenView.setBackgroundColor(Utility.update);
+                flag.setBackgroundColor(Utility.update);
             }
             pBar.dismiss();
         }
@@ -167,7 +167,7 @@ public class CopyPhoneDayra extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                chosenView = arg1;
+                flag = (TextView) arg1.findViewById(R.id.flag);
                 chosenAtt = (GoogleContact) parent.getItemAtPosition(position);
                 if (!chosenAtt.isSelected())
                     new ImportContactTask().execute();

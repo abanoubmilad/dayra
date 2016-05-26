@@ -26,7 +26,7 @@ import abanoubm.dayra.obj.ContactConnection;
 public class EditConnections extends Activity {
     private EditText sname;
     private ListView lv;
-    private View chosenView;
+    private TextView flag;
     private ContactConnection chosenAtt;
     private ProgressDialog pBar;
     private DB dbm;
@@ -44,7 +44,7 @@ public class EditConnections extends Activity {
         @Override
         protected void onPostExecute(Void result) {
             chosenAtt.setCon(true);
-            chosenView.setBackgroundColor(Utility.update);
+            flag.setBackgroundColor(Utility.update);
             pBar.dismiss();
         }
 
@@ -72,7 +72,7 @@ public class EditConnections extends Activity {
         @Override
         protected void onPostExecute(Void result) {
             chosenAtt.setCon(false);
-            chosenView.setBackgroundColor(Utility.deupdate);
+            flag.setBackgroundColor(Utility.deupdate);
             pBar.dismiss();
         }
     }
@@ -131,7 +131,7 @@ public class EditConnections extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                chosenView = arg1;
+                flag =(TextView) arg1.findViewById(R.id.flag);
                 chosenAtt = (ContactConnection) parent
                         .getItemAtPosition(position);
                 if (chosenAtt.isCon())
