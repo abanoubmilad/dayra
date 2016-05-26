@@ -37,13 +37,14 @@ public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
 
         ((TextView) convertView.findViewById(R.id.contact_name)).setText(contact.getName());
         ((TextView) convertView.findViewById(R.id.contact_mob)).setText(contact.getMobile());
+        TextView flag = (TextView) convertView.findViewById(R.id.flag);
 
         ImageView img = (ImageView) convertView.findViewById(R.id.contact_img);
 
         if (contact.isSelected()) {
-            convertView.setBackgroundColor(Utility.update);
+            flag.setBackgroundColor(Utility.update);
         } else {
-            convertView.setBackgroundColor(Utility.deupdate);
+            flag.setBackgroundColor(Utility.deupdate);
         }
 
         if (contact.getPicDir().length() != 0

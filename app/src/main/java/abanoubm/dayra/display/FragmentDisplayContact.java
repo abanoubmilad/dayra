@@ -52,14 +52,6 @@ public class FragmentDisplayContact extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             setFields();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-            String [] days =attData.getAttendDates().split(";");
-            for (int i = 0; i < days.length; i++) {
-                try {
-                    calendarView.setDate(dateFormat.parse(days[i]).getTime());
-                }catch (Exception e){}
-            }
             pBar.dismiss();
         }
 

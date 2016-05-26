@@ -143,12 +143,6 @@
             android:background="@color/lightgreen"
             android:text="@string/label.attendance.dates" />
 
-        <CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_margin="10dp" />
-
         <TextView
             style="@style/attendant_labels"
             android:text="@string/label.last.visit" />

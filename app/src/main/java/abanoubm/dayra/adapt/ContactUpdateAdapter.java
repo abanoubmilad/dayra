@@ -35,13 +35,14 @@ public class ContactUpdateAdapter extends ArrayAdapter<ContactUpdate> {
 
 		TextView name = (TextView) convertView.findViewById(R.id.attendantName);
 		TextView day = (TextView) convertView.findViewById(R.id.attendantday);
+		TextView flag = (TextView) convertView.findViewById(R.id.flag);
 
 		name.setText(contact.getName());
 		day.setText(contact.getDay());
 		if (contact.isSelected()) {
-			convertView.setBackgroundColor(Utility.update);
+			flag.setBackgroundColor(Utility.update);
 		} else {
-			convertView.setBackgroundColor(Utility.deupdate);
+			flag.setBackgroundColor(Utility.deupdate);
 		}
 
 		ImageView img = (ImageView) convertView.findViewById(R.id.attendantImg);

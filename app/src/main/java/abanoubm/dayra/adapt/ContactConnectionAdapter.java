@@ -35,10 +35,12 @@ public class ContactConnectionAdapter extends ArrayAdapter<ContactConnection> {
 
 
 		((TextView) convertView.findViewById(R.id.attendantName)).setText(contact.getName());
+		TextView flag = (TextView) convertView.findViewById(R.id.flag);
+
 		if (contact.isCon()) {
-			convertView.setBackgroundColor(Utility.update);
+			flag.setBackgroundColor(Utility.update);
 		} else {
-			convertView.setBackgroundColor(Utility.deupdate);
+			flag.setBackgroundColor(Utility.deupdate);
 		}
 
 		ImageView img = (ImageView) convertView.findViewById(R.id.attendantImg);

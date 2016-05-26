@@ -36,6 +36,7 @@
             android:textColor="@color/text_pressed"
             android:textSize="@dimen/font_normal"
             android:textStyle="bold" />
+
     </LinearLayout>
 
 </LinearLayout>

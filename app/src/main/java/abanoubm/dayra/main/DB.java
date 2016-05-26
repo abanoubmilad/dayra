@@ -1077,28 +1077,30 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<ContactUpdate> getAttendantsUpdate(String currentDate,
-                                                        String name, IntWraper counter) {
+    public ArrayList<ContactUpdate> getDayAttendance(String type, String day,
+                                                     String name, IntWraper counter) {
 
-        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_LAST_ATTEND
-                + "," + CONTACT_PHOTO + " FROM " + TB_CONTACT + " WHERE " + CONTACT_NAME
-                + " like " + "'%" + name + "%'" + " ORDER BY " + CONTACT_NAME;
-        Cursor c = readableDB.rawQuery(selectQuery, null);
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME+ "," + CONTACT_PHOTO + "," + ATTEND_DAY +
+                " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
+                CONTACT_ID + "=" + ATTEND_ID + " AND "+ATTEND_DAY+" = ?  AND " + ATTEND_TYPE + " = ? WHERE " + CONTACT_NAME
+                + " like '%?%' ORDER BY " + CONTACT_NAME;
+
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{day,type,name});
         ArrayList<ContactUpdate> result = new ArrayList<>(
                 c.getCount());
         int updated = 0;
         if (c.moveToFirst()) {
             int colID = c.getColumnIndex(CONTACT_ID);
             int colNAME = c.getColumnIndex(CONTACT_NAME);
-            int colLAST_ATTEND = c.getColumnIndex(CONTACT_LAST_ATTEND);
+            int colDay = c.getColumnIndex(ATTEND_DAY);
             int colPic = c.getColumnIndex(CONTACT_PHOTO);
             boolean flag;
             do {
-                flag = c.getString(colLAST_ATTEND).equals(currentDate);
+                flag = c.getString(colDay)!=null;
                 if (flag)
                     updated++;
                 result.add(new ContactUpdate(c.getInt(colID), c
-                        .getString(colNAME), c.getString(colLAST_ATTEND), flag,
+                        .getString(colNAME), "", flag,
                         c.getString(colPic)));
             } while (c.moveToNext());
         }
@@ -1107,173 +1109,26 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList<ContactUpdate> getAttendantsUpdateDif(String difDate,
-                                                           String name, IntWraper counter) {
-
-        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_ATTEND_DATES
-                + "," + CONTACT_PHOTO + " FROM " + TB_CONTACT + " WHERE " + CONTACT_NAME
-                + " like " + "'%" + name + "%'" + " ORDER BY " + CONTACT_NAME;
-        Cursor c = readableDB.rawQuery(selectQuery, null);
-        ArrayList<ContactUpdate> result = new ArrayList<>(
-                c.getCount());
-        int updated = 0;
-
-        if (c.moveToFirst()) {
-            int colID = c.getColumnIndex(CONTACT_ID);
-            int colNAME = c.getColumnIndex(CONTACT_NAME);
-            int colDATES = c.getColumnIndex(CONTACT_ATTEND_DATES);
-            int colPic = c.getColumnIndex(CONTACT_PHOTO);
-            boolean flag;
-
-            do {
-                flag = c.getString(colDATES).contains(difDate);
-                if (flag)
-                    updated++;
-                result.add(new ContactUpdate(c.getInt(colID), c
-                        .getString(colNAME), "", flag, c.getString(colPic)));
-            } while (c.moveToNext());
-        }
-        c.close();
-        counter.setCounter(updated);
-        return result;
+    public void addDay(int id, String type, String day) {
+        ContentValues values = new ContentValues();
+        values.put(ATTEND_ID, id);
+        values.put(ATTEND_DAY, day);
+        values.put(ATTEND_TYPE, type);
+        writableDB.insert(TB_ATTEND, null, values);
     }
 
-    public void Update(int id, String currentDate) {
-        String Query = "SELECT " + CONTACT_ATTEND_DATES + "," + CONTACT_LAST_ATTEND + " FROM "
-                + TB_CONTACT + " WHERE " + CONTACT_ID + "=" + id + " LIMIT 1";
-        Cursor c = readableDB.rawQuery(Query, null);
-        if (c.moveToFirst()
-                && !c.getString(c.getColumnIndex(CONTACT_LAST_ATTEND)).equals(
-                currentDate)) {
-            String dates = c.getString(c.getColumnIndex(CONTACT_ATTEND_DATES));
-            if (dates.length() > 0)
-                dates += ";" + currentDate;
-            else
-                dates = currentDate;
-
-            ContentValues values = new ContentValues();
-            values.put(CONTACT_ATTEND_DATES, dates);
-            values.put(CONTACT_LAST_ATTEND, currentDate);
-            writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
-                    new String[]{String.valueOf(id)});
-        }
-        c.close();
-
-    }
-
-    public void addDate(int id, String difDate) {
-        String Query = "SELECT " + CONTACT_ATTEND_DATES + "," + CONTACT_LAST_ATTEND + " FROM "
-                + TB_CONTACT + " WHERE " + CONTACT_ID + "=" + id + " LIMIT 1";
-        Cursor c = readableDB.rawQuery(Query, null);
-        if (c.moveToFirst()) {
-            String dates = c.getString(c.getColumnIndex(CONTACT_ATTEND_DATES));
-            String lastDate = c.getString(c.getColumnIndex(CONTACT_LAST_ATTEND));
-            if (lastDate.length() == 0) {
-                dates = difDate;
-                lastDate = difDate;
-            } else {
-                String[] arr1 = difDate.split("-");
-                String[] arr2 = lastDate.split("-");
-                int d1 = Integer.parseInt(arr1[0]), m1 = Integer
-                        .parseInt(arr1[1]), y1 = Integer.parseInt(arr1[2]);
-                int d2 = Integer.parseInt(arr2[0]), m2 = Integer
-                        .parseInt(arr2[1]), y2 = Integer.parseInt(arr2[2]);
-                boolean bigger = false;
-                if (y1 > y2)
-                    bigger = true;
-                else if (y1 == y2 && m1 > m2)
-                    bigger = true;
-                else if (y1 == y2 && m1 == m2 && d1 > d2)
-                    bigger = true;
-                if (bigger) {
-                    dates = dates + ";" + difDate;
-                    lastDate = difDate;
-
-                } else
-                    dates = difDate + ";" + dates;
-            }
-
-            ContentValues values = new ContentValues();
-            values.put(CONTACT_ATTEND_DATES, dates);
-            values.put(CONTACT_LAST_ATTEND, lastDate);
-            writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
-                    new String[]{String.valueOf(id)});
-        }
-        c.close();
-
-    }
-
-    public void removeDate(int id, String difDate) {
-        String Query = "SELECT " + CONTACT_ATTEND_DATES + "," + CONTACT_LAST_ATTEND + " FROM "
-                + TB_CONTACT + " WHERE " + CONTACT_ID + "=" + id + " LIMIT 1";
-        Cursor c = readableDB.rawQuery(Query, null);
-
-        if (c.moveToFirst()) {
-            String dates = c.getString(c.getColumnIndex(CONTACT_ATTEND_DATES));
-            String lastDate = c.getString(c.getColumnIndex(CONTACT_LAST_ATTEND));
-            if (lastDate.equals(difDate)) {
-                if (dates.length() == lastDate.length()) {
-                    dates = "";
-                    lastDate = "";
-                } else {
-                    dates = dates.replace(";" + difDate, "");
-                    lastDate = dates.substring(dates.lastIndexOf(";") + 1);
-                }
-            } else {
-                dates = dates.replace(difDate + ";", "");
-            }
-
-            ContentValues values = new ContentValues();
-            values.put(CONTACT_ATTEND_DATES, dates);
-            values.put(CONTACT_LAST_ATTEND, lastDate);
-            writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
-                    new String[]{String.valueOf(id)});
-        }
-        c.close();
-
-    }
-
-    public String deUpdate(int id, String currentDate) {
-        String Query = "SELECT " + CONTACT_ATTEND_DATES + "," + CONTACT_LAST_ATTEND + " FROM "
-                + TB_CONTACT + " WHERE " + CONTACT_ID + "=" + id + " LIMIT 1";
-        Cursor c = readableDB.rawQuery(Query, null);
-        String last = "";
-
-        if (c.moveToFirst()
-                && c.getString(c.getColumnIndex(CONTACT_LAST_ATTEND)).equals(
-                currentDate)) {
-            String dates = c.getString(c.getColumnIndex(CONTACT_ATTEND_DATES));
-            if (dates.length() > 0) {
-                int index = dates.lastIndexOf(";");
-                if (index != -1) {
-                    dates = dates.substring(0, index);
-                    index = dates.lastIndexOf(";");
-                    if (index == -1)
-                        last = dates;
-                    else
-                        last = dates.substring(index + 1);
-                } else {
-                    dates = "";
-                    last = "";
-                }
-                ContentValues values = new ContentValues();
-                values.put(CONTACT_ATTEND_DATES, dates);
-                values.put(CONTACT_LAST_ATTEND, last);
-                writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
-                        new String[]{String.valueOf(id)});
-            }
-        }
-        c.close();
-        return last;
-
+    public void removeDay(int id, String type, String day) {
+        writableDB.delete(TB_ATTEND, ATTEND_ID + " = ? AND " + ATTEND_TYPE
+                        + " = ? AND " + ATTEND_DAY + " = ?",
+                new String[]{String.valueOf(id), type,
+                        day});
     }
 
     public ArrayList<ContactID> searchName(String name) {
 
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO
-                + " FROM " + TB_CONTACT + " WHERE " + CONTACT_NAME + " like " + "'%"
-                + name + "%'" + " ORDER BY " + CONTACT_NAME;
-        Cursor c = readableDB.rawQuery(selectQuery, null);
+                + " FROM " + TB_CONTACT + " WHERE " + CONTACT_NAME + " like '%?%' ORDER BY " + CONTACT_NAME;
+        Cursor c = readableDB.rawQuery(selectQuery, new String []{name});
         ArrayList<ContactID> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {

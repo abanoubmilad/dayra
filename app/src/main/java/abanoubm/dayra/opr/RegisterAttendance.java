@@ -41,17 +41,15 @@ public class RegisterAttendance extends Activity {
     private ContactUpdate chosenAtt;
     private DB dbm;
     private int totalCount;
-
+    private String dayType = "";
     private int updatedCount;
 
     private EditText edit_date;
     private int previousPosition = 0;
-    private String targetDate = Calendar.getInstance().get(
-            Calendar.DAY_OF_MONTH)
-            + "-"
-            + (Calendar.getInstance().get(Calendar.MONTH) + 1)
-            + "-"
-            + Calendar.getInstance().get(Calendar.YEAR);
+    private String targetDay = Calendar.getInstance().get(Calendar.YEAR) +
+            "-" + (Calendar.getInstance().get(Calendar.MONTH) + 1) +
+            "-" + Calendar.getInstance().get(
+            Calendar.DAY_OF_MONTH);
 
     private class AddDateTask extends AsyncTask<Void, Void, Void> {
 
@@ -70,7 +68,7 @@ public class RegisterAttendance extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.addDate(chosenAtt.getId(), targetDate);
+            dbm.addDay(chosenAtt.getId(), dayType, targetDay);
             return null;
         }
 
@@ -84,7 +82,7 @@ public class RegisterAttendance extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.removeDate(chosenAtt.getId(), targetDate);
+            dbm.removeDay(chosenAtt.getId(), dayType, targetDay);
             return null;
         }
 
@@ -111,7 +109,7 @@ public class RegisterAttendance extends Activity {
         @Override
         protected ArrayList<ContactUpdate> doInBackground(String... params) {
             name = params[0];
-            return dbm.getAttendantsUpdateDif(targetDate, params[0], temp);
+            return dbm.getDayAttendance(dayType, targetDay, params[0], temp);
         }
 
         @Override
@@ -153,9 +151,9 @@ public class RegisterAttendance extends Activity {
                 new OnDateSetListener() {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        targetDate = dayOfMonth + "-" + (monthOfYear + 1) + "-"
+                        targetDay = dayOfMonth + "-" + (monthOfYear + 1) + "-"
                                 + year;
-                        edit_date.setText(targetDate);
+                        edit_date.setText(targetDay);
                         sname.setVisibility(View.VISIBLE);
                         new GetAllUpdateDifTask().execute(sname.getText()
                                 .toString().trim());
@@ -242,14 +240,14 @@ public class RegisterAttendance extends Activity {
             }
 
         });
-        edit_date.setText(targetDate);
+        edit_date.setText(targetDay);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (targetDate.length() > 0)
+        if (targetDay.length() > 0)
             new GetAllUpdateDifTask()
                     .execute(sname.getText().toString().trim());
     }

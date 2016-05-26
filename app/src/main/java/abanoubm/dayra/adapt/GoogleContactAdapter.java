@@ -32,10 +32,12 @@ public class GoogleContactAdapter extends ArrayAdapter<GoogleContact> {
 
 		((TextView) convertView.findViewById(R.id.name)).setText(contact.getName());
 		((TextView) convertView.findViewById(R.id.mobile)).setText(contact.getMobile());
+		TextView flag = (TextView) convertView.findViewById(R.id.flag);
+
 		if (contact.isSelected()) {
-			convertView.setBackgroundColor(Utility.update);
+			flag.setBackgroundColor(Utility.update);
 		} else {
-			convertView.setBackgroundColor(Utility.deupdate);
+			flag.setBackgroundColor(Utility.deupdate);
 		}
 
 		return convertView;

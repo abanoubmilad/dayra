@@ -35,6 +35,12 @@
             android:textColor="@color/white"
             android:textSize="@dimen/font_normal"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/flag"
+            android:layout_marginRight="10dp"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right" />
     </LinearLayout>
 
 </LinearLayout>
