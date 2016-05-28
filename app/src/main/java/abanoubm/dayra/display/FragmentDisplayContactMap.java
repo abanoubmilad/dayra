@@ -39,7 +39,7 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_display_contact_map, container, false);
-        SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager()
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         return root;
