@@ -6,6 +6,7 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -89,7 +90,7 @@ public class RegisterAttendance extends Activity {
         protected void onPostExecute(Void result) {
             chosenAtt.setDay("");
             chosenAtt.setSelected(false);
-            flag.setBackgroundColor(Utility.deupdate);
+            flag.setBackgroundColor(Color.WHITE);
             rateView.setText(--updatedCount + " / " + totalCount);
         }
     }

@@ -3,6 +3,7 @@ package abanoubm.dayra.opr;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -72,7 +73,7 @@ public class EditConnections extends Activity {
         @Override
         protected void onPostExecute(Void result) {
             chosenAtt.setCon(false);
-            flag.setBackgroundColor(Utility.deupdate);
+            flag.setBackgroundColor(Color.WHITE);
             pBar.dismiss();
         }
     }

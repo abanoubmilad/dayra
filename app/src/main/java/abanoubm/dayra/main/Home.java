@@ -269,23 +269,27 @@ public class Home extends Activity {
 
                     case 0:
                         startActivity(new Intent(getApplicationContext(),
-                                CopyPhoneDayra.class));
+                                Settings.class));
                         break;
                     case 1:
                         startActivity(new Intent(getApplicationContext(),
-                                CopyDayraPhone.class));
+                                CopyPhoneDayra.class));
                         break;
                     case 2:
-                        new ExportReportTask().execute();
+                        startActivity(new Intent(getApplicationContext(),
+                                CopyDayraPhone.class));
                         break;
                     case 3:
+                        new ExportReportTask().execute();
+                        break;
+                    case 4:
                         startActivity(new Intent(getApplicationContext(),
                                 ExportContacts.class));
                         break;
-                    case 4:
+                    case 5:
                         new ExportTask().execute();
                         break;
-                    case 5:
+                    case 6:
                         new ExportDayraExcelTask().execute();
                         break;
                 }

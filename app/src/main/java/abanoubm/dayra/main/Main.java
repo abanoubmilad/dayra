@@ -261,17 +261,12 @@ public class Main extends Activity {
                         importExcel();
                         break;
                     case 4:
-                        startActivity(new Intent(getApplicationContext(),
-                                Settings.class));
-
-                        break;
-                    case 5:
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri
                                 .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view"));
                         startActivity(i);
                         break;
-                    case 6: {
+                    case 5: {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(
                                 Main.this);
@@ -317,7 +312,7 @@ public class Main extends Activity {
 
                     }
                     break;
-                    case 7:
+                    case 6:
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -329,7 +324,7 @@ public class Main extends Activity {
                         }
                         break;
 
-                    case 8:
+                    case 7:
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
