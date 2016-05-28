@@ -146,6 +146,8 @@
     <string name="btn.copy.all">نسخ جميع الاسماء</string>
     <string name="msg.no.mobiles">لم يتم اختيار ارقام موبايل</string>
     <string name="subhead.edit.contact">تعديل البيانات</string>
+    <string name="flag.attended">حاضر</string>
+    <string name="flag.chosen">تم الاختيار</string>
 
     <string-array name="language_menu">
         <item>عربى</item>

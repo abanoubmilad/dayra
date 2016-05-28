@@ -269,27 +269,23 @@ public class Home extends Activity {
 
                     case 0:
                         startActivity(new Intent(getApplicationContext(),
-                                Settings.class));
+                                CopyPhoneDayra.class));
                         break;
                     case 1:
                         startActivity(new Intent(getApplicationContext(),
-                                CopyPhoneDayra.class));
-                        break;
-                    case 2:
-                        startActivity(new Intent(getApplicationContext(),
                                 CopyDayraPhone.class));
                         break;
-                    case 3:
+                    case 2:
                         new ExportReportTask().execute();
                         break;
-                    case 4:
+                    case 3:
                         startActivity(new Intent(getApplicationContext(),
                                 ExportContacts.class));
                         break;
-                    case 5:
+                    case 4:
                         new ExportTask().execute();
                         break;
-                    case 6:
+                    case 5:
                         new ExportDayraExcelTask().execute();
                         break;
                 }
@@ -317,19 +313,22 @@ public class Home extends Activity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 switch (position) {
-
                     case 0:
                         startActivity(new Intent(getApplicationContext(),
-                                ReplaceDayra.class));
+                                Settings.class));
                         break;
                     case 1:
                         startActivity(new Intent(getApplicationContext(),
-                                DivideDayra.class));
+                                ReplaceDayra.class));
                         break;
                     case 2:
-                        renameDB();
+                        startActivity(new Intent(getApplicationContext(),
+                                DivideDayra.class));
                         break;
                     case 3:
+                        renameDB();
+                        break;
+                    case 4:
                         deleteDB();
                         break;
 

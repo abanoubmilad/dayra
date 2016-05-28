@@ -148,6 +148,8 @@
     <string name="btn.copy.all">copy all contacts</string>
     <string name="msg.no.mobiles">no mobiles were selected</string>
     <string name="subhead.edit.contact">editing contact</string>
+    <string name="flag.attended">attended</string>
+    <string name="flag.chosen">chosen</string>
 
     <string-array name="language_menu">
         <item>عربى</item>
