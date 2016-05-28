@@ -8,6 +8,7 @@ import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.obj.ContactConnection;
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.ThumbnailUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,7 @@ public class ContactConnectionAdapter extends ArrayAdapter<ContactConnection> {
 		if (contact.isCon()) {
 			flag.setBackgroundColor(Utility.update);
 		} else {
-			flag.setBackgroundColor(Utility.deupdate);
+			flag.setBackgroundColor(Color.WHITE);
 		}
 
 		ImageView img = (ImageView) convertView.findViewById(R.id.attendantImg);

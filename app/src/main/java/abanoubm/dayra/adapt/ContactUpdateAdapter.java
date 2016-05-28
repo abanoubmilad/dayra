@@ -8,6 +8,7 @@ import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.obj.ContactUpdate;
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.ThumbnailUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,7 @@ public class ContactUpdateAdapter extends ArrayAdapter<ContactUpdate> {
 		if (contact.isSelected()) {
 			flag.setBackgroundColor(Utility.update);
 		} else {
-			flag.setBackgroundColor(Utility.deupdate);
+			flag.setBackgroundColor(Color.WHITE);
 		}
 
 		ImageView img = (ImageView) convertView.findViewById(R.id.attendantImg);

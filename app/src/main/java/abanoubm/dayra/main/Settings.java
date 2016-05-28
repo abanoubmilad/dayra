@@ -31,7 +31,6 @@ public class Settings extends Activity {
     private AlarmManager manager;
     private PendingIntent AttendPIntent, VisitPIntent, bdayPIntent;
     private String dbname;
-    private TextView edit_dayra;
     private SharedPreferences sp;
     private CheckBox cb_attend, cb_visit, cb_bday;
 
@@ -46,14 +45,13 @@ public class Settings extends Activity {
         cb_attend = (CheckBox) findViewById(R.id.cb_attend);
         cb_visit = (CheckBox) findViewById(R.id.cb_visit);
         cb_bday = (CheckBox) findViewById(R.id.cb_bday);
-        edit_dayra = (EditText) findViewById(R.id.edit_dayra);
 
         manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         sp = getSharedPreferences("alarms", Context.MODE_PRIVATE);
 
         dbname = sp.getString("dbname", "");
-        edit_dayra.setText(dbname);
+
         cb_attend.setChecked(sp.getBoolean("attend", false));
         cb_visit.setChecked(sp.getBoolean("visit", false));
         cb_bday.setChecked(sp.getBoolean("bday", false));
@@ -66,16 +64,6 @@ public class Settings extends Activity {
                 new Intent(Settings.this, BDayReceiver.class).putExtra(
                         "dbname", dbname), 0);
 
-        ((ImageView) findViewById(R.id.spin_dayra))
-                .setOnClickListener(new OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-
-                        choice();
-
-                    }
-                });
         ((TextView) findViewById(R.id.save))
                 .setOnClickListener(new OnClickListener() {
 
@@ -148,45 +136,6 @@ public class Settings extends Activity {
                 });
     }
 
-    private void choice() {
-        String inpath;
-        if (android.os.Build.VERSION.SDK_INT >= 17) {
-            inpath = getApplicationContext().getApplicationInfo().dataDir
-                    + "/databases/";
-        } else {
-            inpath = "/data/data/" + getApplicationContext().getPackageName()
-                    + "/databases/";
-        }
-        File folder = new File(inpath);
-        File[] listOfFiles = folder.listFiles();
-        if (listOfFiles == null || listOfFiles.length == 0) {
-            Toast.makeText(getApplicationContext(), R.string.msg_no_dayra,
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
 
-        ArrayList<String> names = new ArrayList<>(listOfFiles.length);
-        for (File file : listOfFiles) {
-            if (!file.getName().contains("-journal"))
-                names.add(file.getName());
-        }
-
-        final CharSequence[] arr = (CharSequence[]) names
-                .toArray(new String[names.size()]);
-        AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
-        builder.setTitle(getResources().getString(R.string.label_select_dayra));
-        builder.setItems(arr, new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                dbname = arr[which].toString();
-                edit_dayra.setText(dbname);
-
-            }
-
-        });
-        builder.create().show();
-    }
 
 }

@@ -181,7 +181,6 @@
         <item>تكوين دايره</item>
         <item>استيراد دايره file</item>
         <item>استيراد دايره xls</item>
-        <item>اعدادات التنبيهات</item>
         <item>دليل المستخدم</item>
         <item>اللغة / language</item>
         <item>تابعنا على فيس بوك</item>
@@ -196,6 +195,7 @@
         <item>تصدير دايره xls</item>
     </string-array>
     <string-array name="settings_menu">
+        <item>اعدادات التنبيهات</item>
         <item>استبدال بيانات دايره</item>
         <item>تقسيم دايره</item>
         <item>اعادة تسمية دايره</item>

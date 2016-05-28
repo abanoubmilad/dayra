@@ -131,9 +131,9 @@
     <string name="label.selectall">select all</string>
     <string name="msg.no.available.entries">no available entries</string>
     <string name="label.settings">alarm settings</string>
-    <string name="label.alert.last.attend">display alerts about last attendance dates</string>
-    <string name="label.alert.last.visit">display alerts about last visit dates</string>
-    <string name="label.alert.bday">display alerts about birthdays</string>
+    <string name="label.alert.last.attend">last attendance dates alerts</string>
+    <string name="label.alert.last.visit">last visit dates alerts</string>
+    <string name="label.alert.bday">birthdays alerts</string>
     <string name="label.noti.last.attend">attendance absence updates</string>
     <string name="label.noti.last.visit">visit absence updates</string>
     <string name="label.noti.bday">today\'s birthdays</string>
@@ -183,7 +183,6 @@
         <item>Create new dayra</item>
         <item>Import dayra file</item>
         <item>Import dayra xls</item>
-        <item>Alarm settings</item>
         <item>User\'s manuel</item>
         <item>Language / اللغة</item>
         <item>Like us</item>
@@ -198,6 +197,7 @@
         <item>Export dayra xls</item>
     </string-array>
     <string-array name="settings_menu">
+        <item>Alarm settings</item>
         <item>Replace data dayra</item>
         <item>Divide dayra</item>
         <item>Rename dayra</item>
@@ -254,7 +254,6 @@
         <item>@mipmap/ic_create</item>
         <item>@mipmap/ic_file</item>
         <item>@mipmap/ic_xls</item>
-        <item>@mipmap/ic_alarm</item>
         <item>@mipmap/ic_manual</item>
         <item>@mipmap/ic_lang</item>
         <item>@mipmap/ic_like</item>
@@ -269,6 +268,7 @@
         <item>@mipmap/ic_xls</item>
     </string-array>
     <string-array name="settings_icons" translatable="false">
+        <item>@mipmap/ic_alarm</item>
         <item>@mipmap/ic_replace</item>
         <item>@mipmap/ic_divide</item>
         <item>@mipmap/ic_rename</item>

@@ -6,6 +6,7 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.obj.GoogleContact;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class GoogleContactAdapter extends ArrayAdapter<GoogleContact> {
 		if (contact.isSelected()) {
 			flag.setBackgroundColor(Utility.update);
 		} else {
-			flag.setBackgroundColor(Utility.deupdate);
+			flag.setBackgroundColor(Color.WHITE);
 		}
 
 		return convertView;

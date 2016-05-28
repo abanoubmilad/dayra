@@ -10,7 +10,7 @@ public class Utility {
                 Context.MODE_PRIVATE)).getString("dbname", "");
     }
 
-    public static final int deupdate = Color.rgb(244, 143, 177), update = Color
+    public static final int update = Color
             .rgb(130, 199, 132);
 
     public static boolean isDay(String str) {

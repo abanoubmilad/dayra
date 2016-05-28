@@ -2,6 +2,7 @@ package abanoubm.dayra.adapt;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.ThumbnailUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +45,7 @@ public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
         if (contact.isSelected()) {
             flag.setBackgroundColor(Utility.update);
         } else {
-            flag.setBackgroundColor(Utility.deupdate);
+            flag.setBackgroundColor(Color.WHITE);
         }
 
         if (contact.getPicDir().length() != 0

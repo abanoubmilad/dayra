@@ -11,32 +11,6 @@
 
         <include layout="@layout/header" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/edit_dayra"
-                style="@style/attendant_labels"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:focusable="false"
-                android:hint="@string/label.dayra.name"
-                android:maxLength="30" />
-
-            <ImageView
-                android:id="@+id/spin_dayra"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@mipmap/ic_spin" />
-        </LinearLayout>
-
         <CheckBox
             android:id="@+id/cb_attend"
             android:layout_width="wrap_content"
