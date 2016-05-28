@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import abanoubm.dayra.R;
@@ -21,6 +22,7 @@ public class FragmentDisplayContactDay extends Fragment {
     private TextView dis_last_visit, dis_last_attend;
     private ContactData attData;
     private int id = -1;
+    private ListView monthList, dayList, yearList;
 
     private class GetTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
@@ -63,8 +65,11 @@ public class FragmentDisplayContactDay extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_display_contact_day, container, false);
 
-        dis_last_visit = (TextView) root.findViewById(R.id.dis_lvisit);
+        dayList = (ListView) root.findViewById(R.id.dayList);
+        monthList = (ListView) root.findViewById(R.id.monthList);
+        yearList = (ListView) root.findViewById(R.id.yearList);
 
+        dis_last_visit = (TextView) root.findViewById(R.id.dis_lvisit);
         dis_last_attend = (TextView) root.findViewById(R.id.dis_last_attend);
 
         new GetTask().execute();
