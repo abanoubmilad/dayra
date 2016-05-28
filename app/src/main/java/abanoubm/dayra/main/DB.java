@@ -173,6 +173,10 @@ public class DB extends SQLiteOpenHelper {
         removeAttendantConnections(id);
         writableDB.delete(TB_CONTACT, CONTACT_ID + " = ?",
                 new String[]{String.valueOf(id)});
+        writableDB.delete(TB_ATTEND, ATTEND_ID + " = ?",
+                new String[]{String.valueOf(id)});
+        writableDB.delete(TB_PHOTO, PHOTO_ID + " = ?",
+                new String[]{String.valueOf(id)});
     }
 
     public boolean deleteDB(Context context) {
@@ -180,6 +184,10 @@ public class DB extends SQLiteOpenHelper {
         readableDB.close();
         writableDB.close();
         return context.deleteDatabase(DB_NAME);
+    }
+    public void closeDB() {
+        readableDB.close();
+        writableDB.close();
     }
 
     public void addConnection(int conA, int conB) {
@@ -593,7 +601,7 @@ public class DB extends SQLiteOpenHelper {
         String selectQuery = "SELECT DISTINCT " + CONTACT_SITE + " FROM " + TB_CONTACT
                 + " WHERE " + CONTACT_SITE + "!='' ORDER BY " + CONTACT_SITE;
         Cursor c = readableDB.rawQuery(selectQuery, null);
-        ArrayList<String> result = new ArrayList<String>(c.getCount());
+        ArrayList<String> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {
             int COL_SITE = c.getColumnIndex(CONTACT_SITE);
@@ -1080,12 +1088,12 @@ public class DB extends SQLiteOpenHelper {
     public ArrayList<ContactUpdate> getDayAttendance(String type, String day,
                                                      String name, IntWraper counter) {
 
-        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME+ "," + CONTACT_PHOTO + "," + ATTEND_DAY +
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO + "," + ATTEND_DAY +
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
-                CONTACT_ID + "=" + ATTEND_ID + " AND "+ATTEND_DAY+" = ?  AND " + ATTEND_TYPE + " = ? WHERE " + CONTACT_NAME
-                + " like '%?%' ORDER BY " + CONTACT_NAME;
+                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " = ?  AND " + ATTEND_TYPE + " = ? WHERE " + CONTACT_NAME
+                + " LIKE ? ORDER BY " + CONTACT_NAME;
 
-        Cursor c = readableDB.rawQuery(selectQuery, new String[]{day,type,name});
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{day, type, "%" + name + "%"});
         ArrayList<ContactUpdate> result = new ArrayList<>(
                 c.getCount());
         int updated = 0;
@@ -1096,7 +1104,7 @@ public class DB extends SQLiteOpenHelper {
             int colPic = c.getColumnIndex(CONTACT_PHOTO);
             boolean flag;
             do {
-                flag = c.getString(colDay)!=null;
+                flag = c.getString(colDay) != null;
                 if (flag)
                     updated++;
                 result.add(new ContactUpdate(c.getInt(colID), c
@@ -1127,8 +1135,8 @@ public class DB extends SQLiteOpenHelper {
     public ArrayList<ContactID> searchName(String name) {
 
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO
-                + " FROM " + TB_CONTACT + " WHERE " + CONTACT_NAME + " like '%?%' ORDER BY " + CONTACT_NAME;
-        Cursor c = readableDB.rawQuery(selectQuery, new String []{name});
+                + " FROM " + TB_CONTACT + " WHERE " + CONTACT_NAME + " LIKE ? ORDER BY " + CONTACT_NAME;
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{"%" + name + "%"});
         ArrayList<ContactID> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {

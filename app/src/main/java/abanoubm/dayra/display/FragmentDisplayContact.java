@@ -1,13 +1,16 @@
 package abanoubm.dayra.display;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.opr.EditContact;
 
 public class FragmentDisplayContact extends Fragment {
     private int id = -1;
@@ -33,19 +36,25 @@ public class FragmentDisplayContact extends Fragment {
         locImage = (ImageView) root.findViewById(R.id.locImage);
         daysImage = (ImageView) root.findViewById(R.id.daysImage);
 
+        root.findViewById(R.id.editImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), EditContact.class).putExtra("id", id));
+            }
+        });
         infoImage.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 if (current != 0) {
                     current = 0;
-                    infoImage.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    infoImage.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
                     connImage.setBackgroundColor(0);
                     locImage.setBackgroundColor(0);
                     daysImage.setBackgroundColor(0);
 
                     Bundle arguments = new Bundle();
-                    arguments.putInt("id",id);
+                    arguments.putInt("id", id);
 
                     FragmentDisplayContactInfo fragment = new FragmentDisplayContactInfo();
                     fragment.setArguments(arguments);
@@ -64,12 +73,12 @@ public class FragmentDisplayContact extends Fragment {
                 if (current != 1) {
                     current = 1;
                     infoImage.setBackgroundColor(0);
-                    connImage.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    connImage.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
                     locImage.setBackgroundColor(0);
                     daysImage.setBackgroundColor(0);
 
                     Bundle arguments = new Bundle();
-                    arguments.putInt("id",id);
+                    arguments.putInt("id", id);
 
                     FragmentDisplayContactConnection fragment = new FragmentDisplayContactConnection();
                     fragment.setArguments(arguments);
@@ -89,11 +98,11 @@ public class FragmentDisplayContact extends Fragment {
                     current = 2;
                     infoImage.setBackgroundColor(0);
                     connImage.setBackgroundColor(0);
-                    locImage.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    locImage.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
                     daysImage.setBackgroundColor(0);
 
                     Bundle arguments = new Bundle();
-                    arguments.putInt("id",id);
+                    arguments.putInt("id", id);
 
                     FragmentDisplayContactMap fragment = new FragmentDisplayContactMap();
                     fragment.setArguments(arguments);
@@ -114,10 +123,10 @@ public class FragmentDisplayContact extends Fragment {
                     infoImage.setBackgroundColor(0);
                     connImage.setBackgroundColor(0);
                     locImage.setBackgroundColor(0);
-                    daysImage.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    daysImage.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
 
                     Bundle arguments = new Bundle();
-                    arguments.putInt("id",id);
+                    arguments.putInt("id", id);
 
                     FragmentDisplayContactDay fragment = new FragmentDisplayContactDay();
                     fragment.setArguments(arguments);
@@ -131,7 +140,7 @@ public class FragmentDisplayContact extends Fragment {
 
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
-            arguments.putInt("id",id);
+            arguments.putInt("id", id);
 
             FragmentDisplayContactInfo fragment = new FragmentDisplayContactInfo();
             fragment.setArguments(arguments);
