@@ -178,7 +178,7 @@ public class DB extends SQLiteOpenHelper {
         writableDB.close();
     }
 
-    public void addConnection(int conA, int conB) {
+    public void addConnection(String conA, String conB) {
         ContentValues values = new ContentValues();
 
         values.put(CONN_A, conA);
@@ -305,8 +305,8 @@ public class DB extends SQLiteOpenHelper {
     public void externalUpdater(ArrayList<ContactData> arr,
                                 ArrayList<String> dataTag) {
         for (ContactData att : arr) {
-            int idCheck = getNameId(att.getName());
-            if (idCheck == -1) {
+            String idCheck = getNameId(att.getName());
+            if (idCheck.equals("-1")) {
                 addAttendant(att);
             } else {
                 ContentValues values = new ContentValues();
@@ -504,7 +504,7 @@ public class DB extends SQLiteOpenHelper {
             int COL_SITE = c.getColumnIndex(CONTACT_SITE);
             do {
 
-                result.add(new ContactData(c.getInt(COL_ID), c
+                result.add(new ContactData(c.getString(COL_ID), c
                         .getString(COL_NAME), c.getString(COL_PIC_DIR), c
                         .getDouble(COL_MAP_LAT), c.getDouble(COL_MAP_LNG), c
                         .getFloat(COL_MAP_ZOOM), c.getString(COL_ATTEND_DATES),

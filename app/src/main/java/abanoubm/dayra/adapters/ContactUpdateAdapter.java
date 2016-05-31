@@ -31,7 +31,7 @@ public class ContactUpdateAdapter extends ArrayAdapter<ContactUpdate> {
 
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(
-					R.layout.contact_update_item, parent, false);
+					R.layout.item_contact_update, parent, false);
 		}
 
 		TextView name = (TextView) convertView.findViewById(R.id.attendantName);

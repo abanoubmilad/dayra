@@ -17,10 +17,10 @@ import java.util.ArrayList;
 import abanoubm.dayra.R;
 import abanoubm.dayra.model.ContactMobile;
 
-public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
+public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
 
-    public ContactMobileAdapter(Context context,
-                                ArrayList<ContactMobile> contacts) {
+    public GContactsOutAdapter(Context context,
+                               ArrayList<ContactMobile> contacts) {
         super(context, 0, contacts);
     }
 
@@ -31,7 +31,7 @@ public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.item_contact_mobile, parent, false);
+                    R.layout.item_gcontact_out, parent, false);
         }
 
 
@@ -40,7 +40,7 @@ public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
 
         ImageView img = (ImageView) convertView.findViewById(R.id.contact_img);
 
-        CheckBox flag = (CheckBox) convertView.findViewById(R.id.flag);
+        CheckBox flag = (CheckBox) convertView.findViewById(R.id.flag2);
         flag.setChecked(contact.isSelected());
 
         if (contact.getPicDir().length() != 0

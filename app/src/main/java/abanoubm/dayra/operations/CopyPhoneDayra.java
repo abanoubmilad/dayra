@@ -16,7 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapters.GoogleContactAdapter;
+import abanoubm.dayra.adapters.GContactsInAdapter;
 import abanoubm.dayra.main.ContactHelper;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
@@ -26,7 +26,7 @@ public class CopyPhoneDayra extends Activity {
     private ListView lv;
     private TextView flag;
     private GoogleContact chosenAtt;
-    private GoogleContactAdapter mAdapter;
+    private GContactsInAdapter mAdapter;
 
     private ProgressDialog pBar;
     private DB dbm;
@@ -159,7 +159,7 @@ public class CopyPhoneDayra extends Activity {
                 });
 
         lv = (ListView) findViewById(R.id.contacts_list);
-        mAdapter = new GoogleContactAdapter(getApplicationContext(),
+        mAdapter = new GContactsInAdapter(getApplicationContext(),
                 new ArrayList<GoogleContact>());
         lv.setAdapter(mAdapter);
 

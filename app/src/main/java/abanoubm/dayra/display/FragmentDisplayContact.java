@@ -13,7 +13,7 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.operations.EditContact;
 
 public class FragmentDisplayContact extends Fragment {
-    private int id = -1;
+    private String id = "-1";
     int current = 0;
     private ImageView infoImage, connImage, locImage, daysImage;
 
@@ -22,7 +22,7 @@ public class FragmentDisplayContact extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         if (arguments != null) {
-            id = arguments.getInt("id");
+            id = arguments.getString("id");
         }
     }
 
@@ -54,7 +54,7 @@ public class FragmentDisplayContact extends Fragment {
                     daysImage.setBackgroundColor(0);
 
                     Bundle arguments = new Bundle();
-                    arguments.putInt("id", id);
+                    arguments.putString("id", id);
 
                     FragmentDisplayContactInfo fragment = new FragmentDisplayContactInfo();
                     fragment.setArguments(arguments);
@@ -78,7 +78,7 @@ public class FragmentDisplayContact extends Fragment {
                     daysImage.setBackgroundColor(0);
 
                     Bundle arguments = new Bundle();
-                    arguments.putInt("id", id);
+                    arguments.putString("id", id);
 
                     FragmentDisplayContactConnection fragment = new FragmentDisplayContactConnection();
                     fragment.setArguments(arguments);
@@ -102,7 +102,7 @@ public class FragmentDisplayContact extends Fragment {
                     daysImage.setBackgroundColor(0);
 
                     Bundle arguments = new Bundle();
-                    arguments.putInt("id", id);
+                    arguments.putString("id", id);
 
                     FragmentDisplayContactMap fragment = new FragmentDisplayContactMap();
                     fragment.setArguments(arguments);
@@ -126,7 +126,7 @@ public class FragmentDisplayContact extends Fragment {
                     daysImage.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
 
                     Bundle arguments = new Bundle();
-                    arguments.putInt("id", id);
+                    arguments.putString("id", id);
 
                     FragmentDisplayContactDay fragment = new FragmentDisplayContactDay();
                     fragment.setArguments(arguments);
@@ -140,7 +140,7 @@ public class FragmentDisplayContact extends Fragment {
 
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
-            arguments.putInt("id", id);
+            arguments.putString("id", id);
 
             FragmentDisplayContactInfo fragment = new FragmentDisplayContactInfo();
             fragment.setArguments(arguments);

@@ -330,7 +330,7 @@ public class AddContact extends Activity {
                             .getString("dbname", ""));
             if (!Utility.isName(name_str)) {
                 msgSource = R.string.err_msg_invalid_name;
-            } else if (dbm.getNameId(name_str) != -1) {
+            } else if (!dbm.getNameId(name_str).equals("-1")) {
                 msgSource = R.string.err_msg_duplicate_name;
             } else if (email_str.length() != 0 && !Utility.isEmail(email_str)) {
                 msgSource = R.string.err_msg_email;
@@ -338,7 +338,7 @@ public class AddContact extends Activity {
                 msgSource = R.string.err_msg_site;
             } else {
 
-                ContactData att = new ContactData(-1, name_str, imgPath, lat,
+                ContactData att = new ContactData("-1", name_str, imgPath, lat,
                         lon, zoom, "", "", edit_priest.getText().toString()
                         .trim(), edit_comm.getText().toString().trim(),
                         edit_bday.getText().toString().trim(), email_str,

@@ -26,7 +26,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapters.ContactMobileAdapter;
+import abanoubm.dayra.adapters.GContactsOutAdapter;
 import abanoubm.dayra.display.DisplayContact;
 import abanoubm.dayra.main.ContactHelper;
 import abanoubm.dayra.main.DB;
@@ -36,7 +36,7 @@ import abanoubm.dayra.model.ContactMobile;
 public class CopyDayraPhone extends Activity {
     private TextView CopyBtn;
     private CheckBox check;
-    private ContactMobileAdapter mAdapter;
+    private GContactsOutAdapter mAdapter;
     private int previousPosition = 0;
     private ListView lv;
 
@@ -189,7 +189,7 @@ public class CopyDayraPhone extends Activity {
         });
 
         lv = (ListView) findViewById(R.id.contacts_list);
-        mAdapter = new ContactMobileAdapter(getApplicationContext(),
+        mAdapter = new GContactsOutAdapter(getApplicationContext(),
                 new ArrayList<ContactMobile>());
         lv.setAdapter(mAdapter);
         lv.setOnItemClickListener(new OnItemClickListener() {

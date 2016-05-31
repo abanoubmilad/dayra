@@ -150,6 +150,7 @@
     <string name="subhead.edit.contact">editing contact</string>
     <string name="flag.attended">attended</string>
     <string name="flag.chosen">chosen</string>
+    <string name="flag.exist">exist</string>
 
     <string-array name="language_menu">
         <item>عربى</item>

@@ -32,10 +32,10 @@ public class DisplayContacts extends ActionBarActivity implements CallBack {
     }
 
     @Override
-    public void onItemSelected(int id) {
+    public void onItemSelected(String id) {
         if (dualMode) {
             Bundle args = new Bundle();
-            args.putInt("id", id);
+            args.putString("id", id);
             args.putBoolean("isdual", dualMode);
 
             FragmentDisplayContact fragment = new FragmentDisplayContact();

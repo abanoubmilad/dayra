@@ -27,7 +27,7 @@ public class ContactSortAdapter extends ArrayAdapter<ContactSort> {
         ContactSort contact = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.contact_sort_item, parent, false);
+                    R.layout.item_contact_sort, parent, false);
         }
 
         ImageView img = (ImageView) convertView.findViewById(R.id.attendantImg);

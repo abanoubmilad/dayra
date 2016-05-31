@@ -87,7 +87,7 @@ public class UpdaterDB extends SQLiteOpenHelper {
             int COL_SITE = c.getColumnIndex(SITE);
             do {
 
-                result.add(new ContactData(c.getInt(COL_ID), c
+                result.add(new ContactData(c.getString(COL_ID), c
                         .getString(COL_NAME), c.getString(COL_PIC_DIR), c
                         .getDouble(COL_MAP_LAT), c.getDouble(COL_MAP_LNG), c
                         .getFloat(COL_MAP_ZOOM), c.getString(COL_ATTEND_DATES),

@@ -31,7 +31,7 @@ public class ContactConnectionAdapter extends ArrayAdapter<ContactConnection> {
 
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(
-					R.layout.contact_connection_item, parent, false);
+					R.layout.item_contact_connection, parent, false);
 		}
 
 

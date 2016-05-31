@@ -83,8 +83,8 @@ public class ContactHelper {
                 int colNUMBER = c.getColumnIndex(projection[1]);
                 do {
                     result.add(new GoogleContact(c.getString(colNAME), c
-                            .getString(colNUMBER), db.getNameId(c
-                            .getString(colNAME)) != -1));
+                            .getString(colNUMBER), !db.getNameId(c
+                            .getString(colNAME)).equals("-1")));
                 } while (c.moveToNext());
             }
             c.close();

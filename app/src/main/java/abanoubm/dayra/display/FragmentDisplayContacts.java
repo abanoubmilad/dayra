@@ -28,8 +28,9 @@ public class FragmentDisplayContacts extends Fragment {
     private ListView lv;
     private ArrayList<ContactSort> list;
     private int previousPosition = 0;
-    boolean isDualMode=false;
+    boolean isDualMode = false;
     private ContactSortAdapter mAdapter;
+
     private class GetAllTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
 
@@ -58,12 +59,16 @@ public class FragmentDisplayContacts extends Fragment {
                 getActivity().finish();
                 Toast.makeText(getActivity(),
                         R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 if (previousPosition < list.size())
                     lv.setSelection(previousPosition);
                 previousPosition = 0;
-                if(isDualMode)
-                    ((CallBack) getActivity()).onItemSelected(mAdapter.getItem(previousPosition).getId());
+                if (isDualMode) {
+                    lv.performItemClick(lv.findViewWithTag(mAdapter.getItem(previousPosition)),
+                            previousPosition, mAdapter.getItemId(previousPosition));
+
+                }
+                // ((CallBack) getActivity()).onItemSelected(mAdapter.getItem(previousPosition).getId());
             }
 
         }
@@ -217,7 +222,7 @@ public class FragmentDisplayContacts extends Fragment {
             }
         });
         lv = (ListView) root.findViewById(R.id.dsr_list);
-        mAdapter = new ContactSortAdapter(getActivity(),new ArrayList<ContactSort>(0));
+        mAdapter = new ContactSortAdapter(getActivity(), new ArrayList<ContactSort>(0));
         lv.setAdapter(mAdapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

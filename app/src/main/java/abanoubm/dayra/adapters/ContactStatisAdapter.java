@@ -28,7 +28,7 @@ public class ContactStatisAdapter extends ArrayAdapter<ContactStatis> {
         ContactStatis contact = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.contact_day_item, parent, false);
+                    R.layout.item_contact_day, parent, false);
         }
         TextView name = (TextView) convertView.findViewById(R.id.attendantName);
         TextView day = (TextView) convertView.findViewById(R.id.attendantday);

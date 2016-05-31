@@ -3,20 +3,19 @@ package abanoubm.dayra.adapters;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.GoogleContact;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class GoogleContactAdapter extends ArrayAdapter<GoogleContact> {
+public class GContactsInAdapter extends ArrayAdapter<GoogleContact> {
 
-	public GoogleContactAdapter(Context context,
-			ArrayList<GoogleContact> contacts) {
+	public GContactsInAdapter(Context context,
+							  ArrayList<GoogleContact> contacts) {
 		super(context, 0, contacts);
 	}
 
@@ -27,19 +26,15 @@ public class GoogleContactAdapter extends ArrayAdapter<GoogleContact> {
 
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(
-					R.layout.google_contact_item, parent, false);
+					R.layout.item_gcontact_in, parent, false);
 		}
 
 
 		((TextView) convertView.findViewById(R.id.name)).setText(contact.getName());
 		((TextView) convertView.findViewById(R.id.mobile)).setText(contact.getMobile());
-		TextView flag = (TextView) convertView.findViewById(R.id.flag);
 
-		if (contact.isSelected()) {
-			flag.setBackgroundColor(Utility.update);
-		} else {
-			flag.setBackgroundColor(Color.WHITE);
-		}
+		CheckBox flag = (CheckBox) convertView.findViewById(R.id.flag2);
+		flag.setChecked(contact.isSelected());
 
 		return convertView;
 	}
