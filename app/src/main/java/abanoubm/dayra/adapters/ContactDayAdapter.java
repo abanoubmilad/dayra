@@ -29,13 +29,13 @@ public class ContactDayAdapter extends ArrayAdapter<ContactDay> {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_contact_day, parent, false);
         }
-        TextView name = (TextView) convertView.findViewById(R.id.attendantName);
-        TextView day = (TextView) convertView.findViewById(R.id.attendantday);
+        TextView name = (TextView) convertView.findViewById(R.id.name);
+        TextView day = (TextView) convertView.findViewById(R.id.day);
 
         name.setText(contact.getName());
         day.setText(contact.getDay());
 
-        ImageView img = (ImageView) convertView.findViewById(R.id.attendantImg);
+        ImageView img = (ImageView) convertView.findViewById(R.id.img);
 
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {

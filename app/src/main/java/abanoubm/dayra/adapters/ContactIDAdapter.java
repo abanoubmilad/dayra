@@ -29,9 +29,9 @@ public class ContactIDAdapter extends ArrayAdapter<ContactID> {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_contact, parent, false);
         }
-        ((TextView) convertView.findViewById(R.id.attendantName)).setText(contact.getName());
+        ((TextView) convertView.findViewById(R.id.name)).setText(contact.getName());
 
-        ImageView img = (ImageView) convertView.findViewById(R.id.attendantImg);
+        ImageView img = (ImageView) convertView.findViewById(R.id.img);
 
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {

@@ -34,7 +34,7 @@ import abanoubm.dayra.model.ContactID;
 import abanoubm.dayra.model.ContactLoc;
 import abanoubm.dayra.model.ContactMobile;
 import abanoubm.dayra.model.ContactSort;
-import abanoubm.dayra.model.ContactStatis;
+import abanoubm.dayra.model.ContactStatistics;
 import abanoubm.dayra.model.ContactUpdate;
 import abanoubm.dayra.model.IntWrapper;
 import jxl.Sheet;
@@ -1301,33 +1301,20 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<ContactStatis> getAttendantsStatis() {
-
-        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_ATTEND_DATES
-                + "," + CONTACT_PHOTO + " FROM " + TB_CONTACT;
-
-        Cursor c = readableDB.rawQuery(selectQuery, null);
-        ArrayList<ContactStatis> result = new ArrayList<>(
+    public ArrayList<ContactStatistics> getContactsAttendanceStatistics(String type) {
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO + ", MIN(" + ATTEND_DAY + "), " +
+                "MAX(" + ATTEND_DAY + "), " + "COUNT(" + ATTEND_DAY + ")" +
+                " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
+                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_TYPE + " = ? GROUP BY " + ATTEND_ID + " ORDER BY " + CONTACT_NAME;
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{type});
+        ArrayList<ContactStatistics> result = new ArrayList<>(
                 c.getCount());
 
         if (c.moveToFirst()) {
-            int maxTimes = 0;
-            int tempTimes;
-            int colID = c.getColumnIndex(CONTACT_ID);
-            int colNAME = c.getColumnIndex(CONTACT_NAME);
-            int colDATES = c.getColumnIndex(CONTACT_ATTEND_DATES);
-            int colPIC_DIR = c.getColumnIndex(CONTACT_PHOTO);
             do {
-                tempTimes = Utility.countSegments(c.getString(colDATES));
-                maxTimes = Math.max(tempTimes, maxTimes);
-                result.add(new ContactStatis(c.getString(colID), c
-                        .getString(colNAME), tempTimes, c.getString(colPIC_DIR)));
-
+                result.add(new ContactStatistics(c.getString(0), c
+                        .getString(1), c.getString(2), c.getString(3), c.getString(4), c.getInt(5)));
             } while (c.moveToNext());
-            if (maxTimes != 0) {
-                for (ContactStatis att : result)
-                    att.setDays(att.getDays() * 100 / maxTimes);
-            }
         }
         c.close();
         return result;

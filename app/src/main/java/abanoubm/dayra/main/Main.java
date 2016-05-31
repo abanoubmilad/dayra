@@ -21,7 +21,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,25 +53,21 @@ public class Main extends Activity {
         @Override
         protected void onPostExecute(Boolean result) {
             pBar.dismiss();
-            if (!result)
+            if (result)
+                startActivity(new Intent(getApplicationContext(), Home.class));
+            else
                 Toast.makeText(getApplicationContext(), R.string.err_msg_open,
                         Toast.LENGTH_SHORT).show();
         }
 
         @Override
         protected Boolean doInBackground(String... params) {
-
             if (!DB.isDBExists(getApplicationContext(), params[0]))
                 return false;
             else {
-                SharedPreferences.Editor editor = getSharedPreferences("login",
-                        Context.MODE_PRIVATE).edit();
-                editor.putString("dbname", params[0]);
-                editor.putBoolean("checked", params[1].equals("true"));
-                editor.commit();
-                startActivity(new Intent(getApplicationContext(), Home.class));
-                if (params[1].equals("true"))
-                    finish();
+                getSharedPreferences("login",
+                        Context.MODE_PRIVATE).edit()
+                        .putString("dbname", params[0]).commit();
                 return true;
             }
         }
@@ -87,28 +82,19 @@ public class Main extends Activity {
         @Override
         protected void onPostExecute(Void result) {
             pBar.dismiss();
+            Toast.makeText(getApplicationContext(),
+                    R.string.msg_dayra_created, Toast.LENGTH_SHORT)
+                    .show();
+            startActivity(new Intent(getApplicationContext(), Home.class));
+
         }
 
         @Override
         protected Void doInBackground(String... params) {
-            DB.getInstance(getApplicationContext(), params[0]);
-            SharedPreferences.Editor editor = getSharedPreferences("login",
-                    Context.MODE_PRIVATE).edit();
-            editor.putString("dbname", params[0]);
-            editor.putBoolean("checked", params[1].equals("true"));
-            editor.commit();
-
-            startActivity(new Intent(getApplicationContext(), Home.class));
-            if (params[1].equals("true"))
-                finish();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.msg_dayra_created, Toast.LENGTH_SHORT)
-                            .show();
-                }
-            });
+            getSharedPreferences("login",
+                    Context.MODE_PRIVATE).edit()
+                    .putString("dbname", params[0]).commit();
+            DB.getInstant(getApplicationContext());
             return null;
         }
     }
@@ -128,45 +114,42 @@ public class Main extends Activity {
 
         @Override
         protected Integer doInBackground(String... params) {
-            if (DB.isDBExists(getApplicationContext(), params[0]))
-                return R.string.err_msg_duplicate_dayra;
-            else {
-                ExternalDB edbm = ExternalDB.getInstance(
-                        getApplicationContext(), params[0], params[1]);
-                if (edbm.checkDB()) {
-                    String inpath;
-                    if (android.os.Build.VERSION.SDK_INT >= 17) {
-                        inpath = getApplicationContext().getApplicationInfo().dataDir
-                                + "/databases/";
-                    } else {
-                        inpath = "/data/data/"
-                                + getApplicationContext().getPackageName()
-                                + "/databases/";
-                    }
-                    inpath += params[0];
-                    try {
-                        FileInputStream inStream = new FileInputStream(
-                                params[1]);
-                        FileOutputStream outStream = new FileOutputStream(
-                                new File(inpath));
-                        FileChannel inChannel = inStream.getChannel();
-                        FileChannel outChannel = outStream.getChannel();
-                        inChannel.transferTo(0, inChannel.size(), outChannel);
-                        inStream.close();
-                        outStream.close();
+            ExternalDB edbm = ExternalDB.getInstance(
+                    getApplicationContext(), params[0], params[1]);
+            if (edbm.checkDB()) {
+                String inpath;
+                if (android.os.Build.VERSION.SDK_INT >= 17) {
+                    inpath = getApplicationContext().getApplicationInfo().dataDir
+                            + "/databases/";
+                } else {
+                    inpath = "/data/data/"
+                            + getApplicationContext().getPackageName()
+                            + "/databases/";
+                }
+                inpath += params[0];
+                try {
+                    FileInputStream inStream = new FileInputStream(
+                            params[1]);
+                    FileOutputStream outStream = new FileOutputStream(
+                            new File(inpath));
+                    FileChannel inChannel = inStream.getChannel();
+                    FileChannel outChannel = outStream.getChannel();
+                    inChannel.transferTo(0, inChannel.size(), outChannel);
+                    inStream.close();
+                    outStream.close();
 
-                        return R.string.msg_dayra_imported;
+                    return R.string.msg_dayra_imported;
 
-                    } catch (Exception e) {
-                        return R.string.err_msg_import;
+                } catch (Exception e) {
+                    return R.string.err_msg_import;
 
-                    }
+                }
 
-                } else
-                    return R.string.err_msg_invalid_file;
+            } else
+                return R.string.err_msg_invalid_file;
 
-            }
         }
+
     }
 
     private class ImportExcelTask extends AsyncTask<String, Void, Integer> {
@@ -184,16 +167,19 @@ public class Main extends Activity {
 
         @Override
         protected Integer doInBackground(String... params) {
-            if (DB.isDBExists(getApplicationContext(), params[0]))
-                return R.string.err_msg_duplicate_dayra;
-            else {
-                DB dbm = DB.getInstance(getApplicationContext(), params[0]);
-                if (dbm.ImportDayraExcel(getApplicationContext(), params[1]))
-                    return R.string.msg_dayra_imported;
-                dbm.deleteDB(getApplicationContext());
-                return R.string.err_msg_invalid_file;
+            getSharedPreferences("login",
+                    Context.MODE_PRIVATE).edit()
+                    .putString("dbname", params[0]).commit();
+            DB dbm = DB.getInstant(getApplicationContext());
+            getSharedPreferences("login",
+                    Context.MODE_PRIVATE).edit()
+                    .putString("dbname", null).commit();
+            if (dbm.ImportDayraExcel(getApplicationContext(), params[1]))
+                return R.string.msg_dayra_imported;
+            dbm.deleteDB(getApplicationContext());
+            return R.string.err_msg_invalid_file;
 
-            }
+
         }
     }
 
@@ -383,7 +369,11 @@ public class Main extends Activity {
                         Toast.makeText(getApplicationContext(),
                                 R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
                                 .show();
-                    } else {
+                    } else if (DB.isDBExists(getApplicationContext(), dbname))
+                        Toast.makeText(getApplicationContext(),
+                                R.string.err_msg_duplicate_dayra, Toast.LENGTH_SHORT)
+                                .show();
+                    else {
                         new ImportTask().execute(dbname, path);
                     }
 
@@ -398,6 +388,10 @@ public class Main extends Activity {
                     if (!Utility.isDBName(dbname)) {
                         Toast.makeText(getApplicationContext(),
                                 R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
+                                .show();
+                    } else if (DB.isDBExists(getApplicationContext(), dbname)) {
+                        Toast.makeText(getApplicationContext(),
+                                R.string.err_msg_duplicate_dayra, Toast.LENGTH_SHORT)
                                 .show();
                     } else {
                         new ImportExcelTask().execute(dbname, path);
@@ -420,7 +414,6 @@ public class Main extends Activity {
         TextView reg = (TextView) regView.findViewById(R.id.btnreg);
         TextView back = (TextView) regView.findViewById(R.id.back);
         final EditText name = (EditText) regView.findViewById(R.id.sign_name);
-        final CheckBox check = (CheckBox) regView.findViewById(R.id.checkBox);
         back.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -444,8 +437,7 @@ public class Main extends Activity {
                                 R.string.err_msg_duplicate_dayra,
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        new RegisterTask().execute(namestr, check.isChecked()
-                                + "");
+                        new RegisterTask().execute(namestr);
                         ad.dismiss();
 
                     }
@@ -490,9 +482,6 @@ public class Main extends Activity {
                     R.id.dbitem, names));
             TextView back = (TextView) signView.findViewById(R.id.back);
 
-            final CheckBox check = (CheckBox) signView
-                    .findViewById(R.id.checkBox);
-
             back.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -505,7 +494,7 @@ public class Main extends Activity {
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
                     String str = (String) parent.getItemAtPosition(position);
-                    new SignTask().execute(str, check.isChecked() + "");
+                    new SignTask().execute(str);
                     ad.dismiss();
                 }
             });

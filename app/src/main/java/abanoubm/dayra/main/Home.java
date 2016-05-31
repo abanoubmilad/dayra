@@ -34,7 +34,7 @@ import java.util.Arrays;
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.MenuItemAdapter;
 import abanoubm.dayra.display.DisplayContacts;
-import abanoubm.dayra.display.DisplayContactsStatis;
+import abanoubm.dayra.display.DisplayContactsStatistics;
 import abanoubm.dayra.display.MapLocations;
 import abanoubm.dayra.operations.AddContact;
 import abanoubm.dayra.operations.CopyDayraPhone;
@@ -54,10 +54,12 @@ public class Home extends Activity {
     private ListView lv;
     private int tagCursor;
     private TextView subHead2;
-    private ImageView homeImage, ioImage, settImage;
+    private ImageView[] buttons;
 
-    @Override
-    public void onBackPressed() {
+    public void fireHome1Menu() {
+        buttons[tagCursor].setBackgroundColor(0);
+        tagCursor=0;
+        buttons[0].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
         getSharedPreferences("login", Context.MODE_PRIVATE).edit()
                 .putString("dbname", null).commit();
         Intent intent = new Intent(getApplicationContext(), Main.class);
@@ -71,22 +73,33 @@ public class Home extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_home);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
-
+        buttons = new ImageView []{
+                (ImageView) findViewById(R.id.homeImage1),
+                (ImageView) findViewById(R.id.homeImage2),
+                (ImageView) findViewById(R.id.ioImage),
+                (ImageView) findViewById(R.id.settImage)
+        };
         subHead2 = (TextView) findViewById(R.id.subhead2);
-        homeImage = (ImageView) findViewById(R.id.homeImage);
-        ioImage = (ImageView) findViewById(R.id.ioImage);
-        settImage = (ImageView) findViewById(R.id.settImage);
 
-        homeImage.setOnClickListener(new OnClickListener() {
+        buttons[0].setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (tagCursor != 0)
+                    fireHome1Menu();
+
+            }
+        });
+        buttons[1].setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 if (tagCursor != 1)
-                    fireHomeMenu();
+                    fireHome2Menu();
 
             }
         });
-        ioImage.setOnClickListener(new OnClickListener() {
+        buttons[2].setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -95,7 +108,7 @@ public class Home extends Activity {
 
             }
         });
-        settImage.setOnClickListener(new OnClickListener() {
+        buttons[3].setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -106,15 +119,15 @@ public class Home extends Activity {
         });
 
         lv = (ListView) findViewById(R.id.home_list);
-        fireHomeMenu();
+        fireHome2Menu();
 
     }
 
-    private void fireHomeMenu() {
-        tagCursor = 1;
-        homeImage.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
-        ioImage.setBackgroundColor(0);
-        settImage.setBackgroundColor(0);
+    private void fireHome2Menu() {
+
+        buttons[tagCursor].setBackgroundColor(0);
+        tagCursor=1;
+        buttons[1].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
 
         subHead2.setText(R.string.label_home_main);
 
@@ -206,7 +219,7 @@ public class Home extends Activity {
                         break;
                     case 5:
                         startActivity(new Intent(getApplicationContext(),
-                                DisplayContactsStatis.class));
+                                DisplayContactsStatistics.class));
                         break;
                     case 6:
                         startActivity(new Intent(getApplicationContext(),
@@ -249,10 +262,9 @@ public class Home extends Activity {
 
     private void fireOutMenu() {
 
-        tagCursor = 2;
-        ioImage.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
-        homeImage.setBackgroundColor(0);
-        settImage.setBackgroundColor(0);
+        buttons[tagCursor].setBackgroundColor(0);
+        tagCursor=2;
+        buttons[2].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
 
         subHead2.setText(R.string.label_home_out);
         if (mMenuItemAdapter != null)
@@ -296,10 +308,9 @@ public class Home extends Activity {
 
     private void fireSettingsMenu() {
 
-        tagCursor = 3;
-        settImage.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
-        homeImage.setBackgroundColor(0);
-        ioImage.setBackgroundColor(0);
+        buttons[tagCursor].setBackgroundColor(0);
+        tagCursor=3;
+        buttons[3].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
 
         subHead2.setText(R.string.label_home_settings);
         if (mMenuItemAdapter != null)
@@ -370,7 +381,7 @@ public class Home extends Activity {
                             .show();
                 } else if (!DB.isDBExists(getApplicationContext(), entered)) {
 
-                    DB db =DB.getInstant(getApplicationContext());
+                    DB db = DB.getInstant(getApplicationContext());
                     File dbFile = db.getDBFile(getApplicationContext());
                     db.closeDB();
 
@@ -471,7 +482,7 @@ public class Home extends Activity {
             if (android.os.Build.VERSION.SDK_INT >= 8) {
 
                 MediaScannerConnection.scanFile(getApplicationContext(),
-                        new String[]{path }, null, null);
+                        new String[]{path}, null, null);
             }
 
             return DB.getInstant(getApplicationContext()).exportReport(path,
@@ -504,7 +515,7 @@ public class Home extends Activity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            return  DB.getInstant(getApplicationContext()).deleteDB(
+            return DB.getInstant(getApplicationContext()).deleteDB(
                     getApplicationContext());
         }
 
@@ -570,7 +581,7 @@ public class Home extends Activity {
 
             SharedPreferences sharedPref = getSharedPreferences("login",
                     Context.MODE_PRIVATE);
-            DB dbm =  DB.getInstant(getApplicationContext());
+            DB dbm = DB.getInstant(getApplicationContext());
             path += sharedPref.getString("dbname", "dayra db");
             if (android.os.Build.VERSION.SDK_INT >= 8) {
 

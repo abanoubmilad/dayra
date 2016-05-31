@@ -20,16 +20,22 @@
         android:orientation="horizontal"
         android:background="@color/grey">
 
-
         <ImageView
             android:padding="10dp"
-            android:id="@+id/homeImage"
+            android:id="@+id/homeImage1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@mipmap/ic_home"
-            android:background="@color/red" />
+            android:src="@mipmap/ic_home" />
+        <ImageView
+            android:padding="10dp"
+            android:id="@+id/homeImage2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_home2"/>
 
         <ImageView
             android:padding="10dp"

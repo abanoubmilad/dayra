@@ -39,10 +39,10 @@ public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
         }
 
 
-        ((TextView) convertView.findViewById(R.id.contact_name)).setText(contact.getName());
-        ((TextView) convertView.findViewById(R.id.contact_mob)).setText(contact.getMobile());
+        ((TextView) convertView.findViewById(R.id.name)).setText(contact.getName());
+        ((TextView) convertView.findViewById(R.id.mobile)).setText(contact.getMobile());
 
-        ImageView img = (ImageView) convertView.findViewById(R.id.contact_img);
+        ImageView img = (ImageView) convertView.findViewById(R.id.img);
 
         if (contact.isExisted())
             convertView.findViewById(R.id.flag1).setBackgroundColor(highlight);

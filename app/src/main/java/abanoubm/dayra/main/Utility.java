@@ -55,13 +55,4 @@ public class Utility {
         return str.matches("[أؤءةابتثجحخدذرزسشصضطظعغفقكلمنهوىيa-z0-9A-Z\\s]+");
     }
 
-    public static int countSegments(String str) {
-        int count = 0, length = str.length();
-        if (length == 0)
-            return count;
-        for (int i = 0; i < length; i++)
-            if (str.charAt(i) == ';')
-                count++;
-        return ++count;
-    }
 }

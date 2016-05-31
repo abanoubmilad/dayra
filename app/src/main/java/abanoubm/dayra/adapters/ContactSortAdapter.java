@@ -30,7 +30,7 @@ public class ContactSortAdapter extends ArrayAdapter<ContactSort> {
                     R.layout.item_contact_sort, parent, false);
         }
 
-        ImageView img = (ImageView) convertView.findViewById(R.id.attendantImg);
+        ImageView img = (ImageView) convertView.findViewById(R.id.img);
 
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {

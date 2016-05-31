@@ -20,15 +20,16 @@ public class AttendReceiver extends BroadcastReceiver {
                 Context.MODE_PRIVATE).getString("dbname", "");
         if (dbname.length() == 0 || !DB.isDBExists(context, dbname))
             return;
-        DB db = DB.getInstance(context, dbname);
+    //    DB db = DB.getInstance(context, dbname);
 
         Calendar now = Calendar.getInstance();
         now.add(Calendar.WEEK_OF_YEAR, -1);
 
         ArrayList<String> arr;
         try {
-            arr = db.checkLastDateAbsence(now.get(Calendar.DATE),
-                    now.get(Calendar.MONTH) + 1, now.get(Calendar.YEAR), true);
+            arr=null;
+//            arr = db.checkLastDateAbsence(now.get(Calendar.DATE),
+//                    now.get(Calendar.MONTH) + 1, now.get(Calendar.YEAR), true);
 
             if (arr != null && arr.size() != 0) {
                 int start = 0;

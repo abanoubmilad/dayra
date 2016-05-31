@@ -14,29 +14,33 @@ import java.io.File;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.model.ContactStatis;
+import abanoubm.dayra.model.ContactStatistics;
 
-public class ContactStatisAdapter extends ArrayAdapter<ContactStatis> {
+public class ContactStatisticsAdapter extends ArrayAdapter<ContactStatistics> {
 
-    public ContactStatisAdapter(Context context,
-                                ArrayList<ContactStatis> contacts) {
+    public ContactStatisticsAdapter(Context context,
+                                    ArrayList<ContactStatistics> contacts) {
         super(context, 0, contacts);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ContactStatis contact = getItem(position);
+        ContactStatistics contact = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_contact_day, parent, false);
         }
-        TextView name = (TextView) convertView.findViewById(R.id.attendantName);
-        TextView day = (TextView) convertView.findViewById(R.id.attendantday);
+        ImageView img = (ImageView) convertView.findViewById(R.id.img);
+        TextView name = (TextView) convertView.findViewById(R.id.name);
+        TextView min = (TextView) convertView.findViewById(R.id.min);
+        TextView max = (TextView) convertView.findViewById(R.id.max);
+        TextView count = (TextView) convertView.findViewById(R.id.count);
 
         name.setText(contact.getName());
-        day.setText(contact.getDays() + " % ");
+        min.setText(contact.getMinDay());
+        max.setText(contact.getMaxDay());
+        count.setText(contact.getDaysCount());
 
-        ImageView img = (ImageView) convertView.findViewById(R.id.attendantImg);
 
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {

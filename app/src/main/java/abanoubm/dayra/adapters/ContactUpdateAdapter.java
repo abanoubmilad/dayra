@@ -35,8 +35,8 @@ public class ContactUpdateAdapter extends ArrayAdapter<ContactUpdate> {
                     R.layout.item_contact_update, parent, false);
         }
 
-        TextView name = (TextView) convertView.findViewById(R.id.attendantName);
-        TextView day = (TextView) convertView.findViewById(R.id.attendantday);
+        TextView name = (TextView) convertView.findViewById(R.id.name);
+        TextView day = (TextView) convertView.findViewById(R.id.day);
         TextView flag = (TextView) convertView.findViewById(R.id.flag);
 
         name.setText(contact.getName());
@@ -47,7 +47,7 @@ public class ContactUpdateAdapter extends ArrayAdapter<ContactUpdate> {
             flag.setBackgroundColor(Color.WHITE);
         }
 
-        ImageView img = (ImageView) convertView.findViewById(R.id.attendantImg);
+        ImageView img = (ImageView) convertView.findViewById(R.id.img);
 
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {

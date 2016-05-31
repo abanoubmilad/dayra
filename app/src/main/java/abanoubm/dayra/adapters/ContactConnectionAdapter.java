@@ -36,7 +36,7 @@ public class ContactConnectionAdapter extends ArrayAdapter<ContactConnection> {
         }
 
 
-        ((TextView) convertView.findViewById(R.id.attendantName)).setText(contact.getName());
+        ((TextView) convertView.findViewById(R.id.name)).setText(contact.getName());
         TextView flag = (TextView) convertView.findViewById(R.id.flag);
 
         if (contact.isCon()) {
@@ -45,7 +45,7 @@ public class ContactConnectionAdapter extends ArrayAdapter<ContactConnection> {
             flag.setBackgroundColor(Color.WHITE);
         }
 
-        ImageView img = (ImageView) convertView.findViewById(R.id.attendantImg);
+        ImageView img = (ImageView) convertView.findViewById(R.id.img);
 
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {
