@@ -136,7 +136,7 @@ public class Home extends Activity {
                         AlertDialog.Builder builder = new AlertDialog.Builder(
                                 Home.this);
                         builder.setTitle(R.string.label_choose_search);
-                        builder.setItems( getResources()
+                        builder.setItems(getResources()
                                         .getStringArray(R.array.search_menu),
                                 new DialogInterface.OnClickListener() {
 

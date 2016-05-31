@@ -1,5 +1,6 @@
 package abanoubm.dayra.main;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -383,7 +384,7 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public int addAttendant(String name, String mobile) {
+    public String addAttendant(String name, String mobile) {
         ContentValues values = new ContentValues();
         values.put(CONTACT_MAPLAT, 0);
         values.put(CONTACT_MAPLNG, 0);
@@ -406,7 +407,7 @@ public class DB extends SQLiteOpenHelper {
         values.put(CONTACT_SITE, "");
         values.put(CONTACT_STUDY_WORK, "");
         values.put(CONTACT_CLASS_YEAR, "");
-        return (int) writableDB.insert(TB_CONTACT, null, values);
+        return String.valueOf(writableDB.insert(TB_CONTACT, null, values));
 
     }
 
@@ -1064,7 +1065,33 @@ public class DB extends SQLiteOpenHelper {
             do {
                 result.add(new ContactMobile(c.getString(colID), c
                         .getString(colNAME), c.getString(colPic), c
-                        .getString(colMob1)));
+                        .getString(colMob1), c
+                        .getString(colMob1).equals("")));
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return result;
+
+    }
+
+    public ArrayList<ContactMobile> getGContactsMobile(ContentResolver resolver) {
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO + ","
+                + CONTACT_MOB1 + " FROM " + TB_CONTACT + " ORDER BY " + CONTACT_NAME;
+        Cursor c = readableDB.rawQuery(selectQuery, null);
+        ArrayList<ContactMobile> result = new ArrayList<>(
+                c.getCount());
+
+        if (c.moveToFirst()) {
+            int colID = c.getColumnIndex(CONTACT_ID);
+            int colNAME = c.getColumnIndex(CONTACT_NAME);
+            int colPic = c.getColumnIndex(CONTACT_PHOTO);
+            int colMob1 = c.getColumnIndex(CONTACT_MOB1);
+            do {
+                result.add(new ContactMobile(c.getString(colID), c
+                        .getString(colNAME), c.getString(colPic), c
+                        .getString(colMob1), ContactHelper.doesContactExist(resolver, c
+                        .getString(colNAME))));
             } while (c.moveToNext());
         }
         c.close();

@@ -60,7 +60,7 @@ public class ContactHelper {
         return true;
     }
 
-    public static ArrayList<GoogleContact> getContacts(
+    public static ArrayList<GoogleContact> getGContacts(
             ContentResolver contactHelper, Context context) {
 
         String[] projection = {
@@ -77,13 +77,12 @@ public class ContactHelper {
             if (c.moveToFirst()) {
                 DB db = DB.getInstance(
                         context,
-                        context.getSharedPreferences("login",
-                                Context.MODE_PRIVATE).getString("dbname", ""));
+                        Utility.getDayraName(context));
                 int colNAME = c.getColumnIndex(projection[0]);
                 int colNUMBER = c.getColumnIndex(projection[1]);
                 do {
                     result.add(new GoogleContact(c.getString(colNAME), c
-                            .getString(colNUMBER), !db.getNameId(c
+                            .getString(colNUMBER), db.getNameId(c
                             .getString(colNAME)).equals("-1")));
                 } while (c.moveToNext());
             }
@@ -91,5 +90,23 @@ public class ContactHelper {
         } catch (Exception e) {
         }
         return result;
+    }
+
+    public static boolean doesContactExist(
+            ContentResolver contactHelper, String name) {
+
+        String[] projection = {
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
+        try {
+            Cursor c = contactHelper.query(
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                    projection, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " = ? ", new String[]{name},
+                    null);
+            if (c.moveToFirst())
+                return true;
+            c.close();
+        } catch (Exception e) {
+        }
+        return false;
     }
 }

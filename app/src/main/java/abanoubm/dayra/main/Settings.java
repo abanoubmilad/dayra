@@ -2,23 +2,17 @@ package abanoubm.dayra.main;
 
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import abanoubm.dayra.R;
@@ -135,7 +129,6 @@ public class Settings extends Activity {
                     }
                 });
     }
-
 
 
 }

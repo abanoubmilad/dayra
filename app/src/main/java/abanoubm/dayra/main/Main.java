@@ -271,7 +271,7 @@ public class Main extends Activity {
                         AlertDialog.Builder builder = new AlertDialog.Builder(
                                 Main.this);
                         builder.setTitle(R.string.label_choose_language);
-                        builder.setItems( getResources()
+                        builder.setItems(getResources()
                                         .getStringArray(R.array.language_menu),
                                 new DialogInterface.OnClickListener() {
 

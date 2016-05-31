@@ -89,7 +89,7 @@ public class AddContact extends Activity {
             builder.setTitle(getResources().getString(
                     R.string.label_choose_study_work));
             builder.setItems(
-                     result.toArray(new String[result.size()]),
+                    result.toArray(new String[result.size()]),
                     new DialogInterface.OnClickListener() {
 
                         @Override
@@ -529,7 +529,7 @@ public class AddContact extends Activity {
         AlertDialog.Builder builder = new AlertDialog.Builder(AddContact.this);
         builder.setTitle(R.string.label_choose_photo);
         builder.setItems(
-                 getResources().getStringArray(
+                getResources().getStringArray(
                         R.array.photo_menu),
                 new DialogInterface.OnClickListener() {
 

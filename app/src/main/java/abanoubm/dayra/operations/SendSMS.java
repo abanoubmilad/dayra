@@ -2,7 +2,6 @@ package abanoubm.dayra.operations;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -12,7 +11,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -31,7 +29,6 @@ import abanoubm.dayra.model.ContactMobile;
 
 public class SendSMS extends Activity {
     private ListView lv;
-    private TextView sendBtn;
     private ProgressDialog pBar;
     private DB dbm;
     private ContactMobileAdapter mAdapter;
@@ -60,7 +57,7 @@ public class SendSMS extends Activity {
             ContactMobile temp;
             for (int i = 0; i < count; i++) {
                 temp = mAdapter.getItem(i);
-                if (temp.getMobile().length() != 0)
+                if (temp.isExisted())
                     temp.setSelected(params[0]);
             }
             return null;
@@ -96,19 +93,18 @@ public class SendSMS extends Activity {
             if (android.os.Build.MANUFACTURER.equalsIgnoreCase("samsung"))
                 sep = ", ";
 
-            BaseAdapter ba = ((BaseAdapter) lv.getAdapter());
-            int count = ba.getCount();
+            int count = mAdapter.getCount();
             ContactMobile temp;
             count--;
             for (int i = 0; i < count; i++) {
-                temp = (ContactMobile) ba.getItem(i);
+                temp = mAdapter.getItem(i);
                 if (temp.isSelected()) {
                     phoneNumbers.append(temp.getMobile());
                     phoneNumbers.append(sep);
                 }
             }
             if (count >= 0) {
-                temp = (ContactMobile) ba.getItem(count);
+                temp = mAdapter.getItem(count);
                 if (temp.isSelected())
                     phoneNumbers.append(temp.getMobile());
             }
@@ -152,11 +148,10 @@ public class SendSMS extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_sms);
+        setContentView(R.layout.act_mobiles);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_sms);
 
-        sendBtn = (TextView) findViewById(R.id.send_btn);
         check = (CheckBox) findViewById(R.id.check_all);
         check.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -177,10 +172,10 @@ public class SendSMS extends Activity {
                                     int position, long arg3) {
                 ContactMobile temp = (ContactMobile) parent
                         .getItemAtPosition(position);
-                if (temp.getMobile().length() != 0) {
+                if (temp.isExisted()) {
                     check.setChecked(false);
                     temp.invertSelected();
-                    ((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+                    mAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -200,7 +195,7 @@ public class SendSMS extends Activity {
                 return true;
             }
         });
-        sendBtn.setOnClickListener(new OnClickListener() {
+        findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 new SendTask().execute();
@@ -211,9 +206,7 @@ public class SendSMS extends Activity {
         pBar.setCancelable(false);
 
         dbm = DB.getInstance(
-                getApplicationContext(),
-                getSharedPreferences("login", Context.MODE_PRIVATE).getString(
-                        "dbname", ""));
+                getApplicationContext(), Utility.getDayraName(getApplicationContext()));
     }
 
     @Override

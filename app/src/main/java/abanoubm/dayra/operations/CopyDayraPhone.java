@@ -2,7 +2,6 @@ package abanoubm.dayra.operations;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,7 +33,6 @@ import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactMobile;
 
 public class CopyDayraPhone extends Activity {
-    private TextView CopyBtn;
     private CheckBox check;
     private GContactsOutAdapter mAdapter;
     private int previousPosition = 0;
@@ -62,7 +60,7 @@ public class CopyDayraPhone extends Activity {
             ContactMobile temp;
             for (int i = 0; i < count; i++) {
                 temp = mAdapter.getItem(i);
-                if (temp.getMobile().length() != 0)
+                if (!temp.isExisted())
                     temp.setSelected(params[0]);
             }
             return null;
@@ -83,10 +81,8 @@ public class CopyDayraPhone extends Activity {
 
         @Override
         protected ArrayList<ContactMobile> doInBackground(Void... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getContactsMobile();
+            return DB.getInstance(getApplicationContext(),
+                    Utility.getDayraName(getApplicationContext())).getGContactsMobile(getContentResolver());
         }
 
         @Override
@@ -171,12 +167,11 @@ public class CopyDayraPhone extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_sms);
+        setContentView(R.layout.act_mobiles);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_transfer);
 
-
-        CopyBtn = (TextView) findViewById(R.id.send_btn);
+        TextView CopyBtn = (TextView) findViewById(R.id.btn);
         CopyBtn.setText(R.string.btn_copy_selected);
         check = (CheckBox) findViewById(R.id.check_all);
         check.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -196,9 +191,8 @@ public class CopyDayraPhone extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                ContactMobile temp = (ContactMobile) parent
-                        .getItemAtPosition(position);
-                if (temp.getMobile().length() != 0) {
+                ContactMobile temp = mAdapter.getItem(position);
+                if (!temp.isExisted()) {
                     check.setChecked(false);
                     temp.invertSelected();
                     mAdapter.notifyDataSetChanged();

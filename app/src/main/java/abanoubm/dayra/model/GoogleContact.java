@@ -4,11 +4,22 @@ public class GoogleContact {
     private String name;
     private String mobile;
     private boolean isSelected;
+    private boolean isExisted;
 
-    public GoogleContact(String name, String mobile, boolean isSelected) {
+    public boolean isExisted() {
+        return isExisted;
+    }
+
+    public void setExisted(boolean existed) {
+        isExisted = existed;
+    }
+
+
+    public GoogleContact(String name, String mobile, boolean isExisted) {
         this.name = name;
         this.mobile = mobile;
-        this.isSelected = isSelected;
+        this.isSelected = false;
+        this.isExisted = isExisted;
     }
 
     public String getName() {
@@ -33,6 +44,10 @@ public class GoogleContact {
 
     public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
+    }
+
+    public void invertSelected() {
+        isSelected = !isSelected;
     }
 
 }

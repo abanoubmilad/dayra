@@ -3,6 +3,7 @@ package abanoubm.dayra.adapters;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,13 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.model.ContactMobile;
 
 public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
+    private int white, highlight;
 
     public GContactsOutAdapter(Context context,
                                ArrayList<ContactMobile> contacts) {
         super(context, 0, contacts);
+        white = ContextCompat.getColor(context, R.color.white);
+        highlight = ContextCompat.getColor(context, R.color.red);
     }
 
     @Override
@@ -40,6 +44,10 @@ public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
 
         ImageView img = (ImageView) convertView.findViewById(R.id.contact_img);
 
+        if (contact.isExisted())
+            convertView.findViewById(R.id.flag1).setBackgroundColor(highlight);
+        else
+            convertView.findViewById(R.id.flag1).setBackgroundColor(white);
         CheckBox flag = (CheckBox) convertView.findViewById(R.id.flag2);
         flag.setChecked(contact.isSelected());
 

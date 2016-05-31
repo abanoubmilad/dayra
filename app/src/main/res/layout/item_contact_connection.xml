@@ -22,6 +22,7 @@
         android:paddingRight="5dp"
         android:textColor="@color/text_pressed"
         android:textSize="@dimen/font_larger" />
+
     <TextView
         android:id="@+id/flag"
         android:layout_width="wrap_content"

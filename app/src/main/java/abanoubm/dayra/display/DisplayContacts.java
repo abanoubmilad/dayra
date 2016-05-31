@@ -17,7 +17,7 @@ public class DisplayContacts extends ActionBarActivity implements CallBack {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_display_contacts);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
-        ((TextView)  findViewById(R.id.subhead2)).setText(R.string.subhead_display_contacts);
+        ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_display_contacts);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.display_contacts_fragment, new FragmentDisplayContacts())

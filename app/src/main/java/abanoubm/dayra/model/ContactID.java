@@ -6,7 +6,6 @@ public class ContactID {
     private String picDir;
 
     public ContactID(String id, String name, String picDir) {
-        super();
         this.id = id;
         this.name = name;
         this.picDir = picDir;

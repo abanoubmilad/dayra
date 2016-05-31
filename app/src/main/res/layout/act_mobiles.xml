@@ -6,6 +6,13 @@
 
     <include layout="@layout/header" />
 
+    <CheckBox
+        android:id="@+id/check_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label.check.all"
+        android:textSize="@dimen/font_large" />
+
     <ListView
         android:id="@+id/contacts_list"
         android:layout_width="match_parent"
@@ -14,8 +21,8 @@
         android:background="@color/white"></ListView>
 
     <TextView
-        android:id="@+id/copy_btn"
+        android:id="@+id/btn"
         style="@style/bottom_button"
-        android:text="@string/btn.copy.all" />
+        android:text="@string/btn.send.sms" />
 
 </LinearLayout>

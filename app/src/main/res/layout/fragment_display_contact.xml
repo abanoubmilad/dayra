@@ -48,6 +48,7 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:src="@mipmap/ic_loc" />
+
         <ImageView
             android:id="@+id/editImage"
             android:layout_width="0dp"

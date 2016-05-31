@@ -99,7 +99,7 @@ public class EditContact extends Activity {
             String check = dbm.getNameId(name_str);
             if (!Utility.isName(name_str)) {
                 msgSource = R.string.err_msg_invalid_name;
-            } else if (!check.equals("-1")&& !check.equals(attData.getId())) {
+            } else if (!check.equals("-1") && !check.equals(attData.getId())) {
                 msgSource = R.string.err_msg_duplicate_name;
             } else if (email_str.length() != 0 && !Utility.isEmail(email_str)) {
                 msgSource = R.string.err_msg_email;
@@ -257,7 +257,7 @@ public class EditContact extends Activity {
             builder.setTitle(getResources().getString(
                     R.string.label_choose_site));
             builder.setItems(
-                     result.toArray(new String[result.size()]),
+                    result.toArray(new String[result.size()]),
                     new DialogInterface.OnClickListener() {
 
                         @Override
@@ -305,7 +305,7 @@ public class EditContact extends Activity {
             builder.setTitle(getResources().getString(
                     R.string.label_choose_study_work));
             builder.setItems(
-                     result.toArray(new String[result.size()]),
+                    result.toArray(new String[result.size()]),
                     new DialogInterface.OnClickListener() {
 
                         @Override
@@ -354,7 +354,7 @@ public class EditContact extends Activity {
             builder.setTitle(getResources().getString(
                     R.string.label_choose_class_year));
             builder.setItems(
-                     result.toArray(new String[result.size()]),
+                    result.toArray(new String[result.size()]),
                     new DialogInterface.OnClickListener() {
 
                         @Override

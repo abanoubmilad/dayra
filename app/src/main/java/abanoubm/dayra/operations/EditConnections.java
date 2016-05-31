@@ -132,7 +132,7 @@ public class EditConnections extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                flag =(TextView) arg1.findViewById(R.id.flag);
+                flag = (TextView) arg1.findViewById(R.id.flag);
                 chosenAtt = (ContactConnection) parent
                         .getItemAtPosition(position);
                 if (chosenAtt.isCon())
