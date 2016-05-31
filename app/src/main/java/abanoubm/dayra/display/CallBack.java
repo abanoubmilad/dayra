@@ -1,5 +1,5 @@
 package abanoubm.dayra.display;
 
 public interface CallBack {
-        public void onItemSelected(int id);
+        public void onItemSelected(String id);
 }

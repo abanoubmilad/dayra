@@ -36,6 +36,7 @@ public class DisplayContacts extends ActionBarActivity implements CallBack {
         if (dualMode) {
             Bundle args = new Bundle();
             args.putInt("id", id);
+            args.putBoolean("isdual", dualMode);
 
             FragmentDisplayContact fragment = new FragmentDisplayContact();
             fragment.setArguments(args);

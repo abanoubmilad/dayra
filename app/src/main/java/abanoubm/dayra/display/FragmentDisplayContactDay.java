@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
-import abanoubm.dayra.obj.ContactData;
+import abanoubm.dayra.model.ContactData;
 
 public class FragmentDisplayContactDay extends Fragment {
 

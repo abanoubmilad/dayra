@@ -16,10 +16,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapt.ContactIDAdapter;
+import abanoubm.dayra.adapters.ContactIDAdapter;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.obj.ContactID;
+import abanoubm.dayra.model.ContactID;
 
 public class FragmentDisplayContactConnection extends Fragment {
 

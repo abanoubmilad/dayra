@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapt.ContactStatisAdapter;
+import abanoubm.dayra.adapters.ContactStatisAdapter;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.obj.ContactStatis;
+import abanoubm.dayra.model.ContactStatis;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;

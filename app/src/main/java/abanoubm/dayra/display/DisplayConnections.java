@@ -3,10 +3,9 @@ package abanoubm.dayra.display;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapt.ContactIDAdapter;
+import abanoubm.dayra.adapters.ContactIDAdapter;
 import abanoubm.dayra.main.DB;
-import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.obj.ContactID;
+import abanoubm.dayra.model.ContactID;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;

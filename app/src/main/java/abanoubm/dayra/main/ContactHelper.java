@@ -9,7 +9,7 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 
 import java.util.ArrayList;
 
-import abanoubm.dayra.obj.GoogleContact;
+import abanoubm.dayra.model.GoogleContact;
 
 public class ContactHelper {
 

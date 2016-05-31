@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Locale;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapt.MenuItemAdapter;
+import abanoubm.dayra.adapters.MenuItemAdapter;
 
 public class Main extends Activity {
     private static final int IMPORT_DB = 1;
@@ -238,7 +238,7 @@ public class Main extends Activity {
         ListView lv = (ListView) findViewById(R.id.home_list);
 
         mMenuItemAdapter = new MenuItemAdapter(getApplicationContext(),
-                new ArrayList<String>(Arrays.asList(getResources()
+                new ArrayList<>(Arrays.asList(getResources()
                         .getStringArray(R.array.sign_menu))), 1);
         lv.setAdapter(mMenuItemAdapter);
 
@@ -271,7 +271,7 @@ public class Main extends Activity {
                         AlertDialog.Builder builder = new AlertDialog.Builder(
                                 Main.this);
                         builder.setTitle(R.string.label_choose_language);
-                        builder.setItems((CharSequence[]) getResources()
+                        builder.setItems( getResources()
                                         .getStringArray(R.array.language_menu),
                                 new DialogInterface.OnClickListener() {
 
@@ -485,7 +485,7 @@ public class Main extends Activity {
 
             ListView nameslv = (ListView) signView
                     .findViewById(R.id.databases_lv);
-            nameslv.setAdapter(new ArrayAdapter<String>(
+            nameslv.setAdapter(new ArrayAdapter<>(
                     getApplicationContext(), R.layout.dbs_menu_item,
                     R.id.dbitem, names));
             TextView back = (TextView) signView.findViewById(R.id.back);

@@ -48,54 +48,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="abanoubm.dayra.main.Main"></activity>
-        <activity android:name="abanoubm.dayra.main.Home"></activity>
+        <activity android:name="abanoubm.dayra.main.Main" />
+        <activity android:name="abanoubm.dayra.main.Home" />
         <activity
-            android:name="abanoubm.dayra.opr.AddContact"
-            android:windowSoftInputMode="stateHidden"
-            android:label="@string/subhead.add.contact"></activity>
-        <activity
-            android:name=".display.DisplayContacts"
-            android:label="@string/subhead.display.contacts"></activity>
+            android:name="abanoubm.dayra.operations.AddContact"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".display.DisplayContacts" />
         <activity
             android:name=".display.DisplayContact"
-            android:windowSoftInputMode="stateHidden"
-            android:label="@string/subhead.display.contact"></activity>
-        <activity
-            android:name=".opr.SearchBDay"
-            android:label="@string/subhead.search.bday"></activity>
-        <activity
-            android:name=".opr.SearchName"
-            android:label="@string/subhead.search.name"></activity>
-        <activity android:name=".opr.ExportContacts"></activity>
-        <activity android:name=".display.ContactMap"></activity>
-        <activity android:name=".opr.SearchDate"></activity>
-        <activity
-            android:name=".opr.RegisterAttendance"
-            android:label="@string/subhead.register.attendance">
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".operations.SearchBDay" />
+        <activity android:name=".operations.SearchName" />
+        <activity android:name=".operations.ExportContacts" />
+        <activity android:name=".display.ContactMap" />
+        <activity android:name=".operations.SearchDate" />
+        <activity android:name=".operations.RegisterAttendance">
 
         </activity>
-        <activity
-            android:name=".display.MapLocations"
-            android:label="@string/subhead.display.locs"></activity>
-        <activity android:name=".display.DisplayContactsStatis"></activity>
-        <activity
-            android:name=".opr.DivideDayra"
-            android:label="@string/subhead.divide"></activity>
-        <activity android:name=".opr.ReplaceDayra"></activity>
-        <activity
-            android:name=".opr.SendSMS"
-            android:label="@string/subhead.sms"></activity>
-        <activity android:name=".main.Settings"></activity>
-        <activity android:name=".opr.CopyDayraPhone"></activity>
-        <activity android:name=".display.DisplayConnections"></activity>
-        <activity
-            android:name=".opr.EditConnections"
-            android:label="@string/subhead.edit.connections"></activity>
-        <activity android:name=".opr.CopyPhoneDayra"></activity>
-        <activity
-            android:name=".opr.EditContact"
-            android:label="@string/subhead.edit.contact"></activity>
+        <activity android:name=".display.MapLocations" />
+        <activity android:name=".display.DisplayContactsStatis" />
+        <activity android:name=".operations.DivideDayra" />
+        <activity android:name=".operations.ReplaceDayra" />
+        <activity android:name=".operations.SendSMS" />
+        <activity android:name=".main.Settings" />
+        <activity android:name=".operations.CopyDayraPhone" />
+        <activity android:name=".display.DisplayConnections" />
+        <activity android:name=".operations.EditConnections" />
+        <activity android:name=".operations.CopyPhoneDayra" />
+        <activity android:name=".operations.EditContact" />
 
         <receiver android:name=".alarm.AttendReceiver" />
         <receiver android:name=".alarm.BDayReceiver" />

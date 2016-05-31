@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.obj.ContactLoc;
+import abanoubm.dayra.model.ContactLoc;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.location.Location;

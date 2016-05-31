@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,21 +32,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapt.MenuItemAdapter;
+import abanoubm.dayra.adapters.MenuItemAdapter;
 import abanoubm.dayra.display.DisplayContacts;
 import abanoubm.dayra.display.DisplayContactsStatis;
 import abanoubm.dayra.display.MapLocations;
-import abanoubm.dayra.opr.AddContact;
-import abanoubm.dayra.opr.CopyDayraPhone;
-import abanoubm.dayra.opr.CopyPhoneDayra;
-import abanoubm.dayra.opr.DivideDayra;
-import abanoubm.dayra.opr.ExportContacts;
-import abanoubm.dayra.opr.RegisterAttendance;
-import abanoubm.dayra.opr.ReplaceDayra;
-import abanoubm.dayra.opr.SearchBDay;
-import abanoubm.dayra.opr.SearchDate;
-import abanoubm.dayra.opr.SearchName;
-import abanoubm.dayra.opr.SendSMS;
+import abanoubm.dayra.operations.AddContact;
+import abanoubm.dayra.operations.CopyDayraPhone;
+import abanoubm.dayra.operations.CopyPhoneDayra;
+import abanoubm.dayra.operations.DivideDayra;
+import abanoubm.dayra.operations.ExportContacts;
+import abanoubm.dayra.operations.RegisterAttendance;
+import abanoubm.dayra.operations.ReplaceDayra;
+import abanoubm.dayra.operations.SearchBDay;
+import abanoubm.dayra.operations.SearchDate;
+import abanoubm.dayra.operations.SearchName;
+import abanoubm.dayra.operations.SendSMS;
 
 public class Home extends Activity {
     private ProgressDialog pBar;
@@ -111,7 +112,7 @@ public class Home extends Activity {
 
     private void fireHomeMenu() {
         tagCursor = 1;
-        homeImage.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        homeImage.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
         ioImage.setBackgroundColor(0);
         settImage.setBackgroundColor(0);
 
@@ -120,7 +121,7 @@ public class Home extends Activity {
         if (mMenuItemAdapter != null)
             mMenuItemAdapter.recycleIcons();
         mMenuItemAdapter = new MenuItemAdapter(getApplicationContext(),
-                new ArrayList<String>(Arrays.asList(getResources()
+                new ArrayList<>(Arrays.asList(getResources()
                         .getStringArray(R.array.home_menu))), 2);
         lv.setAdapter(mMenuItemAdapter);
 
@@ -135,7 +136,7 @@ public class Home extends Activity {
                         AlertDialog.Builder builder = new AlertDialog.Builder(
                                 Home.this);
                         builder.setTitle(R.string.label_choose_search);
-                        builder.setItems((CharSequence[]) getResources()
+                        builder.setItems( getResources()
                                         .getStringArray(R.array.search_menu),
                                 new DialogInterface.OnClickListener() {
 
@@ -249,7 +250,7 @@ public class Home extends Activity {
     private void fireOutMenu() {
 
         tagCursor = 2;
-        ioImage.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        ioImage.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
         homeImage.setBackgroundColor(0);
         settImage.setBackgroundColor(0);
 
@@ -257,7 +258,7 @@ public class Home extends Activity {
         if (mMenuItemAdapter != null)
             mMenuItemAdapter.recycleIcons();
         mMenuItemAdapter = new MenuItemAdapter(getApplicationContext(),
-                new ArrayList<String>(Arrays.asList(getResources()
+                new ArrayList<>(Arrays.asList(getResources()
                         .getStringArray(R.array.out_menu))), 3);
         lv.setAdapter(mMenuItemAdapter);
 
@@ -296,7 +297,7 @@ public class Home extends Activity {
     private void fireSettingsMenu() {
 
         tagCursor = 3;
-        settImage.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        settImage.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
         homeImage.setBackgroundColor(0);
         ioImage.setBackgroundColor(0);
 
@@ -304,7 +305,7 @@ public class Home extends Activity {
         if (mMenuItemAdapter != null)
             mMenuItemAdapter.recycleIcons();
         mMenuItemAdapter = new MenuItemAdapter(getApplicationContext(),
-                new ArrayList<String>(Arrays.asList(getResources()
+                new ArrayList<>(Arrays.asList(getResources()
                         .getStringArray(R.array.settings_menu))), 4);
         lv.setAdapter(mMenuItemAdapter);
 

@@ -26,16 +26,16 @@ import java.util.Date;
 import java.util.Locale;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.obj.ContactConnection;
-import abanoubm.dayra.obj.ContactData;
-import abanoubm.dayra.obj.ContactDay;
-import abanoubm.dayra.obj.ContactID;
-import abanoubm.dayra.obj.ContactLoc;
-import abanoubm.dayra.obj.ContactMobile;
-import abanoubm.dayra.obj.ContactSort;
-import abanoubm.dayra.obj.ContactStatis;
-import abanoubm.dayra.obj.ContactUpdate;
-import abanoubm.dayra.obj.IntWraper;
+import abanoubm.dayra.model.ContactConnection;
+import abanoubm.dayra.model.ContactData;
+import abanoubm.dayra.model.ContactDay;
+import abanoubm.dayra.model.ContactID;
+import abanoubm.dayra.model.ContactLoc;
+import abanoubm.dayra.model.ContactMobile;
+import abanoubm.dayra.model.ContactSort;
+import abanoubm.dayra.model.ContactStatis;
+import abanoubm.dayra.model.ContactUpdate;
+import abanoubm.dayra.model.IntWrapper;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.write.Label;
@@ -120,21 +120,17 @@ public class DB extends SQLiteOpenHelper {
         db.execSQL(sql);
 
         sql = "create table " + TB_CONNECTION + " ( " + CONN_A + " integer, "
-                + CONN_B + " integer, " +
-                "FOREIGN KEY(" + CONN_A + ") REFERENCES +" + TB_CONTACT + "(" + CONTACT_ID + ")," +
-                "FOREIGN KEY(" + CONN_B + ") REFERENCES +" + TB_CONTACT + "(" + CONTACT_ID + "))";
+                + CONN_B + " integer)";
         db.execSQL(sql);
 
         sql = "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
                 + ATTEND_TYPE + " integer, "
-                + ATTEND_DAY + " integer, " +
-                "FOREIGN KEY(" + ATTEND_ID + ") REFERENCES +" + TB_CONTACT + "(" + CONTACT_ID + "))";
+                + ATTEND_DAY + " integer)";
 
         db.execSQL(sql);
 
         sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer, "
-                + PHOTO_BLOB + " blob, " +
-                "FOREIGN KEY(" + PHOTO_ID + ") REFERENCES +" + TB_CONTACT + "(" + CONTACT_ID + "))";
+                + PHOTO_BLOB + " blob)";
         db.execSQL(sql);
     }
 
@@ -143,40 +139,31 @@ public class DB extends SQLiteOpenHelper {
         String sql;
         if (arg1 < 2) {
             sql = "create table " + TB_CONNECTION + " ( " + CONN_A + " integer, "
-                    + CONN_B + " integer, " +
-                    "FOREIGN KEY(" + CONN_A + ") REFERENCES +" + TB_CONTACT + "(" + CONTACT_ID + ")," +
-                    "FOREIGN KEY(" + CONN_B + ") REFERENCES +" + TB_CONTACT + "(" + CONTACT_ID + "))";
+                    + CONN_B + " integer)";
             db.execSQL(sql);
         }
         if (arg1 < 3) {
-            sql = "ALTER TABLE " + TB_CONNECTION + " ADD " +
-                    "FOREIGN KEY(" + CONN_A + ") REFERENCES +" + TB_CONTACT + "(" + CONTACT_ID + ")," +
-                    "FOREIGN KEY(" + CONN_B + ") REFERENCES +" + TB_CONTACT + "(" + CONTACT_ID + "))";
-            db.execSQL(sql);
-
             sql = "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
                     + ATTEND_TYPE + " integer, "
-                    + ATTEND_DAY + " integer, " +
-                    "FOREIGN KEY(" + ATTEND_ID + ") REFERENCES +" + TB_CONTACT + "(" + CONTACT_ID + "))";
+                    + ATTEND_DAY + " integer)";
 
             db.execSQL(sql);
 
             sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer, "
-                    + PHOTO_BLOB + " blob, " +
-                    "FOREIGN KEY(" + PHOTO_ID + ") REFERENCES +" + TB_CONTACT + "(" + CONTACT_ID + "))";
+                    + PHOTO_BLOB + " blob)";
             db.execSQL(sql);
         }
 
     }
 
-    public void deleteAttendant(int id) {
+    public void deleteAttendant(String id) {
         removeAttendantConnections(id);
-        writableDB.delete(TB_CONTACT, CONTACT_ID + " = ?",
-                new String[]{String.valueOf(id)});
         writableDB.delete(TB_ATTEND, ATTEND_ID + " = ?",
-                new String[]{String.valueOf(id)});
+                new String[]{id});
         writableDB.delete(TB_PHOTO, PHOTO_ID + " = ?",
-                new String[]{String.valueOf(id)});
+                new String[]{id});
+        writableDB.delete(TB_CONTACT, CONTACT_ID + " = ?",
+                new String[]{id});
     }
 
     public boolean deleteDB(Context context) {
@@ -185,6 +172,7 @@ public class DB extends SQLiteOpenHelper {
         writableDB.close();
         return context.deleteDatabase(DB_NAME);
     }
+
     public void closeDB() {
         readableDB.close();
         writableDB.close();
@@ -203,19 +191,19 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public void removeConnection(int conA, int conB) {
+    public void removeConnection(String conA, String conB) {
         writableDB.delete(TB_CONNECTION, CONN_A + " = ? and " + CONN_B
                         + " = ? or " + CONN_A + " = ? and " + CONN_B + " = ? ",
-                new String[]{String.valueOf(conA), String.valueOf(conB),
-                        String.valueOf(conB), String.valueOf(conA)});
+                new String[]{conA, conB,
+                        conB, conA});
     }
 
-    public void removeAttendantConnections(int hostID) {
+    public void removeAttendantConnections(String hostID) {
         writableDB
                 .delete(TB_CONNECTION,
                         CONN_A + " = ? or " + CONN_B + " = ?",
-                        new String[]{String.valueOf(hostID),
-                                String.valueOf(hostID)});
+                        new String[]{hostID,
+                                hostID});
     }
 
     public ArrayList<ContactID> getAttendantConnections(int hostID) {
@@ -232,7 +220,7 @@ public class DB extends SQLiteOpenHelper {
             int colNAME = c.getColumnIndex(CONTACT_NAME);
             int colPic = c.getColumnIndex(CONTACT_PHOTO);
             do {
-                result.add(new ContactID(c.getInt(colID), c.getString(colNAME),
+                result.add(new ContactID(c.getString(colID), c.getString(colNAME),
                         c.getString(colPic)));
             } while (c.moveToNext());
         }
@@ -240,7 +228,7 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList<ContactConnection> getAttendantConnections(int hostID,
+    public ArrayList<ContactConnection> getAttendantConnections(String hostID,
                                                                 String name) {
         // connections
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO
@@ -257,7 +245,7 @@ public class DB extends SQLiteOpenHelper {
             int colNAME = c.getColumnIndex(CONTACT_NAME);
             int colPic = c.getColumnIndex(CONTACT_PHOTO);
             do {
-                result.add(new ContactConnection(c.getInt(colID), c
+                result.add(new ContactConnection(c.getString(colID), c
                         .getString(colNAME), c.getString(colPic), true));
             } while (c.moveToNext());
         }
@@ -277,7 +265,7 @@ public class DB extends SQLiteOpenHelper {
             int colNAME = c.getColumnIndex(CONTACT_NAME);
             int colPic = c.getColumnIndex(CONTACT_PHOTO);
             do {
-                result.add(new ContactConnection(c.getInt(colID), c
+                result.add(new ContactConnection(c.getString(colID), c
                         .getString(colNAME), c.getString(colPic), false));
             } while (c.moveToNext());
         }
@@ -458,7 +446,7 @@ public class DB extends SQLiteOpenHelper {
         Cursor c = readableDB.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
 
-            result = new ContactData(c.getInt(c.getColumnIndex(CONTACT_ID)),
+            result = new ContactData(c.getString(c.getColumnIndex(CONTACT_ID)),
                     c.getString(c.getColumnIndex(CONTACT_NAME)), c.getString(c
                     .getColumnIndex(CONTACT_PHOTO)), c.getDouble(c
                     .getColumnIndex(CONTACT_MAPLAT)), c.getDouble(c
@@ -560,7 +548,7 @@ public class DB extends SQLiteOpenHelper {
             int COL_STREET = c.getColumnIndex(CONTACT_ST);
             int COL_SITE = c.getColumnIndex(CONTACT_SITE);
             do {
-                result.add(new ContactSort(c.getInt(COL_ID), c
+                result.add(new ContactSort(c.getString(COL_ID), c
                         .getString(COL_NAME), c.getString(COL_PIC_DIR), c
                         .getString(COL_LAST_ATTEND), c.getString(COL_PRIEST), c
                         .getString(COL_BDAY), c.getString(COL_LAST_VISIT), c
@@ -1051,7 +1039,7 @@ public class DB extends SQLiteOpenHelper {
             int colNAME = c.getColumnIndex(CONTACT_NAME);
             int colPic = c.getColumnIndex(CONTACT_PHOTO);
             do {
-                result.add(new ContactID(c.getInt(colID), c.getString(colNAME),
+                result.add(new ContactID(c.getString(colID), c.getString(colNAME),
                         c.getString(colPic)));
             } while (c.moveToNext());
         }
@@ -1074,7 +1062,7 @@ public class DB extends SQLiteOpenHelper {
             int colPic = c.getColumnIndex(CONTACT_PHOTO);
             int colMob1 = c.getColumnIndex(CONTACT_MOB1);
             do {
-                result.add(new ContactMobile(c.getInt(colID), c
+                result.add(new ContactMobile(c.getString(colID), c
                         .getString(colNAME), c.getString(colPic), c
                         .getString(colMob1)));
             } while (c.moveToNext());
@@ -1086,7 +1074,7 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public ArrayList<ContactUpdate> getDayAttendance(String type, String day,
-                                                     String name, IntWraper counter) {
+                                                     String name, IntWrapper counter) {
 
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO + "," + ATTEND_DAY +
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
@@ -1107,7 +1095,7 @@ public class DB extends SQLiteOpenHelper {
                 flag = c.getString(colDay) != null;
                 if (flag)
                     updated++;
-                result.add(new ContactUpdate(c.getInt(colID), c
+                result.add(new ContactUpdate(c.getString(colID), c
                         .getString(colNAME), "", flag,
                         c.getString(colPic)));
             } while (c.moveToNext());
@@ -1117,7 +1105,7 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
-    public void addDay(int id, String type, String day) {
+    public void addDay(String id, String type, String day) {
         ContentValues values = new ContentValues();
         values.put(ATTEND_ID, id);
         values.put(ATTEND_DAY, day);
@@ -1125,10 +1113,10 @@ public class DB extends SQLiteOpenHelper {
         writableDB.insert(TB_ATTEND, null, values);
     }
 
-    public void removeDay(int id, String type, String day) {
+    public void removeDay(String id, String type, String day) {
         writableDB.delete(TB_ATTEND, ATTEND_ID + " = ? AND " + ATTEND_TYPE
                         + " = ? AND " + ATTEND_DAY + " = ?",
-                new String[]{String.valueOf(id), type,
+                new String[]{id, type,
                         day});
     }
 
@@ -1144,7 +1132,7 @@ public class DB extends SQLiteOpenHelper {
             int colNAME = c.getColumnIndex(CONTACT_NAME);
             int colPIC_DIR = c.getColumnIndex(CONTACT_PHOTO);
             do {
-                result.add(new ContactID(c.getInt(colID), c.getString(colNAME),
+                result.add(new ContactID(c.getString(colID), c.getString(colNAME),
                         c.getString(colPIC_DIR)));
             } while (c.moveToNext());
         }
@@ -1189,13 +1177,13 @@ public class DB extends SQLiteOpenHelper {
                         y2 = Integer.parseInt(arr[2]);
                         if (y2 < y1 || y2 == y1 && m2 < m1 || y2 == y1
                                 && m2 == m1 && d2 < d1) {
-                            result.add(new ContactDay(c.getInt(colID), c
+                            result.add(new ContactDay(c.getString(colID), c
                                     .getString(colNAME), temp, c
                                     .getString(colPIC_DIR)));
                         }
                     }
                 } else {
-                    result.add(new ContactDay(c.getInt(colID), c
+                    result.add(new ContactDay(c.getString(colID), c
                             .getString(colNAME), temp, c.getString(colPIC_DIR)));
                 }
             } while (c.moveToNext());
@@ -1273,7 +1261,7 @@ public class DB extends SQLiteOpenHelper {
             int colNAME = c.getColumnIndex(CONTACT_NAME);
             int colPIC_DIR = c.getColumnIndex(CONTACT_PHOTO);
             do {
-                result.add(new ContactDay(c.getInt(colID),
+                result.add(new ContactDay(c.getString(colID),
                         c.getString(colNAME), date, c.getString(colPIC_DIR)));
 
             } while (c.moveToNext());
@@ -1302,7 +1290,7 @@ public class DB extends SQLiteOpenHelper {
             do {
                 tempTimes = Utility.countSegments(c.getString(colDATES));
                 maxTimes = Math.max(tempTimes, maxTimes);
-                result.add(new ContactStatis(c.getInt(colID), c
+                result.add(new ContactStatis(c.getString(colID), c
                         .getString(colNAME), tempTimes, c.getString(colPIC_DIR)));
 
             } while (c.moveToNext());
@@ -1339,7 +1327,7 @@ public class DB extends SQLiteOpenHelper {
                     if (arr.length > 2) {
                         m = Integer.parseInt(arr[1]);
                         if (month == m) {
-                            result.add(new ContactDay(c.getInt(colID), c
+                            result.add(new ContactDay(c.getString(colID), c
                                     .getString(colNAME), c.getString(colBDAY),
                                     c.getString(colPIC_DIR)));
 
@@ -1380,7 +1368,7 @@ public class DB extends SQLiteOpenHelper {
                         d = Integer.parseInt(arr[0]);
                         m = Integer.parseInt(arr[1]);
                         if (month == m && day == d) {
-                            result.add(new ContactDay(c.getInt(colID), c
+                            result.add(new ContactDay(c.getString(colID), c
                                     .getString(colNAME), c.getString(colBDAY),
                                     c.getString(colPIC_DIR)));
                         }
@@ -1427,16 +1415,16 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public int getNameId(String name) {
+    public String getNameId(String name) {
         String selectQuery = "SELECT " + CONTACT_ID + " FROM " + TB_CONTACT + " WHERE "
                 + CONTACT_NAME + "='" + name + "' LIMIT 1";
         Cursor c = readableDB.rawQuery(selectQuery, null);
         if (c.getCount() == 0) {
             c.close();
-            return -1;
+            return "-1";
         }
         c.moveToFirst();
-        int temp = c.getInt(c.getColumnIndex(CONTACT_ID));
+        String temp = c.getString(c.getColumnIndex(CONTACT_ID));
         c.close();
         return temp;
     }

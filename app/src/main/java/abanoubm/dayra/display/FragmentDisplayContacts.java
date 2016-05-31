@@ -3,7 +3,6 @@ package abanoubm.dayra.display;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,17 +19,17 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapt.ContactSortAdapter;
+import abanoubm.dayra.adapters.ContactSortAdapter;
 import abanoubm.dayra.main.DB;
-import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.obj.ContactID;
-import abanoubm.dayra.obj.ContactSort;
+import abanoubm.dayra.model.ContactID;
+import abanoubm.dayra.model.ContactSort;
 
 public class FragmentDisplayContacts extends Fragment {
     private ListView lv;
     private ArrayList<ContactSort> list;
     private int previousPosition = 0;
-
+    boolean isDualMode=false;
+    private ContactSortAdapter mAdapter;
     private class GetAllTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
 
@@ -53,7 +51,8 @@ public class FragmentDisplayContacts extends Fragment {
 
         @Override
         protected void onPostExecute(Void att) {
-            lv.setAdapter(new ContactSortAdapter(getActivity(), list));
+            mAdapter.clear();
+            mAdapter.addAll(list);
             pBar.dismiss();
             if (list.size() == 0) {
                 getActivity().finish();
@@ -63,6 +62,8 @@ public class FragmentDisplayContacts extends Fragment {
                 if (previousPosition < list.size())
                     lv.setSelection(previousPosition);
                 previousPosition = 0;
+                if(isDualMode)
+                    ((CallBack) getActivity()).onItemSelected(mAdapter.getItem(previousPosition).getId());
             }
 
         }
@@ -190,7 +191,10 @@ public class FragmentDisplayContacts extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            isDualMode = arguments.getBoolean("isdual");
+        }
     }
 
     @Override
@@ -213,6 +217,9 @@ public class FragmentDisplayContacts extends Fragment {
             }
         });
         lv = (ListView) root.findViewById(R.id.dsr_list);
+        mAdapter = new ContactSortAdapter(getActivity(),new ArrayList<ContactSort>(0));
+        lv.setAdapter(mAdapter);
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,

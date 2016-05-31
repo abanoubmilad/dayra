@@ -20,7 +20,7 @@ import java.io.File;
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.obj.ContactData;
+import abanoubm.dayra.model.ContactData;
 
 public class FragmentDisplayContactInfo extends Fragment {
 

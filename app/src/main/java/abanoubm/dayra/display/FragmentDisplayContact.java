@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.opr.EditContact;
+import abanoubm.dayra.operations.EditContact;
 
 public class FragmentDisplayContact extends Fragment {
     private int id = -1;

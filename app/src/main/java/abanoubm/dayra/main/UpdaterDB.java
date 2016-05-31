@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-import abanoubm.dayra.obj.ContactData;
+import abanoubm.dayra.model.ContactData;
 
 public class UpdaterDB extends SQLiteOpenHelper {
     private static String DB_PATH = "";
