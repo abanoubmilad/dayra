@@ -151,7 +151,14 @@
     <string name="flag.attended">attended</string>
     <string name="flag.chosen">chosen</string>
     <string name="flag.exist">already exist</string>
+    <string name="select.attendance.type">Select attendance type</string>
 
+    <string-array name="attendance_type">
+        <item>Attendance 1</item>
+        <item>Attendance 2</item>
+        <item>Attendance 3</item>
+        <item>Attendance 4</item>
+    </string-array>
     <string-array name="language_menu">
         <item>عربى</item>
         <item>English</item>

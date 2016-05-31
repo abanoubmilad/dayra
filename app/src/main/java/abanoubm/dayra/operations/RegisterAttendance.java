@@ -20,6 +20,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class RegisterAttendance extends Activity {
     private ContactUpdate chosenAtt;
     private DB dbm;
     private int totalCount;
-    private String dayType = "";
+    private int dayType = 0;
     private int updatedCount;
 
     private EditText edit_date;
@@ -68,7 +69,7 @@ public class RegisterAttendance extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.addDay(chosenAtt.getId(), dayType, targetDay);
+            dbm.addDay(chosenAtt.getId(), dayType+"", targetDay);
             return null;
         }
 
@@ -82,7 +83,7 @@ public class RegisterAttendance extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.removeDay(chosenAtt.getId(), dayType, targetDay);
+            dbm.removeDay(chosenAtt.getId(), dayType+"", targetDay);
             return null;
         }
 
@@ -108,7 +109,7 @@ public class RegisterAttendance extends Activity {
         @Override
         protected ArrayList<ContactUpdate> doInBackground(String... params) {
             name = params[0];
-            return dbm.getDayAttendance(dayType, targetDay, params[0], temp);
+            return dbm.getDayAttendance(dayType+"", targetDay, params[0], temp);
         }
 
         @Override
@@ -161,7 +162,7 @@ public class RegisterAttendance extends Activity {
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH));
 
-        ((ImageView) findViewById(R.id.pick_date))
+        findViewById(R.id.pick_date)
                 .setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -214,10 +215,7 @@ public class RegisterAttendance extends Activity {
         pBar = new ProgressDialog(RegisterAttendance.this);
         pBar.setCancelable(false);
 
-        dbm = DB.getInstance(
-                getApplicationContext(),
-                getSharedPreferences("login", Context.MODE_PRIVATE).getString(
-                        "dbname", ""));
+        dbm = DB.getDBInstance(getApplicationContext());
 
         sname.addTextChangedListener(new TextWatcher() {
 
@@ -240,6 +238,25 @@ public class RegisterAttendance extends Activity {
 
         });
         edit_date.setText(targetDay);
+
+        ((Spinner) findViewById(R.id.spin)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                if (dayType != position) {
+                    dayType = position;
+                    if (targetDay.length() > 0)
+                        new GetAllUpdateDifTask()
+                                .execute(sname.getText().toString().trim());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 

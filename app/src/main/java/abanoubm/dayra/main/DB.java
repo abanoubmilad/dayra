@@ -45,6 +45,7 @@ import jxl.write.WritableWorkbook;
 
 public class DB extends SQLiteOpenHelper {
     private static String DB_NAME = "";
+    private static final int DB_VERSION = 3;
 
     private static final String TB_CONNECTION = "conn_tb";
     private static final String CONN_A = "conn_a";
@@ -71,7 +72,9 @@ public class DB extends SQLiteOpenHelper {
     private static DB dbm;
     private SQLiteDatabase readableDB, writableDB;
 
-    public static DB getInstance(Context context, String dbName) {
+    public static DB getDBInstance(Context context) {
+        String dbName = context.getSharedPreferences("login",
+                Context.MODE_PRIVATE).getString("dbname", "");
         if (dbm != null && DB_NAME.equals(dbName))
             return dbm;
         else {

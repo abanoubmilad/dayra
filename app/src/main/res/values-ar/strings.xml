@@ -149,7 +149,14 @@
     <string name="flag.attended">حاضر</string>
     <string name="flag.chosen">تم الاختيار</string>
     <string name="flag.exist">موجود بالفعل</string>
+    <string name="select.attendance.type">اختر نوع الحضور</string>
 
+    <string-array name="attendance_type">
+        <item>حضور ١</item>
+        <item>حضور ٢</item>
+        <item>حضور ٣</item>
+        <item>حضور ٣</item>
+    </string-array>
     <string-array name="language_menu">
         <item>عربى</item>
         <item>English</item>
