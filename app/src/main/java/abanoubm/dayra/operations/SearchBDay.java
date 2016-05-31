@@ -42,10 +42,7 @@ public class SearchBDay extends Activity {
 
         @Override
         protected ArrayList<ContactDay> doInBackground(String... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).searchBirthDay(
+            return DB.getInstant(getApplicationContext()).searchBirthDay(
                     Integer.parseInt(params[0]), Integer.parseInt(params[1]));
         }
 
@@ -75,10 +72,7 @@ public class SearchBDay extends Activity {
 
         @Override
         protected ArrayList<ContactDay> doInBackground(String... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).searchBirthDay(
+            return DB.getInstant(getApplicationContext()).searchBirthDay(
                     Integer.parseInt(params[0]));
         }
 

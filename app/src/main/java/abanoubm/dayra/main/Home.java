@@ -369,8 +369,11 @@ public class Home extends Activity {
                             R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
                             .show();
                 } else if (!DB.isDBExists(getApplicationContext(), entered)) {
-                    File dbFile = DB.getInstance(getApplicationContext(),
-                            nameStr).getDBFile(getApplicationContext());
+
+                    DB db =DB.getInstant(getApplicationContext());
+                    File dbFile = db.getDBFile(getApplicationContext());
+                    db.closeDB();
+
                     String path = dbFile.getPath().substring(0,
                             dbFile.getPath().lastIndexOf("/") + 1);
 
@@ -468,13 +471,10 @@ public class Home extends Activity {
             if (android.os.Build.VERSION.SDK_INT >= 8) {
 
                 MediaScannerConnection.scanFile(getApplicationContext(),
-                        new String[]{path.toString()}, null, null);
+                        new String[]{path }, null, null);
             }
 
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).exportReport(path,
+            return DB.getInstant(getApplicationContext()).exportReport(path,
                     getResources().getStringArray(R.array.excel_header),
                     findViewById(R.id.english_layout) != null);
         }
@@ -504,10 +504,7 @@ public class Home extends Activity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).deleteDB(
+            return  DB.getInstant(getApplicationContext()).deleteDB(
                     getApplicationContext());
         }
 
@@ -573,13 +570,12 @@ public class Home extends Activity {
 
             SharedPreferences sharedPref = getSharedPreferences("login",
                     Context.MODE_PRIVATE);
-            DB dbm = DB.getInstance(getApplicationContext(),
-                    sharedPref.getString("dbname", ""));
+            DB dbm =  DB.getInstant(getApplicationContext());
             path += sharedPref.getString("dbname", "dayra db");
             if (android.os.Build.VERSION.SDK_INT >= 8) {
 
                 MediaScannerConnection.scanFile(getApplicationContext(),
-                        new String[]{path.toString()}, null, null);
+                        new String[]{path}, null, null);
             }
 
             try {
@@ -645,12 +641,9 @@ public class Home extends Activity {
             if (android.os.Build.VERSION.SDK_INT >= 8) {
 
                 MediaScannerConnection.scanFile(getApplicationContext(),
-                        new String[]{path.toString()}, null, null);
+                        new String[]{path}, null, null);
             }
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).exportDayraExcel(
+            return DB.getInstant(getApplicationContext()).exportDayraExcel(
                     getApplicationContext(), path);
 
         }

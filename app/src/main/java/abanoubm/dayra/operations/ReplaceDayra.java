@@ -2,7 +2,6 @@ package abanoubm.dayra.operations;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -63,10 +62,7 @@ public class ReplaceDayra extends Activity {
             UpdaterDB updater = new UpdaterDB(getApplicationContext(),
                     extr_dbname, extr_path);
             if (updater.checkDB()) {
-                DB.getInstance(
-                        getApplicationContext(),
-                        getSharedPreferences("login", Context.MODE_PRIVATE)
-                                .getString("dbname", "")).externalUpdater(
+                DB.getInstant(getApplicationContext()).externalUpdater(
                         updater.getAttendantsData(), dataTag);
                 updater.close();
                 return R.string.msg_dayra_replaced;

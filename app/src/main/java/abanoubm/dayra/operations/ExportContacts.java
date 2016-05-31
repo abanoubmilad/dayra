@@ -65,12 +65,9 @@ public class ExportContacts extends Activity {
             if (android.os.Build.VERSION.SDK_INT >= 8) {
 
                 MediaScannerConnection.scanFile(getApplicationContext(),
-                        new String[]{path.toString()}, null, null);
+                        new String[]{path}, null, null);
             }
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).exportContactsPdf(
+            return DB.getInstant(getApplicationContext()).exportContactsPdf(
                     dataTag, dataHeader, path);
 
         }

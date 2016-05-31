@@ -15,7 +15,7 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.model.GoogleContact;
 
 public class GContactsInAdapter extends ArrayAdapter<GoogleContact> {
-    private int white, highlight;
+    private final int  white, highlight;
 
     public GContactsInAdapter(Context context,
                               ArrayList<GoogleContact> contacts) {

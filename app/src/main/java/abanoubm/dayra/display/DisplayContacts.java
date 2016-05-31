@@ -24,10 +24,7 @@ public class DisplayContacts extends ActionBarActivity implements CallBack {
                     .commit();
         }
 
-        if (findViewById(R.id.display_contacts_fragment_dual) != null)
-            dualMode = true;
-        else
-            dualMode = false;
+            dualMode = findViewById(R.id.display_contacts_fragment_dual) != null;
 
     }
 

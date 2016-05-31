@@ -23,7 +23,7 @@
             android:inputType="number"
             android:maxLength="2"
             android:textColor="@color/grey"
-            android:textSize="@dimen/font_larger"></EditText>
+            android:textSize="@dimen/font_larger"/>
 
         <EditText
             android:id="@+id/sbday_month"
@@ -36,7 +36,7 @@
             android:inputType="number"
             android:maxLength="2"
             android:textColor="@color/grey"
-            android:textSize="@dimen/font_larger"></EditText>
+            android:textSize="@dimen/font_larger"/>
     </LinearLayout>
 
     <ListView
@@ -46,7 +46,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
-        android:background="@color/white"></ListView>
+        android:background="@color/white"/>
 
     <TextView
         android:id="@+id/sbday_btn"

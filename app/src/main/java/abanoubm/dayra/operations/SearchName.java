@@ -2,7 +2,6 @@ package abanoubm.dayra.operations;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -43,10 +42,7 @@ public class SearchName extends Activity {
 
         @Override
         protected ArrayList<ContactID> doInBackground(String... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).searchName(params[0]);
+            return DB.getInstant(getApplicationContext()).searchName(params[0]);
         }
 
         @Override

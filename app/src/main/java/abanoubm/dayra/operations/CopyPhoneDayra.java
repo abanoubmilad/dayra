@@ -117,7 +117,7 @@ public class CopyPhoneDayra extends Activity {
             GoogleContact temp;
             int failureCounter = 0;
             copied = 0;
-            DB dbm = DB.getInstance(getApplicationContext(), Utility.getDayraName(getApplicationContext()));
+            DB dbm = DB.getInstant(getApplicationContext());
             for (int i = 0; i < count; i++) {
                 temp = mAdapter.getItem(i);
                 if (temp.isSelected()) {

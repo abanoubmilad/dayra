@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import abanoubm.dayra.R;
 
 public class MenuItemAdapter extends ArrayAdapter<String> {
-    private TypedArray icons;
+    private final TypedArray icons;
 
     public MenuItemAdapter(Context context, ArrayList<String> arr, int menuType) {
         super(context, 0, arr);

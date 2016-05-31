@@ -76,8 +76,7 @@ public class FragmentDisplayContactConnection extends Fragment {
 
         @Override
         protected ArrayList<ContactID> doInBackground(Void... params) {
-            return DB.getInstance(
-                    getActivity(), Utility.getDayraName(getActivity())).getAttendantConnections(
+            return DB.getInstant(getActivity()).getAttendantConnections(
                     hostID);
         }
 

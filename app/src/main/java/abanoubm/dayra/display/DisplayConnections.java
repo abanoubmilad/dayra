@@ -39,10 +39,7 @@ public class DisplayConnections extends Activity {
 
         @Override
         protected ArrayList<ContactID> doInBackground(Void... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getAttendantConnections(
+            return DB.getInstant(getApplicationContext()).getAttendantConnections(
                     hostID);
         }
 

@@ -40,10 +40,7 @@ public class DivideDayra extends Activity {
 
         @Override
         protected String[] doInBackground(Void... params) {
-            int temp = DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getClassYearsCount();
+            int temp = DB.getInstant(getApplicationContext()).getClassYearsCount();
             if (temp == 0)
                 return null;
             String[] arr = new String[temp];
@@ -105,16 +102,10 @@ public class DivideDayra extends Activity {
             String class_year = tv_class_year.getText().toString().trim();
             try {
                 if (class_year.equals(""))
-                    DB.getInstance(
-                            getApplicationContext(),
-                            getSharedPreferences("login", Context.MODE_PRIVATE)
-                                    .getString("dbname", "")).divideDayra(
+                    DB.getInstant(getApplicationContext()).divideDayra(
                             getApplicationContext(), path);
                 else
-                    DB.getInstance(
-                            getApplicationContext(),
-                            getSharedPreferences("login", Context.MODE_PRIVATE)
-                                    .getString("dbname", "")).divideDayra(
+                    DB.getInstant(getApplicationContext()).divideDayra(
                             getApplicationContext(),
                             Integer.parseInt(class_year), path);
                 return true;

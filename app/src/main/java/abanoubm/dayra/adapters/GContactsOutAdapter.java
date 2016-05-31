@@ -19,7 +19,7 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.model.ContactMobile;
 
 public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
-    private int white, highlight;
+    private final int white, highlight;
 
     public GContactsOutAdapter(Context context,
                                ArrayList<ContactMobile> contacts) {

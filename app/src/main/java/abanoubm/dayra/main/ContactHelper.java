@@ -75,9 +75,7 @@ public class ContactHelper {
                             + " ASC");
 
             if (c.moveToFirst()) {
-                DB db = DB.getInstance(
-                        context,
-                        Utility.getDayraName(context));
+                DB db = DB.getInstant(context);
                 int colNAME = c.getColumnIndex(projection[0]);
                 int colNUMBER = c.getColumnIndex(projection[1]);
                 do {

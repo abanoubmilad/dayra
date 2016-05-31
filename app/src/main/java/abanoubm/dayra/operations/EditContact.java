@@ -142,10 +142,7 @@ public class EditContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getStreets();
+            return DB.getInstant(getApplicationContext()).getStreets();
         }
 
         @Override
@@ -190,10 +187,7 @@ public class EditContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getConnFathers();
+            return DB.getInstant(getApplicationContext()).getConnFathers();
         }
 
         @Override
@@ -237,10 +231,7 @@ public class EditContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getSites();
+            return DB.getInstant(getApplicationContext()).getSites();
         }
 
         @Override
@@ -285,10 +276,7 @@ public class EditContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getStudyWork();
+            return DB.getInstant(getApplicationContext()).getStudyWork();
         }
 
         @Override
@@ -334,10 +322,7 @@ public class EditContact extends Activity {
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
 
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getClassYears();
+            return DB.getInstant(getApplicationContext()).getClassYears();
         }
 
         @Override
@@ -387,10 +372,7 @@ public class EditContact extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            attData = DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getAttendantData(
+            attData = DB.getInstant(getApplicationContext()).getAttendantData(
                     getIntent().getIntExtra("id", -1));
             imgPath = attData.getPicDir();
             return null;
@@ -416,10 +398,7 @@ public class EditContact extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).deleteAttendant(
+            DB.getInstant(getApplicationContext()).deleteAttendant(
                     attData.getId());
             return null;
         }
@@ -653,7 +632,7 @@ public class EditContact extends Activity {
         AlertDialog.Builder builder = new AlertDialog.Builder(EditContact.this);
         builder.setTitle(R.string.label_choose_photo);
         builder.setItems(
-                (CharSequence[]) getResources().getStringArray(
+                getResources().getStringArray(
                         R.array.photo_menu),
                 new DialogInterface.OnClickListener() {
 

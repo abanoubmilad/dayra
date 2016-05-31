@@ -39,9 +39,7 @@ public class UpdaterDB extends SQLiteOpenHelper {
                     + LAND_PHONE + "," + ADDRESS + "," + STREET + "," + SITE
                     + "," + STUDY_WORK + "," + CLASS_YEAR + " FROM " + Tb_NAME
                     + " LIMIT 1";
-            if (sdb.rawQuery(sql, null) == null)
-                return false;
-            return true;
+                return sdb.rawQuery(sql, null) != null;
         } catch (Exception e) {
             return false;
         }

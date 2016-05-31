@@ -43,9 +43,7 @@ public class FragmentDisplayContactDay extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            attData = DB.getInstance(getActivity(),
-                    getActivity().getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getAttendantData(id);
+            attData = DB.getInstant(getActivity()).getAttendantData(id);
             return null;
         }
     }

@@ -40,10 +40,7 @@ public class DisplayContactsStatis extends Activity {
 
         @Override
         protected ArrayList<ContactStatis> doInBackground(Void... params) {
-            ArrayList<ContactStatis> atts = DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getAttendantsStatis();
+            ArrayList<ContactStatis> atts = DB.getInstant(getApplicationContext()).getAttendantsStatis();
             Collections.sort(atts, new Comparator<ContactStatis>() {
                 @Override
                 public int compare(ContactStatis lhs, ContactStatis rhs) {

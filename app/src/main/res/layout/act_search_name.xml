@@ -19,13 +19,13 @@
         android:inputType="text"
         android:maxLength="30"
         android:textColor="@color/grey"
-        android:textSize="26sp"></EditText>
+        android:textSize="26sp"/>
 
     <ListView
         android:id="@+id/sname_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"></ListView>
+        android:layout_weight="1"/>
 
     <TextView
         android:id="@+id/sname_btn"

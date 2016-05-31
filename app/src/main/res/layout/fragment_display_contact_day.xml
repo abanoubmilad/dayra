@@ -70,17 +70,17 @@
             <ListView
                 android:id="@+id/dayList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
+                android:layout_height="match_parent"/>
 
             <ListView
                 android:id="@+id/monthList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
+                android:layout_height="match_parent"/>
 
             <ListView
                 android:id="@+id/yearList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
+                android:layout_height="match_parent"/>
         </LinearLayout>
     </LinearLayout>
 

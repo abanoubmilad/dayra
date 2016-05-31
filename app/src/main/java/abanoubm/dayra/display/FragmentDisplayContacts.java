@@ -43,10 +43,7 @@ public class FragmentDisplayContacts extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            list = DB.getInstance(
-                    getActivity(),
-                    getActivity().getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getAttendantsSort();
+            list =  DB.getInstant(getActivity()).getAttendantsSort();
             return null;
         }
 
@@ -86,7 +83,7 @@ public class FragmentDisplayContacts extends Fragment {
 
         @Override
         protected Void doInBackground(Integer... params) {
-            switch (params[0].intValue()) {
+            switch (params[0]) {
                 // name
                 case 0:
                     Collections.sort(list, new Comparator<ContactSort>() {

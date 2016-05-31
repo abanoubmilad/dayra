@@ -37,18 +37,6 @@ public class Utility {
         }
     }
 
-    public static boolean isYear(String str) {
-        try {
-            if (str.length() > 0) {
-                int n = Integer.parseInt(str);
-                return n < 2100 && n > 1900;
-            }
-            return false;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public static boolean isEmail(String str) {
         return str.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");

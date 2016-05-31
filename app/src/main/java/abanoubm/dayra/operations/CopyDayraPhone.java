@@ -81,8 +81,7 @@ public class CopyDayraPhone extends Activity {
 
         @Override
         protected ArrayList<ContactMobile> doInBackground(Void... params) {
-            return DB.getInstance(getApplicationContext(),
-                    Utility.getDayraName(getApplicationContext())).getGContactsMobile(getContentResolver());
+            return DB.getInstant(getApplicationContext()).getGContactsMobile(getContentResolver());
         }
 
         @Override

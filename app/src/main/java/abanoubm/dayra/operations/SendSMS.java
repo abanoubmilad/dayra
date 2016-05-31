@@ -205,8 +205,7 @@ public class SendSMS extends Activity {
         pBar = new ProgressDialog(SendSMS.this);
         pBar.setCancelable(false);
 
-        dbm = DB.getInstance(
-                getApplicationContext(), Utility.getDayraName(getApplicationContext()));
+        dbm = DB.getInstant(getApplicationContext());
     }
 
     @Override

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,7 +30,6 @@ import abanoubm.dayra.model.ContactDay;
 public class SearchDate extends Activity {
     private ContactDayAdapter adapter;
     private int searchFlag;
-    private String dbName;
 
     private class SearchDateTask extends
             AsyncTask<String, Void, ArrayList<ContactDay>> {
@@ -47,14 +45,11 @@ public class SearchDate extends Activity {
         @Override
         protected ArrayList<ContactDay> doInBackground(String... params) {
             if (searchFlag < 3)
-                return DB.getInstance(
-                        getApplicationContext(), dbName).searchLastDate(
+                return DB.getInstant(getApplicationContext()).searchLastDate(
                         params[0], searchFlag == 1);
             else {
                 String[] arr = params[0].split("-");
-                return DB.getInstance(
-                        getApplicationContext(),
-                        dbName)
+                return DB.getInstant(getApplicationContext())
                         .searchLastDateAbsence(Integer.parseInt(arr[0]),
                                 Integer.parseInt(arr[1]),
                                 Integer.parseInt(arr[2]), searchFlag == 3);
@@ -83,9 +78,6 @@ public class SearchDate extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_search_date);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
-
-        dbName = getSharedPreferences("login", Context.MODE_PRIVATE).getString(
-                "dbname", "");
 
         searchFlag = getIntent().getIntExtra("sf", 1);
 

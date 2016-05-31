@@ -36,6 +36,6 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
-        android:background="@color/white"></ListView>
+        android:background="@color/white"/>
 
 </LinearLayout>

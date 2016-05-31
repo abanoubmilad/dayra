@@ -166,10 +166,7 @@ public class EditConnections extends Activity {
         pBar = new ProgressDialog(EditConnections.this);
         pBar.setCancelable(false);
 
-        dbm = DB.getInstance(
-                getApplicationContext(),
-                getSharedPreferences("login", Context.MODE_PRIVATE).getString(
-                        "dbname", ""));
+        dbm = DB.getInstant(getApplicationContext());
     }
 
     @Override

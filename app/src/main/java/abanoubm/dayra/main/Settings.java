@@ -58,7 +58,7 @@ public class Settings extends Activity {
                 new Intent(Settings.this, BDayReceiver.class).putExtra(
                         "dbname", dbname), 0);
 
-        ((TextView) findViewById(R.id.save))
+        findViewById(R.id.save)
                 .setOnClickListener(new OnClickListener() {
 
                     @Override

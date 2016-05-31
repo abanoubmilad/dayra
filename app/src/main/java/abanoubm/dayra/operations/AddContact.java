@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -69,10 +68,7 @@ public class AddContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getStudyWork();
+            return DB.getInstant(getApplicationContext()).getStudyWork();
         }
 
         @Override
@@ -116,10 +112,7 @@ public class AddContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getSites();
+            return DB.getInstant(getApplicationContext()).getSites();
         }
 
         @Override
@@ -164,10 +157,7 @@ public class AddContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getStreets();
+            return DB.getInstant(getApplicationContext()).getStreets();
         }
 
         @Override
@@ -212,10 +202,7 @@ public class AddContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getConnFathers();
+            return DB.getInstant(getApplicationContext()).getConnFathers();
         }
 
         @Override
@@ -260,10 +247,7 @@ public class AddContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getClassYears();
+            return DB.getInstant(getApplicationContext()).getClassYears();
         }
 
         @Override
@@ -325,9 +309,7 @@ public class AddContact extends Activity {
                     .getText().toString().trim(), site_str = edit_site
                     .getText().toString().trim();
 
-            DB dbm = DB.getInstance(getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", ""));
+            DB dbm = DB.getInstant(getApplicationContext());
             if (!Utility.isName(name_str)) {
                 msgSource = R.string.err_msg_invalid_name;
             } else if (!dbm.getNameId(name_str).equals("-1")) {
@@ -385,7 +367,7 @@ public class AddContact extends Activity {
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH));
 
-        ((ImageView) findViewById(R.id.pick_bday))
+        findViewById(R.id.pick_bday)
                 .setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -406,7 +388,7 @@ public class AddContact extends Activity {
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH));
 
-        ((ImageView) findViewById(R.id.pick_lvisit))
+        findViewById(R.id.pick_lvisit)
                 .setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -460,7 +442,7 @@ public class AddContact extends Activity {
         img = (ImageView) findViewById(R.id.pic_view);
         img.setImageResource(R.mipmap.def);
 
-        ((ImageView) findViewById(R.id.back))
+        findViewById(R.id.back)
                 .setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -469,7 +451,7 @@ public class AddContact extends Activity {
                     }
                 });
 
-        ((TextView) findViewById(R.id.add))
+        findViewById(R.id.add)
                 .setOnClickListener(new OnClickListener() {
 
                     @Override

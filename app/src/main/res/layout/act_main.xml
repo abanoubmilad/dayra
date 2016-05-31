@@ -12,6 +12,6 @@
         android:layout_weight="1"
         android:background="@color/white"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp"></ListView>
+        android:paddingRight="15dp"/>
 
 </LinearLayout>

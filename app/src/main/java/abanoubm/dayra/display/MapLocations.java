@@ -65,10 +65,7 @@ public class MapLocations extends FragmentActivity implements
 
         @Override
         protected ArrayList<ContactLoc> doInBackground(Void... params) {
-            return DB.getInstance(
-                    getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "")).getAttendantsLoc();
+            return  DB.getInstant(getApplicationContext()).getAttendantsLoc();
         }
 
     }
@@ -80,7 +77,7 @@ public class MapLocations extends FragmentActivity implements
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_display_locs);
 
-        ((ImageView) findViewById(R.id.back))
+        findViewById(R.id.back)
                 .setOnClickListener(new OnClickListener() {
 
                     @Override

@@ -72,7 +72,7 @@ public class DB extends SQLiteOpenHelper {
     private static DB dbm;
     private SQLiteDatabase readableDB, writableDB;
 
-    public static DB getDBInstance(Context context) {
+    public static DB getInstant(Context context) {
         String dbName = context.getSharedPreferences("login",
                 Context.MODE_PRIVATE).getString("dbname", "");
         if (dbm != null && DB_NAME.equals(dbName))

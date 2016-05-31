@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -18,7 +17,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -215,7 +213,7 @@ public class RegisterAttendance extends Activity {
         pBar = new ProgressDialog(RegisterAttendance.this);
         pBar.setCancelable(false);
 
-        dbm = DB.getDBInstance(getApplicationContext());
+        dbm = DB.getInstant(getApplicationContext());
 
         sname.addTextChangedListener(new TextWatcher() {
 
