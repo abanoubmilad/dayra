@@ -2,14 +2,12 @@ package abanoubm.dayra.operations;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -21,18 +19,14 @@ import java.util.ArrayList;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.GContactsInAdapter;
-import abanoubm.dayra.display.DisplayContactDetails;
 import abanoubm.dayra.main.ContactHelper;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.model.ContactMobile;
 import abanoubm.dayra.model.GoogleContact;
 
 public class CopyPhoneDayra extends Activity {
     private CheckBox check;
     private GContactsInAdapter mAdapter;
-    private int previousPosition = 0;
-    private ListView lv;
 
     private class CheckAllContactsTask extends AsyncTask<Boolean, Void, Void> {
         private ProgressDialog pBar;
@@ -91,9 +85,6 @@ public class CopyPhoneDayra extends Activity {
             } else {
                 mAdapter.clear();
                 mAdapter.addAll(result);
-                if (previousPosition < result.size())
-                    lv.setSelection(previousPosition);
-                previousPosition = 0;
             }
 
         }
@@ -173,7 +164,7 @@ public class CopyPhoneDayra extends Activity {
             }
         });
 
-        lv = (ListView) findViewById(R.id.contacts_list);
+        ListView lv = (ListView) findViewById(R.id.contacts_list);
         mAdapter = new GContactsInAdapter(getApplicationContext(),
                 new ArrayList<GoogleContact>());
         lv.setAdapter(mAdapter);
@@ -181,28 +172,10 @@ public class CopyPhoneDayra extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                GoogleContact temp = mAdapter.getItem(position);
-                if (!temp.isExisted()) {
-                    check.setChecked(false);
-                    temp.invertSelected();
-                    mAdapter.notifyDataSetChanged();
-                }
-            }
-        });
-        lv.setOnItemLongClickListener(new OnItemLongClickListener() {
+                check.setChecked(false);
+                mAdapter.getItem(position).invertSelected();
+                mAdapter.notifyDataSetChanged();
 
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view,
-                                           int position, long id) {
-                previousPosition = lv.getFirstVisiblePosition();
-
-                ContactMobile temp = (ContactMobile) parent
-                        .getItemAtPosition(position);
-                Intent intent = new Intent(getApplicationContext(),
-                        DisplayContactDetails.class);
-                intent.putExtra("id", temp.getId());
-                startActivity(intent);
-                return true;
             }
         });
         CopyBtn.setOnClickListener(new OnClickListener() {

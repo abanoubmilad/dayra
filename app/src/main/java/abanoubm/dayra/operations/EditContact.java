@@ -713,7 +713,7 @@ public class EditContact extends Activity {
 
     private void confirmDelete() {
         LayoutInflater li = LayoutInflater.from(getApplicationContext());
-        View chooseView = li.inflate(R.layout.delete_attendant, null);
+        View chooseView = li.inflate(R.layout.delete_contact, null);
         final AlertDialog ad = new AlertDialog.Builder(EditContact.this)
                 .setCancelable(true).create();
         ad.setView(chooseView, 0, 0, 0, 0);

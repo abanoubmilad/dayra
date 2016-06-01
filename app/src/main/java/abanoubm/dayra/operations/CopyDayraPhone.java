@@ -190,12 +190,9 @@ public class CopyDayraPhone extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                ContactMobile temp = mAdapter.getItem(position);
-                if (!temp.isExisted()) {
-                    check.setChecked(false);
-                    temp.invertSelected();
-                    mAdapter.notifyDataSetChanged();
-                }
+                check.setChecked(false);
+                mAdapter.getItem(position).invertSelected();
+                mAdapter.notifyDataSetChanged();
             }
         });
         lv.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -204,12 +201,9 @@ public class CopyDayraPhone extends Activity {
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
                 previousPosition = lv.getFirstVisiblePosition();
-
-                ContactMobile temp = (ContactMobile) parent
-                        .getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(),
                         DisplayContactDetails.class);
-                intent.putExtra("id", temp.getId());
+                intent.putExtra("id", mAdapter.getItem(position).getId());
                 startActivity(intent);
                 return true;
             }
