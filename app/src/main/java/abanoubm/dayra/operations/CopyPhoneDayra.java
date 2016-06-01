@@ -162,7 +162,7 @@ public class CopyPhoneDayra extends Activity {
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_transfer);
 
         TextView CopyBtn = (TextView) findViewById(R.id.btn);
-        CopyBtn.setText(R.string.btn_copy_selected);
+        CopyBtn.setText(R.string.subhead_select_in);
         check = (CheckBox) findViewById(R.id.check_all);
         check.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
