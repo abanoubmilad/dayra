@@ -68,7 +68,7 @@ public class AddContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstant(getApplicationContext()).getStudyWork();
+            return DB.getInstant(getApplicationContext()).getOptionsList(DB.CONTACT_STUDY_WORK);
         }
 
         @Override
@@ -112,7 +112,7 @@ public class AddContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstant(getApplicationContext()).getSites();
+            return DB.getInstant(getApplicationContext()).getOptionsList(DB.CONTACT_SITE);
         }
 
         @Override
@@ -157,7 +157,7 @@ public class AddContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstant(getApplicationContext()).getStreets();
+            return DB.getInstant(getApplicationContext()).getOptionsList(DB.CONTACT_ST);
         }
 
         @Override
@@ -202,7 +202,7 @@ public class AddContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstant(getApplicationContext()).getConnFathers();
+            return DB.getInstant(getApplicationContext()).getOptionsList(DB.CONTACT_PRIEST);
         }
 
         @Override
@@ -247,7 +247,7 @@ public class AddContact extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstant(getApplicationContext()).getClassYears();
+            return DB.getInstant(getApplicationContext()).getOptionsList(DB.CONTACT_CLASS_YEAR);
         }
 
         @Override
