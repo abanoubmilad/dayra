@@ -145,7 +145,7 @@
     <string name="msg.no.mobiles">لم يتم اختيار ارقام موبايل</string>
     <string name="subhead.edit.contact">تعديل البيانات</string>
     <string name="flag.attended">حاضر</string>
-    <string name="flag.chosen">تم الاختيار</string>
+    <string name="flag.chosen">اختر</string>
     <string name="flag.exist">موجود بالفعل</string>
     <string name="select.attendance.type">اختر نوع الحضور</string>
 
@@ -179,7 +179,6 @@
         <item>عرض عناوين</item>
         <item>تسجيل حضور</item>
         <item>نسب الحضور</item>
-        <item>ارسال رسائل قصيرة</item>
         <item>دليل المستخدم</item>
         <item>تابعنا على فيس بوك</item>
         <item>تواصل مع المُطور</item>
@@ -195,6 +194,7 @@
         <item>تواصل مع المُطور</item>
     </string-array>
     <string-array name="out_menu">
+        <item>ارسال SMS</item>
         <item>نسخ اسماء من الموبايل الى الدايره</item>
         <item>نسخ اسماء من الدايره الى الموبايل</item>
         <item>تصدير تقرير pdf</item>

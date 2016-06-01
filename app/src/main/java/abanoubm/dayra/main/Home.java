@@ -222,17 +222,12 @@ public class Home extends Activity {
                                 DisplayContactsStatistics.class));
                         break;
                     case 6:
-                        startActivity(new Intent(getApplicationContext(),
-                                SendSMS.class));
-                        break;
-
-                    case 7:
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri
                                 .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view"));
                         startActivity(i);
                         break;
-                    case 8:
+                    case 7:
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -279,26 +274,29 @@ public class Home extends Activity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 switch (position) {
-
                     case 0:
                         startActivity(new Intent(getApplicationContext(),
-                                CopyPhoneDayra.class));
+                                SendSMS.class));
                         break;
                     case 1:
                         startActivity(new Intent(getApplicationContext(),
-                                CopyDayraPhone.class));
+                                CopyPhoneDayra.class));
                         break;
                     case 2:
-                        new ExportReportTask().execute();
+                        startActivity(new Intent(getApplicationContext(),
+                                CopyDayraPhone.class));
                         break;
                     case 3:
+                        new ExportReportTask().execute();
+                        break;
+                    case 4:
                         startActivity(new Intent(getApplicationContext(),
                                 ExportContacts.class));
                         break;
-                    case 4:
+                    case 5:
                         new ExportTask().execute();
                         break;
-                    case 5:
+                    case 6:
                         new ExportDayraExcelTask().execute();
                         break;
                 }

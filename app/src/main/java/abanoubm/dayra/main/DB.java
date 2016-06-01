@@ -84,7 +84,7 @@ public class DB extends SQLiteOpenHelper {
     }
 
     private DB(Context context, String dbName) {
-        super(context, dbName, null, 3);
+        super(context, dbName, null, DB_VERSION);
         DB_NAME = dbName;
         readableDB = getReadableDatabase();
         writableDB = getWritableDatabase();
@@ -475,60 +475,6 @@ public class DB extends SQLiteOpenHelper {
         }
         c.close();
         return result;
-    }
-
-    public ArrayList<ContactData> getAttendantsData() {
-        String selectQuery = "SELECT * FROM " + TB_CONTACT + " ORDER BY "
-                + CONTACT_NAME;
-        Cursor c = readableDB.rawQuery(selectQuery, null);
-        ArrayList<ContactData> result = new ArrayList<>(c.getCount());
-
-        if (c.moveToFirst()) {
-            int COL_ID = c.getColumnIndex(CONTACT_ID);
-            int COL_MAP_LAT = c.getColumnIndex(CONTACT_MAPLAT);
-            int COL_MAP_LNG = c.getColumnIndex(CONTACT_MAPLNG);
-            int COL_MAP_ZOOM = c.getColumnIndex(CONTACT_MAPZOM);
-            int COL_NAME = c.getColumnIndex(CONTACT_NAME);
-            int COL_ATTEND_DATES = c.getColumnIndex(CONTACT_ATTEND_DATES);
-            int COL_LAST_ATTEND = c.getColumnIndex(CONTACT_LAST_ATTEND);
-            int COL_PIC_DIR = c.getColumnIndex(CONTACT_PHOTO);
-            int COL_PRIEST = c.getColumnIndex(CONTACT_PRIEST);
-            int COL_COMM = c.getColumnIndex(CONTACT_NOTES);
-            int COL_BDAY = c.getColumnIndex(CONTACT_BDAY);
-            int COL_EMAIL = c.getColumnIndex(CONTACT_EMAIL);
-            int COL_MOBILE1 = c.getColumnIndex(CONTACT_MOB1);
-            int COL_MOBILE2 = c.getColumnIndex(CONTACT_MOB2);
-            int COL_MOBILE3 = c.getColumnIndex(CONTACT_MOB3);
-            int COL_LAND_PHONE = c.getColumnIndex(CONTACT_LPHONE);
-            int COL_ADDRESS = c.getColumnIndex(CONTACT_ADDR);
-            int COL_LAST_VISIT = c.getColumnIndex(CONTACT_LAST_VISIT);
-            int COL_CLASS_YEAR = c.getColumnIndex(CONTACT_CLASS_YEAR);
-            int COL_STUDY_WORK = c.getColumnIndex(CONTACT_STUDY_WORK);
-            int COL_STREET = c.getColumnIndex(CONTACT_ST);
-            int COL_SITE = c.getColumnIndex(CONTACT_SITE);
-            do {
-
-                result.add(new ContactData(c.getString(COL_ID), c
-                        .getString(COL_NAME), c.getString(COL_PIC_DIR), c
-                        .getDouble(COL_MAP_LAT), c.getDouble(COL_MAP_LNG), c
-                        .getFloat(COL_MAP_ZOOM), c.getString(COL_ATTEND_DATES),
-                        c.getString(COL_LAST_ATTEND), c.getString(COL_PRIEST),
-                        c.getString(COL_COMM), c.getString(COL_BDAY), c
-                        .getString(COL_EMAIL),
-                        c.getString(COL_MOBILE1), c.getString(COL_MOBILE2), c
-                        .getString(COL_MOBILE3), c
-                        .getString(COL_LAND_PHONE), c
-                        .getString(COL_ADDRESS), c
-                        .getString(COL_LAST_VISIT), c
-                        .getString(COL_CLASS_YEAR), c
-                        .getString(COL_STUDY_WORK), c
-                        .getString(COL_STREET), c.getString(COL_SITE)));
-            } while (c.moveToNext());
-        }
-        c.close();
-
-        return result;
-
     }
 
     public ArrayList<ContactSort> getAttendantsSort() {
@@ -1032,27 +978,6 @@ public class DB extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<ContactID> getAttendantsID() {
-        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO
-                + " FROM " + TB_CONTACT + " ORDER BY " + CONTACT_NAME;
-        Cursor c = readableDB.rawQuery(selectQuery, null);
-        ArrayList<ContactID> result = new ArrayList<>(c.getCount());
-
-        if (c.moveToFirst()) {
-            int colID = c.getColumnIndex(CONTACT_ID);
-            int colNAME = c.getColumnIndex(CONTACT_NAME);
-            int colPic = c.getColumnIndex(CONTACT_PHOTO);
-            do {
-                result.add(new ContactID(c.getString(colID), c.getString(colNAME),
-                        c.getString(colPic)));
-            } while (c.moveToNext());
-        }
-        c.close();
-
-        return result;
-
-    }
-
     public ArrayList<ContactMobile> getContactsMobile() {
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO + ","
                 + CONTACT_MOB1 + " FROM " + TB_CONTACT + " ORDER BY " + CONTACT_NAME;
@@ -1223,54 +1148,6 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<String> checkLastDateAbsence(int d1, int m1, int y1,
-                                                  Boolean isAttend) {
-        String selectQuery;
-        if (isAttend)
-            selectQuery = "SELECT " + CONTACT_NAME + "," + CONTACT_LAST_ATTEND + " FROM "
-                    + TB_CONTACT;
-        else
-            selectQuery = "SELECT " + CONTACT_NAME + "," + CONTACT_LAST_VISIT + " FROM "
-                    + TB_CONTACT;
-
-        int d2, m2, y2;
-        Cursor c = readableDB.rawQuery(selectQuery, null);
-        ArrayList<String> result = new ArrayList<>();
-
-        if (c.moveToFirst()) {
-            String temp;
-            String[] arr;
-            int colName = c.getColumnIndex(CONTACT_NAME);
-            int colLAST;
-            if (isAttend)
-                colLAST = c.getColumnIndex(CONTACT_LAST_ATTEND);
-            else
-                colLAST = c.getColumnIndex(CONTACT_LAST_VISIT);
-            do {
-                temp = c.getString(colLAST);
-                Log.i("daays is", temp);
-                if (temp.length() > 7) {
-                    arr = temp.split("-");
-                    if (arr.length > 2) {
-                        d2 = Integer.parseInt(arr[0]);
-                        m2 = Integer.parseInt(arr[1]);
-                        y2 = Integer.parseInt(arr[2]);
-                        if (y2 < y1 || y2 == y1 && m2 < m1 || y2 == y1
-                                && m2 == m1 && d2 < d1) {
-                            result.add(c.getString(colName) + " " + temp);
-
-                        }
-                    }
-                } else {
-                    result.add(c.getString(colName) + " " + temp);
-
-                }
-            } while (c.moveToNext());
-        }
-        c.close();
-        return result;
-
-    }
 
     public ArrayList<ContactDay> searchLastDate(String date, Boolean isAttend) {
         String selectQuery;
@@ -1398,40 +1275,6 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<String> checkBDay(int month, int day) {
-
-        String selectQuery = "SELECT " + CONTACT_NAME + ", " + CONTACT_BDAY + " FROM "
-                + TB_CONTACT + " WHERE " + CONTACT_BDAY + " !=''";
-
-        int d, m;
-        ArrayList<String> result = new ArrayList<>();
-
-        Cursor c = readableDB.rawQuery(selectQuery, null);
-        if (c.moveToFirst()) {
-            String temp;
-            String[] arr;
-            int colBDAY = c.getColumnIndex(CONTACT_BDAY);
-            int colName = c.getColumnIndex(CONTACT_NAME);
-
-            do {
-                temp = c.getString(colBDAY);
-                if (temp.length() > 7) {
-                    arr = temp.split("-");
-                    if (arr.length > 2) {
-                        d = Integer.parseInt(arr[0]);
-                        m = Integer.parseInt(arr[1]);
-                        if (month == m && day == d)
-                            result.add(c.getString(colName));
-
-                    }
-                }
-            } while (c.moveToNext());
-        }
-        c.close();
-        return result;
-
-    }
-
     public String getNameId(String name) {
         String selectQuery = "SELECT " + CONTACT_ID + " FROM " + TB_CONTACT + " WHERE "
                 + CONTACT_NAME + "='" + name + "' LIMIT 1";
@@ -1446,7 +1289,7 @@ public class DB extends SQLiteOpenHelper {
         return temp;
     }
 
-    public boolean ImportDayraExcel(Context context, String path) {
+    public boolean ImportDayraExcel(String path) {
         String[] colNames = {CONTACT_NAME, CONTACT_CLASS_YEAR, CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
                 CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL, CONTACT_SITE, CONTACT_ST, CONTACT_ADDR, CONTACT_NOTES, CONTACT_BDAY,
                 CONTACT_PRIEST, CONTACT_LAST_ATTEND, CONTACT_ATTEND_DATES, CONTACT_LAST_VISIT, CONTACT_MAPLAT,

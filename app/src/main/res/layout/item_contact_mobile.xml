@@ -52,8 +52,7 @@
                 android:layout_marginBottom="20dp"
                 android:padding="10dp"
                 android:text="@string/flag.exist"
-                android:textColor="@color/black"
-                android:background="@color/white"/>
+                android:textColor="@color/white"/>
 
             <CheckBox
                 android:id="@+id/flag2"
