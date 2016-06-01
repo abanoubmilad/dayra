@@ -8,29 +8,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/lightergrey"
         android:gravity="center"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/sort_spin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/sort_menu"
-            android:paddingRight="20dp"
-            android:spinnerMode="dialog"
-            android:background="@color/lightergrey"/>
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label.sortby"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_normal" />
+            android:textSize="@dimen/font_larger" />
+
+        <Spinner
+            android:id="@+id/spin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/sort_menu"
+            android:spinnerMode="dialog"
+            android:textSize="@dimen/font_larger" />
+
+
+
     </LinearLayout>
 
     <ListView
-        android:id="@+id/dsr_list"
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

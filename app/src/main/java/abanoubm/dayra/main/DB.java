@@ -28,6 +28,7 @@ import java.util.Locale;
 import abanoubm.dayra.R;
 import abanoubm.dayra.model.ContactConnection;
 import abanoubm.dayra.model.ContactData;
+import abanoubm.dayra.model.ContactDay;
 import abanoubm.dayra.model.ContactID;
 import abanoubm.dayra.model.ContactLoc;
 import abanoubm.dayra.model.ContactMobile;
@@ -51,7 +52,7 @@ public class DB extends SQLiteOpenHelper {
 
     private static final String TB_ATTEND = "attend_tb";
     private static final String ATTEND_ID = "attend_id";
-    private static final String ATTEND_DAY = "attend_day";
+    public static final String ATTEND_DAY = "attend_day";
     private static final String ATTEND_TYPE = "attend_type";
 
     private static final String TB_PHOTO = "photo_tb";
@@ -961,17 +962,54 @@ public class DB extends SQLiteOpenHelper {
                         day});
     }
 
-    public ArrayList<ContactID> searchName(String name) {
+    public ArrayList<ContactID> search(String value, String tag) {
 
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO
-                + " FROM " + TB_CONTACT + " WHERE " + CONTACT_NAME + " LIKE ? ORDER BY " + CONTACT_NAME;
-        Cursor c = readableDB.rawQuery(selectQuery, new String[]{"%" + name + "%"});
+                + " FROM " + TB_CONTACT + " WHERE " + tag + " LIKE ? ORDER BY " + tag;
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{"%" + value + "%"});
         ArrayList<ContactID> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactID(c.getString(0), c.getString(1),
                         c.getString(2)));
+            } while (c.moveToNext());
+        }
+        c.close();
+        return result;
+
+    }
+    public ArrayList<ContactDay> searchBirthdays(String dateRegex) {
+
+        String selectQuery = "SELECT " + CONTACT_ID +
+                "," + CONTACT_NAME + "," + CONTACT_PHOTO+ "," + CONTACT_BDAY
+                + " FROM " + TB_CONTACT + " WHERE " + CONTACT_BDAY + " LIKE ? ORDER BY " + CONTACT_BDAY;
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{dateRegex});
+        ArrayList<ContactDay> result = new ArrayList<>(c.getCount());
+
+        if (c.moveToFirst()) {
+            do {
+                result.add(new ContactDay(c.getString(0), c.getString(1),
+                        c.getString(3), c.getString(2)));
+            } while (c.moveToNext());
+        }
+        c.close();
+        return result;
+
+    }
+    public ArrayList<ContactDay> searchDates(String date,String type,String selectTag) {
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO + "," + selectTag +
+                " FROM " + TB_CONTACT + " INNER OUTER JOIN " + TB_ATTEND + " ON " +
+                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " = ?  AND " + ATTEND_TYPE + " = ? GROUP BY " + CONTACT_ID
+                + " ORDER BY " + CONTACT_NAME;
+
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{date,type});
+        ArrayList<ContactDay> result = new ArrayList<>(c.getCount());
+
+        if (c.moveToFirst()) {
+            do {
+                result.add(new ContactDay(c.getString(0), c.getString(1),
+                        c.getString(3), c.getString(2)));
             } while (c.moveToNext());
         }
         c.close();

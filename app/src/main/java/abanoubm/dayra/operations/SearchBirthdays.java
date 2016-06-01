@@ -23,56 +23,24 @@ import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactDay;
 
-public class SearchBDay extends Activity {
+public class SearchBirthdays extends Activity {
     private EditText month, day;
     private ContactDayAdapter adapter;
-    private TextView tv;
 
-    private class SearchMDBDayTask extends
+    private class SearchBDayTask extends
             AsyncTask<String, Void, ArrayList<ContactDay>> {
         private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(SearchBDay.this);
+            pBar = new ProgressDialog(SearchBirthdays.this);
             pBar.setCancelable(false);
             pBar.show();
         }
 
         @Override
         protected ArrayList<ContactDay> doInBackground(String... params) {
-            return DB.getInstant(getApplicationContext()).searchBirthDay(
-                    Integer.parseInt(params[0]), Integer.parseInt(params[1]));
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<ContactDay> att) {
-            adapter.clear();
-            adapter.addAll(att);
-            if (att.size() == 0)
-                Toast.makeText(getApplicationContext(),
-                        R.string.msg_no_results, Toast.LENGTH_SHORT).show();
-            pBar.dismiss();
-
-        }
-
-    }
-
-    private class SearchMBDayTask extends
-            AsyncTask<String, Void, ArrayList<ContactDay>> {
-        private ProgressDialog pBar;
-
-        @Override
-        protected void onPreExecute() {
-            pBar = new ProgressDialog(SearchBDay.this);
-            pBar.setCancelable(false);
-            pBar.show();
-        }
-
-        @Override
-        protected ArrayList<ContactDay> doInBackground(String... params) {
-            return DB.getInstant(getApplicationContext()).searchBirthDay(
-                    Integer.parseInt(params[0]));
+            return DB.getInstant(getApplicationContext()).searchBirthdays(params[0]);
         }
 
         @Override
@@ -95,7 +63,7 @@ public class SearchBDay extends Activity {
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_search_bday);
 
-        ListView lv = (ListView) findViewById(R.id.sbday_list);
+        ListView lv = (ListView) findViewById(R.id.list);
         adapter = new ContactDayAdapter(getApplicationContext(),
                 new ArrayList<ContactDay>(0));
         lv.setAdapter(adapter);
@@ -104,48 +72,29 @@ public class SearchBDay extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-
-                ContactDay att = (ContactDay) parent
-                        .getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(),
                         DisplayContactDetails.class);
-                intent.putExtra("id", att.getId());
+                intent.putExtra("id", adapter.getItem(position).getId());
                 startActivity(intent);
 
             }
         });
-        month = (EditText) findViewById(R.id.sbday_month);
-        day = (EditText) findViewById(R.id.sbday_day);
-        tv = (TextView) findViewById(R.id.sbday_btn);
+        month = (EditText) findViewById(R.id.month);
+        day = (EditText) findViewById(R.id.day);
 
-        tv.setOnClickListener(new OnClickListener() {
+        findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 String d = day.getText().toString().trim();
                 String m = month.getText().toString().trim();
-                if (d.length() == 0) {
-                    if (Utility.isMonth(m))
-                        new SearchMBDayTask().execute(m);
-                    else
-                        Toast.makeText(getApplicationContext(),
-                                R.string.err_msg_month, Toast.LENGTH_SHORT)
-                                .show();
+                if (d.length() == 0)
+                    new SearchBDayTask().execute(Utility.produceDate(m));
+                else
+                    new SearchBDayTask().execute(Utility.produceDate(d, m));
 
-                } else {
-                    if (!Utility.isDay(d))
-                        Toast.makeText(getApplicationContext(),
-                                R.string.err_msg_day, Toast.LENGTH_SHORT)
-                                .show();
-                    else if (!Utility.isMonth(m))
-                        Toast.makeText(getApplicationContext(),
-                                R.string.err_msg_month, Toast.LENGTH_SHORT)
-                                .show();
-                    else
-                        new SearchMDBDayTask().execute(m, d);
-
-                }
             }
+
         });
 
     }

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaScannerConnection;
@@ -43,9 +42,7 @@ import abanoubm.dayra.operations.DivideDayra;
 import abanoubm.dayra.operations.ExportContacts;
 import abanoubm.dayra.operations.RegisterAttendance;
 import abanoubm.dayra.operations.ReplaceDayra;
-import abanoubm.dayra.operations.SearchBDay;
-import abanoubm.dayra.operations.SearchDate;
-import abanoubm.dayra.operations.SearchName;
+import abanoubm.dayra.operations.Search;
 import abanoubm.dayra.operations.SendSMS;
 
 public class Home extends Activity {
@@ -58,7 +55,7 @@ public class Home extends Activity {
 
     public void fireHome1Menu() {
         buttons[tagCursor].setBackgroundColor(0);
-        tagCursor=0;
+        tagCursor = 0;
         buttons[0].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
         getSharedPreferences("login", Context.MODE_PRIVATE).edit()
                 .putString("dbname", null).commit();
@@ -73,7 +70,7 @@ public class Home extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_home);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
-        buttons = new ImageView []{
+        buttons = new ImageView[]{
                 (ImageView) findViewById(R.id.homeImage1),
                 (ImageView) findViewById(R.id.homeImage2),
                 (ImageView) findViewById(R.id.ioImage),
@@ -126,7 +123,7 @@ public class Home extends Activity {
     private void fireHome2Menu() {
 
         buttons[tagCursor].setBackgroundColor(0);
-        tagCursor=1;
+        tagCursor = 1;
         buttons[1].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
 
         subHead2.setText(R.string.label_home_main);
@@ -144,63 +141,12 @@ public class Home extends Activity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 switch (position) {
-                    case 0: {
+                    case 0:
+                        startActivity(new Intent(
+                                getApplicationContext(),
+                                Search.class));
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(
-                                Home.this);
-                        builder.setTitle(R.string.label_choose_search);
-                        builder.setItems(getResources()
-                                        .getStringArray(R.array.search_menu),
-                                new DialogInterface.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
-                                        switch (which) {
-                                            case 0:
-                                                startActivity(new Intent(
-                                                        getApplicationContext(),
-                                                        SearchName.class));
-                                                break;
-                                            case 1:
-                                                startActivity(new Intent(
-                                                        getApplicationContext(),
-                                                        SearchDate.class).putExtra(
-                                                        "sf", 1));
-                                                break;
-                                            case 2:
-                                                startActivity(new Intent(
-                                                        getApplicationContext(),
-                                                        SearchDate.class).putExtra(
-                                                        "sf", 3));
-                                                break;
-                                            case 3:
-                                                startActivity(new Intent(
-                                                        getApplicationContext(),
-                                                        SearchDate.class).putExtra(
-                                                        "sf", 2));
-                                                break;
-                                            case 4:
-                                                startActivity(new Intent(
-                                                        getApplicationContext(),
-                                                        SearchDate.class).putExtra(
-                                                        "sf", 4));
-                                                break;
-
-                                            default:
-                                                startActivity(new Intent(
-                                                        getApplicationContext(),
-                                                        SearchBDay.class));
-                                                break;
-                                        }
-
-                                    }
-
-                                });
-                        builder.create().show();
-
-                    }
-                    break;
+                        break;
                     case 1:
                         startActivity(new Intent(getApplicationContext(),
                                 AddContact.class));
@@ -258,7 +204,7 @@ public class Home extends Activity {
     private void fireOutMenu() {
 
         buttons[tagCursor].setBackgroundColor(0);
-        tagCursor=2;
+        tagCursor = 2;
         buttons[2].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
 
         subHead2.setText(R.string.label_home_out);
@@ -307,7 +253,7 @@ public class Home extends Activity {
     private void fireSettingsMenu() {
 
         buttons[tagCursor].setBackgroundColor(0);
-        tagCursor=3;
+        tagCursor = 3;
         buttons[3].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
 
         subHead2.setText(R.string.label_home_settings);

@@ -50,12 +50,7 @@
     <string name="err.msg.year">السنة غير صالح</string>
     <string name="err.msg.invalid.name">الاسم غير صالح استخدم  4 حروف على الاقل</string>
     <string name="err.msg.email">الايميل غير صالح</string>
-    <string name="subhead.search.name">بحث بالاسم</string>
-    <string name="subhead.search.ldate">بحث باخر تاريخ حضور</string>
-    <string name="subhead.search.bday">بحث بتاريخ الميلاد</string>
-    <string name="subhead.search.vlast">بحث باخر زيارة</string>
-    <string name="subhead.search.attend.absence">بحث انقطاع الحضور</string>
-    <string name="subhead.search.visit.absence">بحث انقطاع الزيارة</string>
+    <string name="subhead.search">بحث </string>
     <string name="label.confirm.dayra">تأكيد اسم الدايره</string>
     <string name="btn.add">اضافة</string>
     <string name="subhead.add.contact">اضافة</string>
@@ -160,12 +155,23 @@
         <item>English</item>
     </string-array>
     <string-array name="search_menu">
-        <item>الاسم</item>
+        <item>اسم</item>
+        <item>دفعة/سنة</item>
+        <item>دراسة/عمل</item>
+        <item>موبايل 1</item>
+        <item>موبايل 2</item>
+        <item>موبايل 3</item>
+        <item>تليفون</item>
+        <item>ايميل</item>
+        <item>منطقة</item>
+        <item>شارع</item>
+        <item>عنوان</item>
+        <item>ملاحظات</item>
+        <item>أب الآعتراف</item>
+    </string-array>
+    <string-array name="search_dates_menu">
         <item>اخر حضور</item>
-        <item>انقطاع الحضور</item>
         <item>اخر زيارة</item>
-        <item>انقطاع الزيارة</item>
-        <item>تاريخ الميلاد</item>
     </string-array>
     <string-array name="photo_menu">
         <item>صورة من ملف</item>

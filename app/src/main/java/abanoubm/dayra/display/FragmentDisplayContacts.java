@@ -42,7 +42,7 @@ public class FragmentDisplayContacts extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            list =  DB.getInstant(getActivity()).getAttendantsSort();
+            list =  DB.getInstant(getActivity()).getContactsDisplayList();
             return null;
         }
 
@@ -64,7 +64,6 @@ public class FragmentDisplayContacts extends Fragment {
                             previousPosition, mAdapter.getItemId(previousPosition));
 
                 }
-                // ((CallBack) getActivity()).onItemSelected(mAdapter.getItem(previousPosition).getId());
             }
 
         }
@@ -203,7 +202,7 @@ public class FragmentDisplayContacts extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_display_contacts, container, false);
 
-        Spinner spin = (Spinner) root.findViewById(R.id.sort_spin);
+        Spinner spin = (Spinner) root.findViewById(R.id.spin);
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -217,7 +216,7 @@ public class FragmentDisplayContacts extends Fragment {
 
             }
         });
-        lv = (ListView) root.findViewById(R.id.dsr_list);
+        lv = (ListView) root.findViewById(R.id.list);
         mAdapter = new ContactSortAdapter(getActivity(), new ArrayList<ContactSort>(0));
         lv.setAdapter(mAdapter);
 

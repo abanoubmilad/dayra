@@ -51,12 +51,7 @@
     <string name="err.msg.year">Invalid year</string>
     <string name="err.msg.invalid.name">invalid name, must be at least 4 characters long</string>
     <string name="err.msg.email">Invalid email</string>
-    <string name="subhead.search.name">Searching name</string>
-    <string name="subhead.search.ldate">Searching last attendance</string>
-    <string name="subhead.search.bday">Searching birthday</string>
-    <string name="subhead.search.vlast">Searching last visit</string>
-    <string name="subhead.search.attend.absence">searching attendance absence</string>
-    <string name="subhead.search.visit.absence">searching visit absence</string>
+    <string name="subhead.search">Searching</string>
     <string name="label.confirm.dayra">confirm dayra name</string>
     <string name="btn.add">add</string>
     <string name="subhead.add.contact">Adding a contact</string>
@@ -162,11 +157,22 @@
     </string-array>
     <string-array name="search_menu">
         <item>Name</item>
-        <item>Last attendance</item>
-        <item>Attendance absence</item>
-        <item>Last visit</item>
-        <item>Visit absence</item>
-        <item>Birthday</item>
+        <item>Class/Year</item>
+        <item>Study/Work</item>
+        <item>Mobile 1</item>
+        <item>Mobile 2</item>
+        <item>Mobile 3</item>
+        <item>LandPhone</item>
+        <item>Email</item>
+        <item>Site</item>
+        <item>Street</item>
+        <item>Address</item>
+        <item>Notes</item>
+        <item>Confession Father</item>
+    </string-array>
+    <string-array name="search_dates_menu">
+        <item>last attendance</item>
+        <item>last visit</item>
     </string-array>
     <string-array name="photo_menu">
         <item>Choose</item>

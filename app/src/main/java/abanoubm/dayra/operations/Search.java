@@ -1,0 +1,124 @@
+package abanoubm.dayra.operations;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import abanoubm.dayra.R;
+import abanoubm.dayra.adapters.ContactIDAdapter;
+import abanoubm.dayra.display.DisplayContactDetails;
+import abanoubm.dayra.main.DB;
+import abanoubm.dayra.main.Utility;
+import abanoubm.dayra.model.ContactID;
+
+public class Search extends Activity {
+    private EditText input;
+    private ContactIDAdapter mAdapter;
+    private int currentTag = 0;
+    private final String[] searchTags = {
+            DB.CONTACT_NAME
+            , DB.CONTACT_CLASS_YEAR
+            , DB.CONTACT_STUDY_WORK
+            , DB.CONTACT_MOB1
+            , DB.CONTACT_MOB2
+            , DB.CONTACT_MOB3
+            , DB.CONTACT_LPHONE
+            , DB.CONTACT_EMAIL
+            , DB.CONTACT_SITE
+            , DB.CONTACT_ST
+            , DB.CONTACT_ADDR
+            , DB.CONTACT_NOTES
+            , DB.CONTACT_PRIEST
+    };
+
+    private class SearchTask extends
+            AsyncTask<String, Void, ArrayList<ContactID>> {
+        private ProgressDialog pBar;
+
+        @Override
+        protected void onPreExecute() {
+            pBar = new ProgressDialog(Search.this);
+            pBar.setCancelable(false);
+            pBar.show();
+        }
+
+        @Override
+        protected ArrayList<ContactID> doInBackground(String... params) {
+            return DB.getInstant(getApplicationContext()).search(params[0], searchTags[currentTag]);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<ContactID> result) {
+            mAdapter.clear();
+            mAdapter.addAll(result);
+            if (result.size() == 0)
+                Toast.makeText(getApplicationContext(),
+                        R.string.msg_no_results, Toast.LENGTH_SHORT).show();
+            pBar.dismiss();
+
+        }
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.act_search);
+        ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
+        ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_search);
+
+        input = (EditText) findViewById(R.id.input);
+        ((Spinner) findViewById(R.id.spin)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+
+                currentTag = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        mAdapter = new ContactIDAdapter(getApplicationContext(), new ArrayList<ContactID>());
+        ListView lv = (ListView) findViewById(R.id.list);
+        lv.setAdapter(mAdapter);
+        lv.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View arg1,
+                                    int position, long arg3) {
+
+                Intent intent = new Intent(getApplicationContext(),
+                        DisplayContactDetails.class);
+                intent.putExtra("id", mAdapter.getItem(position).getId());
+                startActivity(intent);
+
+            }
+        });
+        findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = input.getText().toString().trim();
+                if (str.length() > 0)
+                    new SearchTask().execute(str);
+            }
+        });
+
+    }
+}

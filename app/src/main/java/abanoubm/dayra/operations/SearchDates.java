@@ -14,6 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,47 +28,45 @@ import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactDay;
 
-public class SearchDate extends Activity {
+public class SearchDates extends Activity {
     private ContactDayAdapter adapter;
-    private int searchFlag;
+    private int currentTag = 0;
+    private int dayType = 0;
+    private final String[] searchTags = {
+            DB.ATTEND_DAY,
+            " MIN(" + DB.ATTEND_DAY + ")",
+            " MAX(" + DB.ATTEND_DAY + ")"
+    };
 
-    private class SearchDateTask extends
+    private class SearchDatesTask extends
             AsyncTask<String, Void, ArrayList<ContactDay>> {
         private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(SearchDate.this);
+            pBar = new ProgressDialog(SearchDates.this);
             pBar.setCancelable(false);
             pBar.show();
         }
 
         @Override
         protected ArrayList<ContactDay> doInBackground(String... params) {
-            if (searchFlag < 3)
-                return DB.getInstant(getApplicationContext()).searchLastDate(
-                        params[0], searchFlag == 1);
-            else {
-                String[] arr = params[0].split("-");
-                return DB.getInstant(getApplicationContext())
-                        .searchLastDateAbsence(Integer.parseInt(arr[0]),
-                                Integer.parseInt(arr[1]),
-                                Integer.parseInt(arr[2]), searchFlag == 3);
-            }
+
+            return DB.getInstant(getApplicationContext())
+                    .searchDates(params[0], dayType + "", searchTags[currentTag]);
+
 
         }
 
         @Override
         protected void onPostExecute(ArrayList<ContactDay> att) {
             adapter.clear();
-
-            if (att != null) {
-                adapter.addAll(att);
-                if (att.size() == 0)
-                    Toast.makeText(getApplicationContext(),
-                            R.string.msg_no_results, Toast.LENGTH_SHORT).show();
-            }
+            adapter.addAll(att);
             pBar.dismiss();
+            if (att.size() == 0)
+                Toast.makeText(getApplicationContext(),
+                        R.string.msg_no_results, Toast.LENGTH_SHORT).show();
+
 
         }
 
@@ -78,23 +77,8 @@ public class SearchDate extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_search_date);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
-
-        searchFlag = getIntent().getIntExtra("sf", 1);
-
-        if (searchFlag == 1)
-            ((TextView) findViewById(R.id.subhead2))
-                    .setText(R.string.subhead_search_ldate);
-        else if (searchFlag == 2)
-
-            ((TextView) findViewById(R.id.subhead2))
-                    .setText(R.string.subhead_search_vlast);
-        else if (searchFlag == 3)
-
-            ((TextView) findViewById(R.id.subhead2))
-                    .setText(R.string.subhead_search_attend_absence);
-        else if (searchFlag == 4)
-            ((TextView) findViewById(R.id.subhead2))
-                    .setText(R.string.subhead_search_visit_absence);
+        ((TextView) findViewById(R.id.subhead2))
+                .setText(R.string.subhead_search);
 
         ListView lv = (ListView) findViewById(R.id.list);
         adapter = new ContactDayAdapter(this, new ArrayList<ContactDay>(0));
@@ -105,11 +89,9 @@ public class SearchDate extends Activity {
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
 
-                ContactDay att = (ContactDay) parent
-                        .getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(),
                         DisplayContactDetails.class);
-                intent.putExtra("id", att.getId());
+                intent.putExtra("id", adapter.getItem(position).getId());
                 startActivity(intent);
 
             }
@@ -122,15 +104,15 @@ public class SearchDate extends Activity {
         picker = new DatePickerDialog(this, new OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                new SearchDateTask().execute(dayOfMonth + "-"
-                        + (monthOfYear + 1) + "-" + year);
+                String dateStr = Utility.produceDate(dayOfMonth, monthOfYear + 1, year);
+                date.setText(dateStr);
+                new SearchDatesTask().execute(dateStr);
             }
 
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal
                 .get(Calendar.DAY_OF_MONTH));
 
-        findViewById(R.id.pick_date)
+        findViewById(R.id.pick)
                 .setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -139,5 +121,32 @@ public class SearchDate extends Activity {
 
                     }
                 });
+        ((Spinner) findViewById(R.id.spin_search)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+
+                currentTag = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        ((Spinner) findViewById(R.id.spin_type)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                    dayType = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }
