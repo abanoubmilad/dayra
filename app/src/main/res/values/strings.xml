@@ -58,7 +58,6 @@
     <string name="subhead.search.attend.absence">searching attendance absence</string>
     <string name="subhead.search.visit.absence">searching visit absence</string>
     <string name="label.confirm.dayra">confirm dayra name</string>
-    <string name="subhead.today.attendance">updating today\'s attendance</string>
     <string name="btn.add">add</string>
     <string name="subhead.add.contact">Adding a contact</string>
     <string name="subhead.display.contacts">Displaying contacts</string>

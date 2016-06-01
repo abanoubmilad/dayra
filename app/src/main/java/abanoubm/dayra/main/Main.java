@@ -174,7 +174,7 @@ public class Main extends Activity {
             getSharedPreferences("login",
                     Context.MODE_PRIVATE).edit()
                     .putString("dbname", null).commit();
-            if (dbm.ImportDayraExcel(getApplicationContext(), params[1]))
+            if (dbm.ImportDayraExcel(params[1]))
                 return R.string.msg_dayra_imported;
             dbm.deleteDB(getApplicationContext());
             return R.string.err_msg_invalid_file;

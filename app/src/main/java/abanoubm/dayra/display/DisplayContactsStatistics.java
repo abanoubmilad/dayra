@@ -45,7 +45,6 @@ public class DisplayContactsStatistics extends Activity {
         @Override
         protected void onPostExecute(ArrayList<ContactStatistics> result) {
             mAdapter.clear();
-            ;
             mAdapter.addAll(result);
             pBar.dismiss();
             if (result.size() == 0) {
