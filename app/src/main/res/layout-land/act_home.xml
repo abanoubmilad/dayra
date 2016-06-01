@@ -22,11 +22,18 @@
 
             <ImageView
                 android:padding="20dp"
-                android:id="@+id/homeImage"
+                android:id="@+id/homeImage1"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@mipmap/ic_home"
+                android:src="@mipmap/ic_home"/>
+            <ImageView
+                android:padding="20dp"
+                android:id="@+id/homeImage2"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_home2"
                 android:background="@color/colorAccent" />
 
             <ImageView
