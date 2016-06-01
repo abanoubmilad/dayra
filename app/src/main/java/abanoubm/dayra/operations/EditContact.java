@@ -93,9 +93,7 @@ public class EditContact extends Activity {
                     .getText().toString().trim(), site_str = edit_site
                     .getText().toString().trim();
 
-            DB dbm = DB.getInstance(getApplicationContext(),
-                    getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", ""));
+            DB dbm = DB.getInstant(getApplicationContext());
             String check = dbm.getNameId(name_str);
             if (!Utility.isName(name_str)) {
                 msgSource = R.string.err_msg_invalid_name;

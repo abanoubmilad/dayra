@@ -15,7 +15,6 @@
     <string name="label.dayra.name">اسم الدايره</string>
     <string name="btn.delete">مسح</string>
     <string name="btn.confirm">تأكيد</string>
-    <string name="label.remember">تذكرنى</string>
     <string name="btn.create">تكوين</string>
     <string name="btn.back">عودة</string>
     <string name="err.msg.db">خطأ أثناء محاولة الاتصال بقاعدة البيانات</string>
@@ -99,7 +98,6 @@
     <string name="label.personal">شخصى</string>
     <string name="msg.choose.field">قم باختيار خانة واحدة على الاقل</string>
     <string name="btn.divide">تقسيم دايره</string>
-    <string name="btn.copy.selected">نسخ الاسماء المختارة</string>
     <string name="subhead.divide">تقسيم الدايره الحالية</string>
     <string name="label.divide.express">تقسيم الدايره الحالية الى اكثر من دايره مع الاحتفاظ بالدايره الاصلية كما هى\nقم بتقسيم الدايره بحسب</string>
     <string name="msg.dayra.divided">تم تقسيم الدايره</string>
@@ -142,8 +140,8 @@
     <string name="label.home.settings">اعدادات</string>
     <string name="subhead.edit.connections">تعديل المعارف/الصلة</string>
     <string name="subhead.display.connections">عرض المعارف/الصلة</string>
-    <string name="subhead.import.contacts">نسخ الاسماء من الهاتف الى الدايره</string>
-    <string name="btn.copy.all">نسخ جميع الاسماء</string>
+    <string name="subhead.select.in">نسخ الاسماء المٌختارة الى الدايره</string>
+    <string name="subhead.select.out">نسخ الاسماء المٌختارة الى الموبايل</string>
     <string name="msg.no.mobiles">لم يتم اختيار ارقام موبايل</string>
     <string name="subhead.edit.contact">تعديل البيانات</string>
     <string name="flag.attended">حاضر</string>
@@ -197,8 +195,8 @@
         <item>تواصل مع المُطور</item>
     </string-array>
     <string-array name="out_menu">
-        <item>نسخ اسماء من الهاتف الى الدايره</item>
-        <item>نسخ اسماء من الدايره الى الهاتف</item>
+        <item>نسخ اسماء من الموبايل الى الدايره</item>
+        <item>نسخ اسماء من الدايره الى الموبايل</item>
         <item>تصدير تقرير pdf</item>
         <item>تصدير بيانات pdf</item>
         <item>تصدير دايره file</item>
@@ -206,10 +204,10 @@
     </string-array>
     <string-array name="settings_menu">
         <item>اعدادات التنبيهات</item>
-        <item>استبدال بيانات دايره</item>
-        <item>تقسيم دايره</item>
-        <item>اعادة تسمية دايره</item>
-        <item>مسح دايره</item>
+        <item>استبدال بيانات الدايره</item>
+        <item>تقسيم الدايره</item>
+        <item>اعادة تسمية الدايره</item>
+        <item>مسح الدايره</item>
     </string-array>
     <string-array name="excel_header">
         <item>اسم</item>

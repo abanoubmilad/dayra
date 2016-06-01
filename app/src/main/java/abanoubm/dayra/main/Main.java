@@ -479,7 +479,7 @@ public class Main extends Activity {
                     .findViewById(R.id.databases_lv);
             nameslv.setAdapter(new ArrayAdapter<>(
                     getApplicationContext(), R.layout.item_dbs_menu,
-                    R.id.dbitem, names));
+                    R.id.item, names));
             TextView back = (TextView) signView.findViewById(R.id.back);
 
             back.setOnClickListener(new OnClickListener() {
