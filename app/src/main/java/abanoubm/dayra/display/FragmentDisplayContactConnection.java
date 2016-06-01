@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactIDAdapter;
 import abanoubm.dayra.main.DB;
-import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactID;
 
 public class FragmentDisplayContactConnection extends Fragment {
@@ -50,7 +49,7 @@ public class FragmentDisplayContactConnection extends Fragment {
                 previousPosition = lv.getFirstVisiblePosition();
                 ContactID att = (ContactID) parent.getItemAtPosition(position);
                 Intent intent = new Intent(getActivity(),
-                        DisplayContact.class);
+                        DisplayContactDetails.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("id", att.getId());

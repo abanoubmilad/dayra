@@ -195,7 +195,7 @@ public class FragmentDisplayContacts extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         if (arguments != null) {
-            isDualMode = arguments.getBoolean("isdual");
+            isDualMode = arguments.getBoolean("isdualmode");
         }
     }
 

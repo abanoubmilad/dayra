@@ -3,7 +3,6 @@ package abanoubm.dayra.display;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,7 +20,7 @@ public class FragmentDisplayContactDay extends Fragment {
 
     private TextView dis_last_visit, dis_last_attend;
     private ContactData attData;
-    private int id = -1;
+    private String id = "-1";
     private ListView monthList, dayList, yearList;
 
     private class GetTask extends AsyncTask<Void, Void, Void> {
@@ -54,7 +53,7 @@ public class FragmentDisplayContactDay extends Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            id = arguments.getInt("id");
+            id = arguments.getString("id");
         }
     }
 

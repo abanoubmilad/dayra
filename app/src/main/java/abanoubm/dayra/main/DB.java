@@ -443,7 +443,7 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public ContactData getAttendantData(int id) {
+    public ContactData getAttendantData(String id) {
         String selectQuery = "SELECT * FROM " + TB_CONTACT + " WHERE " + CONTACT_ID
                 + " = " + id + " LIMIT 1";
         ContactData result = null;

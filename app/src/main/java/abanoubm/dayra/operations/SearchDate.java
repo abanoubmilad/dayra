@@ -22,7 +22,7 @@ import java.util.Calendar;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactDayAdapter;
-import abanoubm.dayra.display.DisplayContact;
+import abanoubm.dayra.display.DisplayContactDetails;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactDay;
@@ -108,7 +108,7 @@ public class SearchDate extends Activity {
                 ContactDay att = (ContactDay) parent
                         .getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(),
-                        DisplayContact.class);
+                        DisplayContactDetails.class);
                 intent.putExtra("id", att.getId());
                 startActivity(intent);
 

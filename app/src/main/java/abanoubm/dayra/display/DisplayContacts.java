@@ -18,13 +18,18 @@ public class DisplayContacts extends ActionBarActivity implements CallBack {
         setContentView(R.layout.act_display_contacts);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_display_contacts);
+        dualMode = findViewById(R.id.display_contacts_fragment_dual) != null;
+
         if (savedInstanceState == null) {
+            Bundle args = new Bundle();
+            args.putBoolean("isdualmode", dualMode);
+            FragmentDisplayContacts fragment = new FragmentDisplayContacts();
+            fragment.setArguments(args);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.display_contacts_fragment, new FragmentDisplayContacts())
+                    .replace(R.id.display_contacts_fragment, fragment)
                     .commit();
         }
 
-            dualMode = findViewById(R.id.display_contacts_fragment_dual) != null;
 
     }
 
@@ -33,9 +38,8 @@ public class DisplayContacts extends ActionBarActivity implements CallBack {
         if (dualMode) {
             Bundle args = new Bundle();
             args.putString("id", id);
-            args.putBoolean("isdual", dualMode);
 
-            FragmentDisplayContact fragment = new FragmentDisplayContact();
+            FragmentDisplayContactDetails fragment = new FragmentDisplayContactDetails();
             fragment.setArguments(args);
 
             getSupportFragmentManager().beginTransaction()
@@ -43,7 +47,7 @@ public class DisplayContacts extends ActionBarActivity implements CallBack {
                     .commit();
 
         } else {
-            startActivity(new Intent(this, DisplayContact.class).putExtra("id", id));
+            startActivity(new Intent(this, DisplayContactDetails.class).putExtra("id", id));
         }
 
     }

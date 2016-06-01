@@ -80,7 +80,7 @@ public class DisplayContactsStatistics extends Activity {
 
                 ContactStatistics att = mAdapter.getItem(position);
                 Intent intent = new Intent(getApplicationContext(),
-                        DisplayContact.class);
+                        DisplayContactDetails.class);
                 intent.putExtra("id", att.getId());
                 startActivity(intent);
             }

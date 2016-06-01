@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactMobileAdapter;
-import abanoubm.dayra.display.DisplayContact;
+import abanoubm.dayra.display.DisplayContactDetails;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactMobile;
@@ -189,7 +189,7 @@ public class SendSMS extends Activity {
                 ContactMobile temp = (ContactMobile) parent
                         .getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(),
-                        DisplayContact.class);
+                        DisplayContactDetails.class);
                 intent.putExtra("id", temp.getId());
                 startActivity(intent);
                 return true;

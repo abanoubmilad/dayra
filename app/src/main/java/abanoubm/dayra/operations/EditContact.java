@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -34,7 +33,7 @@ import java.util.Locale;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.display.ContactMap;
-import abanoubm.dayra.display.DisplayContact;
+import abanoubm.dayra.display.DisplayContactDetails;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactData;
@@ -77,7 +76,7 @@ public class EditContact extends Activity {
             if (result) {
                 finish();
                 startActivity(new Intent(getApplicationContext(),
-                        DisplayContact.class).putExtra("id", attData.getId()));
+                        DisplayContactDetails.class).putExtra("id", attData.getId()));
             }
 
         }
@@ -371,7 +370,7 @@ public class EditContact extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
             attData = DB.getInstant(getApplicationContext()).getAttendantData(
-                    getIntent().getIntExtra("id", -1));
+                    getIntent().getStringExtra("id"));
             imgPath = attData.getPicDir();
             return null;
         }
@@ -507,7 +506,7 @@ public class EditContact extends Activity {
                     public void onClick(View v) {
                         finish();
                         startActivity(new Intent(getApplicationContext(),
-                                DisplayContact.class).putExtra("id",
+                                DisplayContactDetails.class).putExtra("id",
                                 attData.getId()));
                     }
                 });

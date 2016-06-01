@@ -7,7 +7,7 @@ import android.widget.TextView;
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.Utility;
 
-public class DisplayContact extends ActionBarActivity {
+public class DisplayContactDetails extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,9 +16,9 @@ public class DisplayContact extends ActionBarActivity {
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_display_contact);
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
-            arguments.putInt("id", getIntent().getIntExtra("id", -1));
+            arguments.putString("id", getIntent().getStringExtra("id"));
 
-            FragmentDisplayContact fragment = new FragmentDisplayContact();
+            FragmentDisplayContactDetails fragment = new FragmentDisplayContactDetails();
             fragment.setArguments(arguments);
 
             getSupportFragmentManager().beginTransaction()

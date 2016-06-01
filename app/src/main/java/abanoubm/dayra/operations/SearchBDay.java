@@ -2,7 +2,6 @@ package abanoubm.dayra.operations;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactDayAdapter;
-import abanoubm.dayra.display.DisplayContact;
+import abanoubm.dayra.display.DisplayContactDetails;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactDay;
@@ -109,7 +108,7 @@ public class SearchBDay extends Activity {
                 ContactDay att = (ContactDay) parent
                         .getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(),
-                        DisplayContact.class);
+                        DisplayContactDetails.class);
                 intent.putExtra("id", att.getId());
                 startActivity(intent);
 

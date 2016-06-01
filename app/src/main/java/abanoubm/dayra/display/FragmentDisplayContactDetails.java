@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import abanoubm.dayra.R;
 import abanoubm.dayra.operations.EditContact;
 
-public class FragmentDisplayContact extends Fragment {
+public class FragmentDisplayContactDetails extends Fragment {
     private String id = "-1";
-    int current = 0;
+    private int current = 0;
     private ImageView infoImage, connImage, locImage, daysImage;
 
     @Override

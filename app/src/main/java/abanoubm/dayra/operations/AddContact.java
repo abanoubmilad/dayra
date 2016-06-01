@@ -32,7 +32,7 @@ import java.util.Locale;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.display.ContactMap;
-import abanoubm.dayra.display.DisplayContact;
+import abanoubm.dayra.display.DisplayContactDetails;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactData;
@@ -332,7 +332,7 @@ public class AddContact extends Activity {
                         .trim(), site_str);
 
                 Intent intent = new Intent(getApplicationContext(),
-                        DisplayContact.class);
+                        DisplayContactDetails.class);
                 intent.putExtra("id", dbm.addAttendant(att));
                 startActivity(intent);
                 finish();

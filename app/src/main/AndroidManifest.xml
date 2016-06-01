@@ -55,7 +55,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".display.DisplayContacts" />
         <activity
-            android:name=".display.DisplayContact"
+            android:name=".display.DisplayContactDetails"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".operations.SearchBDay" />
         <activity android:name=".operations.SearchName" />

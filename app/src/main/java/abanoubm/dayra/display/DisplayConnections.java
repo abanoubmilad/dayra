@@ -2,7 +2,6 @@ package abanoubm.dayra.display;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -84,7 +83,7 @@ public class DisplayConnections extends Activity {
                 previousPosition = lv.getFirstVisiblePosition();
                 ContactID att = (ContactID) parent.getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(),
-                        DisplayContact.class);
+                        DisplayContactDetails.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("id", att.getId());

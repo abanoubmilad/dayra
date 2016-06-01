@@ -30,7 +30,7 @@ public class FragmentDisplayContactInfo extends Fragment {
 
     private ImageView img;
     private ContactData contactData;
-    private int id = -1;
+    private String id = "-1";
 
     private class GetTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
@@ -61,7 +61,7 @@ public class FragmentDisplayContactInfo extends Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            id = arguments.getInt("id");
+            id = arguments.getString("id");
         }
     }
 
