@@ -24,27 +24,35 @@ public class ContactDayAdapter extends ArrayAdapter<ContactDay> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
         ContactDay contact = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_contact_day, parent, false);
+            holder = new ViewHolder();
+            holder.name= (TextView) convertView.findViewById(R.id.name);
+            holder.day=(TextView) convertView.findViewById(R.id.day);
+            holder.img = (ImageView) convertView.findViewById(R.id.img);
+            convertView.setTag(holder);
+        }else{
+            holder = (ViewHolder)convertView.getTag();
         }
-        TextView name = (TextView) convertView.findViewById(R.id.name);
-        TextView day = (TextView) convertView.findViewById(R.id.day);
 
-        name.setText(contact.getName());
-        day.setText(contact.getDay());
-
-        ImageView img = (ImageView) convertView.findViewById(R.id.img);
-
+        holder.name.setText(contact.getName());
+        holder.day.setText(contact.getDay());
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {
-            img.setImageBitmap(ThumbnailUtils.extractThumbnail(
+            holder.img.setImageBitmap(ThumbnailUtils.extractThumbnail(
                     BitmapFactory.decodeFile(contact.getPicDir()), 100, 100));
         } else {
-            img.setImageResource(R.mipmap.def);
+            holder.img.setImageResource(R.mipmap.def);
         }
 
         return convertView;
+    }
+    private static class ViewHolder {
+        TextView name;
+        TextView day;
+        ImageView img;
     }
 }

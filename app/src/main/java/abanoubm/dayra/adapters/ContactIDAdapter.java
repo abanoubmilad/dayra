@@ -24,23 +24,31 @@ public class ContactIDAdapter extends ArrayAdapter<ContactID> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
         ContactID contact = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_contact, parent, false);
+            holder = new ViewHolder();
+            holder.name= (TextView) convertView.findViewById(R.id.name);
+            holder.img = (ImageView) convertView.findViewById(R.id.img);
+            convertView.setTag(holder);
+        }else{
+            holder = (ViewHolder)convertView.getTag();
         }
-        ((TextView) convertView.findViewById(R.id.name)).setText(contact.getName());
-
-        ImageView img = (ImageView) convertView.findViewById(R.id.img);
-
+        holder.name.setText(contact.getName());
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {
-            img.setImageBitmap(ThumbnailUtils.extractThumbnail(
+            holder.img.setImageBitmap(ThumbnailUtils.extractThumbnail(
                     BitmapFactory.decodeFile(contact.getPicDir()), 100, 100));
         } else {
-            img.setImageResource(R.mipmap.def);
+            holder.img.setImageResource(R.mipmap.def);
         }
 
         return convertView;
+    }
+    private static class ViewHolder {
+        TextView name;
+        ImageView img;
     }
 }

@@ -25,31 +25,40 @@ public class ContactStatisticsAdapter extends ArrayAdapter<ContactStatistics> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+
         ContactStatistics contact = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.item_contact_day, parent, false);
+                    R.layout.item_contact_statistics, parent, false);
+            holder = new ViewHolder();
+            holder.name= (TextView) convertView.findViewById(R.id.name);
+            holder.min=(TextView) convertView.findViewById(R.id.min);
+            holder.max=(TextView) convertView.findViewById(R.id.max);
+            holder.count=(TextView) convertView.findViewById(R.id.count);
+            holder.img = (ImageView) convertView.findViewById(R.id.img);
+            convertView.setTag(holder);
+        }else{
+            holder = (ViewHolder)convertView.getTag();
         }
-        ImageView img = (ImageView) convertView.findViewById(R.id.img);
-        TextView name = (TextView) convertView.findViewById(R.id.name);
-        TextView min = (TextView) convertView.findViewById(R.id.min);
-        TextView max = (TextView) convertView.findViewById(R.id.max);
-        TextView count = (TextView) convertView.findViewById(R.id.count);
-
-        name.setText(contact.getName());
-        min.setText(contact.getMinDay());
-        max.setText(contact.getMaxDay());
-        count.setText(contact.getDaysCount());
+        holder.name.setText(contact.getName());
+        holder.min.setText(contact.getMinDay());
+        holder.max.setText(contact.getMaxDay());
+        holder.count.setText(contact.getDaysCount());
 
 
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {
-            img.setImageBitmap(ThumbnailUtils.extractThumbnail(
+            holder.img.setImageBitmap(ThumbnailUtils.extractThumbnail(
                     BitmapFactory.decodeFile(contact.getPicDir()), 100, 100));
         } else {
-            img.setImageResource(R.mipmap.def);
+            holder.img.setImageResource(R.mipmap.def);
         }
 
         return convertView;
+    }
+    private static class ViewHolder {
+        TextView name,min,max,count;
+        ImageView img;
     }
 }

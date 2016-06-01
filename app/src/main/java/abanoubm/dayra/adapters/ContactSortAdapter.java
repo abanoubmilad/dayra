@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,40 +25,61 @@ public class ContactSortAdapter extends ArrayAdapter<ContactSort> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+
         ContactSort contact = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_contact_sort, parent, false);
+            holder = new ViewHolder();
+            holder.name = (TextView) convertView.findViewById(R.id.name);
+            holder.img = (ImageView) convertView.findViewById(R.id.img);
+            holder.class_year = (TextView) convertView.findViewById(R.id.class_year);
+            holder.study_work = (TextView) convertView.findViewById(R.id.study_work);
+            holder.street = (TextView) convertView.findViewById(R.id.street);
+            holder.site = (TextView) convertView.findViewById(R.id.site);
+            holder.conf_father = (TextView) convertView.findViewById(R.id.conf_father);
+            holder.last_attendance = (TextView) convertView.findViewById(R.id.last_attendance);
+            holder.last_visit = (TextView) convertView.findViewById(R.id.last_visit);
+            holder.bday = (TextView) convertView.findViewById(R.id.bday);
+
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
-        ImageView img = (ImageView) convertView.findViewById(R.id.img);
 
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {
-            img.setImageBitmap(ThumbnailUtils.extractThumbnail(
+            holder.img.setImageBitmap(ThumbnailUtils.extractThumbnail(
                     BitmapFactory.decodeFile(contact.getPicDir()), 100, 100));
         } else {
-            img.setImageResource(R.mipmap.def);
+            holder.img.setImageResource(R.mipmap.def);
         }
-        ((TextView) convertView.findViewById(R.id.name)).setText(contact
+        holder.name.setText(contact
                 .getName());
-        ((TextView) convertView.findViewById(R.id.class_year)).setText(contact
+        holder.class_year.setText(contact
                 .getClassYear());
-        ((TextView) convertView.findViewById(R.id.study_work)).setText(contact
+        holder.study_work.setText(contact
                 .getStudyWork());
-        ((TextView) convertView.findViewById(R.id.street)).setText(contact
+        holder.street.setText(contact
                 .getStreet());
-        ((TextView) convertView.findViewById(R.id.site)).setText(contact
+        holder.site.setText(contact
                 .getSite());
-        ((TextView) convertView.findViewById(R.id.conf_father)).setText(contact
+        holder.conf_father.setText(contact
                 .getPriest());
-        ((TextView) convertView.findViewById(R.id.last_attendance))
+        holder.last_attendance
                 .setText(contact.getLastAttend());
-        ((TextView) convertView.findViewById(R.id.last_visit)).setText(contact
+        holder.last_visit.setText(contact
                 .getLastVisit());
-        ((TextView) convertView.findViewById(R.id.bday)).setText(contact
+        holder.bday.setText(contact
                 .getBirthDay());
 
         return convertView;
+    }
+
+    private static class ViewHolder {
+        TextView name, class_year, study_work, street, site, conf_father, last_attendance, last_visit, bday;
+        ImageView img;
     }
 }

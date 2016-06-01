@@ -27,35 +27,41 @@ public class ContactUpdateAdapter extends ArrayAdapter<ContactUpdate> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
 
         ContactUpdate contact = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_contact_update, parent, false);
+            holder = new ViewHolder();
+            holder.name= (TextView) convertView.findViewById(R.id.name);
+            holder.day=(TextView) convertView.findViewById(R.id.day);
+            holder.flag=(TextView) convertView.findViewById(R.id.flag);
+            holder.img = (ImageView) convertView.findViewById(R.id.img);
+            convertView.setTag(holder);
+        }else{
+            holder = (ViewHolder)convertView.getTag();
         }
-
-        TextView name = (TextView) convertView.findViewById(R.id.name);
-        TextView day = (TextView) convertView.findViewById(R.id.day);
-        TextView flag = (TextView) convertView.findViewById(R.id.flag);
-
-        name.setText(contact.getName());
-        day.setText(contact.getDay());
+        holder.name.setText(contact.getName());
+        holder.day.setText(contact.getDay());
         if (contact.isSelected()) {
-            flag.setBackgroundColor(Utility.update);
+           holder.flag.setBackgroundColor(Utility.update);
         } else {
-            flag.setBackgroundColor(Color.WHITE);
+            holder.flag.setBackgroundColor(Color.WHITE);
         }
-
-        ImageView img = (ImageView) convertView.findViewById(R.id.img);
 
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {
-            img.setImageBitmap(ThumbnailUtils.extractThumbnail(
+            holder.img.setImageBitmap(ThumbnailUtils.extractThumbnail(
                     BitmapFactory.decodeFile(contact.getPicDir()), 100, 100));
         } else {
-            img.setImageResource(R.mipmap.def);
+            holder.img.setImageResource(R.mipmap.def);
         }
         return convertView;
+    }
+    private static class ViewHolder {
+        TextView name,day,flag;
+        ImageView img;
     }
 }

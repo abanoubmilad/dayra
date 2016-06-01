@@ -30,34 +30,48 @@ public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
 
         ContactMobile contact = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_gcontact_out, parent, false);
+            holder = new ViewHolder();
+            holder.name = (TextView) convertView.findViewById(R.id.name);
+            holder.mobile = (TextView) convertView.findViewById(R.id.mobile);
+            holder.flag1 = (TextView) convertView.findViewById(R.id.flag1);
+            holder.flag2 = (CheckBox) convertView.findViewById(R.id.flag2);
+            holder.img = (ImageView) convertView.findViewById(R.id.img);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
 
-        ((TextView) convertView.findViewById(R.id.name)).setText(contact.getName());
-        ((TextView) convertView.findViewById(R.id.mobile)).setText(contact.getMobile());
-
-        ImageView img = (ImageView) convertView.findViewById(R.id.img);
+        holder.name.setText(contact.getName());
+        holder.mobile.setText(contact.getMobile());
 
         if (contact.isExisted())
-            convertView.findViewById(R.id.flag1).setBackgroundColor(highlight);
+            holder.flag1.setBackgroundColor(highlight);
         else
-            convertView.findViewById(R.id.flag1).setBackgroundColor(white);
-        CheckBox flag = (CheckBox) convertView.findViewById(R.id.flag2);
-        flag.setChecked(contact.isSelected());
+            holder.flag1.setBackgroundColor(white);
+
+        holder.flag2.setChecked(contact.isSelected());
 
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {
-            img.setImageBitmap(ThumbnailUtils.extractThumbnail(
+            holder.img.setImageBitmap(ThumbnailUtils.extractThumbnail(
                     BitmapFactory.decodeFile(contact.getPicDir()), 100, 100));
         } else {
-            img.setImageResource(R.mipmap.def);
+            holder.img.setImageResource(R.mipmap.def);
         }
         return convertView;
+    }
+
+    private static class ViewHolder {
+        TextView name, flag1, mobile;
+        CheckBox flag2;
+        ImageView img;
     }
 }

@@ -27,33 +27,41 @@ public class ContactConnectionAdapter extends ArrayAdapter<ContactConnection> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        ContactConnection contact = getItem(position);
+        ViewHolder holder;
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_contact_connection, parent, false);
+            holder = new ViewHolder();
+            holder.name= (TextView) convertView.findViewById(R.id.name);
+            holder.flag=(TextView) convertView.findViewById(R.id.flag);
+            holder.img = (ImageView) convertView.findViewById(R.id.img);
+            convertView.setTag(holder);
+        }else{
+            holder = (ViewHolder)convertView.getTag();
         }
+        ContactConnection contact = getItem(position);
 
-
-        ((TextView) convertView.findViewById(R.id.name)).setText(contact.getName());
-        TextView flag = (TextView) convertView.findViewById(R.id.flag);
-
+        holder.name.setText(contact.getName());
         if (contact.isCon()) {
-            flag.setBackgroundColor(Utility.update);
+            holder.flag.setBackgroundColor(Utility.update);
         } else {
-            flag.setBackgroundColor(Color.WHITE);
+            holder.flag.setBackgroundColor(Color.WHITE);
         }
 
-        ImageView img = (ImageView) convertView.findViewById(R.id.img);
 
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {
-            img.setImageBitmap(ThumbnailUtils.extractThumbnail(
+            holder.img.setImageBitmap(ThumbnailUtils.extractThumbnail(
                     BitmapFactory.decodeFile(contact.getPicDir()), 100, 100));
         } else {
-            img.setImageResource(R.mipmap.def);
+            holder.img.setImageResource(R.mipmap.def);
         }
         return convertView;
+    }
+   private static class ViewHolder {
+        TextView name;
+        TextView flag;
+        ImageView img;
     }
 }

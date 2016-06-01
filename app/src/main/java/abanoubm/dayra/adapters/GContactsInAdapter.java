@@ -15,7 +15,7 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.model.GoogleContact;
 
 public class GContactsInAdapter extends ArrayAdapter<GoogleContact> {
-    private final int  white, highlight;
+    private final int white, highlight;
 
     public GContactsInAdapter(Context context,
                               ArrayList<GoogleContact> contacts) {
@@ -26,25 +26,39 @@ public class GContactsInAdapter extends ArrayAdapter<GoogleContact> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
 
         GoogleContact contact = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_gcontact_in, parent, false);
+            holder = new ViewHolder();
+            holder.name= (TextView) convertView.findViewById(R.id.name);
+            holder.mobile=(TextView) convertView.findViewById(R.id.mobile);
+            holder.flag1=(TextView) convertView.findViewById(R.id.flag1);
+            holder.flag2=(CheckBox) convertView.findViewById(R.id.flag2);
+            convertView.setTag(holder);
+        }else{
+            holder = (ViewHolder)convertView.getTag();
         }
 
 
-        ((TextView) convertView.findViewById(R.id.name)).setText(contact.getName());
-        ((TextView) convertView.findViewById(R.id.mobile)).setText(contact.getMobile());
+        holder.name.setText(contact.getName());
+        holder.mobile.setText(contact.getMobile());
 
         if (contact.isExisted())
-            convertView.findViewById(R.id.flag1).setBackgroundColor(highlight);
+            holder.flag1.setBackgroundColor(highlight);
         else
-            convertView.findViewById(R.id.flag1).setBackgroundColor(white);
-        CheckBox flag = (CheckBox) convertView.findViewById(R.id.flag2);
-        flag.setChecked(contact.isSelected());
+            holder.flag1.setBackgroundColor(white);
+
+        holder.flag2.setChecked(contact.isSelected());
 
         return convertView;
+    }
+
+    private static class ViewHolder {
+        TextView name, flag1, mobile;
+        CheckBox flag2;
     }
 }
