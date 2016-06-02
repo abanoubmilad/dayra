@@ -1,12 +1,14 @@
 package abanoubm.dayra.operations;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -23,7 +25,7 @@ import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactDay;
 
-public class SearchBirthdays extends Activity {
+public class FragmentSearchBirthdays extends Fragment {
     private EditText month, day;
     private ContactDayAdapter adapter;
 
@@ -33,14 +35,14 @@ public class SearchBirthdays extends Activity {
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(SearchBirthdays.this);
+            pBar = new ProgressDialog(getActivity());
             pBar.setCancelable(false);
             pBar.show();
         }
 
         @Override
         protected ArrayList<ContactDay> doInBackground(String... params) {
-            return DB.getInstant(getApplicationContext()).searchBirthdays(params[0]);
+            return DB.getInstant(getActivity()).searchBirthdays(params[0]);
         }
 
         @Override
@@ -48,7 +50,7 @@ public class SearchBirthdays extends Activity {
             adapter.clear();
             adapter.addAll(att);
             if (att.size() == 0)
-                Toast.makeText(getApplicationContext(),
+                Toast.makeText(getActivity(),
                         R.string.msg_no_results, Toast.LENGTH_SHORT).show();
             pBar.dismiss();
 
@@ -56,15 +58,20 @@ public class SearchBirthdays extends Activity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_search_bday);
-        ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
-        ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_search_bday);
 
-        ListView lv = (ListView) findViewById(R.id.list);
-        adapter = new ContactDayAdapter(getApplicationContext(),
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View root = inflater.inflate(R.layout.fragment_search_birthdays, container, false);
+
+        ListView lv = (ListView) root.findViewById(R.id.list);
+        adapter = new ContactDayAdapter(getActivity(),
                 new ArrayList<ContactDay>(0));
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new OnItemClickListener() {
@@ -72,17 +79,17 @@ public class SearchBirthdays extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                Intent intent = new Intent(getApplicationContext(),
+                Intent intent = new Intent(getActivity(),
                         DisplayContactDetails.class);
                 intent.putExtra("id", adapter.getItem(position).getId());
                 startActivity(intent);
 
             }
         });
-        month = (EditText) findViewById(R.id.month);
-        day = (EditText) findViewById(R.id.day);
+        month = (EditText) root.findViewById(R.id.month);
+        day = (EditText) root.findViewById(R.id.day);
 
-        findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
+        root.findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -96,6 +103,7 @@ public class SearchBirthdays extends Activity {
             }
 
         });
-
+        return root;
     }
+
 }

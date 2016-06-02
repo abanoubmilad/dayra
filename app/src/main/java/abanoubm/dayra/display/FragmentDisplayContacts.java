@@ -42,7 +42,7 @@ public class FragmentDisplayContacts extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            list =  DB.getInstant(getActivity()).getContactsDisplayList();
+            list = DB.getInstant(getActivity()).getContactsDisplayList();
             return null;
         }
 
@@ -127,47 +127,14 @@ public class FragmentDisplayContacts extends Fragment {
                         }
                     });
                     break;
-                // birthday
-                case 5:
-                    Collections.sort(list, new Comparator<ContactSort>() {
-                        @Override
-                        public int compare(ContactSort lhs, ContactSort rhs) {
-                            return lhs.getBirthDayObj().compareDayAndMonth(
-                                    rhs.getBirthDayObj());
-                        }
-                    });
-                    break;
                 // confession father
-                case 6:
+                case 5:
                     Collections.sort(list, new Comparator<ContactSort>() {
                         @Override
                         public int compare(ContactSort lhs, ContactSort rhs) {
                             return lhs.getPriest().compareTo(rhs.getPriest());
                         }
                     });
-                    break;
-                // last attendance
-                case 7:
-                    Collections.sort(list, new Comparator<ContactSort>() {
-                        @Override
-                        public int compare(ContactSort lhs, ContactSort rhs) {
-                            return lhs.getLastAttendObj().compare(
-                                    rhs.getLastAttendObj());
-                        }
-                    });
-                    break;
-                // last visit
-                case 8:
-                    Collections.sort(list, new Comparator<ContactSort>() {
-                        @Override
-                        public int compare(ContactSort lhs, ContactSort rhs) {
-                            return lhs.getLastVisitObj().compare(
-                                    rhs.getLastVisitObj());
-                        }
-                    });
-                    break;
-
-                default:
                     break;
             }
             return null;

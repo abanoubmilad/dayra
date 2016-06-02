@@ -3,47 +3,49 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
-
     <include layout="@layout/header" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightergrey"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:background="@color/grey"
+        android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/pin"
+
+        <ImageView
+            android:id="@+id/image1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:entries="@array/search_menu"
-            android:spinnerMode="dialog"
-            android:textSize="@dimen/font_larger" />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:padding="10dp"
+            android:src="@mipmap/ic_info" />
 
-        <EditText
-            android:id="@+id/input"
+
+        <ImageView
+            android:id="@+id/image2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:imeOptions="actionDone"
-            android:maxLength="30"
-            android:textColor="@color/black"
-            android:textSize="26sp" />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:src="@mipmap/ic_days" />
+
+        <ImageView
+            android:id="@+id/image3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:src="@mipmap/ic_conn" />
+
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/list"
+    <FrameLayout
+        android:id="@+id/fragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <TextView
-        android:id="@+id/btn"
-        style="@style/bottom_button"
-        android:text="@string/btn.search" />
-
+        android:layout_height="match_parent" />
 </LinearLayout>

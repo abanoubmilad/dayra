@@ -57,7 +57,6 @@
         <activity
             android:name=".display.DisplayContactDetails"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".operations.SearchBirthdays" />
         <activity android:name=".operations.Search" />
         <activity android:name=".operations.ExportContacts" />
         <activity android:name=".display.ContactMap" />

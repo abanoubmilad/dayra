@@ -232,12 +232,12 @@ public class DB extends SQLiteOpenHelper {
                                                                 String name) {
 
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," +
-                CONTACT_PHOTO + ","+ CONN_B+
+                CONTACT_PHOTO + "," + CONN_B +
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_CONNECTION + " ON " +
                 CONTACT_ID + "=" + CONN_B + " AND " + CONN_A + " = ? " +
                 " WHERE " + CONTACT_ID + " != ? AND " + CONTACT_NAME +
                 " LIKE ? ORDER BY " + CONTACT_NAME;
-        Cursor c = readableDB.rawQuery(selectQuery, new String[]{hostID, hostID,"%"+name+"%"});
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{hostID, hostID, "%" + name + "%"});
         ArrayList<ContactConnection> result = new ArrayList<>(
                 c.getCount());
         if (c.moveToFirst()) {
@@ -463,12 +463,9 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public ArrayList<ContactSort> getContactsDisplayList() {
-        Cursor c = readableDB.query(TB_CONTACT +
-                " LEFT OUTER JOIN " + TB_ATTEND +
-                " ON " + CONTACT_ID + "=" + ATTEND_ID, new String[]{CONTACT_ID, CONTACT_NAME,
-                CONTACT_PHOTO, "MAX(" + ATTEND_DAY + ")",
-                CONTACT_PRIEST, CONTACT_BDAY,
-                CONTACT_LAST_VISIT,
+        Cursor c = readableDB.query(TB_CONTACT, new String[]{CONTACT_ID, CONTACT_NAME,
+                CONTACT_PHOTO,
+                CONTACT_PRIEST,
                 CONTACT_CLASS_YEAR,
                 CONTACT_STUDY_WORK,
                 CONTACT_ST, CONTACT_SITE,
@@ -480,11 +477,8 @@ public class DB extends SQLiteOpenHelper {
             do {
                 result.add(new ContactSort(c.getString(0), c
                         .getString(1), c.getString(2), c
-                        .getString(3) != null ? c
-                        .getString(3) : "", c.getString(4), c
-                        .getString(5), c.getString(6), c
-                        .getString(7), c.getString(8), c.getString(9), c
-                        .getString(10)));
+                        .getString(3), c.getString(4), c.getString(5), c
+                        .getString(6), c.getString(7)));
 
             } while (c.moveToNext());
         }
@@ -979,10 +973,11 @@ public class DB extends SQLiteOpenHelper {
         return result;
 
     }
+
     public ArrayList<ContactDay> searchBirthdays(String dateRegex) {
 
         String selectQuery = "SELECT " + CONTACT_ID +
-                "," + CONTACT_NAME + "," + CONTACT_PHOTO+ "," + CONTACT_BDAY
+                "," + CONTACT_NAME + "," + CONTACT_PHOTO + "," + CONTACT_BDAY
                 + " FROM " + TB_CONTACT + " WHERE " + CONTACT_BDAY + " LIKE ? ORDER BY " + CONTACT_BDAY;
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{dateRegex});
         ArrayList<ContactDay> result = new ArrayList<>(c.getCount());
@@ -997,13 +992,14 @@ public class DB extends SQLiteOpenHelper {
         return result;
 
     }
-    public ArrayList<ContactDay> searchDates(String date,String type,String selectTag) {
+
+    public ArrayList<ContactDay> searchDates(String date, String type, String selectTag) {
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO + "," + selectTag +
                 " FROM " + TB_CONTACT + " INNER OUTER JOIN " + TB_ATTEND + " ON " +
                 CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " = ?  AND " + ATTEND_TYPE + " = ? GROUP BY " + CONTACT_ID
                 + " ORDER BY " + CONTACT_NAME;
 
-        Cursor c = readableDB.rawQuery(selectQuery, new String[]{date,type});
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{date, type});
         ArrayList<ContactDay> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {

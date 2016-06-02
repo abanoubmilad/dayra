@@ -39,9 +39,6 @@ public class ContactSortAdapter extends ArrayAdapter<ContactSort> {
             holder.street = (TextView) convertView.findViewById(R.id.street);
             holder.site = (TextView) convertView.findViewById(R.id.site);
             holder.conf_father = (TextView) convertView.findViewById(R.id.conf_father);
-            holder.last_attendance = (TextView) convertView.findViewById(R.id.last_attendance);
-            holder.last_visit = (TextView) convertView.findViewById(R.id.last_visit);
-            holder.bday = (TextView) convertView.findViewById(R.id.bday);
 
             convertView.setTag(holder);
         } else {
@@ -68,18 +65,11 @@ public class ContactSortAdapter extends ArrayAdapter<ContactSort> {
                 .getSite());
         holder.conf_father.setText(contact
                 .getPriest());
-        holder.last_attendance
-                .setText(contact.getLastAttend());
-        holder.last_visit.setText(contact
-                .getLastVisit());
-        holder.bday.setText(contact
-                .getBirthDay());
-
         return convertView;
     }
 
     private static class ViewHolder {
-        TextView name, class_year, study_work, street, site, conf_father, last_attendance, last_visit, bday;
+        TextView name, class_year, study_work, street, site, conf_father;
         ImageView img;
     }
 }

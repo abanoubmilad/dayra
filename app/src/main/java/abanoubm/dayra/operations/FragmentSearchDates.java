@@ -1,14 +1,16 @@
 package abanoubm.dayra.operations;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.DatePicker;
@@ -28,7 +30,7 @@ import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactDay;
 
-public class SearchDates extends Activity {
+public class FragmentSearchDates extends Fragment {
     private ContactDayAdapter adapter;
     private int currentTag = 0;
     private int dayType = 0;
@@ -44,7 +46,7 @@ public class SearchDates extends Activity {
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(SearchDates.this);
+            pBar = new ProgressDialog(getActivity());
             pBar.setCancelable(false);
             pBar.show();
         }
@@ -52,7 +54,7 @@ public class SearchDates extends Activity {
         @Override
         protected ArrayList<ContactDay> doInBackground(String... params) {
 
-            return DB.getInstant(getApplicationContext())
+            return DB.getInstant(getActivity())
                     .searchDates(params[0], dayType + "", searchTags[currentTag]);
 
 
@@ -64,7 +66,7 @@ public class SearchDates extends Activity {
             adapter.addAll(att);
             pBar.dismiss();
             if (att.size() == 0)
-                Toast.makeText(getApplicationContext(),
+                Toast.makeText(getActivity(),
                         R.string.msg_no_results, Toast.LENGTH_SHORT).show();
 
 
@@ -72,16 +74,21 @@ public class SearchDates extends Activity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_search_date);
-        ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
-        ((TextView) findViewById(R.id.subhead2))
-                .setText(R.string.subhead_search);
 
-        ListView lv = (ListView) findViewById(R.id.list);
-        adapter = new ContactDayAdapter(this, new ArrayList<ContactDay>(0));
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View root = inflater.inflate(R.layout.fragment_search_dates, container, false);
+
+
+        ListView lv = (ListView) root.findViewById(R.id.list);
+        adapter = new ContactDayAdapter(getActivity(), new ArrayList<ContactDay>(0));
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -89,7 +96,7 @@ public class SearchDates extends Activity {
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
 
-                Intent intent = new Intent(getApplicationContext(),
+                Intent intent = new Intent(getActivity(),
                         DisplayContactDetails.class);
                 intent.putExtra("id", adapter.getItem(position).getId());
                 startActivity(intent);
@@ -97,11 +104,11 @@ public class SearchDates extends Activity {
             }
         });
 
-        final EditText date = (EditText) findViewById(R.id.edit_date);
+        final EditText date = (EditText) root.findViewById(R.id.edit_date);
 
         final DatePickerDialog picker;
         Calendar cal = Calendar.getInstance();
-        picker = new DatePickerDialog(this, new OnDateSetListener() {
+        picker = new DatePickerDialog(getActivity(), new OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
                 String dateStr = Utility.produceDate(dayOfMonth, monthOfYear + 1, year);
@@ -112,7 +119,7 @@ public class SearchDates extends Activity {
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal
                 .get(Calendar.DAY_OF_MONTH));
 
-        findViewById(R.id.pick)
+        root.findViewById(R.id.pick)
                 .setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -121,7 +128,7 @@ public class SearchDates extends Activity {
 
                     }
                 });
-        ((Spinner) findViewById(R.id.spin_search)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ((Spinner) root.findViewById(R.id.spin_search)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -135,12 +142,12 @@ public class SearchDates extends Activity {
 
             }
         });
-        ((Spinner) findViewById(R.id.spin_type)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ((Spinner) root.findViewById(R.id.spin_type)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                    dayType = position;
+                dayType = position;
             }
 
             @Override
@@ -148,5 +155,7 @@ public class SearchDates extends Activity {
 
             }
         });
+        return root;
     }
+
 }

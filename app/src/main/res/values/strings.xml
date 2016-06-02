@@ -52,6 +52,8 @@
     <string name="err.msg.invalid.name">invalid name, must be at least 4 characters long</string>
     <string name="err.msg.email">Invalid email</string>
     <string name="subhead.search">Searching</string>
+    <string name="subhead.search_dates">Searching dates</string>
+    <string name="subhead.search_bdays">Searching birthdays</string>
     <string name="label.confirm.dayra">confirm dayra name</string>
     <string name="btn.add">add</string>
     <string name="subhead.add.contact">Adding a contact</string>
@@ -245,10 +247,7 @@
         <item>Study/work</item>
         <item>Site</item>
         <item>Street</item>
-        <item>Birthday</item>
         <item>Confession father</item>
-        <item>Last attendance</item>
-        <item>Last visit</item>
     </string-array>
     <string-array name="home_icons" translatable="false">
         <item>@mipmap/ic_search</item>
@@ -287,5 +286,8 @@
         <item>@mipmap/ic_rename</item>
         <item>@mipmap/ic_delete</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
