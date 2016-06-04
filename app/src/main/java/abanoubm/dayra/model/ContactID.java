@@ -30,9 +30,6 @@ public class ContactID {
         return picDir;
     }
 
-    public void setPicDir(String picDir) {
-        this.picDir = picDir;
-    }
 
     public void setName(String name) {
         this.name = name;

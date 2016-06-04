@@ -4,8 +4,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/header" />
-
     <TextView
         android:id="@+id/subhead2"
         android:layout_width="match_parent"

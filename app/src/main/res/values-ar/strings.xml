@@ -52,6 +52,8 @@
     <string name="err.msg.email">الايميل غير صالح</string>
     <string name="subhead.search">بحث </string>
     <string name="label.confirm.dayra">تأكيد اسم الدايره</string>
+    <string name="subhead.search_dates">بحت تواريخ</string>
+    <string name="subhead.search_bdays">بحث اعياد الميلاد</string>
     <string name="btn.add">اضافة</string>
     <string name="subhead.add.contact">اضافة</string>
     <string name="subhead.display.contacts">عرض البيانات</string>

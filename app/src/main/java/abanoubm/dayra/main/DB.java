@@ -159,7 +159,7 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public void deleteAttendant(String id) {
+    public void deleteContact(String id) {
         removeAttendantConnections(id);
         writableDB.delete(TB_ATTEND, ATTEND_ID + " = ?",
                 new String[]{id});
@@ -249,36 +249,6 @@ public class DB extends SQLiteOpenHelper {
         c.close();
         return result;
     }
-
-    public void updateAttendant(ContactData att) {
-        ContentValues values = new ContentValues();
-
-        values.put(CONTACT_MAPLAT, att.getMapLat());
-        values.put(CONTACT_MAPLNG, att.getMapLng());
-        values.put(CONTACT_MAPZOM, att.getMapZoom());
-        values.put(CONTACT_NAME, att.getName());
-        values.put(CONTACT_ATTEND_DATES, att.getAttendDates());
-        values.put(CONTACT_LAST_VISIT, att.getLastVisit());
-        values.put(CONTACT_LAST_ATTEND, att.getLastAttend());
-        values.put(CONTACT_PHOTO, att.getPicDir());
-        values.put(CONTACT_PRIEST, att.getPriest());
-        values.put(CONTACT_NOTES, att.getComm());
-        values.put(CONTACT_BDAY, att.getBirthDay());
-        values.put(CONTACT_EMAIL, att.getEmail());
-        values.put(CONTACT_MOB1, att.getMobile1());
-        values.put(CONTACT_MOB2, att.getMobile2());
-        values.put(CONTACT_MOB3, att.getMobile3());
-        values.put(CONTACT_LPHONE, att.getLandPhone());
-        values.put(CONTACT_ADDR, att.getAddress());
-        values.put(CONTACT_ST, att.getStreet());
-        values.put(CONTACT_SITE, att.getSite());
-        values.put(CONTACT_STUDY_WORK, att.getStudyWork());
-        values.put(CONTACT_CLASS_YEAR, att.getClassYear());
-
-        writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
-                new String[]{String.valueOf(att.getId())});
-    }
-
     public void updateContact(ContentValues values, String id) {
         writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
                 new String[]{id});

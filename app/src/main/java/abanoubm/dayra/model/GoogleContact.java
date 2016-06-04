@@ -10,11 +10,6 @@ public class GoogleContact {
         return isExisted;
     }
 
-    public void setExisted(boolean existed) {
-        isExisted = existed;
-    }
-
-
     public GoogleContact(String name, String mobile, boolean isExisted) {
         this.name = name;
         this.mobile = mobile;

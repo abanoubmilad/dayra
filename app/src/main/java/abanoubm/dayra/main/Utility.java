@@ -13,30 +13,6 @@ public class Utility {
     public static final int update = Color
             .rgb(130, 199, 132);
 
-    public static boolean isDay(String str) {
-        try {
-            if (str.length() > 0) {
-                int n = Integer.parseInt(str);
-                return n < 32 && n > 0;
-            }
-            return false;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public static boolean isMonth(String str) {
-        try {
-            if (str.length() > 0) {
-                int n = Integer.parseInt(str);
-                return n < 13 && n > 0;
-            }
-            return false;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public static String produceDate(String month) {
         if (month.length() == 1)
             return "-----0" + month + "---";

@@ -169,11 +169,11 @@ public class Main extends Activity {
         protected Integer doInBackground(String... params) {
             getSharedPreferences("login",
                     Context.MODE_PRIVATE).edit()
-                    .putString("dbname", params[0]).commit();
+                    .putString("dbname", params[0]).apply();
             DB dbm = DB.getInstant(getApplicationContext());
             getSharedPreferences("login",
                     Context.MODE_PRIVATE).edit()
-                    .putString("dbname", null).commit();
+                    .putString("dbname", null).apply();
             if (dbm.ImportDayraExcel(params[1]))
                 return R.string.msg_dayra_imported;
             dbm.deleteDB(getApplicationContext());
@@ -191,8 +191,7 @@ public class Main extends Activity {
         if (arRange == 1) {
             SharedPreferences.Editor editor = getSharedPreferences("lang",
                     Context.MODE_PRIVATE).edit();
-            editor.putInt("ar", 2);
-            editor.commit();
+            editor.putInt("ar", 2).apply();
 
             Locale myLocale = new Locale("ar");
             Resources res = getResources();
@@ -270,15 +269,13 @@ public class Main extends Activity {
                                             SharedPreferences.Editor editor = getSharedPreferences(
                                                     "lang", Context.MODE_PRIVATE)
                                                     .edit();
-                                            editor.putInt("ar", 0);
-                                            editor.commit();
+                                            editor.putInt("ar", 0).apply();
                                         } else {
                                             temp = "ar";
                                             SharedPreferences.Editor editor = getSharedPreferences(
                                                     "lang", Context.MODE_PRIVATE)
                                                     .edit();
-                                            editor.putInt("ar", 2);
-                                            editor.commit();
+                                            editor.putInt("ar", 2).apply();
                                         }
                                         Locale myLocale = new Locale(temp);
                                         Resources res = getResources();
@@ -406,7 +403,7 @@ public class Main extends Activity {
 
     private void register() {
         LayoutInflater li = LayoutInflater.from(getApplicationContext());
-        View regView = li.inflate(R.layout.signup, null);
+        View regView = li.inflate(R.layout.signup, null,false);
         final AlertDialog ad = new AlertDialog.Builder(Main.this)
                 .setCancelable(true).create();
         ad.setView(regView, 0, 0, 0, 0);
@@ -469,7 +466,7 @@ public class Main extends Activity {
             }
 
             LayoutInflater li = LayoutInflater.from(getApplicationContext());
-            View signView = li.inflate(R.layout.signin, null);
+            View signView = li.inflate(R.layout.signin, null,false);
             final AlertDialog ad = new AlertDialog.Builder(Main.this)
                     .setCancelable(true).create();
             ad.setView(signView, 0, 0, 0, 0);
@@ -513,8 +510,7 @@ public class Main extends Activity {
         if (arRange != 0) {
             SharedPreferences.Editor editor = getSharedPreferences("lang",
                     Context.MODE_PRIVATE).edit();
-            editor.putInt("ar", 1);
-            editor.commit();
+            editor.putInt("ar", 1).apply();
         }
     }
 

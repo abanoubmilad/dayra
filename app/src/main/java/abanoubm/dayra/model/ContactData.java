@@ -39,65 +39,41 @@ public class ContactData extends ContactID {
         return mapLat;
     }
 
-    public void setMapLat(double mapLat) {
-        this.mapLat = mapLat;
-    }
 
     public double getMapLng() {
         return mapLng;
     }
 
-    public void setMapLng(double mapLng) {
-        this.mapLng = mapLng;
-    }
 
     public float getMapZoom() {
         return mapZoom;
     }
 
-    public void setMapZoom(float mapZoom) {
-        this.mapZoom = mapZoom;
-    }
 
     public String getAttendDates() {
         return attendDates;
     }
 
-    public void setAttendDates(String attendDates) {
-        this.attendDates = attendDates;
-    }
 
     public String getLastAttend() {
         return lastAttend;
     }
 
-    public void setLastAttend(String lastAttend) {
-        this.lastAttend = lastAttend;
-    }
 
     public String getPriest() {
         return priest;
     }
 
-    public void setPriest(String priest) {
-        this.priest = priest;
-    }
 
     public String getComm() {
         return comm;
     }
 
-    public void setComm(String comm) {
-        this.comm = comm;
-    }
 
     public String getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(String birthDay) {
-        this.birthDay = birthDay;
-    }
 
     public String getEmail() {
         return email;
@@ -135,9 +111,6 @@ public class ContactData extends ContactID {
         return landPhone;
     }
 
-    public void setLandPhone(String landPhone) {
-        this.landPhone = landPhone;
-    }
 
     public String getAddress() {
         return address;
@@ -151,25 +124,16 @@ public class ContactData extends ContactID {
         return lastVisit;
     }
 
-    public void setLastVisit(String lastVisit) {
-        this.lastVisit = lastVisit;
-    }
 
     public String getClassYear() {
         return classYear;
     }
 
-    public void setClassYear(String classYear) {
-        this.classYear = classYear;
-    }
 
     public String getStudyWork() {
         return studyWork;
     }
 
-    public void setStudyWork(String studyWork) {
-        this.studyWork = studyWork;
-    }
 
     public String getStreet() {
         return street;

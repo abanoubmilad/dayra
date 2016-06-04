@@ -317,7 +317,7 @@ public class FragmentEditContactInfo extends Fragment {
         @Override
         protected ArrayList<String> doInBackground(Integer... params) {
             position = params[0];
-            return DB.getInstant(getActivity()).getOptionsList(DB.CONTACT_ST);
+            return DB.getInstant(getActivity()).getOptionsList(optionsTags[position]);
         }
 
         @Override

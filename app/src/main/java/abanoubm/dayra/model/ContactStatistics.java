@@ -15,23 +15,14 @@ public class ContactStatistics extends ContactID {
         return minDay;
     }
 
-    public void setMinDay(String minDay) {
-        this.minDay = minDay;
-    }
 
     public String getMaxDay() {
         return maxDay;
     }
 
-    public void setMaxDay(String maxDay) {
-        this.maxDay = maxDay;
-    }
 
     public int getDaysCount() {
         return daysCount;
     }
 
-    public void setDaysCount(int daysCount) {
-        this.daysCount = daysCount;
-    }
 }

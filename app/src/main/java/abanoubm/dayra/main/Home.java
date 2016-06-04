@@ -295,7 +295,7 @@ public class Home extends Activity {
 
     private void renameDB() {
         LayoutInflater li = LayoutInflater.from(getApplicationContext());
-        View chooseView = li.inflate(R.layout.confirm_dbname, null);
+        View chooseView = li.inflate(R.layout.confirm_dbname,null,false);
         final AlertDialog ad = new AlertDialog.Builder(Home.this)
                 .setCancelable(true).create();
         ad.setView(chooseView, 0, 0, 0, 0);
@@ -356,7 +356,7 @@ public class Home extends Activity {
 
     private void deleteDB() {
         LayoutInflater li = LayoutInflater.from(getApplicationContext());
-        View chooseView = li.inflate(R.layout.confirm_dbname, null);
+        View chooseView = li.inflate(R.layout.confirm_dbname, null,false);
         final AlertDialog ad = new AlertDialog.Builder(Home.this)
                 .setCancelable(true).create();
         ad.setView(chooseView, 0, 0, 0, 0);

@@ -17,7 +17,7 @@
     <string name="btn.confirm">confirm</string>
     <string name="btn.create">create</string>
     <string name="btn.back">back</string>
-    <string name="copyright">dayra 3.2 ©%1$s\nAbanoub M. abanoubcs@gmail.com</string>
+    <string name="copyright">dayra 3.2 ©%1$s\nAbanoub Milad N. abanoubcs@gmail.com</string>
     <string name="err.msg.db">Error while trying to connect to database, please contact the developer</string>
     <string name="label.name.required">name (required)</string>
     <string name="label.name">name</string>
@@ -286,8 +286,5 @@
         <item>@mipmap/ic_rename</item>
         <item>@mipmap/ic_delete</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

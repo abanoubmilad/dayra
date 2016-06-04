@@ -14,17 +14,11 @@ public class ContactLoc {
         return mapLat;
     }
 
-    public void setMapLat(double mapLat) {
-        this.mapLat = mapLat;
-    }
 
     public double getMapLng() {
         return mapLng;
     }
 
-    public void setMapLng(double mapLng) {
-        this.mapLng = mapLng;
-    }
 
     public String getName() {
         return name;

@@ -9,9 +9,6 @@ public class ContactMobile extends ContactID {
         return isExisted;
     }
 
-    public void setExisted(boolean existed) {
-        isExisted = existed;
-    }
 
     public ContactMobile(String id, String name, String picDir, String mobile, boolean isExisted) {
         super(id, name, picDir);
