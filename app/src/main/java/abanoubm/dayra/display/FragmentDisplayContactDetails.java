@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.operations.EditContact;
 
 public class FragmentDisplayContactDetails extends Fragment {
     private String id = "-1";
@@ -138,7 +137,7 @@ public class FragmentDisplayContactDetails extends Fragment {
                     buttons[current].setBackgroundColor(0);
                     current = 4;
                     buttons[4].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-                    startActivity(new Intent(getActivity(), EditContact.class).putExtra("id", id));
+                    startActivity(new Intent(getActivity(), EditContactDetails.class).putExtra("id", id));
 
                 }
 
