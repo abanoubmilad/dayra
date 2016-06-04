@@ -279,6 +279,11 @@ public class DB extends SQLiteOpenHelper {
                 new String[]{String.valueOf(att.getId())});
     }
 
+    public void updateContact(ContentValues values, String id) {
+        writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
+                new String[]{id});
+    }
+
     public void externalUpdater(ArrayList<ContactData> arr,
                                 ArrayList<String> dataTag) {
         for (ContactData att : arr) {

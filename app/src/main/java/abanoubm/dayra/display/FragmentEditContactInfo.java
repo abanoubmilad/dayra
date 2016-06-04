@@ -4,6 +4,7 @@ package abanoubm.dayra.display;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -41,7 +42,7 @@ public class FragmentEditContactInfo extends Fragment {
 
     private ImageView img;
 
-    private ContactData attData;
+    private ContactData contactData;
 
     private static final int TAKE_IMG = 2;
     private static final int BROWSE_IMG = 1;
@@ -143,7 +144,7 @@ public class FragmentEditContactInfo extends Fragment {
                     public void onClick(View v) {
                         startActivity(new Intent(getActivity(),
                                 DisplayContactDetails.class).putExtra("id",
-                                attData.getId()));
+                                contactData.getId()));
                     }
                 });
         root.findViewById(R.id.save)
@@ -239,7 +240,7 @@ public class FragmentEditContactInfo extends Fragment {
             if (result) {
                 //    finish();
                 startActivity(new Intent(getActivity(),
-                        DisplayContactDetails.class).putExtra("id", attData.getId()));
+                        DisplayContactDetails.class).putExtra("id", contactData.getId()));
             }
 
         }
@@ -266,7 +267,7 @@ public class FragmentEditContactInfo extends Fragment {
             String check = dbm.getNameId(params[0]);
             if (!Utility.isName(params[0])) {
                 msgSource = R.string.err_msg_invalid_name;
-            } else if (!check.equals("-1") && !check.equals(attData.getId())) {
+            } else if (!check.equals("-1") && !check.equals(contactData.getId())) {
                 msgSource = R.string.err_msg_duplicate_name;
             } else if (params[4].length() != 0 && !Utility.isEmail(params[4])) {
                 msgSource = R.string.err_msg_email;
@@ -274,15 +275,25 @@ public class FragmentEditContactInfo extends Fragment {
                 msgSource = R.string.err_msg_site;
             } else {
 
-                attData = new ContactData(attData.getId(), params[0], imgPath,
-                        attData.getMapLat(), attData.getMapLng(),
-                        attData.getMapZoom(), attData.getAttendDates(),
-                        attData.getLastAttend(), params[13], params[3], params[2], params[4], params[6],
-                        params[7], params[8], params[5], params[1], "", params[9],
-                        params[10],
-                        params[11], params[12]);
 
-                dbm.updateAttendant(attData);
+                ContentValues values = new ContentValues();
+                values.put(DB.CONTACT_NAME, params[0]);
+                values.put(DB.CONTACT_PHOTO, imgPath);
+                values.put(DB.CONTACT_PRIEST, params[13]);
+                values.put(DB.CONTACT_NOTES, params[3]);
+                values.put(DB.CONTACT_BDAY, params[2]);
+                values.put(DB.CONTACT_EMAIL, params[4]);
+                values.put(DB.CONTACT_MOB1, params[6]);
+                values.put(DB.CONTACT_MOB2, params[7]);
+                values.put(DB.CONTACT_MOB3, params[8]);
+                values.put(DB.CONTACT_LPHONE, params[5]);
+                values.put(DB.CONTACT_ADDR, params[1]);
+                values.put(DB.CONTACT_ST, params[11]);
+                values.put(DB.CONTACT_SITE, params[12]);
+                values.put(DB.CONTACT_STUDY_WORK, params[10]);
+                values.put(DB.CONTACT_CLASS_YEAR, params[9]);
+
+                dbm.updateContact(values, contactData.getId());
                 msgSource = R.string.msg_updated;
                 return true;
             }
@@ -356,39 +367,39 @@ public class FragmentEditContactInfo extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            attData = DB.getInstant(getActivity()).getAttendantData(mParam1);
-            imgPath = attData.getPicDir();
+            contactData = DB.getInstant(getActivity()).getAttendantData(mParam1);
+            imgPath = contactData.getPicDir();
             return null;
         }
     }
 
     private void setFields() {
 
-        name.setText(attData.getName());
-        address.setText(attData.getAddress());
-        comm.setText(attData.getComm());
-        email.setText(attData.getEmail());
-        lphone.setText(attData.getLandPhone());
+        name.setText(contactData.getName());
+        address.setText(contactData.getAddress());
+        comm.setText(contactData.getComm());
+        email.setText(contactData.getEmail());
+        lphone.setText(contactData.getLandPhone());
 
-        mobile1.setText(attData.getMobile1());
-        mobile2.setText(attData.getMobile2());
-        mobile3.setText(attData.getMobile3());
+        mobile1.setText(contactData.getMobile1());
+        mobile2.setText(contactData.getMobile2());
+        mobile3.setText(contactData.getMobile3());
 
-        optionsInput[0].setText(attData.getClassYear());
-        optionsInput[1].setText(attData.getStudyWork());
-        optionsInput[2].setText(attData.getStreet());
-        optionsInput[3].setText(attData.getSite());
-        optionsInput[4].setText(attData.getPriest());
+        optionsInput[0].setText(contactData.getClassYear());
+        optionsInput[1].setText(contactData.getStudyWork());
+        optionsInput[2].setText(contactData.getStreet());
+        optionsInput[3].setText(contactData.getSite());
+        optionsInput[4].setText(contactData.getPriest());
 
-        bday.setText(attData.getBirthDay());
+        bday.setText(contactData.getBirthDay());
 
-        if (attData.getPicDir().length() == 0
-                || !new File(attData.getPicDir()).exists())
+        if (contactData.getPicDir().length() == 0
+                || !new File(contactData.getPicDir()).exists())
             img.setImageResource(R.mipmap.def);
         else {
 
             img.setImageBitmap(ThumbnailUtils.extractThumbnail(
-                    BitmapFactory.decodeFile(attData.getPicDir()), 250, 250));
+                    BitmapFactory.decodeFile(contactData.getPicDir()), 250, 250));
         }
 
     }
