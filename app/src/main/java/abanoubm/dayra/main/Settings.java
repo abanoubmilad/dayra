@@ -24,9 +24,8 @@
 //
 //    private AlarmManager manager;
 //    private PendingIntent AttendPIntent, VisitPIntent, bdayPIntent;
-//    private String dbname;
 //    private SharedPreferences sp;
-//    private CheckBox cb_attend, cb_visit, cb_bday;
+//    private CheckBox attend, visit, bday;
 //
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +35,14 @@
 //        ((TextView) findViewById(R.id.subhead2))
 //                .setText(R.string.label_settings);
 //
-//        cb_attend = (CheckBox) findViewById(R.id.cb_attend);
-//        cb_visit = (CheckBox) findViewById(R.id.cb_visit);
-//        cb_bday = (CheckBox) findViewById(R.id.cb_bday);
+//       attend = (CheckBox) findViewById(R.id.cb_attend);
+//         visit = (CheckBox) findViewById(R.id.cb_visit);
+//        bday = (CheckBox) findViewById(R.id.cb_bday);
 //
 //        manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 //
-//        sp = getSharedPreferences("alarms", Context.MODE_PRIVATE);
 //
-//        dbname = sp.getString("dbname", "");
 //
-//        cb_attend.setChecked(sp.getBoolean("attend", false));
-//        cb_visit.setChecked(sp.getBoolean("visit", false));
 //        cb_bday.setChecked(sp.getBoolean("bday", false));
 //
 //        VisitPIntent = PendingIntent.getBroadcast(Settings.this, 200,

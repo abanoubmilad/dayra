@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class AlarmDB extends SQLiteOpenHelper {
     private static String DB_NAME = "alarm_db";
-
+    private static String targetDBName = "";
     private static final String TB_ALARM = "alarm_tb";
     private static final String ALARM_DB_NAME = "alarm_db_name";
     private static final String ALARM_TYPE = "alarm_type";
@@ -28,6 +28,8 @@ public class AlarmDB extends SQLiteOpenHelper {
         super(context, DB_NAME, null, 1);
         readableDB = getReadableDatabase();
         writableDB = getWritableDatabase();
+        targetDBName = context.getSharedPreferences("login",
+                Context.MODE_PRIVATE).getString("dbname", "");
     }
 
     @Override
@@ -42,9 +44,9 @@ public class AlarmDB extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
     }
 
-    public void removeAlarm(String dbname, String type) {
+    public void removeAlarm(String type) {
         writableDB.delete(TB_ALARM, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ?",
-                new String[]{dbname, type});
+                new String[]{targetDBName, type});
     }
 
     public void closeDB() {
@@ -52,10 +54,10 @@ public class AlarmDB extends SQLiteOpenHelper {
         writableDB.close();
     }
 
-    public void addAlarm(String dbname, String type) {
+    public void addAlarm(String type) {
         ContentValues values = new ContentValues();
-        values.put(ALARM_DB_NAME, dbname);
-        values.put(ALARM_TYPE, dbname);
+        values.put(ALARM_DB_NAME, targetDBName);
+        values.put(ALARM_TYPE, type);
         writableDB.insert(TB_ALARM, null, values);
     }
 
