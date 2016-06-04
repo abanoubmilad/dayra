@@ -37,8 +37,8 @@ import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactData;
 
 public class FragmentEditContactInfo extends Fragment {
-    private static final String ARG_PARAM1 = "id";
-    private String mParam1;
+    private static final String ARG_ID = "id";
+    private String id="-1";
 
     private ImageView img;
 
@@ -75,7 +75,7 @@ public class FragmentEditContactInfo extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            id = getArguments().getString(ARG_ID);
         }
     }
 
@@ -367,7 +367,7 @@ public class FragmentEditContactInfo extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            contactData = DB.getInstant(getActivity()).getAttendantData(mParam1);
+            contactData = DB.getInstant(getActivity()).getAttendantData(id);
             imgPath = contactData.getPicDir();
             return null;
         }

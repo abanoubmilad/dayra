@@ -16,12 +16,12 @@ import java.util.ArrayList;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.model.ContactUpdate;
+import abanoubm.dayra.model.ContactCheck;
 
-public class ContactUpdateAdapter extends ArrayAdapter<ContactUpdate> {
+public class ContactCheckAdapter extends ArrayAdapter<ContactCheck> {
 
-    public ContactUpdateAdapter(Context context,
-                                ArrayList<ContactUpdate> contacts) {
+    public ContactCheckAdapter(Context context,
+                               ArrayList<ContactCheck> contacts) {
         super(context, 0, contacts);
     }
 
@@ -29,27 +29,26 @@ public class ContactUpdateAdapter extends ArrayAdapter<ContactUpdate> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
-        ContactUpdate contact = getItem(position);
-
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.item_contact_update, parent, false);
+                    R.layout.item_contact_check, parent, false);
             holder = new ViewHolder();
             holder.name= (TextView) convertView.findViewById(R.id.name);
-            holder.day=(TextView) convertView.findViewById(R.id.day);
             holder.flag=(TextView) convertView.findViewById(R.id.flag);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder)convertView.getTag();
         }
+        ContactCheck contact = getItem(position);
+
         holder.name.setText(contact.getName());
-        holder.day.setText(contact.getDay());
-        if (contact.isSelected()) {
-           holder.flag.setBackgroundColor(Utility.update);
+        if (contact.isChecked()) {
+            holder.flag.setBackgroundColor(Utility.update);
         } else {
             holder.flag.setBackgroundColor(Color.WHITE);
         }
+
 
         if (contact.getPicDir().length() != 0
                 && new File(contact.getPicDir()).exists()) {
@@ -60,8 +59,9 @@ public class ContactUpdateAdapter extends ArrayAdapter<ContactUpdate> {
         }
         return convertView;
     }
-    private static class ViewHolder {
-        TextView name,day,flag;
+   private static class ViewHolder {
+        TextView name;
+        TextView flag;
         ImageView img;
     }
 }

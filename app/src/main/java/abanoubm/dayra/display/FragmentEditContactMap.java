@@ -1,11 +1,15 @@
 package abanoubm.dayra.display;
 
+import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,19 +24,26 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.main.DB;
 
 public class FragmentEditContactMap extends Fragment implements OnMapReadyCallback {
     private double lon, lat;
     private float zoom;
     private Marker addressMarker, dayraMarker;
+    private static final String ARG_LAT = "lat";
+    private static final String ARG_LNG = "lon";
+    private static final String ARG_ZOM = "zoom";
+    private static final String ARG_ID = "id";
+    private String id = "-1";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            lon = getArguments().getDouble("lon", 0);
-            lat = getArguments().getDouble("lat", 0);
-            zoom = getArguments().getFloat("zoom", 0);
+            lon = getArguments().getDouble(ARG_LNG, 0);
+            lat = getArguments().getDouble(ARG_LAT, 0);
+            zoom = getArguments().getFloat(ARG_ZOM, 0);
+            id = getArguments().getString(ARG_ID);
         }
     }
 
@@ -130,4 +141,34 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
         });
 
     }
+
+    private class UpdateTask extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog pBar;
+
+        @Override
+        protected void onPreExecute() {
+            pBar = new ProgressDialog(getActivity());
+            pBar.setCancelable(false);
+            pBar.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            pBar.dismiss();
+            Toast.makeText(getActivity(), R.string.msg_updated,
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            DB dbm = DB.getInstant(getActivity());
+            ContentValues values = new ContentValues();
+            values.put(DB.CONTACT_MAPLAT, lat);
+            values.put(DB.CONTACT_MAPLNG, lon);
+            values.put(DB.CONTACT_MAPZOM, zoom);
+            dbm.updateContact(values, id);
+            return null;
+        }
+    }
+
 }

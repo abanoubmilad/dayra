@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.model.ContactConnection;
+import abanoubm.dayra.model.ContactCheck;
 import abanoubm.dayra.model.ContactData;
 import abanoubm.dayra.model.ContactDay;
 import abanoubm.dayra.model.ContactID;
@@ -34,7 +34,6 @@ import abanoubm.dayra.model.ContactLoc;
 import abanoubm.dayra.model.ContactMobile;
 import abanoubm.dayra.model.ContactSort;
 import abanoubm.dayra.model.ContactStatistics;
-import abanoubm.dayra.model.ContactUpdate;
 import abanoubm.dayra.model.IntWrapper;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -209,7 +208,7 @@ public class DB extends SQLiteOpenHelper {
                                 hostID});
     }
 
-    public ArrayList<ContactID> getAttendantConnections(int hostID) {
+    public ArrayList<ContactID> getAttendantConnections(String hostID) {
 
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO
                 + " FROM " + TB_CONTACT + " WHERE " + CONTACT_ID + " IN (SELECT "
@@ -228,8 +227,8 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList<ContactConnection> getAttendantConnections(String hostID,
-                                                                String name) {
+    public ArrayList<ContactCheck> getAttendantConnections(String hostID,
+                                                           String name) {
 
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," +
                 CONTACT_PHOTO + "," + CONN_B +
@@ -238,17 +237,18 @@ public class DB extends SQLiteOpenHelper {
                 " WHERE " + CONTACT_ID + " != ? AND " + CONTACT_NAME +
                 " LIKE ? ORDER BY " + CONTACT_NAME;
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{hostID, hostID, "%" + name + "%"});
-        ArrayList<ContactConnection> result = new ArrayList<>(
+        ArrayList<ContactCheck> result = new ArrayList<>(
                 c.getCount());
         if (c.moveToFirst()) {
             do {
-                result.add(new ContactConnection(c.getString(0), c
+                result.add(new ContactCheck(c.getString(0), c
                         .getString(1), c.getString(2), c.getString(2) != null));
             } while (c.moveToNext());
         }
         c.close();
         return result;
     }
+
     public void updateContact(ContentValues values, String id) {
         writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
                 new String[]{id});
@@ -889,15 +889,15 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<ContactUpdate> getDayAttendance(String type, String day,
-                                                     String name, IntWrapper counter) {
+    public ArrayList<ContactCheck> getDayAttendance(String type, String day,
+                                                    String name, IntWrapper counter) {
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO + "," + ATTEND_DAY +
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
                 CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " = ?  AND " + ATTEND_TYPE + " = ? WHERE " + CONTACT_NAME
                 + " LIKE ? ORDER BY " + CONTACT_NAME;
 
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{day, type, "%" + name + "%"});
-        ArrayList<ContactUpdate> result = new ArrayList<>(
+        ArrayList<ContactCheck> result = new ArrayList<>(
                 c.getCount());
         int updated = 0;
         if (c.moveToFirst()) {
@@ -906,9 +906,8 @@ public class DB extends SQLiteOpenHelper {
                 flag = c.getString(3) != null;
                 if (flag)
                     updated++;
-                result.add(new ContactUpdate(c.getString(0), c
-                        .getString(1), "", flag,
-                        c.getString(2)));
+                result.add(new ContactCheck(c.getString(0), c
+                        .getString(1), c.getString(2), flag));
             } while (c.moveToNext());
         }
         c.close();

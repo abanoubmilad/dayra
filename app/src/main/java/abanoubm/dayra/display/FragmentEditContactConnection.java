@@ -2,7 +2,6 @@ package abanoubm.dayra.display;
 
 
 import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,27 +13,30 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapters.ContactConnectionAdapter;
+import abanoubm.dayra.adapters.ContactCheckAdapter;
 import abanoubm.dayra.main.DB;
-import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.model.ContactConnection;
+import abanoubm.dayra.model.ContactCheck;
 
 public class FragmentEditContactConnection extends Fragment {
-    private static final String ARG_PARAM1 = "id";
-
-    private String mParam1;
+    private static final String ARG_ID = "id";
+    private ContactCheckAdapter mAdapter;
+    private String id;
+    private EditText sname;
+    private ListView lv;
+    private DB dbm;
+    private int previousPosition = 0;
+    private ContactCheck contact;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            id = getArguments().getString(ARG_ID);
         }
     }
 
@@ -47,14 +49,14 @@ public class FragmentEditContactConnection extends Fragment {
         sname = (EditText) root.findViewById(R.id.sname_edittext);
 
         lv = (ListView) root.findViewById(R.id.sname_list);
+        mAdapter = new ContactCheckAdapter(getContext(), new ArrayList<ContactCheck>(0));
+        lv.setAdapter(mAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                flag = (TextView) arg1.findViewById(R.id.flag);
-                chosenAtt = (ContactConnection) parent
-                        .getItemAtPosition(position);
-                if (chosenAtt.isCon())
+                contact = mAdapter.getItem(position);
+                if (contact.isChecked())
                     new DeConnectTask().execute();
                 else
                     new ConnectTask().execute();
@@ -82,91 +84,91 @@ public class FragmentEditContactConnection extends Fragment {
 
         });
 
-        pBar = new ProgressDialog(getActivity());
-        pBar.setCancelable(false);
 
         dbm = DB.getInstant(getActivity());
 
         return root;
     }
 
-    private EditText sname;
-    private ListView lv;
-    private TextView flag;
-    private ContactConnection chosenAtt;
-    private ProgressDialog pBar;
-    private DB dbm;
-    private String hostID;
-
-    private int previousPosition = 0;
 
     private class ConnectTask extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog pBar;
+
 
         @Override
         protected void onPreExecute() {
+            pBar = new ProgressDialog(getActivity());
+            pBar.setCancelable(false);
             pBar.show();
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            chosenAtt.setCon(true);
-            flag.setBackgroundColor(Utility.update);
+            contact.setChecked(true);
+            mAdapter.notifyDataSetChanged();
             pBar.dismiss();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.addConnection(hostID, chosenAtt.getId());
+            dbm.addConnection(id, contact.getId());
             return null;
         }
 
     }
 
     private class DeConnectTask extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
+
+            pBar = new ProgressDialog(getActivity());
+            pBar.setCancelable(false);
             pBar.show();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.removeConnection(hostID, chosenAtt.getId());
+            dbm.removeConnection(id, contact.getId());
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            chosenAtt.setCon(false);
-            flag.setBackgroundColor(Color.WHITE);
+            contact.setChecked(false);
+            mAdapter.notifyDataSetChanged();
             pBar.dismiss();
         }
     }
 
     private class GetAllConnectionsTask extends
-            AsyncTask<String, Void, ArrayList<ContactConnection>> {
+            AsyncTask<String, Void, ArrayList<ContactCheck>> {
+        private ProgressDialog pBar;
         private String name;
 
         @Override
         protected void onPreExecute() {
+            pBar = new ProgressDialog(getActivity());
+            pBar.setCancelable(false);
             pBar.show();
         }
 
         @Override
-        protected ArrayList<ContactConnection> doInBackground(String... params) {
+        protected ArrayList<ContactCheck> doInBackground(String... params) {
             name = params[0];
-            return dbm.getAttendantConnections(hostID, name);
+            return dbm.getAttendantConnections(id, name);
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ContactConnection> result) {
+        protected void onPostExecute(ArrayList<ContactCheck> result) {
             pBar.dismiss();
             if (result.size() == 0) {
-           //     finish();
+                //     finish();
                 Toast.makeText(getActivity(),
                         R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
             } else {
-                lv.setAdapter(new ContactConnectionAdapter(
+                lv.setAdapter(new ContactCheckAdapter(
                         getActivity(), result));
                 if (name.length() == 0) {
                     if (previousPosition < result.size())

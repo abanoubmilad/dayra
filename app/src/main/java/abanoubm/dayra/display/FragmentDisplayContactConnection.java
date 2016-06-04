@@ -23,15 +23,16 @@ import abanoubm.dayra.model.ContactID;
 public class FragmentDisplayContactConnection extends Fragment {
 
     private ListView lv;
-    private int hostID = -1;
+    private String id = "-1";
     private int previousPosition = 0;
+    private ContactIDAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         if (arguments != null) {
-            hostID = arguments.getInt("id");
+            id = arguments.getString("id");
         }
     }
 
@@ -42,17 +43,16 @@ public class FragmentDisplayContactConnection extends Fragment {
 
 
         lv = (ListView) root.findViewById(R.id.sname_list);
+        mAdapter = new ContactIDAdapter(getContext(), new ArrayList<ContactID>(0));
+        lv.setAdapter(mAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
                 previousPosition = lv.getFirstVisiblePosition();
-                ContactID att = (ContactID) parent.getItemAtPosition(position);
                 Intent intent = new Intent(getActivity(),
-                        DisplayContactDetails.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        | Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("id", att.getId());
+                        DisplayContactDetails.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("id", mAdapter.getItem(position).getId());
                 startActivity(intent);
             }
         });
@@ -76,15 +76,16 @@ public class FragmentDisplayContactConnection extends Fragment {
         @Override
         protected ArrayList<ContactID> doInBackground(Void... params) {
             return DB.getInstant(getActivity()).getAttendantConnections(
-                    hostID);
+                    id);
         }
 
         @Override
         protected void onPostExecute(ArrayList<ContactID> result) {
+            mAdapter.clear();
+            mAdapter.addAll(result);
             pBar.dismiss();
+
             if (result.size() > 0) {
-                lv.setAdapter(new ContactIDAdapter(getActivity(),
-                        result));
                 if (previousPosition < result.size())
                     lv.setSelection(previousPosition);
                 previousPosition = 0;

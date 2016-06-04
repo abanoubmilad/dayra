@@ -3,294 +3,304 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/white">
-
-    <LinearLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <include layout="@layout/header" />
-
-        <ImageView
-            android:id="@+id/pic_view"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:scaleType="fitCenter" />
-
-        <EditText
-            android:id="@+id/edit_name"
-            style="@style/attendant_labels"
-            android:layout_gravity="center_vertical"
-            android:hint="@string/label.name.required"
-            android:maxLength="30">
-
-            <requestFocus />
-        </EditText>
-
-        <EditText
-            android:id="@+id/edit_mobile1"
-            style="@style/attendant_labels"
-            android:hint="@string/label.mobile1"
-            android:inputType="phone"
-            android:maxLength="15" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:background="@color/white"
+            android:orientation="vertical">
 
-            <include layout="@layout/sep" />
+            <include layout="@layout/header" />
+
+            <ImageView
+                android:id="@+id/pic_view"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitCenter" />
+
+            <EditText
+                android:id="@+id/edit_name"
+                style="@style/attendant_labels"
+                android:layout_gravity="center_vertical"
+                android:hint="@string/label.name.required"
+                android:maxLength="30">
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/edit_mobile1"
+                style="@style/attendant_labels"
+                android:hint="@string/label.mobile1"
+                android:inputType="phone"
+                android:maxLength="15" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <include layout="@layout/sep" />
+
+                <TextView
+                    style="@style/attendant_labels"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/label.personal" />
+
+                <include layout="@layout/sep" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edit_class_year"
+                    style="@style/attendant_labels"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:hint="@string/label.class.year"
+                    android:inputType="number"
+                    android:maxLength="4" />
+
+                <ImageView
+                    android:id="@+id/spin_class_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/ic_spin" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edit_study_work"
+                    style="@style/attendant_labels"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:hint="@string/label.study.work"
+                    android:maxLength="30" />
+
+                <ImageView
+                    android:id="@+id/spin_study_work"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/ic_spin" />
+            </LinearLayout>
 
             <TextView
                 style="@style/attendant_labels"
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:text="@string/label.personal" />
+                android:text="@string/label.bday" />
 
-            <include layout="@layout/sep" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/edit_class_year"
-                style="@style/attendant_labels"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:hint="@string/label.class.year"
-                android:inputType="number"
-                android:maxLength="4" />
-
-            <ImageView
-                android:id="@+id/spin_class_year"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@mipmap/ic_spin" />
-        </LinearLayout>
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/edit_bday"
+                    style="@style/attendant_labels"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:hint="@string/label.bday" />
 
-            <EditText
-                android:id="@+id/edit_study_work"
-                style="@style/attendant_labels"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:hint="@string/label.study.work"
-                android:maxLength="30" />
-
-            <ImageView
-                android:id="@+id/spin_study_work"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@mipmap/ic_spin" />
-        </LinearLayout>
-
-        <TextView
-            style="@style/attendant_labels"
-            android:text="@string/label.bday" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/edit_bday"
-                style="@style/attendant_labels"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:focusable="false"
-                android:hint="@string/label.bday" />
-
-            <ImageView
-                android:id="@+id/pick_bday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@mipmap/ic_date" />
-        </LinearLayout>
-
-        <TextView
-            style="@style/attendant_labels"
-            android:text="@string/label.notes" />
-
-        <EditText
-            android:id="@+id/edit_comm"
-            style="@style/attendant_labels"
-            android:hint="@string/label.notes"
-            android:inputType="textMultiLine" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/edit_priest"
-                style="@style/attendant_labels"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:hint="@string/label.conf.father"
-                android:maxLength="30" />
-
-            <ImageView
-                android:id="@+id/spin_priest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@mipmap/ic_spin" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <include layout="@layout/sep" />
+                <ImageView
+                    android:id="@+id/pick_bday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/ic_date" />
+            </LinearLayout>
 
             <TextView
                 style="@style/attendant_labels"
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:text="@string/label.contact" />
-
-            <include layout="@layout/sep" />
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/edit_mobile2"
-            style="@style/attendant_labels"
-            android:hint="@string/label.mobile2"
-            android:inputType="phone"
-            android:maxLength="15" />
-
-        <EditText
-            android:id="@+id/edit_mobile3"
-            style="@style/attendant_labels"
-            android:hint="@string/label.mobile3"
-            android:inputType="phone"
-            android:maxLength="15" />
-
-        <EditText
-            android:id="@+id/edit_lphone"
-            style="@style/attendant_labels"
-            android:hint="@string/label.lphone"
-            android:inputType="phone"
-            android:maxLength="15" />
-
-        <EditText
-            android:id="@+id/edit_email"
-            style="@style/attendant_labels"
-            android:hint="@string/label.email"
-            android:inputType="textEmailAddress"
-            android:maxLength="30" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <include layout="@layout/sep" />
-
-            <TextView
-                style="@style/attendant_labels"
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:text="@string/label.address" />
-
-            <include layout="@layout/sep" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                android:text="@string/label.notes" />
 
             <EditText
-                android:id="@+id/edit_site"
+                android:id="@+id/edit_comm"
                 style="@style/attendant_labels"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:hint="@string/label.site"
-                android:maxLength="30" />
+                android:hint="@string/label.notes"
+                android:inputType="textMultiLine" />
 
-            <ImageView
-                android:id="@+id/spin_site"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@mipmap/ic_spin" />
-        </LinearLayout>
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/edit_priest"
+                    style="@style/attendant_labels"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:hint="@string/label.conf.father"
+                    android:maxLength="30" />
+
+                <ImageView
+                    android:id="@+id/spin_priest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/ic_spin" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <include layout="@layout/sep" />
+
+                <TextView
+                    style="@style/attendant_labels"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/label.contact" />
+
+                <include layout="@layout/sep" />
+            </LinearLayout>
 
             <EditText
-                android:id="@+id/edit_street"
+                android:id="@+id/edit_mobile2"
                 style="@style/attendant_labels"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:hint="@string/label.street"
+                android:hint="@string/label.mobile2"
+                android:inputType="phone"
+                android:maxLength="15" />
+
+            <EditText
+                android:id="@+id/edit_mobile3"
+                style="@style/attendant_labels"
+                android:hint="@string/label.mobile3"
+                android:inputType="phone"
+                android:maxLength="15" />
+
+            <EditText
+                android:id="@+id/edit_lphone"
+                style="@style/attendant_labels"
+                android:hint="@string/label.lphone"
+                android:inputType="phone"
+                android:maxLength="15" />
+
+            <EditText
+                android:id="@+id/edit_email"
+                style="@style/attendant_labels"
+                android:hint="@string/label.email"
+                android:inputType="textEmailAddress"
                 android:maxLength="30" />
 
-            <ImageView
-                android:id="@+id/spin_street"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@mipmap/ic_spin" />
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <include layout="@layout/sep" />
+
+                <TextView
+                    style="@style/attendant_labels"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/label.address" />
+
+                <include layout="@layout/sep" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edit_site"
+                    style="@style/attendant_labels"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:hint="@string/label.site"
+                    android:maxLength="30" />
+
+                <ImageView
+                    android:id="@+id/spin_site"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/ic_spin" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edit_street"
+                    style="@style/attendant_labels"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:hint="@string/label.street"
+                    android:maxLength="30" />
+
+                <ImageView
+                    android:id="@+id/spin_street"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/ic_spin" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/edit_address"
+                style="@style/attendant_labels"
+                android:hint="@string/label.address"
+                android:inputType="textMultiLine" />
+
+
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/edit_address"
-            style="@style/attendant_labels"
-            android:hint="@string/label.address"
-            android:inputType="textMultiLine" />
+        <include layout="@layout/edit_menu" />
+
+    </RelativeLayout>
 
 
-    </LinearLayout>
+
 
 </ScrollView>

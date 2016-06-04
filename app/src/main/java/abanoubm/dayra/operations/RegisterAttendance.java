@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,11 +24,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapters.ContactUpdateAdapter;
+import abanoubm.dayra.adapters.ContactCheckAdapter;
 import abanoubm.dayra.display.DisplayContactDetails;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.model.ContactUpdate;
+import abanoubm.dayra.model.ContactCheck;
 import abanoubm.dayra.model.IntWrapper;
 
 public class RegisterAttendance extends Activity {
@@ -37,19 +36,16 @@ public class RegisterAttendance extends Activity {
     private ListView lv;
     private TextView addBtn, rateView;
     private ProgressDialog pBar;
-    private TextView flag;
-    private ContactUpdate chosenAtt;
+    private ContactCheck contact;
     private DB dbm;
     private int totalCount;
     private int dayType = 0;
     private int updatedCount;
+    private ContactCheckAdapter mAdapter;
 
     private EditText edit_date;
     private int previousPosition = 0;
-    private String targetDay = Calendar.getInstance().get(Calendar.YEAR) +
-            "-" + (Calendar.getInstance().get(Calendar.MONTH) + 1) +
-            "-" + Calendar.getInstance().get(
-            Calendar.DAY_OF_MONTH);
+    private String targetDay;
 
     private class AddDateTask extends AsyncTask<Void, Void, Void> {
 
@@ -59,15 +55,14 @@ public class RegisterAttendance extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
-            chosenAtt.setDay("");
-            chosenAtt.setSelected(true);
-            flag.setBackgroundColor(Utility.update);
+            contact.setChecked(true);
+            mAdapter.notifyDataSetChanged();
             rateView.setText(++updatedCount + " / " + totalCount);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.addDay(chosenAtt.getId(), dayType+"", targetDay);
+            dbm.addDay(contact.getId(), dayType + "", targetDay);
             return null;
         }
 
@@ -81,21 +76,20 @@ public class RegisterAttendance extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.removeDay(chosenAtt.getId(), dayType+"", targetDay);
+            dbm.removeDay(contact.getId(), dayType + "", targetDay);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            chosenAtt.setDay("");
-            chosenAtt.setSelected(false);
-            flag.setBackgroundColor(Color.WHITE);
+            contact.setChecked(false);
+            mAdapter.notifyDataSetChanged();
             rateView.setText(--updatedCount + " / " + totalCount);
         }
     }
 
     private class GetAllUpdateDifTask extends
-            AsyncTask<String, Void, ArrayList<ContactUpdate>> {
+            AsyncTask<String, Void, ArrayList<ContactCheck>> {
         private String name;
         private IntWrapper temp = new IntWrapper();
 
@@ -105,15 +99,16 @@ public class RegisterAttendance extends Activity {
         }
 
         @Override
-        protected ArrayList<ContactUpdate> doInBackground(String... params) {
+        protected ArrayList<ContactCheck> doInBackground(String... params) {
             name = params[0];
-            return dbm.getDayAttendance(dayType+"", targetDay, params[0], temp);
+            return dbm.getDayAttendance(dayType + "", targetDay, params[0], temp);
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ContactUpdate> result) {
-            lv.setAdapter(new ContactUpdateAdapter(getApplicationContext(),
-                    result));
+        protected void onPostExecute(ArrayList<ContactCheck> result) {
+            mAdapter.clear();
+            mAdapter.addAll(result);
+
             if (result.size() > 0 || name.length() == 0) {
                 if (previousPosition < result.size())
                     lv.setSelection(previousPosition);
@@ -134,23 +129,30 @@ public class RegisterAttendance extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_register);
+
         ((TextView) findViewById(R.id.subhead1))
                 .setText(R.string.subhead_register_attendance);
         rateView = (TextView) findViewById(R.id.subhead2);
 
         edit_date = (EditText) findViewById(R.id.edit_date);
-
         sname = (EditText) findViewById(R.id.sname_edittext);
         addBtn = (TextView) findViewById(R.id.sname_btn);
         lv = (ListView) findViewById(R.id.sname_list);
 
         Calendar cal = Calendar.getInstance();
+        targetDay = Utility.produceDate(cal.get(Calendar.DAY_OF_MONTH),
+                cal.get(Calendar.MONTH) + 1,
+                cal.get(Calendar.YEAR));
+
+        edit_date.setText(targetDay);
+        mAdapter = new ContactCheckAdapter(getApplicationContext(), new ArrayList<ContactCheck>());
+        lv.setAdapter(mAdapter);
+
         final DatePickerDialog picker_date = new DatePickerDialog(this,
                 new OnDateSetListener() {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        targetDay = dayOfMonth + "-" + (monthOfYear + 1) + "-"
-                                + year;
+                        targetDay = Utility.produceDate(dayOfMonth, monthOfYear + 1, year);
                         edit_date.setText(targetDay);
                         sname.setVisibility(View.VISIBLE);
                         new GetAllUpdateDifTask().execute(sname.getText()
@@ -174,9 +176,8 @@ public class RegisterAttendance extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                flag = (TextView) arg1.findViewById(R.id.flag);
-                chosenAtt = (ContactUpdate) parent.getItemAtPosition(position);
-                if (chosenAtt.isSelected())
+                contact = mAdapter.getItem(position);
+                if (contact.isChecked())
                     new RemoveDateTask().execute();
                 else
                     new AddDateTask().execute();
@@ -189,12 +190,8 @@ public class RegisterAttendance extends Activity {
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
                 previousPosition = lv.getFirstVisiblePosition();
-
-                ContactUpdate att = (ContactUpdate) parent
-                        .getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(),
-                        DisplayContactDetails.class);
-                intent.putExtra("id", att.getId());
+                        DisplayContactDetails.class).putExtra("id", mAdapter.getItem(position).getId());
                 startActivity(intent);
                 return true;
             }
@@ -204,8 +201,7 @@ public class RegisterAttendance extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),
-                        AddContact.class);
-                intent.putExtra("name", sname.getText().toString().trim());
+                        AddContact.class).putExtra("name", sname.getText().toString().trim());
                 startActivity(intent);
             }
         });
@@ -235,7 +231,6 @@ public class RegisterAttendance extends Activity {
             }
 
         });
-        edit_date.setText(targetDay);
 
         ((Spinner) findViewById(R.id.spin)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
