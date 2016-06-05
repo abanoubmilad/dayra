@@ -1,11 +1,13 @@
 package abanoubm.dayra.model;
 
+import android.graphics.Bitmap;
+
 public class ContactSort extends ContactID {
     private String priest, classYear, studyWork, street, site;
 
-    public ContactSort(String id, String name, String picDir,
+    public ContactSort(String id, String name, Bitmap photo,
                        String priest, String classYear, String studyWork, String street, String site) {
-        super(id, name, picDir);
+        super(id, name, photo);
         this.priest = priest;
         this.classYear = classYear;
         this.studyWork = studyWork;

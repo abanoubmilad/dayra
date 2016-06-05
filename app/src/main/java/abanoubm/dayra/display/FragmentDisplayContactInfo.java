@@ -3,8 +3,6 @@ package abanoubm.dayra.display;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.File;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
@@ -194,14 +190,11 @@ public class FragmentDisplayContactInfo extends Fragment {
         dis_bday.setText(contactData.getBirthDay());
 
 
-        if (contactData.getPicDir().length() == 0
-                || !new File(contactData.getPicDir()).exists())
+        if (contactData.getPhoto() != null)
+            img.setImageBitmap(contactData.getPhoto());
+        else
             img.setImageResource(R.mipmap.def);
-        else {
 
-            img.setImageBitmap(ThumbnailUtils.extractThumbnail(
-                    BitmapFactory.decodeFile(contactData.getPicDir()), 250, 250));
-        }
 
     }
 

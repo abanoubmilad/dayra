@@ -58,13 +58,12 @@ public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
 
         holder.flag2.setChecked(contact.isSelected());
 
-        if (contact.getPicDir().length() != 0
-                && new File(contact.getPicDir()).exists()) {
-            holder.img.setImageBitmap(ThumbnailUtils.extractThumbnail(
-                    BitmapFactory.decodeFile(contact.getPicDir()), 100, 100));
-        } else {
+
+        if (contact.getPhoto() != null)
+            holder.img.setImageBitmap(contact.getPhoto());
+        else
             holder.img.setImageResource(R.mipmap.def);
-        }
+
         return convertView;
     }
 

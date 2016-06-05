@@ -1,5 +1,7 @@
 package abanoubm.dayra.model;
 
+import android.graphics.Bitmap;
+
 public class ContactMobile extends ContactID {
     private String mobile;
     private boolean isSelected;
@@ -10,8 +12,8 @@ public class ContactMobile extends ContactID {
     }
 
 
-    public ContactMobile(String id, String name, String picDir, String mobile, boolean isExisted) {
-        super(id, name, picDir);
+    public ContactMobile(String id, String name, Bitmap photo, String mobile, boolean isExisted) {
+        super(id, name, photo);
         this.mobile = mobile;
         this.isSelected = false;
         this.isExisted = isExisted;

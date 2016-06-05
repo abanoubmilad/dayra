@@ -29,9 +29,9 @@
     <string name="label.email">ايميل</string>
     <string name="err.msg.invalid.vday">تاريخ اخر زيارة غير صالح</string>
     <string name="err.msg.invalid.bday">تاريخ الميلاد غير صالح</string>
-    <string name="label.mobile1">موبايل 1</string>
-    <string name="label.mobile2">موبايل 2</string>
-    <string name="label.mobile3">موبايل 3</string>
+    <string name="label.mobile1">موبايل ١</string>
+    <string name="label.mobile2">موبايل ٢</string>
+    <string name="label.mobile3">موبايل ٣</string>
     <string name="label.lphone">تليفون</string>
     <string name="label.day">يوم</string>
     <string name="label.day.optional">يوم (اختيارى)</string>
@@ -148,10 +148,11 @@
     <string name="search.by">بحث بواسطة</string>
 
     <string-array name="attendance_type">
+        <item>زيارة</item>
         <item>حضور ١</item>
         <item>حضور ٢</item>
         <item>حضور ٣</item>
-        <item>حضور ٣</item>
+        <item>حضور ٤</item>
     </string-array>
     <string-array name="language_menu">
         <item>عربى</item>
@@ -161,9 +162,9 @@
         <item>اسم</item>
         <item>دفعة/سنة</item>
         <item>دراسة/عمل</item>
-        <item>موبايل 1</item>
-        <item>موبايل 2</item>
-        <item>موبايل 3</item>
+        <item>موبايل ١</item>
+        <item>موبايل ٢</item>
+        <item>موبايل ٣</item>
         <item>تليفون</item>
         <item>ايميل</item>
         <item>منطقة</item>
@@ -224,9 +225,9 @@
         <item>اسم</item>
         <item>دفعة/سنة</item>
         <item>دراسة/عمل</item>
-        <item>موبايل 1</item>
-        <item>موبايل 2</item>
-        <item>موبايل 3</item>
+        <item>موبايل ١</item>
+        <item>موبايل ٢</item>
+        <item>موبايل ٣</item>
         <item>تليفون</item>
         <item>ايميل</item>
         <item>منطقة</item>

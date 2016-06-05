@@ -1,5 +1,7 @@
 package abanoubm.dayra.model;
 
+import android.graphics.Bitmap;
+
 public class ContactData extends ContactID {
     private double mapLat, mapLng;
     private float mapZoom;
@@ -7,13 +9,13 @@ public class ContactData extends ContactID {
             mobile1, mobile2, mobile3, landPhone, address, lastVisit,
             classYear, studyWork, street, site;
 
-    public ContactData(String id, String name, String picDir, double mapLat,
+    public ContactData(String id, String name, Bitmap photo, double mapLat,
                        double mapLng, float mapZoom, String attendDates,
                        String lastAttend, String priest, String comm, String birthDay,
                        String email, String mobile1, String mobile2, String mobile3,
                        String landPhone, String address, String lastVisit,
                        String classYear, String studyWork, String street, String site) {
-        super(id, name, picDir);
+        super(id, name, photo);
         this.mapLat = mapLat;
         this.mapLng = mapLng;
         this.mapZoom = mapZoom;

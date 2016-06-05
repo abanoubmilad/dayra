@@ -149,6 +149,7 @@
     <string name="search.by">Search by</string>
 
     <string-array name="attendance_type">
+        <item>Visit</item>
         <item>Attendance 1</item>
         <item>Attendance 2</item>
         <item>Attendance 3</item>
@@ -165,7 +166,7 @@
         <item>Mobile 1</item>
         <item>Mobile 2</item>
         <item>Mobile 3</item>
-        <item>LandPhone</item>
+        <item>Landphone</item>
         <item>Email</item>
         <item>Site</item>
         <item>Street</item>

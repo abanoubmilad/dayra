@@ -22,11 +22,6 @@ import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 
 public class ExportContacts extends Activity {
-    private TextView exportBtn;
-    private CheckBox cb_numbering, cb_name, cb_mobile1, cb_mobile2, cb_mobile3,
-            cb_lphone, cb_addr, cb_lattend, cb_bday, cb_priest, cb_comm,
-            cb_email, cb_lvisit, cb_study_work, cb_class_year, cb_site,
-            cb_street, cb_dates;
 
     private ArrayList<String> dataHeader;
     private ArrayList<String> dataTag;
@@ -94,6 +89,14 @@ public class ExportContacts extends Activity {
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2))
                 .setText(R.string.subhead_export_pdf);
+
+
+        final TextView exportBtn;
+        final CheckBox cb_numbering, cb_name, cb_mobile1, cb_mobile2, cb_mobile3,
+                cb_lphone, cb_addr, cb_lattend, cb_bday, cb_priest, cb_comm,
+                cb_email, cb_lvisit, cb_study_work, cb_class_year, cb_site,
+                cb_street, cb_dates;
+
 
         exportBtn = (TextView) findViewById(R.id.export_btn);
 

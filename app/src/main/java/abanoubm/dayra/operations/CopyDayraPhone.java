@@ -3,9 +3,6 @@ package abanoubm.dayra.operations;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -20,8 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
@@ -123,16 +118,8 @@ public class CopyDayraPhone extends Activity {
             for (int i = 0; i < count; i++) {
                 temp = mAdapter.getItem(i);
                 if (temp.isSelected()) {
-                    byte[] photo = null;
-                    if (temp.getPicDir().length() != 0
-                            && new File(temp.getPicDir()).exists()) {
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        ThumbnailUtils.extractThumbnail(
-                                BitmapFactory.decodeFile(temp.getPicDir()), 250, 250).compress(Bitmap.CompressFormat.PNG, 90, baos);
-                        photo = baos.toByteArray();
-                    }
                     if (!ContactHelper.insertContact(getContentResolver(),
-                            temp.getName(), temp.getMobile(), photo))
+                            temp.getName(), temp.getMobile(), Utility.getBytes(temp.getPhoto())))
                         failureCounter++;
                     else
                         copied++;

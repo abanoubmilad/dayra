@@ -1,14 +1,16 @@
 package abanoubm.dayra.model;
 
+import android.graphics.Bitmap;
+
 public class ContactID {
     private String id;
     private String name;
-    private String picDir;
+    private Bitmap photo;
 
-    public ContactID(String id, String name, String picDir) {
+    public ContactID(String id, String name, Bitmap photo) {
         this.id = id;
         this.name = name;
-        this.picDir = picDir;
+        this.photo = photo;
     }
 
     public ContactID() {
@@ -26,8 +28,8 @@ public class ContactID {
         return name;
     }
 
-    public String getPicDir() {
-        return picDir;
+    public Bitmap getPhoto() {
+        return photo;
     }
 
 

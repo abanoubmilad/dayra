@@ -15,9 +15,5 @@ public class IntWrapper {
     public IntWrapper() {
         this.counter = 0;
     }
-
-    public IntWrapper(int counter) {
-        this.counter = counter;
-    }
-
+    
 }

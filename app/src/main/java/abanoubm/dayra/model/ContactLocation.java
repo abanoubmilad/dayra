@@ -14,23 +14,14 @@ public class ContactLocation {
         return mapLat;
     }
 
-    public void setMapLat(double mapLat) {
-        this.mapLat = mapLat;
-    }
 
     public double getMapLng() {
         return mapLng;
     }
 
-    public void setMapLng(double mapLng) {
-        this.mapLng = mapLng;
-    }
 
     public float getZoom() {
         return zoom;
     }
 
-    public void setZoom(float zoom) {
-        this.zoom = zoom;
-    }
 }

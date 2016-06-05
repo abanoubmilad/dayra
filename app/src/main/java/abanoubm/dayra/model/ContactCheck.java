@@ -1,5 +1,7 @@
 package abanoubm.dayra.model;
 
+import android.graphics.Bitmap;
+
 public class ContactCheck extends ContactID {
     private boolean checked;
 
@@ -11,8 +13,8 @@ public class ContactCheck extends ContactID {
         this.checked = checked;
     }
 
-    public ContactCheck(String id, String name, String picDir, boolean checked) {
-        super(id, name, picDir);
+    public ContactCheck(String id, String name, Bitmap photo, boolean checked) {
+        super(id, name, photo);
         this.checked = checked;
     }
 

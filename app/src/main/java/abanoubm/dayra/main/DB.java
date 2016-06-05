@@ -61,12 +61,14 @@ public class DB extends SQLiteOpenHelper {
 
     private static final String TB_CONTACT = "dayra_tb";
     public static final String CONTACT_ID = "_id", CONTACT_MAPLAT = "lat", CONTACT_MAPLNG = "lng",
-            CONTACT_MAPZOM = "zom", CONTACT_NAME = "name", CONTACT_ATTEND_DATES = "dates",
-            CONTACT_LAST_VISIT = "lvisit", CONTACT_LAST_ATTEND = "lattend", CONTACT_PHOTO = "pdir",
-            CONTACT_PRIEST = "pri", CONTACT_NOTES = "comm", CONTACT_BDAY = "bday", CONTACT_EMAIL = "email",
-            CONTACT_MOB1 = "mob1", CONTACT_MOB2 = "mob2", CONTACT_MOB3 = "mob3",
-            CONTACT_LPHONE = "lphone", CONTACT_ADDR = "addr", CONTACT_ST = "st",
-            CONTACT_SITE = "site", CONTACT_STUDY_WORK = "swork", CONTACT_CLASS_YEAR = "cyear";
+            CONTACT_MAPZOM = "zom", CONTACT_NAME = "name",
+            CONTACT_PRIEST = "pri", CONTACT_NOTES = "comm",
+            CONTACT_BDAY = "bday", CONTACT_EMAIL = "email",
+            CONTACT_MOB1 = "mob1", CONTACT_MOB2 = "mob2",
+            CONTACT_MOB3 = "mob3", CONTACT_LPHONE = "lphone",
+            CONTACT_ADDR = "addr", CONTACT_ST = "st",
+            CONTACT_SITE = "site", CONTACT_STUDY_WORK = "swork",
+            CONTACT_CLASS_YEAR = "cyear";
 
     private static DB dbm;
     private SQLiteDatabase readableDB, writableDB;
@@ -139,6 +141,11 @@ public class DB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
+        final String CONTACT_PHOTO = "pdir",
+                CONTACT_ATTEND_DATES = "dates",
+                CONTACT_LAST_VISIT = "lvisit",
+                CONTACT_LAST_ATTEND = "lattend";
+
         String sql;
         if (arg1 < 2) {
             sql = "create table " + TB_CONNECTION + " ( " + CONN_A + " integer, "
@@ -335,10 +342,12 @@ public class DB extends SQLiteOpenHelper {
         }
 
     }
+
     public String addContact(ContentValues values) {
         return String.valueOf(writableDB.insert(TB_CONTACT, null, values));
 
     }
+
     public String addContact(String name, String mobile) {
         ContentValues values = new ContentValues();
         values.put(CONTACT_MAPLAT, 0);

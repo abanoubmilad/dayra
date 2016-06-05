@@ -8,8 +8,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,7 +47,7 @@ public class FragmentEditContactInfo extends Fragment {
     private static final int BROWSE_IMG = 1;
 
     private Uri fileUri;
-    private String imgPath = "";
+    private Bitmap photo = null;
 
     private EditText name, address, bday, comm, email,
             lphone, mobile1, mobile2, mobile3;
@@ -255,22 +254,6 @@ public class FragmentEditContactInfo extends Fragment {
 
         @Override
         protected Boolean doInBackground(String... params) {
-
-//         0   name.getText().toString().trim(),
-//          1          address.getText().toString().trim(),
-//           2         bday.getText().toString().trim(),
-//            3        comm.getText().toString().trim(),
-//             4       email.getText().toString().trim(),
-//              5      lphone.getText().toString().trim(),
-//               6     mobile1.getText().toString().trim(),
-//                7    mobile2.getText().toString().trim(),
-//                 8   mobile3.getText().toString().trim(),
-            //        9  (EditText) root.findViewById(R.id.edit_class_year),
-//          10          (EditText) root.findViewById(R.id.edit_study_work),
-//           11         (EditText) root.findViewById(R.id.edit_street),
-//            12        (EditText) root.findViewById(R.id.edit_site),
-//             13       (EditText) root.findViewById(R.id.edit_priest)
-
             DB dbm = DB.getInstant(getActivity());
             String check = dbm.getNameId(params[0]);
             if (!Utility.isName(params[0])) {
@@ -286,7 +269,7 @@ public class FragmentEditContactInfo extends Fragment {
 
                 ContentValues values = new ContentValues();
                 values.put(DB.CONTACT_NAME, params[0]);
-                values.put(DB.CONTACT_PHOTO, imgPath);
+                values.put(DB.CONTACT_PHOTO, Utility.getBytes(photo));
                 values.put(DB.CONTACT_PRIEST, params[13]);
                 values.put(DB.CONTACT_NOTES, params[3]);
                 values.put(DB.CONTACT_BDAY, params[2]);
@@ -376,7 +359,6 @@ public class FragmentEditContactInfo extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             contactData = DB.getInstant(getActivity()).getAttendantData(id);
-            imgPath = contactData.getPicDir();
             return null;
         }
     }
@@ -401,14 +383,11 @@ public class FragmentEditContactInfo extends Fragment {
 
         bday.setText(contactData.getBirthDay());
 
-        if (contactData.getPicDir().length() == 0
-                || !new File(contactData.getPicDir()).exists())
+        photo = contactData.getPhoto();
+        if (photo != null)
+            img.setImageBitmap(photo);
+        else
             img.setImageResource(R.mipmap.def);
-        else {
-
-            img.setImageBitmap(ThumbnailUtils.extractThumbnail(
-                    BitmapFactory.decodeFile(contactData.getPicDir()), 250, 250));
-        }
 
     }
 
@@ -431,7 +410,7 @@ public class FragmentEditContactInfo extends Fragment {
                             captureImage();
 
                         } else {
-                            imgPath = "";
+                            photo = null;
                             img.setImageResource(R.mipmap.def);
 
                         }
@@ -469,10 +448,9 @@ public class FragmentEditContactInfo extends Fragment {
         if (resultCode == getActivity().RESULT_OK) {
             if (requestCode == TAKE_IMG) {
 
-                imgPath = fileUri.getPath();
-
-                img.setImageBitmap(ThumbnailUtils.extractThumbnail(
-                        BitmapFactory.decodeFile(imgPath), 250, 250));
+                photo = Utility.getBitmap(fileUri.getPath());
+                if (photo != null)
+                    img.setImageBitmap(photo);
 
             } else if (requestCode == BROWSE_IMG) {
                 Uri selectedImage = data.getData();
@@ -480,12 +458,13 @@ public class FragmentEditContactInfo extends Fragment {
                 Cursor cursor = getActivity().getContentResolver().query(selectedImage,
                         filePathColumn, null, null, null);
                 cursor.moveToFirst();
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                imgPath = cursor.getString(columnIndex);
+                photo = Utility.getBitmap(
+                        cursor.getString(cursor.getColumnIndex(filePathColumn[0])));
+                if (photo != null)
+                    img.setImageBitmap(photo);
                 cursor.close();
 
-                img.setImageBitmap(ThumbnailUtils.extractThumbnail(
-                        BitmapFactory.decodeFile(imgPath), 250, 250));
+                ;
 
             }
         }

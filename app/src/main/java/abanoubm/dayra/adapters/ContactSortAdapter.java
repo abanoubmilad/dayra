@@ -46,13 +46,12 @@ public class ContactSortAdapter extends ArrayAdapter<ContactSort> {
         }
 
 
-        if (contact.getPicDir().length() != 0
-                && new File(contact.getPicDir()).exists()) {
-            holder.img.setImageBitmap(ThumbnailUtils.extractThumbnail(
-                    BitmapFactory.decodeFile(contact.getPicDir()), 100, 100));
-        } else {
+
+        if (contact.getPhoto() != null)
+            holder.img.setImageBitmap(contact.getPhoto());
+        else
             holder.img.setImageResource(R.mipmap.def);
-        }
+
         holder.name.setText(contact
                 .getName());
         holder.class_year.setText(contact

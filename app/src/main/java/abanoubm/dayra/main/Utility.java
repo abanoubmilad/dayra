@@ -1,7 +1,13 @@
 package abanoubm.dayra.main;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.ThumbnailUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 public class Utility {
 
@@ -65,5 +71,31 @@ public class Utility {
     public static boolean isSiteName(String str) {
         return str.matches("[أؤءةابتثجحخدذرزسشصضطظعغفقكلمنهوىيa-z0-9A-Z\\s]+");
     }
+
+    // convert from bitmap to byte array
+    public static byte[] getBytes(Bitmap bitmap) {
+        if (bitmap == null)
+            return null;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        return stream.toByteArray();
+    }
+
+    // convert from byte array to bitmap
+    public static Bitmap getBitmap(byte[] image) {
+        if (image == null)
+            return null;
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
+
+    // convert from image path to bitmap
+    public static Bitmap getBitmap(String path) {
+        if (path == null || path.length() == 0
+                || !new File(path).exists())
+            return null;
+        return ThumbnailUtils.extractThumbnail(
+                BitmapFactory.decodeFile(path), 250, 250);
+    }
+
 
 }
