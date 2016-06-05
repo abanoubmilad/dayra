@@ -38,7 +38,7 @@ import abanoubm.dayra.model.ContactData;
 
 public class FragmentEditContactInfo extends Fragment {
     private static final String ARG_ID = "id";
-    private String id="-1";
+    private String id;
 
     private ImageView img;
 
@@ -137,40 +137,48 @@ public class FragmentEditContactInfo extends Fragment {
                 editImage();
             }
         });
-        root.findViewById(R.id.back)
-                .setOnClickListener(new View.OnClickListener() {
 
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(getActivity(),
-                                DisplayContactDetails.class).putExtra("id",
-                                contactData.getId()));
-                    }
-                });
-        root.findViewById(R.id.save)
-                .setOnClickListener(new View.OnClickListener() {
+        root.findViewById(R.id.backImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),
+                        DisplayContactDetails.class).putExtra("id",
+                        id));
+            }
+        });
+        root.findViewById(R.id.deleteImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    @Override
-                    public void onClick(View v) {
+            }
+        });
+        root.findViewById(R.id.resetImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                        new EditTask().execute(
-                                name.getText().toString().trim(),
-                                address.getText().toString().trim(),
-                                bday.getText().toString().trim(),
-                                comm.getText().toString().trim(),
-                                email.getText().toString().trim(),
-                                lphone.getText().toString().trim(),
-                                mobile1.getText().toString().trim(),
-                                mobile2.getText().toString().trim(),
-                                mobile3.getText().toString().trim(),
-                                optionsInput[0].getText().toString().trim(),
-                                optionsInput[1].getText().toString().trim(),
-                                optionsInput[2].getText().toString().trim(),
-                                optionsInput[3].getText().toString().trim(),
-                                optionsInput[4].getText().toString().trim()
-                        );
-                    }
-                });
+            }
+        });
+        root.findViewById(R.id.saveImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new EditTask().execute(
+                        name.getText().toString().trim(),
+                        address.getText().toString().trim(),
+                        bday.getText().toString().trim(),
+                        comm.getText().toString().trim(),
+                        email.getText().toString().trim(),
+                        lphone.getText().toString().trim(),
+                        mobile1.getText().toString().trim(),
+                        mobile2.getText().toString().trim(),
+                        mobile3.getText().toString().trim(),
+                        optionsInput[0].getText().toString().trim(),
+                        optionsInput[1].getText().toString().trim(),
+                        optionsInput[2].getText().toString().trim(),
+                        optionsInput[3].getText().toString().trim(),
+                        optionsInput[4].getText().toString().trim()
+                );
+            }
+        });
 
         root.findViewById(R.id.spin_site)
                 .setOnClickListener(new View.OnClickListener() {

@@ -475,7 +475,7 @@ public class Main extends Activity {
             ListView nameslv = (ListView) signView
                     .findViewById(R.id.databases_lv);
             nameslv.setAdapter(new ArrayAdapter<>(
-                    getApplicationContext(), R.layout.item_dbs_menu,
+                    getApplicationContext(), R.layout.item_string,
                     R.id.item, names));
             TextView back = (TextView) signView.findViewById(R.id.back);
 

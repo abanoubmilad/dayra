@@ -2,6 +2,7 @@ package abanoubm.dayra.display;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -86,6 +87,17 @@ public class FragmentEditContactConnection extends Fragment {
 
 
         dbm = DB.getInstant(getActivity());
+        root.findViewById(R.id.backImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),
+                        DisplayContactDetails.class).putExtra("id",
+                        id));
+            }
+        });
+        root.findViewById(R.id.deleteImage).setVisibility(View.INVISIBLE);
+        root.findViewById(R.id.resetImage).setVisibility(View.INVISIBLE);
+        root.findViewById(R.id.saveImage).setVisibility(View.INVISIBLE);
 
         return root;
     }

@@ -25,13 +25,20 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
     private float zoom;
     private Marker addressMarker, dayraMarker;
 
+    private static final String ARG_LAT = "lat";
+    private static final String ARG_LNG = "lon";
+    private static final String ARG_ZOM = "zoom";
+    private static final String ARG_ID = "id";
+    private String id;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            lon = getArguments().getDouble("lon", 0);
-            lat = getArguments().getDouble("lat", 0);
-            zoom = getArguments().getFloat("zoom", 0);
+            lon = getArguments().getDouble(ARG_LNG, 0);
+            lat = getArguments().getDouble(ARG_LAT, 0);
+            zoom = getArguments().getFloat(ARG_ZOM, 0);
+            id = getArguments().getString(ARG_ID);
         }
     }
 

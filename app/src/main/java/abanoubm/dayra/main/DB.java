@@ -31,6 +31,7 @@ import abanoubm.dayra.model.ContactData;
 import abanoubm.dayra.model.ContactDay;
 import abanoubm.dayra.model.ContactID;
 import abanoubm.dayra.model.ContactLoc;
+import abanoubm.dayra.model.ContactLocation;
 import abanoubm.dayra.model.ContactMobile;
 import abanoubm.dayra.model.ContactSort;
 import abanoubm.dayra.model.ContactStatistics;
@@ -480,6 +481,20 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
+    public ContactLocation getContactLocation(String id) {
+        Cursor c = readableDB.query(TB_CONTACT, new String[]{CONTACT_MAPLAT,
+                CONTACT_MAPLNG, CONTACT_MAPZOM}, CONTACT_ID + " = ?", new String[]{id}, null, null, null);
+
+        if (c.moveToFirst()) {
+            new ContactLocation(c.getDouble(0), c
+                    .getDouble(1), c.getFloat(2));
+        }
+        c.close();
+
+        return new ContactLocation(0, 0, 0);
+
+    }
+
     public ArrayList<String> getOptionsList(String tag) {
         Cursor c = readableDB.query(true, TB_CONTACT, new String[]{tag},
                 tag + "!=''", null, null,
@@ -912,6 +927,22 @@ public class DB extends SQLiteOpenHelper {
         }
         c.close();
         counter.setCounter(updated);
+        return result;
+    }
+
+    public ArrayList<String> getAttendances(String id) {
+        String selectQuery = "SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
+                " WHERE " + ATTEND_ID + " = ? ORDER BY " + ATTEND_ID + " DESC";
+
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{id});
+        ArrayList<String> result = new ArrayList<>(
+                c.getCount());
+        if (c.moveToFirst()) {
+            do {
+                result.add(c.getString(0));
+            } while (c.moveToNext());
+        }
+        c.close();
         return result;
     }
 

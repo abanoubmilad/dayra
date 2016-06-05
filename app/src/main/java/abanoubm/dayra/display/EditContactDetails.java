@@ -1,5 +1,7 @@
 package abanoubm.dayra.display;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -8,11 +10,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
+import abanoubm.dayra.model.ContactLocation;
 
 public class EditContactDetails extends ActionBarActivity {
-    private String id = "-1";
+    private String id;
     private int current = 0;
+    private ImageView[] buttons;
+
+    private static final String ARG_LAT = "lat";
+    private static final String ARG_LNG = "lon";
+    private static final String ARG_ZOM = "zoom";
+    private static final String ARG_ID = "id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +31,8 @@ public class EditContactDetails extends ActionBarActivity {
 
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_edit_contact);
-        final ImageView[] buttons = new ImageView[]{
+
+        buttons = new ImageView[]{
                 (ImageView) findViewById(R.id.img1),
                 (ImageView) findViewById(R.id.img2),
                 (ImageView) findViewById(R.id.img3),
@@ -111,27 +122,50 @@ public class EditContactDetails extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
-                if (current != 3) {
-                    buttons[current].setBackgroundColor(0);
-                    current = 3;
-                    buttons[3].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
-
-
-                    Bundle arguments = new Bundle();
-                    arguments.putString("id", id);
-
-                    FragmentEditContactMap fragment = new FragmentEditContactMap();
-                    fragment.setArguments(arguments);
-
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment, fragment)
-                            .commit();
-                }
-
+                new GetLocationTask().execute();
             }
         });
 
     }
 
+    private class GetLocationTask extends AsyncTask<Void, Void, ContactLocation> {
+        private ProgressDialog pBar;
 
+        @Override
+        protected void onPreExecute() {
+            pBar = new ProgressDialog(getApplicationContext());
+            pBar.setCancelable(false);
+            pBar.show();
+        }
+
+        @Override
+        protected void onPostExecute(ContactLocation result) {
+            if (current != 3) {
+                buttons[current].setBackgroundColor(0);
+                current = 3;
+                buttons[3].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+
+
+                Bundle arguments = new Bundle();
+                arguments.putDouble(ARG_LAT, result.getMapLat());
+                arguments.putDouble(ARG_LNG, result.getMapLng());
+                arguments.putFloat(ARG_ZOM, result.getZoom());
+                arguments.putString(ARG_ID, id);
+
+                FragmentEditContactMap fragment = new FragmentEditContactMap();
+                fragment.setArguments(arguments);
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment, fragment)
+                        .commit();
+            }
+            pBar.dismiss();
+
+        }
+
+        @Override
+        protected ContactLocation doInBackground(Void... params) {
+            return DB.getInstant(getApplicationContext()).getContactLocation(id);
+        }
+    }
 }

@@ -8,7 +8,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/img1"
+        android:id="@+id/backImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -18,7 +18,7 @@
 
 
     <ImageView
-        android:id="@+id/img2"
+        android:id="@+id/deleteImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -28,7 +28,7 @@
 
 
     <ImageView
-        android:id="@+id/img3"
+        android:id="@+id/resetImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -36,7 +36,7 @@
         android:padding="10dp"
         android:src="@mipmap/ic_reset" />
     <ImageView
-        android:id="@+id/img4"
+        android:id="@+id/saveImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -2,6 +2,7 @@ package abanoubm.dayra.display;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
     private static final String ARG_LNG = "lon";
     private static final String ARG_ZOM = "zoom";
     private static final String ARG_ID = "id";
-    private String id = "-1";
+    private String id;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,30 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        root.findViewById(R.id.backImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),
+                        DisplayContactDetails.class).putExtra("id",
+                        id));
+            }
+        });
+        root.findViewById(R.id.deleteImage).setVisibility(View.INVISIBLE);
+        root.findViewById(R.id.resetImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        root.findViewById(R.id.saveImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new UpdateTask().execute();
+
+            }
+        });
+
         return root;
 
     }

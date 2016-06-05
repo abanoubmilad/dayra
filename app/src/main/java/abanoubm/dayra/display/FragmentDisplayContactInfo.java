@@ -22,6 +22,7 @@ import abanoubm.dayra.main.DB;
 import abanoubm.dayra.model.ContactData;
 
 public class FragmentDisplayContactInfo extends Fragment {
+    private static final String ARG_ID = "id";
 
     private TextView dis_name, dis_address, dis_bday, dis_comm, dis_email,
             dis_lphone, dis_mobile1, dis_mobile2, dis_mobile3, dis_priest,
@@ -29,7 +30,7 @@ public class FragmentDisplayContactInfo extends Fragment {
 
     private ImageView img;
     private ContactData contactData;
-    private String id = "-1";
+    private String id;
 
     private class GetTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
@@ -60,7 +61,7 @@ public class FragmentDisplayContactInfo extends Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            id = arguments.getString("id");
+            id = arguments.getString(ARG_ID);
         }
     }
 
