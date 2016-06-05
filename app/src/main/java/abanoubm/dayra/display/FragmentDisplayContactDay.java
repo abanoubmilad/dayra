@@ -27,7 +27,7 @@ public class FragmentDisplayContactDay extends Fragment {
     private DB db;
     private String choosenMonth, choosenYear;
 
-    private class GetDatesTask extends AsyncTask<Void, Void, Void> {
+    private class GetDatesTask extends AsyncTask<Void, Void, ArrayList<String>> {
         private ProgressDialog pBar;
 
         @Override
@@ -38,24 +38,30 @@ public class FragmentDisplayContactDay extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(ArrayList<String> result) {
             pBar.dismiss();
+            mAdpterYears.addAll(result);
+
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected ArrayList<String> doInBackground(Void... params) {
             dates = db.getAttendances(id);
             ArrayList<String> temp = new ArrayList<>(dates.size());
+            String last = null, check;
             for (String str : dates) {
-                temp.add(str.substring(0, 4));
+                check = str.substring(0, 4);
+                if (!check.equals(last)) {
+                    last = check;
+                    temp.add(last);
+                }
             }
-            mAdpterYears.addAll(temp);
             pBar.dismiss();
-            return null;
+            return temp;
         }
     }
 
-    private class GetMonthsTask extends AsyncTask<Void, Void, Void> {
+    private class GetMonthsTask extends AsyncTask<Void, Void, ArrayList<String>> {
         private ProgressDialog pBar;
 
         @Override
@@ -66,25 +72,32 @@ public class FragmentDisplayContactDay extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(ArrayList<String> result) {
+            mAdpterMonths.addAll(result);
             pBar.dismiss();
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected ArrayList<String> doInBackground(Void... params) {
             ArrayList<String> temp = new ArrayList<>(dates.size());
+
+            String last = null, check;
             for (String str : dates) {
-                if (str.startsWith(choosenYear))
-                    temp.add(str.substring(5, 7));
+                if (str.startsWith(choosenYear)) {
+                    check = str.substring(5, 7);
+                    if (!check.equals(last)) {
+                        last = check;
+                        temp.add(last);
+                    }
+                }
             }
-            mAdpterMonths.clear();
-            mAdpterMonths.addAll(temp);
+
             pBar.dismiss();
-            return null;
+            return temp;
         }
     }
 
-    private class GetDaysTask extends AsyncTask<String, Void, Void> {
+    private class GetDaysTask extends AsyncTask<String, Void, ArrayList<String>> {
         private ProgressDialog pBar;
 
         @Override
@@ -95,21 +108,27 @@ public class FragmentDisplayContactDay extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            pBar.dismiss();
+        protected void onPostExecute(ArrayList<String> result) {
+            mAdpterDays.addAll(result);
         }
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected ArrayList<String> doInBackground(String... params) {
             ArrayList<String> temp = new ArrayList<>(dates.size());
+
+            String last = null, check;
             for (String str : dates) {
-                if (str.startsWith(choosenYear + "-" + choosenMonth))
-                    temp.add(str.substring(8, 10));
+                if (str.startsWith(choosenYear + "-" + choosenMonth)) {
+                    check = str.substring(8, 10);
+                    if (!check.equals(last)) {
+                        last = check;
+                        temp.add(last);
+                    }
+                }
             }
-            mAdpterMonths.clear();
-            mAdpterMonths.addAll(temp);
+
             pBar.dismiss();
-            return null;
+            return temp;
         }
     }
 
@@ -151,6 +170,7 @@ public class FragmentDisplayContactDay extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
+                mAdpterMonths.clear();
                 mAdpterDays.clear();
                 choosenYear = (String) mAdpterYears.getItem(position);
                 new GetMonthsTask().execute();
@@ -162,7 +182,7 @@ public class FragmentDisplayContactDay extends Fragment {
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
                 choosenMonth = (String) mAdpterMonths.getItem(position);
-                dayList.setVisibility(View.INVISIBLE);
+                mAdpterDays.clear();
                 new GetDaysTask().execute();
             }
         });

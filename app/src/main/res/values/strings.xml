@@ -17,7 +17,7 @@
     <string name="btn.confirm">confirm</string>
     <string name="btn.create">create</string>
     <string name="btn.back">back</string>
-    <string name="copyright">dayra 3.2 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="copyright">dayra 3.2 ©%1$s\nAbanoub Milad Hanna\n01289887219\nabanoubcs@gmail.com</string>
     <string name="err.msg.db">Error connecting to database, please contact the developer</string>
     <string name="label.name.required">name (required)</string>
     <string name="label.name">name</string>

@@ -75,15 +75,6 @@ public class DisplayContactsMap extends FragmentActivity implements
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_display_locs);
 
-        findViewById(R.id.back)
-                .setOnClickListener(new OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        finish();
-                    }
-                });
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);

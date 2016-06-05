@@ -53,21 +53,49 @@
         android:orientation="horizontal">
 
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/label.year"
+            android:textSize="@dimen/font_larger" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/label.month"
+            android:textSize="@dimen/font_larger" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/label.day"
+            android:textSize="@dimen/font_larger" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <ListView
             android:id="@+id/yearList"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
-
         <ListView
-            android:id="@+id/dayList"
+            android:id="@+id/monthList"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
-
-
         <ListView
-            android:id="@+id/monthList"
+            android:id="@+id/dayList"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
