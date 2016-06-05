@@ -24,18 +24,27 @@ public class Splash extends Activity {
         Animation anim = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.splash);
 
-        Thread timerThread = new Thread() {
-            public void run() {
-                try {
-                    sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    startActivity(new Intent(Splash.this, Main.class));
-                }
-            }
-        };
-        timerThread.start();
+
+        findViewById(R.id.img1).setAnimation(anim);
+       findViewById(R.id.img6).setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+               R.anim.rotate));
+//        findViewById(R.id.img3).setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+//                R.anim.splash3));
+//        findViewById(R.id.img4).setAnimation(anim);
+//        findViewById(R.id.img5).setAnimation(anim);
+
+//        Thread timerThread = new Thread() {
+//            public void run() {
+//                try {
+//                    sleep(3000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                } finally {
+//                    startActivity(new Intent(Splash.this, Main.class));
+//                }
+//            }
+//        };
+     //   timerThread.start();
 
     }
 

@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fillAfter="true" >
+    android:fillAfter="true">
 
-    <alpha
-        android:duration="500"
-        android:fromAlpha="0.0"
-        android:interpolator="@android:anim/accelerate_interpolator"
-        android:toAlpha="1.0" />
+
     <translate
+        android:duration="6000"
         android:fromXDelta="0%p"
-        android:toXDelta="40%p"
-        android:startOffset="1000"
-        android:duration="800" />
-    <rotate android:fromDegrees="0"
-        android:toDegrees="360"
-        android:pivotX="50%"
-        android:pivotY="50%"
-        android:duration="600"
-        android:repeatMode="restart"
-        android:startOffset="1000"
         android:repeatCount="infinite"
-        android:interpolator="@android:anim/cycle_interpolator"/>
+        android:repeatMode="reverse"
+        android:toXDelta="100%p" />
 
-    <translate
-        android:fromXDelta="40%p"
-        android:toXDelta="20%p"
-        android:startOffset="1000"
-        android:duration="800" />
+    <!--<rotate android:fromDegrees="0"-->
+    <!--android:toDegrees="360"-->
+    <!--android:pivotX="50%"-->
+    <!--android:pivotY="50%"-->
+    <!--android:duration="4000"-->
+    <!--android:repeatMode="restart"-->
+    <!--android:startOffset="1000"-->
+    <!--android:repeatCount="infinite"-->
+    <!--android:interpolator="@android:anim/cycle_interpolator"/>-->
 
-    <alpha
-        android:duration="1000"
-        android:fromAlpha="1.0"
-        android:startOffset="2000"
-        android:interpolator="@android:anim/accelerate_interpolator"
-        android:toAlpha="0.0" />
+    <!--<translate-->
+    <!--android:fromXDelta="0%p"-->
+    <!--android:toXDelta="75%p"-->
+    <!--android:startOffset="2000"-->
+    <!--android:duration="500" />-->
+
+    <!--<translate-->
+    <!--android:fromYDelta="0%p"-->
+    <!--android:toYDelta="0%p"-->
+    <!--android:startOffset="2500"-->
+    <!--android:duration="500" />-->
+
+    <!--<alpha-->
+    <!--android:duration="500"-->
+    <!--android:fromAlpha="1.0"-->
+    <!--android:startOffset="3000"-->
+    <!--android:interpolator="@android:anim/accelerate_interpolator"-->
+    <!--android:toAlpha="0.0" />-->
 
 </set>
