@@ -56,8 +56,7 @@ public class Main extends Activity {
             if (result) {
                 startActivity(new Intent(getApplicationContext(), Home.class));
                 finish();
-            }
-            else
+            } else
                 Toast.makeText(getApplicationContext(), R.string.err_msg_open,
                         Toast.LENGTH_SHORT).show();
         }
@@ -320,6 +319,19 @@ public class Main extends Activity {
                                     .parse("https://www.facebook.com/EngineeroBono")));
                         }
                         break;
+                    case 8:
+                        Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                                Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
+                                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                        try {
+                            startActivity(goToMarket);
+                        } catch (Exception e) {
+                            startActivity(new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
+                        }
+                        break;
                 }
             }
         });
@@ -405,7 +417,7 @@ public class Main extends Activity {
 
     private void register() {
         LayoutInflater li = LayoutInflater.from(getApplicationContext());
-        View regView = li.inflate(R.layout.signup, null,false);
+        View regView = li.inflate(R.layout.signup, null, false);
         final AlertDialog ad = new AlertDialog.Builder(Main.this)
                 .setCancelable(true).create();
         ad.setView(regView, 0, 0, 0, 0);
@@ -468,7 +480,7 @@ public class Main extends Activity {
             }
 
             LayoutInflater li = LayoutInflater.from(getApplicationContext());
-            View signView = li.inflate(R.layout.signin, null,false);
+            View signView = li.inflate(R.layout.signin, null, false);
             final AlertDialog ad = new AlertDialog.Builder(Main.this)
                     .setCancelable(true).create();
             ad.setView(signView, 0, 0, 0, 0);

@@ -192,6 +192,7 @@
         <item>User\'s manuel</item>
         <item>Like us</item>
         <item>Contact developer</item>
+        <item>Rate dayra</item>
     </string-array>
     <string-array name="sign_menu">
         <item>Enter</item>
@@ -202,6 +203,7 @@
         <item>Language / اللغة</item>
         <item>Like us</item>
         <item>Contact developer</item>
+        <item>Rate dayra</item>
     </string-array>
     <string-array name="out_menu">
         <item>Send SMS</item>
@@ -260,6 +262,7 @@
         <item>@mipmap/ic_manual</item>
         <item>@mipmap/ic_like</item>
         <item>@mipmap/ic_contact</item>
+        <item>@mipmap/ic_contact</item>
     </string-array>
     <string-array name="sign_icons" translatable="false">
         <item>@mipmap/ic_enter</item>
@@ -269,6 +272,7 @@
         <item>@mipmap/ic_manual</item>
         <item>@mipmap/ic_lang</item>
         <item>@mipmap/ic_like</item>
+        <item>@mipmap/ic_contact</item>
         <item>@mipmap/ic_contact</item>
     </string-array>
     <string-array name="out_icons" translatable="false">

@@ -3,6 +3,8 @@ package abanoubm.dayra.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -18,6 +20,9 @@ public class Splash extends Activity {
         ((TextView) findViewById(R.id.footer)).setText(String.format(
                 getResources().getString(R.string.copyright),
                 Calendar.getInstance().get(Calendar.YEAR)));
+
+        Animation anim = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.splash);
 
         Thread timerThread = new Thread() {
             public void run() {

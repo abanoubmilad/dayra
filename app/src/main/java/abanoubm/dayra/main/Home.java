@@ -181,7 +181,7 @@ public class Home extends Activity {
                                     .parse("https://www.facebook.com/dayraapp")));
                         }
                         break;
-                    default:
+                    case 8:
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -190,6 +190,19 @@ public class Home extends Activity {
                         } catch (Exception e) {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri
                                     .parse("https://www.facebook.com/EngineeroBono")));
+                        }
+                        break;
+                    case 9:
+                        Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                                Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
+                                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                        try {
+                            startActivity(goToMarket);
+                        } catch (Exception e) {
+                            startActivity(new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
                         }
                         break;
 

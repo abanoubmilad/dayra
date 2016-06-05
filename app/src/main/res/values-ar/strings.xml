@@ -191,6 +191,7 @@
         <item>دليل المستخدم</item>
         <item>تابعنا على فيس بوك</item>
         <item>تواصل مع المُطور</item>
+        <item>تقييم دايره</item>
     </string-array>
     <string-array name="sign_menu">
         <item>دخول</item>
@@ -201,6 +202,7 @@
         <item>اللغة / language</item>
         <item>تابعنا على فيس بوك</item>
         <item>تواصل مع المُطور</item>
+        <item>تقييم دايره</item>
     </string-array>
     <string-array name="out_menu">
         <item>ارسال SMS</item>
