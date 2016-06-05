@@ -14,7 +14,6 @@ import abanoubm.dayra.R;
 public class FragmentDisplayContactDetails extends Fragment {
     private String id = "-1";
     private int current = 0;
-    private ImageView[] buttons;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,12 +29,14 @@ public class FragmentDisplayContactDetails extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_display_contact, container, false);
 
-        buttons = new ImageView[]{
-                (ImageView) root.findViewById(R.id.infoImage),
-                (ImageView) root.findViewById(R.id.daysImage),
-                (ImageView) root.findViewById(R.id.connImage),
-                (ImageView) root.findViewById(R.id.editImage),
-                (ImageView) root.findViewById(R.id.locImage)
+        final ImageView[] buttons
+
+         = new ImageView[]{
+                (ImageView) root.findViewById(R.id.img1),
+                (ImageView) root.findViewById(R.id.img2),
+                (ImageView) root.findViewById(R.id.img3),
+                (ImageView) root.findViewById(R.id.img4),
+                (ImageView) root.findViewById(R.id.img5)
         };
 
         buttons[0].setOnClickListener(new View.OnClickListener() {

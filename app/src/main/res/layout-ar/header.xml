@@ -22,7 +22,7 @@
         android:textSize="@dimen/font_larger"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:text="-" />
+        android:text="   " />
 
     <TextView
         android:id="@+id/subhead1"

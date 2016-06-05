@@ -22,6 +22,7 @@ public class FragmentDisplayContactDay extends Fragment {
     private ContactData attData;
     private String id = "-1";
     private ListView monthList, dayList, yearList;
+    //private mAdpterYears;
 
     private class GetTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;

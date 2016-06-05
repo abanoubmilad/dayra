@@ -14,7 +14,7 @@
 
 
         <ImageView
-            android:id="@+id/image1"
+            android:id="@+id/img1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -25,7 +25,7 @@
 
 
         <ImageView
-            android:id="@+id/image2"
+            android:id="@+id/img2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -34,7 +34,7 @@
             android:src="@mipmap/ic_days" />
 
         <ImageView
-            android:id="@+id/image3"
+            android:id="@+id/img3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

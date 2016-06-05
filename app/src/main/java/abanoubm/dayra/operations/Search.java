@@ -12,7 +12,6 @@ import abanoubm.dayra.main.Utility;
 
 public class Search extends ActionBarActivity {
     private int current = 0;
-    private ImageView[] buttons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +19,10 @@ public class Search extends ActionBarActivity {
         setContentView(R.layout.act_search);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
 
-        buttons = new ImageView[]{
-                (ImageView) findViewById(R.id.image1),
-                (ImageView) findViewById(R.id.image2),
-                (ImageView) findViewById(R.id.image3),
+        final ImageView[] buttons     = new ImageView[]{
+                (ImageView) findViewById(R.id.img1),
+                (ImageView) findViewById(R.id.img2),
+                (ImageView) findViewById(R.id.img3),
         };
 
         buttons[0].setOnClickListener(new View.OnClickListener() {

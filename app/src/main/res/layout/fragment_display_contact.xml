@@ -12,7 +12,7 @@
 
 
         <ImageView
-            android:id="@+id/infoImage"
+            android:id="@+id/img1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -23,7 +23,7 @@
 
 
         <ImageView
-            android:id="@+id/daysImage"
+            android:id="@+id/img2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -32,7 +32,7 @@
             android:src="@mipmap/ic_days" />
 
         <ImageView
-            android:id="@+id/connImage"
+            android:id="@+id/img3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -41,7 +41,7 @@
             android:src="@mipmap/ic_conn" />
 
         <ImageView
-            android:id="@+id/locImage"
+            android:id="@+id/img4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -50,7 +50,7 @@
             android:src="@mipmap/ic_loc" />
 
         <ImageView
-            android:id="@+id/editImage"
+            android:id="@+id/img5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -22,7 +22,7 @@
 
         <ImageView
             android:padding="10dp"
-            android:id="@+id/homeImage1"
+            android:id="@+id/img1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -30,7 +30,7 @@
             android:src="@mipmap/ic_home" />
         <ImageView
             android:padding="10dp"
-            android:id="@+id/homeImage2"
+            android:id="@+id/img2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -39,7 +39,7 @@
 
         <ImageView
             android:padding="10dp"
-            android:id="@+id/ioImage"
+            android:id="@+id/img3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -48,7 +48,7 @@
 
         <ImageView
             android:padding="10dp"
-            android:id="@+id/settImage"
+            android:id="@+id/img4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

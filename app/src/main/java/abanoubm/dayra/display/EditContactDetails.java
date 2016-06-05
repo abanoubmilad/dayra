@@ -13,7 +13,6 @@ import abanoubm.dayra.main.Utility;
 public class EditContactDetails extends ActionBarActivity {
     private String id = "-1";
     private int current = 0;
-    private ImageView[] buttons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +21,11 @@ public class EditContactDetails extends ActionBarActivity {
 
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_edit_contact);
-        buttons = new ImageView[]{
-                (ImageView) findViewById(R.id.infoImage),
-                (ImageView) findViewById(R.id.daysImage),
-                (ImageView) findViewById(R.id.connImage),
-                (ImageView) findViewById(R.id.locImage)
+        final ImageView[] buttons = new ImageView[]{
+                (ImageView) findViewById(R.id.img1),
+                (ImageView) findViewById(R.id.img2),
+                (ImageView) findViewById(R.id.img3),
+                (ImageView) findViewById(R.id.img4)
         };
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();

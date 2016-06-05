@@ -186,9 +186,8 @@
         <item>Add contact</item>
         <item>Display contacts</item>
         <item>Display locations</item>
-        <item>register attendance</item>
+        <item>Register attendance</item>
         <item>Attendance percentage</item>
-        <item>Send SMS</item>
         <item>User\'s manuel</item>
         <item>Like us</item>
         <item>Contact developer</item>
@@ -204,6 +203,7 @@
         <item>Contact developer</item>
     </string-array>
     <string-array name="out_menu">
+        <item>Send SMS</item>
         <item>Copy contacts from phone to dayra</item>
         <item>Copy contacts from dayra to phone</item>
         <item>Export report pdf</item>

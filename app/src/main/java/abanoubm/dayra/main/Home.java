@@ -71,10 +71,10 @@ public class Home extends Activity {
         setContentView(R.layout.act_home);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         buttons = new ImageView[]{
-                (ImageView) findViewById(R.id.homeImage1),
-                (ImageView) findViewById(R.id.homeImage2),
-                (ImageView) findViewById(R.id.ioImage),
-                (ImageView) findViewById(R.id.settImage)
+                (ImageView) findViewById(R.id.img1),
+                (ImageView) findViewById(R.id.img2),
+                (ImageView) findViewById(R.id.img3),
+                (ImageView) findViewById(R.id.img4)
         };
         subHead2 = (TextView) findViewById(R.id.subhead2);
 
@@ -295,7 +295,7 @@ public class Home extends Activity {
 
     private void renameDB() {
         LayoutInflater li = LayoutInflater.from(getApplicationContext());
-        View chooseView = li.inflate(R.layout.confirm_dbname,null,false);
+        View chooseView = li.inflate(R.layout.confirm_dbname, null, false);
         final AlertDialog ad = new AlertDialog.Builder(Home.this)
                 .setCancelable(true).create();
         ad.setView(chooseView, 0, 0, 0, 0);
@@ -356,7 +356,7 @@ public class Home extends Activity {
 
     private void deleteDB() {
         LayoutInflater li = LayoutInflater.from(getApplicationContext());
-        View chooseView = li.inflate(R.layout.confirm_dbname, null,false);
+        View chooseView = li.inflate(R.layout.confirm_dbname, null, false);
         final AlertDialog ad = new AlertDialog.Builder(Home.this)
                 .setCancelable(true).create();
         ad.setView(chooseView, 0, 0, 0, 0);

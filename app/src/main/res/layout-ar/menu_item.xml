@@ -18,7 +18,7 @@
         android:textSize="@dimen/font_larger" />
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"

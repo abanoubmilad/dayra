@@ -104,7 +104,7 @@ public class FragmentSearchDates extends Fragment {
             }
         });
 
-        final EditText date = (EditText) root.findViewById(R.id.edit_date);
+        final EditText date = (EditText) root.findViewById(R.id.date);
 
         final DatePickerDialog picker;
         Calendar cal = Calendar.getInstance();
