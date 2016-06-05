@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="horizontal">
 
     <ImageView
@@ -25,16 +26,14 @@
             android:paddingBottom="10dp"
             android:paddingRight="5dp"
             android:textColor="@color/text_pressed"
-            android:textSize="@dimen/font_larger" />
+            android:textSize="@dimen/font_normal" />
 
         <TextView
             android:id="@+id/mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:textColor="@color/text_pressed"
-            android:textSize="@dimen/font_normal"
-            android:textStyle="bold" />
+            android:textSize="@dimen/font_normal" />
 
     </LinearLayout>
 
@@ -53,7 +52,7 @@
             android:padding="10dp"
             android:text="@string/flag.exist"
             android:textColor="@color/white"
-            android:textSize="@dimen/font_large" />
+            android:textSize="@dimen/font_normal" />
 
         <CheckBox
             android:id="@+id/flag2"
@@ -62,7 +61,7 @@
             android:layout_gravity="center_vertical"
             android:text="@string/flag.chosen"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_large" />
+            android:textSize="@dimen/font_larger" />
     </LinearLayout>
 
 </LinearLayout>

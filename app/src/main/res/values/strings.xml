@@ -17,8 +17,8 @@
     <string name="btn.confirm">confirm</string>
     <string name="btn.create">create</string>
     <string name="btn.back">back</string>
-    <string name="copyright">dayra 3.2 ©%1$s\nAbanoub Milad N. abanoubcs@gmail.com</string>
-    <string name="err.msg.db">Error while trying to connect to database, please contact the developer</string>
+    <string name="copyright">dayra 3.2 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="err.msg.db">Error connecting to database, please contact the developer</string>
     <string name="label.name.required">name (required)</string>
     <string name="label.name">name</string>
     <string name="label.last.attendance">last attendance</string>
@@ -38,7 +38,7 @@
     <string name="label.day.optional">day (optional)</string>
     <string name="label.month">month</string>
     <string name="label.year">year</string>
-    <string name="err.msg.duplicate.name">name is already used</string>
+    <string name="err.msg.duplicate.name">Name is already used</string>
     <string name="err.msg.dayra.name">Invalid dayra name</string>
     <string name="err.msg.site">Invalid site</string>
     <string name="err.msg.dayra.match">Name does not match current dayra name</string>

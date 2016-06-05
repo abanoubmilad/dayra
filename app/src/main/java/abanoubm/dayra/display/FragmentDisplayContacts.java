@@ -193,7 +193,7 @@ public class FragmentDisplayContacts extends Fragment {
                                     int position, long arg3) {
                 previousPosition = lv.getFirstVisiblePosition();
 
-                ((CallBack) getActivity()).onItemSelected(((ContactID) parent
+                ((CallBack) getActivity()).notify(((ContactID) parent
                         .getItemAtPosition(position)).getId());
             }
         });

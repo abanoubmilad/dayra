@@ -50,21 +50,18 @@
         </activity>
         <activity android:name="abanoubm.dayra.main.Main" />
         <activity android:name="abanoubm.dayra.main.Home" />
-        <activity
-            android:name="abanoubm.dayra.operations.AddContact"
-            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".display.DisplayContacts" />
         <activity
             android:name=".display.DisplayContactDetails"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".operations.Search" />
         <activity android:name=".operations.ExportContacts" />
-        <activity android:name=".display.ContactMap" />
         <activity android:name=".display.EditContactDetails" />
+        <activity android:name=".display.AddContactDetails" />
         <activity android:name=".operations.RegisterAttendance">
 
         </activity>
-        <activity android:name=".display.MapLocations" />
+        <activity android:name=".display.DisplayContactsMap" />
         <activity android:name=".display.DisplayContactsStatistics" />
         <activity android:name=".operations.DivideDayra" />
         <activity android:name=".operations.ReplaceDayra" />

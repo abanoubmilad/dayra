@@ -26,7 +26,7 @@ import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactLoc;
 
-public class MapLocations extends FragmentActivity implements
+public class DisplayContactsMap extends FragmentActivity implements
         OnMapReadyCallback {
     private Marker dayraMarker;
     private GoogleMap dmap;
@@ -37,7 +37,7 @@ public class MapLocations extends FragmentActivity implements
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(MapLocations.this);
+            pBar = new ProgressDialog(DisplayContactsMap.this);
             pBar.setCancelable(false);
             pBar.show();
         }

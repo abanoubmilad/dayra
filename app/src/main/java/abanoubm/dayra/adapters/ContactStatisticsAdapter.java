@@ -44,7 +44,7 @@ public class ContactStatisticsAdapter extends ArrayAdapter<ContactStatistics> {
         holder.name.setText(contact.getName());
         holder.min.setText(contact.getMinDay());
         holder.max.setText(contact.getMaxDay());
-        holder.count.setText(contact.getDaysCount());
+        holder.count.setText(contact.getDaysCount()+"");
 
 
         if (contact.getPicDir().length() != 0

@@ -335,8 +335,11 @@ public class DB extends SQLiteOpenHelper {
         }
 
     }
+    public String addContact(ContentValues values) {
+        return String.valueOf(writableDB.insert(TB_CONTACT, null, values));
 
-    public String addAttendant(String name, String mobile) {
+    }
+    public String addContact(String name, String mobile) {
         ContentValues values = new ContentValues();
         values.put(CONTACT_MAPLAT, 0);
         values.put(CONTACT_MAPLNG, 0);

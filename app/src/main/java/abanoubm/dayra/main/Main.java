@@ -53,8 +53,10 @@ public class Main extends Activity {
         @Override
         protected void onPostExecute(Boolean result) {
             pBar.dismiss();
-            if (result)
+            if (result) {
                 startActivity(new Intent(getApplicationContext(), Home.class));
+                finish();
+            }
             else
                 Toast.makeText(getApplicationContext(), R.string.err_msg_open,
                         Toast.LENGTH_SHORT).show();

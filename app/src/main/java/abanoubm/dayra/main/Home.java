@@ -32,10 +32,10 @@ import java.util.Arrays;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.MenuItemAdapter;
+import abanoubm.dayra.display.AddContactDetails;
 import abanoubm.dayra.display.DisplayContacts;
 import abanoubm.dayra.display.DisplayContactsStatistics;
-import abanoubm.dayra.display.MapLocations;
-import abanoubm.dayra.operations.AddContact;
+import abanoubm.dayra.display.DisplayContactsMap;
 import abanoubm.dayra.operations.CopyDayraPhone;
 import abanoubm.dayra.operations.CopyPhoneDayra;
 import abanoubm.dayra.operations.DivideDayra;
@@ -57,10 +57,7 @@ public class Home extends Activity {
         buttons[tagCursor].setBackgroundColor(0);
         tagCursor = 0;
         buttons[0].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
-        getSharedPreferences("login", Context.MODE_PRIVATE).edit()
-                .putString("dbname", null).commit();
-        Intent intent = new Intent(getApplicationContext(), Main.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intent = new Intent(getApplicationContext(), Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }
@@ -149,7 +146,7 @@ public class Home extends Activity {
                         break;
                     case 1:
                         startActivity(new Intent(getApplicationContext(),
-                                AddContact.class));
+                                AddContactDetails.class));
                         break;
                     case 2:
                         startActivity(new Intent(getApplicationContext(),
@@ -157,7 +154,7 @@ public class Home extends Activity {
                         break;
                     case 3:
                         startActivity(new Intent(getApplicationContext(),
-                                MapLocations.class));
+                                DisplayContactsMap.class));
                         break;
                     case 4:
                         startActivity(new Intent(getApplicationContext(),

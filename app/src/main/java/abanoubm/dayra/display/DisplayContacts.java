@@ -34,7 +34,7 @@ public class DisplayContacts extends ActionBarActivity implements CallBack {
     }
 
     @Override
-    public void onItemSelected(String id) {
+    public void notify(String id) {
         if (dualMode) {
             Bundle args = new Bundle();
             args.putString("id", id);

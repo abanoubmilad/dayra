@@ -112,7 +112,7 @@ public class CopyPhoneDayra extends Activity {
             for (int i = 0; i < count; i++) {
                 temp = mAdapter.getItem(i);
                 if (temp.isSelected()) {
-                    if (dbm.addAttendant(temp.getName(), temp.getMobile()).equals("-1"))
+                    if (dbm.addContact(temp.getName(), temp.getMobile()).equals("-1"))
                         failureCounter++;
                     else {
                         temp.setSelected(true);

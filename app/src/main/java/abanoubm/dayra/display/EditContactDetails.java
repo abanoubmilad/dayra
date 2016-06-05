@@ -32,6 +32,8 @@ public class EditContactDetails extends ActionBarActivity {
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_edit_contact);
 
+        id = getIntent().getStringExtra(ARG_ID);
+
         buttons = new ImageView[]{
                 (ImageView) findViewById(R.id.img1),
                 (ImageView) findViewById(R.id.img2),
@@ -61,7 +63,7 @@ public class EditContactDetails extends ActionBarActivity {
                     buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
 
                     Bundle arguments = new Bundle();
-                    arguments.putString("id", id);
+                    arguments.putString(ARG_ID, id);
 
                     FragmentEditContactInfo fragment = new FragmentEditContactInfo();
                     fragment.setArguments(arguments);
@@ -83,7 +85,7 @@ public class EditContactDetails extends ActionBarActivity {
                     buttons[1].setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorAccent));
 
                     Bundle arguments = new Bundle();
-                    arguments.putString("id", id);
+                    arguments.putString(ARG_ID, id);
 
                     FragmentEditContactDay fragment = new FragmentEditContactDay();
                     fragment.setArguments(arguments);
@@ -105,7 +107,7 @@ public class EditContactDetails extends ActionBarActivity {
 
 
                     Bundle arguments = new Bundle();
-                    arguments.putString("id", id);
+                    arguments.putString(ARG_ID, id);
 
                     FragmentEditContactConnection fragment = new FragmentEditContactConnection();
                     fragment.setArguments(arguments);
