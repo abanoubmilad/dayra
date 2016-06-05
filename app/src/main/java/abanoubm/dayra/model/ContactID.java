@@ -37,4 +37,7 @@ public class ContactID {
         this.name = name;
     }
 
+    public void setPhoto(Bitmap photo) {
+        this.photo = photo;
+    }
 }

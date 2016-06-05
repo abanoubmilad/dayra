@@ -218,8 +218,10 @@ public class DB extends SQLiteOpenHelper {
 
     public ArrayList<ContactID> getAttendantConnections(String hostID) {
 
-        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO
-                + " FROM " + TB_CONTACT + " WHERE " + CONTACT_ID + " IN (SELECT "
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," +
+                PHOTO_BLOB + " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                " WHERE " + CONTACT_ID + " IN (SELECT "
                 + CONN_B + " FROM " + TB_CONNECTION + " WHERE " + CONN_A + "="
                 + hostID + ")" + " AND " + CONTACT_ID + "!=" + hostID + " ORDER BY "
                 + CONTACT_NAME;
@@ -228,7 +230,7 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactID(c.getString(0), c.getString(1),
-                        c.getString(2)));
+                        Utility.getBitmap(c.getBlob(2))));
             } while (c.moveToNext());
         }
         c.close();
@@ -238,9 +240,10 @@ public class DB extends SQLiteOpenHelper {
     public ArrayList<ContactCheck> getAttendantConnections(String hostID,
                                                            String name) {
 
-        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," +
-                CONTACT_PHOTO + "," + CONN_B +
-                " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_CONNECTION + " ON " +
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONN_B + "," +
+                PHOTO_BLOB + " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                " LEFT OUTER JOIN " + TB_CONNECTION + " ON " +
                 CONTACT_ID + "=" + CONN_B + " AND " + CONN_A + " = ? " +
                 " WHERE " + CONTACT_ID + " != ? AND " + CONTACT_NAME +
                 " LIKE ? ORDER BY " + CONTACT_NAME;
@@ -250,7 +253,7 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactCheck(c.getString(0), c
-                        .getString(1), c.getString(2), c.getString(2) != null));
+                        .getString(1), Utility.getBitmap(c.getBlob(3)), c.getString(2) != null));
             } while (c.moveToNext());
         }
         c.close();
@@ -354,9 +357,6 @@ public class DB extends SQLiteOpenHelper {
         values.put(CONTACT_MAPLNG, 0);
         values.put(CONTACT_MAPZOM, 0);
         values.put(CONTACT_NAME, name);
-        values.put(CONTACT_ATTEND_DATES, "");
-        values.put(CONTACT_LAST_VISIT, "");
-        values.put(CONTACT_LAST_ATTEND, "");
         values.put(CONTACT_PHOTO, "");
         values.put(CONTACT_PRIEST, "");
         values.put(CONTACT_NOTES, "");
@@ -382,9 +382,6 @@ public class DB extends SQLiteOpenHelper {
         values.put(CONTACT_MAPLNG, att.getMapLng());
         values.put(CONTACT_MAPZOM, att.getMapZoom());
         values.put(CONTACT_NAME, att.getName());
-        values.put(CONTACT_ATTEND_DATES, att.getAttendDates());
-        values.put(CONTACT_LAST_VISIT, att.getLastVisit());
-        values.put(CONTACT_LAST_ATTEND, att.getLastAttend());
         values.put(CONTACT_PHOTO, att.getPicDir());
         values.put(CONTACT_PRIEST, att.getPriest());
         values.put(CONTACT_NOTES, att.getComm());
@@ -404,18 +401,15 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public ContactData getAttendantData(String id) {
+    public ContactData getContactInfo(String id) {
         Cursor c = readableDB.query(TB_CONTACT,
                 new String[]{
                         CONTACT_ID
                         , CONTACT_NAME
-                        , CONTACT_PHOTO
                         , CONTACT_MAPLAT
                         , CONTACT_MAPLNG
                         , CONTACT_MAPZOM
 
-                        , CONTACT_ATTEND_DATES
-                        , CONTACT_LAST_ATTEND
                         , CONTACT_PRIEST
                         , CONTACT_NOTES
                         , CONTACT_BDAY
@@ -427,7 +421,6 @@ public class DB extends SQLiteOpenHelper {
                         , CONTACT_LPHONE
 
                         , CONTACT_ADDR
-                        , CONTACT_LAST_VISIT
                         , CONTACT_CLASS_YEAR
                         , CONTACT_STUDY_WORK
                         , CONTACT_ST
@@ -438,13 +431,18 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
 
             result = new ContactData(c.getString(0),
-                    c.getString(1), c.getString(2), c.getDouble(3),
-                    c.getDouble(4), c.getFloat(5), c.getString(6),
+                    c.getString(1), null, c.getDouble(2), c.getDouble(3),
+                    c.getFloat(4), c.getString(5), c.getString(6),
                     c.getString(7), c.getString(8), c.getString(9),
                     c.getString(10), c.getString(11), c.getString(12),
                     c.getString(13), c.getString(14), c.getString(15),
-                    c.getString(16), c.getString(17), c.getString(18),
-                    c.getString(19), c.getString(20), c.getString(21));
+                    c.getString(16), c.getString(17));
+            c = readableDB.query(TB_PHOTO, new String[]{
+                    PHOTO_BLOB
+            }, PHOTO_ID
+                    + " = ?", new String[]{id}, null, null, null);
+            if (c.moveToFirst())
+                result.setPhoto(Utility.getBitmap(c.getBlob(0)));
         }
         c.close();
         return result;
@@ -918,8 +916,10 @@ public class DB extends SQLiteOpenHelper {
 
     public ArrayList<ContactCheck> getDayAttendance(String type, String day,
                                                     String name, IntWrapper counter) {
-        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO + "," + ATTEND_DAY +
-                " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + ATTEND_DAY + "," +
+                PHOTO_BLOB + " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
                 CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " = ?  AND " + ATTEND_TYPE + " = ? WHERE " + CONTACT_NAME
                 + " LIKE ? ORDER BY " + CONTACT_NAME;
 
@@ -930,11 +930,11 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             boolean flag;
             do {
-                flag = c.getString(3) != null;
+                flag = c.getString(2) != null;
                 if (flag)
                     updated++;
                 result.add(new ContactCheck(c.getString(0), c
-                        .getString(1), c.getString(2), flag));
+                        .getString(1), Utility.getBitmap(c.getBlob(3)), flag));
             } while (c.moveToNext());
         }
         c.close();
@@ -1011,7 +1011,9 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public ArrayList<ContactDay> searchDates(String date, String type, String selectTag) {
-        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO + "," + selectTag +
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + selectTag + "," +
+                PHOTO_BLOB + " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " FROM " + TB_CONTACT + " INNER JOIN " + TB_ATTEND + " ON " +
                 CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " = ?  AND " + ATTEND_TYPE + " = ? GROUP BY " + CONTACT_ID
                 + " ORDER BY " + CONTACT_NAME;
@@ -1022,7 +1024,7 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactDay(c.getString(0), c.getString(1),
-                        c.getString(3), c.getString(2)));
+                        c.getString(2), Utility.getBitmap(c.getBlob(3))));
             } while (c.moveToNext());
         }
         c.close();

@@ -5,22 +5,22 @@ import android.graphics.Bitmap;
 public class ContactData extends ContactID {
     private double mapLat, mapLng;
     private float mapZoom;
-    private String attendDates, lastAttend, priest, comm, birthDay, email,
-            mobile1, mobile2, mobile3, landPhone, address, lastVisit,
+    private String priest, comm, birthDay, email,
+            mobile1, mobile2, mobile3, landPhone, address,
             classYear, studyWork, street, site;
 
     public ContactData(String id, String name, Bitmap photo, double mapLat,
-                       double mapLng, float mapZoom, String attendDates,
-                       String lastAttend, String priest, String comm, String birthDay,
-                       String email, String mobile1, String mobile2, String mobile3,
-                       String landPhone, String address, String lastVisit,
-                       String classYear, String studyWork, String street, String site) {
+                       double mapLng, float mapZoom, String priest,
+                       String comm, String birthDay,
+                       String email, String mobile1,
+                       String mobile2, String mobile3,
+                       String landPhone, String address,
+                       String classYear, String studyWork,
+                       String street, String site) {
         super(id, name, photo);
         this.mapLat = mapLat;
         this.mapLng = mapLng;
         this.mapZoom = mapZoom;
-        this.attendDates = attendDates;
-        this.lastAttend = lastAttend;
         this.priest = priest;
         this.comm = comm;
         this.birthDay = birthDay;
@@ -30,7 +30,6 @@ public class ContactData extends ContactID {
         this.mobile3 = mobile3;
         this.landPhone = landPhone;
         this.address = address;
-        this.lastVisit = lastVisit;
         this.classYear = classYear;
         this.studyWork = studyWork;
         this.street = street;
@@ -49,16 +48,6 @@ public class ContactData extends ContactID {
 
     public float getMapZoom() {
         return mapZoom;
-    }
-
-
-    public String getAttendDates() {
-        return attendDates;
-    }
-
-
-    public String getLastAttend() {
-        return lastAttend;
     }
 
 
@@ -122,10 +111,6 @@ public class ContactData extends ContactID {
         this.address = address;
     }
 
-    public String getLastVisit() {
-        return lastVisit;
-    }
-
 
     public String getClassYear() {
         return classYear;
@@ -152,5 +137,6 @@ public class ContactData extends ContactID {
     public void setSite(String site) {
         this.site = site;
     }
+
 
 }
