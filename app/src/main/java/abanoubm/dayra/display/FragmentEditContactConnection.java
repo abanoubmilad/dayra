@@ -47,7 +47,7 @@ public class FragmentEditContactConnection extends Fragment {
         View root = inflater.inflate(R.layout.fragment_edit_contact_connection, container, false);
 
 
-        sname = (EditText) root.findViewById(R.id.sname_edittext);
+        sname = (EditText) root.findViewById(R.id.input);
 
         lv = (ListView) root.findViewById(R.id.sname_list);
         mAdapter = new ContactCheckAdapter(getContext(), new ArrayList<ContactCheck>(0));
@@ -91,7 +91,7 @@ public class FragmentEditContactConnection extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(),
-                        DisplayContactDetails.class).putExtra("id",
+                        DisplayContactDetails.class).putExtra(ARG_ID,
                         id));
             }
         });
@@ -176,7 +176,6 @@ public class FragmentEditContactConnection extends Fragment {
         protected void onPostExecute(ArrayList<ContactCheck> result) {
             pBar.dismiss();
             if (result.size() == 0) {
-                //     finish();
                 Toast.makeText(getActivity(),
                         R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
             } else {

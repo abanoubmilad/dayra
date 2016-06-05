@@ -40,7 +40,7 @@ public class EditContactDetails extends ActionBarActivity {
         };
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
-            arguments.putString("id", getIntent().getStringExtra("id"));
+            arguments.putString(ARG_ID, getIntent().getStringExtra(ARG_ID));
 
             FragmentEditContactInfo fragment = new FragmentEditContactInfo();
             fragment.setArguments(arguments);
@@ -133,7 +133,7 @@ public class EditContactDetails extends ActionBarActivity {
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(getApplicationContext());
+            pBar = new ProgressDialog(EditContactDetails.this);
             pBar.setCancelable(false);
             pBar.show();
         }

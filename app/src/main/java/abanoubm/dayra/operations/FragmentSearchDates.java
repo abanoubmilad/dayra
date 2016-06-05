@@ -110,9 +110,7 @@ public class FragmentSearchDates extends Fragment {
         picker = new DatePickerDialog(getActivity(), new OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                String dateStr = Utility.produceDate(dayOfMonth, monthOfYear + 1, year);
-                date.setText(dateStr);
-                new SearchDatesTask().execute(dateStr);
+                date.setText(Utility.produceDate(dayOfMonth, monthOfYear + 1, year));
             }
 
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal
@@ -153,6 +151,16 @@ public class FragmentSearchDates extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+        });
+
+        root.findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                new SearchDatesTask().execute(date.getText().toString());
+
+            }
+
         });
         return root;
     }

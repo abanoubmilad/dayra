@@ -10,14 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select.attendance.type"
+            android:textSize="@dimen/font_small"
+            android:textColor="@color/black"/>
+
         <Spinner
             android:id="@+id/spin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/attendance_type"
-            android:spinnerMode="dialog"
             android:prompt="@string/select.attendance.type"
-            android:background="@color/lightergrey"/>
+            android:spinnerMode="dialog" />
 
         <EditText
             android:id="@+id/edit_date"
@@ -47,14 +54,13 @@
         android:imeOptions="actionDone"
         android:inputType="text"
         android:textColor="@color/grey"
-        android:textSize="26sp"
-        android:visibility="gone"/>
+        android:textSize="26sp" />
 
     <ListView
         android:id="@+id/sname_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/sname_btn"

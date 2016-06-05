@@ -52,20 +52,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+
+        <ListView
+            android:id="@+id/yearList"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
         <ListView
             android:id="@+id/dayList"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-        <ListView
-            android:id="@+id/monthList"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
 
         <ListView
-            android:id="@+id/yearList"
+            android:id="@+id/monthList"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />

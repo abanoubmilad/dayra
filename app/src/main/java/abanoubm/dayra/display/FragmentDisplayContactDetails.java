@@ -12,15 +12,16 @@ import android.widget.ImageView;
 import abanoubm.dayra.R;
 
 public class FragmentDisplayContactDetails extends Fragment {
-    private String id = "-1";
+    private String id;
     private int current = 0;
+    private static final String ARG_ID = "id";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         if (arguments != null) {
-            id = arguments.getString("id");
+            id = arguments.getString(ARG_ID);
         }
     }
 
@@ -29,9 +30,7 @@ public class FragmentDisplayContactDetails extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_display_contact, container, false);
 
-        final ImageView[] buttons
-
-         = new ImageView[]{
+        final ImageView[] buttons = new ImageView[]{
                 (ImageView) root.findViewById(R.id.img1),
                 (ImageView) root.findViewById(R.id.img2),
                 (ImageView) root.findViewById(R.id.img3),
@@ -49,7 +48,7 @@ public class FragmentDisplayContactDetails extends Fragment {
                     buttons[0].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
 
                     Bundle arguments = new Bundle();
-                    arguments.putString("id", id);
+                    arguments.putString(ARG_ID, id);
 
                     FragmentDisplayContactInfo fragment = new FragmentDisplayContactInfo();
                     fragment.setArguments(arguments);
@@ -71,7 +70,7 @@ public class FragmentDisplayContactDetails extends Fragment {
                     buttons[1].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
 
                     Bundle arguments = new Bundle();
-                    arguments.putString("id", id);
+                    arguments.putString(ARG_ID, id);
 
                     FragmentDisplayContactDay fragment = new FragmentDisplayContactDay();
                     fragment.setArguments(arguments);
@@ -93,7 +92,7 @@ public class FragmentDisplayContactDetails extends Fragment {
 
 
                     Bundle arguments = new Bundle();
-                    arguments.putString("id", id);
+                    arguments.putString(ARG_ID, id);
 
                     FragmentDisplayContactConnection fragment = new FragmentDisplayContactConnection();
                     fragment.setArguments(arguments);
@@ -117,7 +116,7 @@ public class FragmentDisplayContactDetails extends Fragment {
 
 
                     Bundle arguments = new Bundle();
-                    arguments.putString("id", id);
+                    arguments.putString(ARG_ID, id);
 
                     FragmentDisplayContactMap fragment = new FragmentDisplayContactMap();
                     fragment.setArguments(arguments);
@@ -138,7 +137,7 @@ public class FragmentDisplayContactDetails extends Fragment {
                     buttons[current].setBackgroundColor(0);
                     current = 4;
                     buttons[4].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-                    startActivity(new Intent(getActivity(), EditContactDetails.class).putExtra("id", id));
+                    startActivity(new Intent(getActivity(), EditContactDetails.class).putExtra(ARG_ID, id));
 
                 }
 
@@ -148,7 +147,7 @@ public class FragmentDisplayContactDetails extends Fragment {
 
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
-            arguments.putString("id", id);
+            arguments.putString(ARG_ID, id);
 
             FragmentDisplayContactInfo fragment = new FragmentDisplayContactInfo();
             fragment.setArguments(arguments);

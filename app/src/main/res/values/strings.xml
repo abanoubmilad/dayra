@@ -146,6 +146,7 @@
     <string name="flag.chosen">choose</string>
     <string name="flag.exist">already exist</string>
     <string name="select.attendance.type">Select attendance type</string>
+    <string name="search.by">Search by</string>
 
     <string-array name="attendance_type">
         <item>Attendance 1</item>

@@ -145,6 +145,7 @@
     <string name="flag.chosen">اختر</string>
     <string name="flag.exist">موجود بالفعل</string>
     <string name="select.attendance.type">اختر نوع الحضور</string>
+    <string name="search.by">بحث بواسطة</string>
 
     <string-array name="attendance_type">
         <item>حضور ١</item>

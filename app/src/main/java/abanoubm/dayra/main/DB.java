@@ -1000,7 +1000,7 @@ public class DB extends SQLiteOpenHelper {
 
     public ArrayList<ContactDay> searchDates(String date, String type, String selectTag) {
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + CONTACT_PHOTO + "," + selectTag +
-                " FROM " + TB_CONTACT + " INNER OUTER JOIN " + TB_ATTEND + " ON " +
+                " FROM " + TB_CONTACT + " INNER JOIN " + TB_ATTEND + " ON " +
                 CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " = ?  AND " + ATTEND_TYPE + " = ? GROUP BY " + CONTACT_ID
                 + " ORDER BY " + CONTACT_NAME;
 

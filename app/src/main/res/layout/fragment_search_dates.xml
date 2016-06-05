@@ -12,23 +12,48 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search.by"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_large" />
+
         <Spinner
             android:id="@+id/spin_search"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:entries="@array/search_dates_menu"
             android:spinnerMode="dialog"
             android:textSize="@dimen/font_larger" />
+
         <Spinner
             android:id="@+id/spin_type"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/lightergrey"
             android:entries="@array/attendance_type"
-            android:spinnerMode="dialog"
             android:prompt="@string/select.attendance.type"
-            android:background="@color/lightergrey"/>
+            android:spinnerMode="dialog" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightergrey"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/lightergrey"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_larger" />
 
         <ImageView
             android:id="@+id/pick"
@@ -39,13 +64,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/lightergrey"
-        android:textColor="@color/black"
-        android:textSize="26sp" />
 
     <ListView
         android:id="@+id/list"

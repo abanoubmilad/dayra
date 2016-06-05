@@ -151,8 +151,9 @@ public class FragmentDisplayContactDay extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                dayList.setVisibility(View.INVISIBLE);
+                mAdpterDays.clear();
                 choosenYear = (String) mAdpterYears.getItem(position);
+                new GetMonthsTask().execute();
 
             }
         });
@@ -161,7 +162,8 @@ public class FragmentDisplayContactDay extends Fragment {
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
                 choosenMonth = (String) mAdpterMonths.getItem(position);
-
+                dayList.setVisibility(View.INVISIBLE);
+                new GetDaysTask().execute();
             }
         });
 
