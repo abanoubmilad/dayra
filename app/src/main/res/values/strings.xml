@@ -8,23 +8,24 @@
     <string name="msg.no.contacts">No contacts</string>
     <string name="msg.no.connections">No connections</string>
     <string name="btn.export">export</string>
-    <string name="label.choose.fields">Choose data fields</string>
+    <string name="label.choose.data">Choose data</string>
     <string name="btn.edit">edit</string>
     <string name="btn.save">save</string>
     <string name="btn.search">search</string>
     <string name="label.dayra.name">dayra name</string>
+    <string name="label.photo">photo</string>
     <string name="btn.delete">delete</string>
     <string name="btn.confirm">confirm</string>
     <string name="btn.create">create</string>
     <string name="btn.back">back</string>
-    <string name="copyright">dayra 3.2 ©%1$s\nAbanoub Milad Hanna\n01289887219\nabanoubcs@gmail.com</string>
+    <string name="copyright">dayra 3.2 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
     <string name="err.msg.db">Error connecting to database, please contact the developer</string>
     <string name="label.name.required">name (required)</string>
     <string name="label.name">name</string>
     <string name="label.last.attendance">last attendance</string>
     <string name="label.last.visit">last visit</string>
     <string name="label.attendance.dates">attendance dates</string>
-    <string name="label.conf.father">confession father</string>
+    <string name="label.supervisor">supervisor</string>
     <string name="label.notes">notes</string>
     <string name="label.bday">birthday</string>
     <string name="label.email">email</string>
@@ -106,7 +107,7 @@
     <string name="err.msg.browse">you must browse dayra first</string>
     <string name="label.choose.site">Choose site</string>
     <string name="label.choose.street">Choose street</string>
-    <string name="label.choose.priest">Choose confession father</string>
+    <string name="label.choose.supervisor">Choose supervisor</string>
     <string name="label.choose.class.year">Choose class/year</string>
     <string name="label_choose_study_work">Choose study/work</string>
     <string name="label.add.site">add a new site</string>
@@ -172,7 +173,7 @@
         <item>Street</item>
         <item>Address</item>
         <item>Notes</item>
-        <item>Confession Father</item>
+        <item>Supervisor</item>
     </string-array>
     <string-array name="search_dates_menu">
         <item>last attendance</item>
@@ -236,14 +237,11 @@
         <item>address</item>
         <item>notes</item>
         <item>birthday</item>
-        <item>confession father</item>
-        <item>last attendance</item>
-        <item>attendance dates</item>
-        <item>last visit</item>
+        <item>supervisor</item>
         <item>reserved latitude</item>
         <item>reserved longitude</item>
         <item>reserved zoom</item>
-        <item>reserved picture path</item>
+        <item>photo</item>
     </string-array>
     <string-array name="sort_menu">
         <item>Name</item>
@@ -251,7 +249,7 @@
         <item>Study/work</item>
         <item>Site</item>
         <item>Street</item>
-        <item>Confession father</item>
+        <item>Supervisor</item>
     </string-array>
     <string-array name="home_icons" translatable="false">
         <item>@mipmap/ic_search</item>

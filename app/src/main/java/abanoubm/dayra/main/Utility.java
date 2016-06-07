@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.ThumbnailUtils;
+import android.os.Environment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -97,5 +98,38 @@ public class Utility {
                 BitmapFactory.decodeFile(path), 250, 250);
     }
 
+
+    public static String migirateDate(String oldDate) {
+        if (!oldDate.matches("[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}"))
+            return "";
+        String[] arr = oldDate.split("-");
+        if (arr[1].length() == 1) {
+            if (arr[0].length() == 1)
+                return arr[2] + "-0" + arr[1] + "-0" + arr[0];
+            else
+                return arr[2] + "-0" + arr[1] + "-" + arr[0];
+        } else {
+            if (arr[0].length() == 1)
+                return arr[2] + "-" + arr[1] + "-0" + arr[0];
+            else
+                return arr[2] + "-" + arr[1] + "-" + arr[0];
+        }
+
+    }
+
+    public static String getDayraFolder() {
+        String path;
+        if (android.os.Environment.getExternalStorageState().equals(
+                android.os.Environment.MEDIA_MOUNTED)) {
+            path = Environment.getExternalStorageDirectory()
+                    .getAbsolutePath() + "/";
+        } else {
+            path = android.os.Environment.getDataDirectory()
+                    .getAbsolutePath() + "/";
+        }
+        path += "dayra folder";
+        new File(path).mkdirs();
+        return path;
+    }
 
 }

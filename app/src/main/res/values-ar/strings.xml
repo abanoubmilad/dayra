@@ -8,11 +8,12 @@
     <string name="msg.no.contacts">ﻻ توجد اسماء مسجلة</string>
     <string name="msg.no.connections">ﻻ توجد معارف/صلة مسجلة</string>
     <string name="btn.export">تصدير</string>
-    <string name="label.choose.fields">قم باختيار البيانات</string>
+    <string name="label.choose.data">اختر البيانات</string>
     <string name="btn.edit">تعديل</string>
     <string name="btn.save">حفظ</string>
     <string name="btn.search">بحث</string>
     <string name="label.dayra.name">اسم الدايره</string>
+    <string name="label.photo">صورة</string>
     <string name="btn.delete">مسح</string>
     <string name="btn.confirm">تأكيد</string>
     <string name="btn.create">تكوين</string>
@@ -23,7 +24,7 @@
     <string name="label.last.attendance">اخر حضور</string>
     <string name="label.last.visit">اخر زيارة</string>
     <string name="label.attendance.dates">تواريخ الحضور</string>
-    <string name="label.conf.father">أب الاعتراف</string>
+    <string name="label.supervisor">المُشرف</string>
     <string name="label.notes">ملاحظات</string>
     <string name="label.bday">تاريخ الميلاد</string>
     <string name="label.email">ايميل</string>
@@ -105,7 +106,7 @@
     <string name="err.msg.browse">قم بتحديد الدايره التى سيتم استبدال البيانات بواستطها اولا</string>
     <string name="label.choose.site">اختر المنطقة</string>
     <string name="label.choose.street">اختر الشارع</string>
-    <string name="label.choose.priest">اختر اب الاعتراف</string>
+    <string name="label.choose.supervisor">اختر المُشرف</string>
     <string name="label.choose.class.year">اختر الدفعة/السنة</string>
     <string name="label.add.site">اضافة منطقة جديدة</string>
     <string name="label.add.class.year">اضافة دفعة/سنة جديدة</string>
@@ -171,7 +172,7 @@
         <item>شارع</item>
         <item>عنوان</item>
         <item>ملاحظات</item>
-        <item>أب الآعتراف</item>
+        <item>المُشرف</item>
     </string-array>
     <string-array name="search_dates_menu">
         <item>اخر حضور</item>
@@ -235,10 +236,7 @@
         <item>عنوان</item>
         <item>ملاحظات</item>
         <item>تاريخ الميلاد</item>
-        <item>أب الآعتراف</item>
-        <item>اخر حضور</item>
-        <item>تواريخ الحضور</item>
-        <item>اخر زيارة</item>
+        <item>المُشرف</item>
         <item>خاص خريطة</item>
         <item>خاص خريطة</item>
         <item>خاص خريطة</item>
@@ -250,7 +248,7 @@
         <item>دراسة/عمل</item>
         <item>منطقة</item>
         <item>شارع</item>
-        <item>أب الآعتراف</item>
+        <item>المُشرف</item>
     </string-array>
 
 </resources>

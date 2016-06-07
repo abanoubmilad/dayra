@@ -39,36 +39,35 @@ import abanoubm.dayra.model.IntWrapper;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.write.Label;
+import jxl.write.WritableImage;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
 public class DB extends SQLiteOpenHelper {
     private static String DB_NAME = "";
-    private static final int DB_VERSION = 3;
+    public static final int DB_VERSION = 3;
 
-    private static final String TB_CONNECTION = "conn_tb";
-    private static final String CONN_A = "conn_a";
-    private static final String CONN_B = "conn_b";
-
-    private static final String TB_ATTEND = "attend_tb";
-    private static final String ATTEND_ID = "attend_id";
-    public static final String ATTEND_DAY = "attend_day";
-    private static final String ATTEND_TYPE = "attend_type";
-
-    private static final String TB_PHOTO = "photo_tb";
-    private static final String PHOTO_ID = "photo_id";
-    private static final String PHOTO_BLOB = "photo_blob";
-
-    private static final String TB_CONTACT = "dayra_tb";
-    public static final String CONTACT_ID = "_id", CONTACT_MAPLAT = "lat", CONTACT_MAPLNG = "lng",
+    public static final String TB_CONNECTION = "conn_tb",
+            CONN_A = "conn_a",
+            CONN_B = "conn_b";
+    public static final String TB_ATTEND = "attend_tb",
+            ATTEND_ID = "attend_id",
+            ATTEND_DAY = "attend_day",
+            ATTEND_TYPE = "attend_type";
+    public static final String TB_PHOTO = "photo_tb",
+            PHOTO_ID = "photo_id",
+            PHOTO_BLOB = "photo_blob";
+    public static final String TB_CONTACT = "dayra_tb",
+            CONTACT_ID = "_id", CONTACT_MAPLAT = "lat",
+            CONTACT_MAPLNG = "lng", CONTACT_CLASS_YEAR = "cyear",
             CONTACT_MAPZOM = "zom", CONTACT_NAME = "name",
-            CONTACT_PRIEST = "pri", CONTACT_NOTES = "comm",
+            CONTACT_SUPERVISOR = "pri", CONTACT_NOTES = "comm",
             CONTACT_BDAY = "bday", CONTACT_EMAIL = "email",
             CONTACT_MOB1 = "mob1", CONTACT_MOB2 = "mob2",
             CONTACT_MOB3 = "mob3", CONTACT_LPHONE = "lphone",
             CONTACT_ADDR = "addr", CONTACT_ST = "st",
-            CONTACT_SITE = "site", CONTACT_STUDY_WORK = "swork",
-            CONTACT_CLASS_YEAR = "cyear";
+            CONTACT_SITE = "site", CONTACT_STUDY_WORK = "swork";
+
 
     private static DB dbm;
     private SQLiteDatabase readableDB, writableDB;
@@ -115,9 +114,7 @@ public class DB extends SQLiteOpenHelper {
         String sql = "create table " + TB_CONTACT + " ( " + CONTACT_ID
                 + " integer primary key autoincrement, " + CONTACT_MAPLAT
                 + " double, " + CONTACT_MAPLNG + " double, " + CONTACT_MAPZOM + " float, "
-                + CONTACT_NAME + " text, " + CONTACT_ATTEND_DATES + " text, " + CONTACT_LAST_ATTEND
-                + " text, " + CONTACT_LAST_VISIT + " text, " + CONTACT_PHOTO + " text, "
-                + CONTACT_PRIEST + " text, " + CONTACT_NOTES + " text, " + CONTACT_BDAY + " text, "
+                + CONTACT_NAME + CONTACT_SUPERVISOR + " text, " + CONTACT_NOTES + " text, " + CONTACT_BDAY + " text, "
                 + CONTACT_EMAIL + " text, " + CONTACT_MOB1 + " text, " + CONTACT_MOB2 + " text, "
                 + CONTACT_MOB3 + " text, " + CONTACT_LPHONE + " text, " + CONTACT_ST
                 + " text, " + CONTACT_SITE + " text, " + CONTACT_CLASS_YEAR + " integer, "
@@ -134,17 +131,13 @@ public class DB extends SQLiteOpenHelper {
 
         db.execSQL(sql);
 
-        sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer, "
+        sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
                 + PHOTO_BLOB + " blob)";
         db.execSQL(sql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
-        final String CONTACT_PHOTO = "pdir",
-                CONTACT_ATTEND_DATES = "dates",
-                CONTACT_LAST_VISIT = "lvisit",
-                CONTACT_LAST_ATTEND = "lattend";
 
         String sql;
         if (arg1 < 2) {
@@ -162,6 +155,53 @@ public class DB extends SQLiteOpenHelper {
             sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer, "
                     + PHOTO_BLOB + " blob)";
             db.execSQL(sql);
+
+
+            // modifications over data
+            final String CONTACT_PHOTO = "pdir",
+                    CONTACT_ATTEND_DATES = "dates",
+                    CONTACT_LAST_VISIT = "lvisit",
+                    CONTACT_LAST_ATTEND = "lattend";
+
+            Cursor c = db.query(TB_CONTACT,
+                    new String[]{
+                            CONTACT_ID,
+                            CONTACT_PHOTO,
+                            CONTACT_ATTEND_DATES,
+                            CONTACT_LAST_VISIT,
+                    }, null, null, null, null, null);
+            if (c.moveToFirst()) {
+                ContentValues values;
+                db.beginTransaction();
+                do {
+
+                    values = new ContentValues();
+                    values.put(PHOTO_ID, c.getString(0));
+                    values.put(PHOTO_BLOB, Utility.getBytes(Utility.getBitmap(c.getString(1))));
+                    db.insert(TB_PHOTO, null, values);
+                    if (c.getString(3).length() != 0) {
+                        values = new ContentValues();
+                        values.put(ATTEND_ID, c.getString(0));
+                        values.put(ATTEND_TYPE, "0");
+                        values.put(ATTEND_DAY, Utility.migirateDate(c.getString(3)));
+                        db.insert(TB_ATTEND, null, values);
+                    }
+                    String[] arr = c.getString(2).split(",");
+                    values = new ContentValues();
+                    for (int i = 0; i < arr.length; i++) {
+                        if (arr[i].length() != 0) {
+                            values.put(ATTEND_ID, c.getString(0));
+                            values.put(ATTEND_TYPE, "1");
+                            values.put(ATTEND_DAY, Utility.migirateDate(arr[i]));
+                        }
+                    }
+                } while (c.moveToFirst());
+                c.close();
+                db.endTransaction();
+
+            }
+
+
         }
 
     }
@@ -284,17 +324,8 @@ public class DB extends SQLiteOpenHelper {
                         case CONTACT_MAPZOM:
                             values.put(CONTACT_MAPZOM, att.getMapZoom());
                             break;
-                        case CONTACT_ATTEND_DATES:
-                            values.put(CONTACT_ATTEND_DATES, att.getAttendDates());
-                            break;
-                        case CONTACT_LAST_VISIT:
-                            values.put(CONTACT_LAST_VISIT, att.getLastVisit());
-                            break;
-                        case CONTACT_LAST_ATTEND:
-                            values.put(CONTACT_LAST_ATTEND, att.getLastAttend());
-                            break;
-                        case CONTACT_PRIEST:
-                            values.put(CONTACT_PRIEST, att.getPriest());
+                        case CONTACT_SUPERVISOR:
+                            values.put(CONTACT_SUPERVISOR, att.getPriest());
                             break;
                         case CONTACT_NOTES:
                             values.put(CONTACT_NOTES, att.getComm());
@@ -357,8 +388,7 @@ public class DB extends SQLiteOpenHelper {
         values.put(CONTACT_MAPLNG, 0);
         values.put(CONTACT_MAPZOM, 0);
         values.put(CONTACT_NAME, name);
-        values.put(CONTACT_PHOTO, "");
-        values.put(CONTACT_PRIEST, "");
+        values.put(CONTACT_SUPERVISOR, "");
         values.put(CONTACT_NOTES, "");
         values.put(CONTACT_BDAY, "");
         values.put(CONTACT_EMAIL, "");
@@ -371,19 +401,27 @@ public class DB extends SQLiteOpenHelper {
         values.put(CONTACT_SITE, "");
         values.put(CONTACT_STUDY_WORK, "");
         values.put(CONTACT_CLASS_YEAR, "");
-        return String.valueOf(writableDB.insert(TB_CONTACT, null, values));
+
+        String id = String.valueOf(writableDB.insert(TB_CONTACT, null, values));
+
+        values = new ContentValues();
+        values.put(PHOTO_ID, id);
+        values.putNull(PHOTO_BLOB);
+
+        writableDB.insert(TB_PHOTO, null, values);
+
+        return id;
 
     }
 
-    public int addAttendant(ContactData att) {
+    public String addAttendant(ContactData att) {
         ContentValues values = new ContentValues();
 
         values.put(CONTACT_MAPLAT, att.getMapLat());
         values.put(CONTACT_MAPLNG, att.getMapLng());
         values.put(CONTACT_MAPZOM, att.getMapZoom());
         values.put(CONTACT_NAME, att.getName());
-        values.put(CONTACT_PHOTO, att.getPicDir());
-        values.put(CONTACT_PRIEST, att.getPriest());
+        values.put(CONTACT_SUPERVISOR, att.getPriest());
         values.put(CONTACT_NOTES, att.getComm());
         values.put(CONTACT_BDAY, att.getBirthDay());
         values.put(CONTACT_EMAIL, att.getEmail());
@@ -397,7 +435,14 @@ public class DB extends SQLiteOpenHelper {
         values.put(CONTACT_STUDY_WORK, att.getStudyWork());
         values.put(CONTACT_CLASS_YEAR, att.getClassYear());
 
-        return (int) writableDB.insert(TB_CONTACT, null, values);
+        String id = String.valueOf(writableDB.insert(TB_CONTACT, null, values));
+
+        values = new ContentValues();
+        values.put(PHOTO_ID, id);
+        values.put(PHOTO_BLOB, Utility.getBytes(att.getPhoto()));
+
+        writableDB.insert(TB_PHOTO, null, values);
+        return id;
 
     }
 
@@ -410,7 +455,7 @@ public class DB extends SQLiteOpenHelper {
                         , CONTACT_MAPLNG
                         , CONTACT_MAPZOM
 
-                        , CONTACT_PRIEST
+                        , CONTACT_SUPERVISOR
                         , CONTACT_NOTES
                         , CONTACT_BDAY
 
@@ -449,20 +494,24 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public ArrayList<ContactSort> getContactsDisplayList() {
-        Cursor c = readableDB.query(TB_CONTACT, new String[]{CONTACT_ID, CONTACT_NAME,
-                CONTACT_PHOTO,
-                CONTACT_PRIEST,
-                CONTACT_CLASS_YEAR,
-                CONTACT_STUDY_WORK,
-                CONTACT_ST, CONTACT_SITE,
-        }, null, null, CONTACT_ID, null, CONTACT_NAME);
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + PHOTO_BLOB +
+                "," + CONTACT_SUPERVISOR + "," + CONTACT_CLASS_YEAR +
+                "," + CONTACT_STUDY_WORK +
+                "," + CONTACT_ST +
+                "," + CONTACT_SITE +
+                " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                " ORDER BY " + CONTACT_NAME;
+
+
+        Cursor c = readableDB.rawQuery(selectQuery, null);
         ArrayList<ContactSort> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {
 
             do {
                 result.add(new ContactSort(c.getString(0), c
-                        .getString(1), c.getString(2), c
+                        .getString(1), Utility.getBitmap(c.getBlob(2)), c
                         .getString(3), c.getString(4), c.getString(5), c
                         .getString(6), c.getString(7)));
 
@@ -535,9 +584,12 @@ public class DB extends SQLiteOpenHelper {
 
     public boolean exportContactsPdf(ArrayList<String> dataTag,
                                      ArrayList<String> dataHeader, String path) {
-        int required = dataTag.size();
-        String selectQuery = "SELECT * FROM " + TB_CONTACT + " ORDER BY "
-                + CONTACT_NAME;
+
+        String selectQuery = "SELECT * FROM " + TB_CONTACT +
+                " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                " ORDER BY " + CONTACT_NAME;
+
         Cursor c = readableDB.rawQuery(selectQuery, null);
         Document document = new Document(PageSize.LETTER.rotate());
         try {
@@ -546,10 +598,15 @@ public class DB extends SQLiteOpenHelper {
             Font font = FontFactory.getFont("assets/fonts/arabic.ttf",
                     BaseFont.IDENTITY_H, true, 16);
 
+            document.add(new Paragraph(" "));
             document.add(new Paragraph("dayra - " + DB_NAME, font));
             document.add(new Paragraph(new SimpleDateFormat(
                     "yyyy-MM-dd  hh:mm a", Locale.getDefault())
                     .format(new Date()), font));
+            document.add(new Paragraph("made with love by dayra ©"
+                    + new SimpleDateFormat("yyyy", Locale.getDefault())
+                    .format(new Date())
+                    + " Contact@ Abanoub Milad Hanna abanoubcs@gmail.com   www.facebook.com/dayraapp", font));
             document.add(new Paragraph(" "));
 
             font.setSize(14);
@@ -558,6 +615,7 @@ public class DB extends SQLiteOpenHelper {
             table.setWidthPercentage(100);
             table.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
 
+            int required = dataTag.size();
             for (int i = 0; i < required; i++)
                 table.addCell(new PdfPCell(new Paragraph((dataHeader.get(i)),
                         font)));
@@ -589,10 +647,9 @@ public class DB extends SQLiteOpenHelper {
             c.close();
             document.add(table);
             document.add(new Paragraph(" "));
-            document.add(new Paragraph("made with love by dayra ©"
+            document.add(new Paragraph("dayra ©"
                     + new SimpleDateFormat("yyyy", Locale.getDefault())
-                    .format(new Date())
-                    + " Abanoub M.   www.facebook.com/dayraapp", font));
+                    .format(new Date()), font));
             document.close();
             return true;
         } catch (Exception e) {
@@ -602,9 +659,11 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public boolean exportReport(String path, String[] arr, boolean isEnglishMode) {
-        String selectQuery = "SELECT * FROM " + TB_CONTACT + " ORDER BY "
-                + CONTACT_NAME;
+    public boolean exportReport(String path, String[] headerArray, boolean isEnglishMode) {
+        String selectQuery = "SELECT * FROM " + TB_CONTACT +
+                " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                " ORDER BY " + CONTACT_NAME;
         Cursor c = readableDB.rawQuery(selectQuery, null);
         Document document = new Document(PageSize.LETTER);
         try {
@@ -612,27 +671,23 @@ public class DB extends SQLiteOpenHelper {
             document.open();
             Font font = FontFactory.getFont("assets/fonts/arabic.ttf",
                     BaseFont.IDENTITY_H, true, 16);
-            document.add(new Paragraph(" "));
 
+            document.add(new Paragraph(" "));
             document.add(new Paragraph("dayra - " + DB_NAME, font));
             document.add(new Paragraph(new SimpleDateFormat(
                     "yyyy-MM-dd  hh:mm a", Locale.getDefault())
                     .format(new Date()), font));
-
-            document.add(new Paragraph(" "));
-
-            document.add(new Paragraph("made with love by dayra 3.1 ©"
+            document.add(new Paragraph("made with love by dayra ©"
                     + new SimpleDateFormat("yyyy", Locale.getDefault())
                     .format(new Date())
-                    + " Abanoub M.   www.facebook.com/dayraapp", font));
+                    + " Contact@ Abanoub Milad Hanna abanoubcs@gmail.com   www.facebook.com/dayraapp", font));
+            document.add(new Paragraph(" "));
 
             if (c.moveToFirst()) {
                 int COL_NAME = c.getColumnIndex(CONTACT_NAME);
-                // int COL_ATTEND_DATES = c.getColumnIndex(CONTACT_ATTEND_DATES);
-                int COL_LAST_ATTEND = c.getColumnIndex(CONTACT_LAST_ATTEND);
-                int COL_PIC_DIR = c.getColumnIndex(CONTACT_PHOTO);
-                int COL_PRIEST = c.getColumnIndex(CONTACT_PRIEST);
-                int COL_COMM = c.getColumnIndex(CONTACT_NOTES);
+                int COL_PHOTO = c.getColumnIndex(PHOTO_BLOB);
+                int COL_SUPERVISOR = c.getColumnIndex(CONTACT_SUPERVISOR);
+                int COL_NOTES = c.getColumnIndex(CONTACT_NOTES);
                 int COL_BDAY = c.getColumnIndex(CONTACT_BDAY);
                 int COL_EMAIL = c.getColumnIndex(CONTACT_EMAIL);
                 int COL_MOBILE1 = c.getColumnIndex(CONTACT_MOB1);
@@ -640,7 +695,6 @@ public class DB extends SQLiteOpenHelper {
                 int COL_MOBILE3 = c.getColumnIndex(CONTACT_MOB3);
                 int COL_LAND_PHONE = c.getColumnIndex(CONTACT_LPHONE);
                 int COL_ADDRESS = c.getColumnIndex(CONTACT_ADDR);
-                int COL_LAST_VISIT = c.getColumnIndex(CONTACT_LAST_VISIT);
                 int COL_CLASS_YEAR = c.getColumnIndex(CONTACT_CLASS_YEAR);
                 int COL_STUDY_WORK = c.getColumnIndex(CONTACT_STUDY_WORK);
                 int COL_STREET = c.getColumnIndex(CONTACT_ST);
@@ -654,78 +708,67 @@ public class DB extends SQLiteOpenHelper {
                         table.setWidthPercentage(100);
                         table.setWidths(new float[]{18f, 82f});
 
-                        String imagePath = c.getString(COL_PIC_DIR);
-                        if (imagePath.length() != 0
-                                && new File(imagePath).exists()) {
-                            Image image = Image.getInstance(imagePath);
-                            image.scaleToFit(200f, 200f);
+                        byte[] photo = c.getBlob(COL_PHOTO);
+                        if (photo != null) {
+                            Image image = Image.getInstance(photo);
+                            image.scaleToFit(250f, 250f);
                             document.add(image);
                             document.add(new Paragraph(" "));
                         }
 
-                        table.addCell(new Paragraph(arr[0], font));
+                        table.addCell(new Paragraph(headerArray[0], font));
                         table.addCell(new Paragraph(c.getString(COL_NAME), font));
 
-                        table.addCell(new Paragraph(arr[1], font));
+                        table.addCell(new Paragraph(headerArray[1], font));
                         table.addCell(new Paragraph(
                                 c.getString(COL_CLASS_YEAR), font));
 
-                        table.addCell(new Paragraph(arr[2], font));
+                        table.addCell(new Paragraph(headerArray[2], font));
                         table.addCell(new Paragraph(
                                 c.getString(COL_STUDY_WORK), font));
 
-                        table.addCell(new Paragraph(arr[14], font));
-                        table.addCell(new Paragraph(c
-                                .getString(COL_LAST_ATTEND), font));
-
-                        // table.addCell(new Paragraph(arr[15], font));
-                        // table.addCell(new Paragraph(c.getString(
-                        // COL_ATTEND_DATES).replace(";", " "), font));
-
-                        table.addCell(new Paragraph(arr[3], font));
+                        table.addCell(new Paragraph(headerArray[3], font));
                         table.addCell(new Paragraph(c.getString(COL_MOBILE1),
                                 font));
 
-                        table.addCell(new Paragraph(arr[4], font));
+                        table.addCell(new Paragraph(headerArray[4], font));
                         table.addCell(new Paragraph(c.getString(COL_MOBILE2),
                                 font));
 
-                        table.addCell(new Paragraph(arr[5], font));
+                        table.addCell(new Paragraph(headerArray[5], font));
                         table.addCell(new Paragraph(c.getString(COL_MOBILE3),
                                 font));
 
-                        table.addCell(new Paragraph(arr[6], font));
+                        table.addCell(new Paragraph(headerArray[6], font));
                         table.addCell(new Paragraph(
                                 c.getString(COL_LAND_PHONE), font));
 
-                        table.addCell(new Paragraph(arr[7], font));
+
+                        table.addCell(new Paragraph(headerArray[7], font));
                         table.addCell(new Paragraph(c.getString(COL_EMAIL),
                                 font));
 
-                        table.addCell(new Paragraph(arr[16], font));
-                        table.addCell(new Paragraph(
-                                c.getString(COL_LAST_VISIT), font));
-
-                        table.addCell(new Paragraph(arr[13], font));
-                        table.addCell(new Paragraph(c.getString(COL_PRIEST),
-                                font));
-
-                        table.addCell(new Paragraph(arr[11], font));
-                        table.addCell(new Paragraph(c.getString(COL_COMM), font));
-
-                        table.addCell(new Paragraph(arr[8], font));
-                        table.addCell(new Paragraph(c.getString(COL_SITE), font));
-
-                        table.addCell(new Paragraph(arr[9], font));
+                        table.addCell(new Paragraph(headerArray[9], font));
                         table.addCell(new Paragraph(c.getString(COL_STREET),
                                 font));
 
-                        table.addCell(new Paragraph(arr[10], font));
+                        table.addCell(new Paragraph(headerArray[8], font));
+                        table.addCell(new Paragraph(c.getString(COL_SITE), font));
+
+                        table.addCell(new Paragraph(headerArray[10], font));
                         table.addCell(new Paragraph(c.getString(COL_ADDRESS),
                                 font));
 
-                        table.addCell(new Paragraph(arr[12], font));
+                        table.addCell(new Paragraph(headerArray[13], font));
+                        table.addCell(new Paragraph(c.getString(COL_SUPERVISOR),
+                                font));
+
+                        table.addCell(new Paragraph(headerArray[11], font));
+                        table.addCell(new Paragraph(c.getString(COL_NOTES), font));
+
+                        table.addCell(new Paragraph(headerArray[12], font));
                         table.addCell(new Paragraph(c.getString(COL_BDAY), font));
+
 
                         document.add(table);
                     } while (c.moveToNext());
@@ -736,81 +779,69 @@ public class DB extends SQLiteOpenHelper {
                         PdfPTable table = new PdfPTable(2);
                         table.setWidthPercentage(100);
                         table.setWidths(new float[]{82f, 18f});
-
                         table.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
 
-                        String imagePath = c.getString(COL_PIC_DIR);
-                        if (imagePath.length() != 0
-                                && new File(imagePath).exists()) {
-                            Image image = Image.getInstance(imagePath);
-                            image.scaleToFit(200f, 200f);
+                        byte[] photo = c.getBlob(COL_PHOTO);
+                        if (photo != null) {
+                            Image image = Image.getInstance(photo);
+                            image.scaleToFit(250f, 250f);
                             document.add(image);
                             document.add(new Paragraph(" "));
                         }
 
-                        table.addCell(new Paragraph(arr[0], font));
+                        table.addCell(new Paragraph(headerArray[0], font));
                         table.addCell(new Paragraph(c.getString(COL_NAME), font));
 
-                        table.addCell(new Paragraph(arr[1], font));
+                        table.addCell(new Paragraph(headerArray[1], font));
                         table.addCell(new Paragraph(
                                 c.getString(COL_CLASS_YEAR), font));
 
-                        table.addCell(new Paragraph(arr[2], font));
+                        table.addCell(new Paragraph(headerArray[2], font));
                         table.addCell(new Paragraph(
                                 c.getString(COL_STUDY_WORK), font));
 
-                        table.addCell(new Paragraph(arr[14], font));
-                        table.addCell(new Paragraph(c
-                                .getString(COL_LAST_ATTEND), font));
-
-                        // table.addCell(new Paragraph(arr[15], font));
-                        // table.addCell(new Paragraph(c.getString(
-                        // COL_ATTEND_DATES).replace(";", " "), font));
-
-                        table.addCell(new Paragraph(arr[3], font));
+                        table.addCell(new Paragraph(headerArray[3], font));
                         table.addCell(new Paragraph(c.getString(COL_MOBILE1),
                                 font));
 
-                        table.addCell(new Paragraph(arr[4], font));
+                        table.addCell(new Paragraph(headerArray[4], font));
                         table.addCell(new Paragraph(c.getString(COL_MOBILE2),
                                 font));
 
-                        table.addCell(new Paragraph(arr[5], font));
+                        table.addCell(new Paragraph(headerArray[5], font));
                         table.addCell(new Paragraph(c.getString(COL_MOBILE3),
                                 font));
 
-                        table.addCell(new Paragraph(arr[6], font));
+                        table.addCell(new Paragraph(headerArray[6], font));
                         table.addCell(new Paragraph(
                                 c.getString(COL_LAND_PHONE), font));
 
-                        table.addCell(new Paragraph(arr[7], font));
+
+                        table.addCell(new Paragraph(headerArray[7], font));
                         table.addCell(new Paragraph(c.getString(COL_EMAIL),
                                 font));
 
-                        table.addCell(new Paragraph(arr[16], font));
-                        table.addCell(new Paragraph(
-                                c.getString(COL_LAST_VISIT), font));
-
-                        table.addCell(new Paragraph(arr[13], font));
-                        table.addCell(new Paragraph(c.getString(COL_PRIEST),
-                                font));
-
-                        table.addCell(new Paragraph(arr[11], font));
-                        table.addCell(new Paragraph(c.getString(COL_COMM), font));
-
-                        table.addCell(new Paragraph(arr[8], font));
-                        table.addCell(new Paragraph(c.getString(COL_SITE), font));
-
-                        table.addCell(new Paragraph(arr[9], font));
+                        table.addCell(new Paragraph(headerArray[9], font));
                         table.addCell(new Paragraph(c.getString(COL_STREET),
                                 font));
 
-                        table.addCell(new Paragraph(arr[10], font));
+                        table.addCell(new Paragraph(headerArray[8], font));
+                        table.addCell(new Paragraph(c.getString(COL_SITE), font));
+
+                        table.addCell(new Paragraph(headerArray[10], font));
                         table.addCell(new Paragraph(c.getString(COL_ADDRESS),
                                 font));
 
-                        table.addCell(new Paragraph(arr[12], font));
+                        table.addCell(new Paragraph(headerArray[13], font));
+                        table.addCell(new Paragraph(c.getString(COL_SUPERVISOR),
+                                font));
+
+                        table.addCell(new Paragraph(headerArray[11], font));
+                        table.addCell(new Paragraph(c.getString(COL_NOTES), font));
+
+                        table.addCell(new Paragraph(headerArray[12], font));
                         table.addCell(new Paragraph(c.getString(COL_BDAY), font));
+
 
                         document.add(table);
 
@@ -830,15 +861,22 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public boolean exportDayraExcel(Context context, String path) {
-        String[] colNames = {CONTACT_NAME, CONTACT_CLASS_YEAR, CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
-                CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL, CONTACT_SITE, CONTACT_ST, CONTACT_ADDR, CONTACT_NOTES, CONTACT_BDAY,
-                CONTACT_PRIEST, CONTACT_LAST_ATTEND, CONTACT_ATTEND_DATES, CONTACT_LAST_VISIT, CONTACT_MAPLAT,
-                CONTACT_MAPLNG, CONTACT_MAPZOM, CONTACT_PHOTO};
+
+        String[] colNames = {CONTACT_NAME, CONTACT_CLASS_YEAR,
+                CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
+                CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL,
+                CONTACT_SITE, CONTACT_ST, CONTACT_ADDR,
+                CONTACT_NOTES, CONTACT_BDAY,
+                CONTACT_SUPERVISOR, CONTACT_MAPLAT,
+                CONTACT_MAPLNG, CONTACT_MAPZOM, PHOTO_BLOB};
+
         String[] colNotes = context.getResources().getStringArray(
                 R.array.excel_header);
-        int colCount = colNames.length;
-        String selectQuery = "SELECT * FROM " + TB_CONTACT + " ORDER BY "
-                + CONTACT_NAME;
+
+        String selectQuery = "SELECT * FROM " + TB_CONTACT +
+                " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                " ORDER BY " + CONTACT_NAME;
         Cursor c = readableDB.rawQuery(selectQuery, null);
 
         try {
@@ -846,6 +884,7 @@ public class DB extends SQLiteOpenHelper {
             WritableWorkbook workbook = Workbook.createWorkbook(new File(path));
             WritableSheet sheet = workbook.createSheet("dayra", 0);
 
+            int colCount = colNames.length;
             for (int i = 0; i < colCount; i++)
                 sheet.addCell(new Label(i, 0, colNotes[i]));
 
@@ -855,9 +894,12 @@ public class DB extends SQLiteOpenHelper {
                     colIndex[i] = c.getColumnIndex(colNames[i]);
                 int rowCounter = 1;
                 do {
-                    for (int i = 0; i < colCount; i++)
+                    for (int i = 0; i < colCount - 1; i++)
                         sheet.addCell(new Label(i, rowCounter, c
                                 .getString(colIndex[i])));
+                    sheet.addImage(new WritableImage(colCount - 1, rowCounter, 1,
+                            1, c
+                            .getBlob(colIndex[colCount - 1])));
                     rowCounter++;
                 } while (c.moveToNext());
 
@@ -873,16 +915,20 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public ArrayList<ContactMobile> getContactsMobile() {
-        Cursor c = readableDB.query(TB_CONTACT, new String[]{CONTACT_ID, CONTACT_NAME,
-                CONTACT_PHOTO, CONTACT_MOB1
-        }, null, null, CONTACT_ID, null, CONTACT_NAME);
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + PHOTO_BLOB +
+                "," + CONTACT_MOB1 +
+                " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                " ORDER BY " + CONTACT_NAME;
+
+        Cursor c = readableDB.rawQuery(selectQuery, null);
         ArrayList<ContactMobile> result = new ArrayList<>(
                 c.getCount());
 
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactMobile(c.getString(0), c
-                        .getString(1), c.getString(2), c
+                        .getString(1), Utility.getBitmap(c.getBlob(2)), c
                         .getString(3), c
                         .getString(3).equals("")));
             } while (c.moveToNext());
@@ -894,16 +940,20 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public ArrayList<ContactMobile> getGContactsMobile(ContentResolver resolver) {
-        Cursor c = readableDB.query(TB_CONTACT, new String[]{CONTACT_ID, CONTACT_NAME,
-                CONTACT_PHOTO, CONTACT_MOB1
-        }, null, null, CONTACT_ID, null, CONTACT_NAME);
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + PHOTO_BLOB +
+                "," + CONTACT_MOB1 +
+                " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                " ORDER BY " + CONTACT_NAME;
+
+        Cursor c = readableDB.rawQuery(selectQuery, null);
         ArrayList<ContactMobile> result = new ArrayList<>(
                 c.getCount());
 
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactMobile(c.getString(0), c
-                        .getString(1), c.getString(2), c
+                        .getString(1), Utility.getBitmap(c.getBlob(2)), c
                         .getString(3), ContactHelper.doesContactExist(resolver, c
                         .getString(1))));
             } while (c.moveToNext());
@@ -993,16 +1043,18 @@ public class DB extends SQLiteOpenHelper {
 
     public ArrayList<ContactDay> searchBirthdays(String dateRegex) {
 
-        String selectQuery = "SELECT " + CONTACT_ID +
-                "," + CONTACT_NAME + "," + CONTACT_PHOTO + "," + CONTACT_BDAY
-                + " FROM " + TB_CONTACT + " WHERE " + CONTACT_BDAY + " LIKE ? ORDER BY " + CONTACT_BDAY;
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + PHOTO_BLOB + "," +
+                CONTACT_BDAY +
+                " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO
+                + " ON " + CONTACT_ID + "=" + PHOTO_ID
+                + " WHERE " + CONTACT_BDAY + " LIKE ? ORDER BY " + CONTACT_BDAY;
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{dateRegex});
         ArrayList<ContactDay> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactDay(c.getString(0), c.getString(1),
-                        c.getString(3), c.getString(2)));
+                        c.getString(3), Utility.getBitmap(c.getBlob(2))));
             } while (c.moveToNext());
         }
         c.close();
@@ -1069,7 +1121,7 @@ public class DB extends SQLiteOpenHelper {
     public boolean ImportDayraExcel(String path) {
         String[] colNames = {CONTACT_NAME, CONTACT_CLASS_YEAR, CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
                 CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL, CONTACT_SITE, CONTACT_ST, CONTACT_ADDR, CONTACT_NOTES, CONTACT_BDAY,
-                CONTACT_PRIEST, CONTACT_LAST_ATTEND, CONTACT_ATTEND_DATES, CONTACT_LAST_VISIT, CONTACT_MAPLAT,
+                CONTACT_SUPERVISOR, CONTACT_LAST_ATTEND, CONTACT_ATTEND_DATES, CONTACT_LAST_VISIT, CONTACT_MAPLAT,
                 CONTACT_MAPLNG, CONTACT_MAPZOM, CONTACT_PHOTO};
         ContentValues values;
 
@@ -1136,13 +1188,13 @@ public class DB extends SQLiteOpenHelper {
 
         }
 
-        TinyDB minidbm;
+        DBDivider minidbm;
         int itr;
         for (String site : sites) {
             itr = -1;
             for (String queryItem : queryArr) {
                 itr++;
-                minidbm = new TinyDB(context, path + DB_NAME + " " + site + " "
+                minidbm = new DBDivider(context, path + DB_NAME + " " + site + " "
                         + Groupnames.get(itr));
 
                 temp = "SELECT * FROM " + TB_CONTACT + " WHERE " + CONTACT_SITE + "='"
@@ -1154,10 +1206,8 @@ public class DB extends SQLiteOpenHelper {
                     int COL_MAP_LNG = c.getColumnIndex(CONTACT_MAPLNG);
                     int COL_MAP_ZOOM = c.getColumnIndex(CONTACT_MAPZOM);
                     int COL_NAME = c.getColumnIndex(CONTACT_NAME);
-                    int COL_ATTEND_DATES = c.getColumnIndex(CONTACT_ATTEND_DATES);
-                    int COL_LAST_ATTEND = c.getColumnIndex(CONTACT_LAST_ATTEND);
                     int COL_PIC_DIR = c.getColumnIndex(CONTACT_PHOTO);
-                    int COL_PRIEST = c.getColumnIndex(CONTACT_PRIEST);
+                    int COL_PRIEST = c.getColumnIndex(CONTACT_SUPERVISOR);
                     int COL_COMM = c.getColumnIndex(CONTACT_NOTES);
                     int COL_BDAY = c.getColumnIndex(CONTACT_BDAY);
                     int COL_EMAIL = c.getColumnIndex(CONTACT_EMAIL);
@@ -1166,7 +1216,6 @@ public class DB extends SQLiteOpenHelper {
                     int COL_MOBILE3 = c.getColumnIndex(CONTACT_MOB3);
                     int COL_LAND_PHONE = c.getColumnIndex(CONTACT_LPHONE);
                     int COL_ADDRESS = c.getColumnIndex(CONTACT_ADDR);
-                    int COL_LAST_VISIT = c.getColumnIndex(CONTACT_LAST_VISIT);
                     int COL_CLASS_YEAR = c.getColumnIndex(CONTACT_CLASS_YEAR);
                     int COL_STUDY_WORK = c.getColumnIndex(CONTACT_STUDY_WORK);
                     int COL_STREET = c.getColumnIndex(CONTACT_ST);
@@ -1178,11 +1227,8 @@ public class DB extends SQLiteOpenHelper {
                         values.put(CONTACT_MAPLNG, c.getDouble(COL_MAP_LNG));
                         values.put(CONTACT_MAPZOM, c.getFloat(COL_MAP_ZOOM));
                         values.put(CONTACT_NAME, c.getString(COL_NAME));
-                        values.put(CONTACT_ATTEND_DATES, c.getString(COL_ATTEND_DATES));
-                        values.put(CONTACT_LAST_VISIT, c.getString(COL_LAST_VISIT));
-                        values.put(CONTACT_LAST_ATTEND, c.getString(COL_LAST_ATTEND));
                         values.put(CONTACT_PHOTO, c.getString(COL_PIC_DIR));
-                        values.put(CONTACT_PRIEST, c.getString(COL_PRIEST));
+                        values.put(CONTACT_SUPERVISOR, c.getString(COL_PRIEST));
                         values.put(CONTACT_NOTES, c.getString(COL_COMM));
                         values.put(CONTACT_BDAY, c.getString(COL_BDAY));
                         values.put(CONTACT_EMAIL, c.getString(COL_EMAIL));
@@ -1210,10 +1256,10 @@ public class DB extends SQLiteOpenHelper {
     public void divideDayra(Context context, String path) {
         ArrayList<String> sites = getOptionsList(CONTACT_SITE);
 
-        TinyDB minidbm;
+        DBDivider minidbm;
         String temp;
         for (String site : sites) {
-            minidbm = new TinyDB(context, path + DB_NAME + " " + site);
+            minidbm = new DBDivider(context, path + DB_NAME + " " + site);
             temp = "SELECT * FROM " + TB_CONTACT + " WHERE " + CONTACT_SITE + "='"
                     + site + "'";
             Cursor c = readableDB.rawQuery(temp, null);
@@ -1225,7 +1271,7 @@ public class DB extends SQLiteOpenHelper {
                 int COL_ATTEND_DATES = c.getColumnIndex(CONTACT_ATTEND_DATES);
                 int COL_LAST_ATTEND = c.getColumnIndex(CONTACT_LAST_ATTEND);
                 int COL_PIC_DIR = c.getColumnIndex(CONTACT_PHOTO);
-                int COL_PRIEST = c.getColumnIndex(CONTACT_PRIEST);
+                int COL_PRIEST = c.getColumnIndex(CONTACT_SUPERVISOR);
                 int COL_COMM = c.getColumnIndex(CONTACT_NOTES);
                 int COL_BDAY = c.getColumnIndex(CONTACT_BDAY);
                 int COL_EMAIL = c.getColumnIndex(CONTACT_EMAIL);
@@ -1250,7 +1296,7 @@ public class DB extends SQLiteOpenHelper {
                     values.put(CONTACT_LAST_VISIT, c.getString(COL_LAST_VISIT));
                     values.put(CONTACT_LAST_ATTEND, c.getString(COL_LAST_ATTEND));
                     values.put(CONTACT_PHOTO, c.getString(COL_PIC_DIR));
-                    values.put(CONTACT_PRIEST, c.getString(COL_PRIEST));
+                    values.put(CONTACT_SUPERVISOR, c.getString(COL_PRIEST));
                     values.put(CONTACT_NOTES, c.getString(COL_COMM));
                     values.put(CONTACT_BDAY, c.getString(COL_BDAY));
                     values.put(CONTACT_EMAIL, c.getString(COL_EMAIL));

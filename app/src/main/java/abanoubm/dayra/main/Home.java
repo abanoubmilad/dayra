@@ -34,8 +34,8 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.MenuItemAdapter;
 import abanoubm.dayra.display.AddContactDetails;
 import abanoubm.dayra.display.DisplayContacts;
-import abanoubm.dayra.display.DisplayContactsStatistics;
 import abanoubm.dayra.display.DisplayContactsMap;
+import abanoubm.dayra.display.DisplayContactsStatistics;
 import abanoubm.dayra.operations.CopyDayraPhone;
 import abanoubm.dayra.operations.CopyPhoneDayra;
 import abanoubm.dayra.operations.DivideDayra;
@@ -418,27 +418,12 @@ public class Home extends Activity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            String path;
-            if (android.os.Environment.getExternalStorageState().equals(
-                    android.os.Environment.MEDIA_MOUNTED)) {
-                path = Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() + "/";
-            } else {
-                path = android.os.Environment.getDataDirectory()
-                        .getAbsolutePath() + "/";
-            }
-            path += "dayra folder";
-            new File(path).mkdirs();
-            path += "/";
-            path += "dayra_report_"
-                    + getSharedPreferences("login", Context.MODE_PRIVATE)
-                    .getString("dbname", "data") + ".pdf";
+            String path = Utility.getDayraFolder() +
+                    "/dayra_report_" + Utility.getDayraName(getApplicationContext()) + ".pdf";
             if (android.os.Build.VERSION.SDK_INT >= 8) {
-
                 MediaScannerConnection.scanFile(getApplicationContext(),
                         new String[]{path}, null, null);
             }
-
             return DB.getInstant(getApplicationContext()).exportReport(path,
                     getResources().getStringArray(R.array.excel_header),
                     findViewById(R.id.english_layout) != null);

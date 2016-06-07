@@ -22,7 +22,7 @@ import java.util.List;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
-import abanoubm.dayra.main.UpdaterDB;
+import abanoubm.dayra.main.DBUpdater;
 import abanoubm.dayra.main.Utility;
 
 public class ReplaceDayra extends Activity {
@@ -59,7 +59,7 @@ public class ReplaceDayra extends Activity {
         @Override
         protected Integer doInBackground(Void... params) {
 
-            UpdaterDB updater = new UpdaterDB(getApplicationContext(),
+            DBUpdater updater = new DBUpdater(getApplicationContext(),
                     extr_dbname, extr_path);
             if (updater.checkDB()) {
                 DB.getInstant(getApplicationContext()).externalUpdater(
