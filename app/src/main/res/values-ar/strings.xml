@@ -44,6 +44,7 @@
     <string name="err.msg.dayra.match">الاسم لا يطابق الدايره الحالية</string>
     <string name="msg.dayra.created">تم تكوين الدايره</string>
     <string name="msg.dayra.deleted">تم مسح الدايره</string>
+    <string name="msg.deleted">تم مسح الاسم</string>
     <string name="err.msg.dayra.delete">خطأ أثناء محاولة مسح الدايره</string>
     <string name="msg.dayra.exported">تم تصدير الدايره</string>
     <string name="err.msg.day">اليوم غير صالح</string>
@@ -148,9 +149,21 @@
     <string name="select.attendance.type">اختر نوع الحضور</string>
     <string name="search.by">بحث بواسطة</string>
 
-    <string name="label.attend.max">اخر حضور</string>
-    <string name="label.attend.min">اول حضور</string>
-    <string name="label.attend.count">مرات الحضور</string>
+
+    <string name="btn.yes">نعم</string>
+    <string name="btn.cancel">عودة</string>
+    <string name="btn.reset">مسح التعديلات</string>
+    <string name="btn.rename">اعداة التسمية</string>
+    <string name="dialogue.rename">تأكيد اعادة تسمية الدايره الحالية </string>
+    <string name="dialogue.cancel">تأكيد عملية التراجع لن يتم حفظ اى تعديل قمت باضافته</string>
+    <string name="dialogue.delete">تأكيد مسح الاسم والبيانات الخاصة به</string>
+    <string name="dialogue.reset">تأكيد مسح التعديلات الحالية واستعادة البيانات الاصلية</string>
+    <string name="dialogue.delete.dayra">تأكيد مسح الدايره لا يكون استعادة الدايره مرة اخرى بعد مسحها احتفظ دوما بنسخة احتياطية من الدايره</string>
+
+    <string name="label.attend.max">اخر تاريخ</string>
+    <string name="label.attend.min">اول تاريخ</string>
+    <string name="label.attend.count">عدد المرات</string>
+
 
     <string-array name="attendance_type">
         <item>زيارة</item>
@@ -179,8 +192,9 @@
         <item>المُشرف</item>
     </string-array>
     <string-array name="search_dates_menu">
-        <item>اخر حضور</item>
-        <item>اخر زيارة</item>
+        <item>تاريخ</item>
+        <item>اول تاريخ </item>
+        <item>اخر تاريخ</item>
     </string-array>
     <string-array name="photo_menu">
         <item>صورة من ملف</item>
@@ -221,9 +235,9 @@
     </string-array>
     <string-array name="settings_menu">
         <item>اعدادات التنبيهات</item>
-        <item>استبدال بيانات الدايره</item>
-        <item>تقسيم الدايره</item>
         <item>اعادة تسمية الدايره</item>
+        <item>اضافة بيانات للدايره</item>
+        <item>تقسيم الدايره</item>
         <item>مسح الدايره</item>
     </string-array>
     <string-array name="excel_header">

@@ -284,15 +284,15 @@ public class Home extends Activity {
 //                                Settings.class));
                         break;
                     case 1:
-                        startActivity(new Intent(getApplicationContext(),
-                                ReplaceDayra.class));
+                        renameDB();
                         break;
                     case 2:
                         startActivity(new Intent(getApplicationContext(),
-                                DivideDayra.class));
+                                ReplaceDayra.class));
                         break;
                     case 3:
-                        renameDB();
+                        startActivity(new Intent(getApplicationContext(),
+                                DivideDayra.class));
                         break;
                     case 4:
                         deleteDB();
@@ -305,35 +305,35 @@ public class Home extends Activity {
 
     private void renameDB() {
         LayoutInflater li = LayoutInflater.from(getApplicationContext());
-        View chooseView = li.inflate(R.layout.confirm_dbname, null, false);
+        final View view = li.inflate(R.layout.dialogue_rename, null, false);
         final AlertDialog ad = new AlertDialog.Builder(Home.this)
                 .setCancelable(true).create();
-        ad.setView(chooseView, 0, 0, 0, 0);
-
+        ad.setView(view, 0, 0, 0, 0);
         ad.show();
-        TextView confirm = (TextView) chooseView.findViewById(R.id.confirmbtn);
-        TextView back = (TextView) chooseView.findViewById(R.id.back);
-        final EditText name = (EditText) chooseView.findViewById(R.id.name);
-        final String nameStr = getSharedPreferences("login",
-                Context.MODE_PRIVATE).getString("dbname", "");
-        name.setText(nameStr);
-        back.setOnClickListener(new OnClickListener() {
+
+        ((EditText) view.findViewById(R.id.input)).setText(
+                Utility.getDayraName(getApplicationContext()));
+        view.findViewById(R.id.cancelBtn).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 ad.dismiss();
             }
         });
-        confirm.setOnClickListener(new OnClickListener() {
+        view.findViewById(R.id.yesBtn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ad.dismiss();
-                String entered = name.getText().toString().trim();
-                if (!Utility.isDBName(entered)) {
+                String str = ((EditText) view.findViewById(R.id.input)).getText().toString().trim();
+                if (!Utility.isDBName(str)) {
                     Toast.makeText(getApplicationContext(),
                             R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
                             .show();
-                } else if (!DB.isDBExists(getApplicationContext(), entered)) {
+                } else if (DB.isDBExists(getApplicationContext(), str)) {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.err_msg_duplicate_dayra,
+                            Toast.LENGTH_SHORT).show();
+                } else {
 
                     DB db = DB.getInstant(getApplicationContext());
                     File dbFile = db.getDBFile(getApplicationContext());
@@ -342,14 +342,13 @@ public class Home extends Activity {
                     String path = dbFile.getPath().substring(0,
                             dbFile.getPath().lastIndexOf("/") + 1);
 
-                    File to = new File(path + entered);
+                    File to = new File(path + str);
 
                     if (dbFile.renameTo(to)) {
                         getSharedPreferences("login", Context.MODE_PRIVATE)
-                                .edit().putString("dbname", null).commit();
+                                .edit().putString("dbname", null).apply();
                         Intent intent = new Intent(getApplicationContext(),
-                                Main.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
                         Toast.makeText(getApplicationContext(),
@@ -366,34 +365,29 @@ public class Home extends Activity {
 
     private void deleteDB() {
         LayoutInflater li = LayoutInflater.from(getApplicationContext());
-        View chooseView = li.inflate(R.layout.confirm_dbname, null, false);
+        final View view = li.inflate(R.layout.dialogue_delete_dayra, null, false);
         final AlertDialog ad = new AlertDialog.Builder(Home.this)
                 .setCancelable(true).create();
-        ad.setView(chooseView, 0, 0, 0, 0);
-
+        ad.setView(view, 0, 0, 0, 0);
         ad.show();
-        TextView confirm = (TextView) chooseView.findViewById(R.id.confirmbtn);
-        TextView back = (TextView) chooseView.findViewById(R.id.back);
-        final EditText name = (EditText) chooseView.findViewById(R.id.name);
-        back.setOnClickListener(new OnClickListener() {
+        view.findViewById(R.id.cancelBtn).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 ad.dismiss();
             }
         });
-        confirm.setOnClickListener(new OnClickListener() {
+        view.findViewById(R.id.yesBtn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ad.dismiss();
-                String namestr = name.getText().toString().trim();
-                if (!Utility.isDBName(namestr)) {
+                String str = ((EditText) view.findViewById(R.id.input)).getText().toString().trim();
+                if (!Utility.isDBName(str)) {
                     Toast.makeText(getApplicationContext(),
                             R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
                             .show();
                 } else {
-                    if (!getSharedPreferences("login", Context.MODE_PRIVATE)
-                            .getString("dbname", "").equals(namestr))
+                    if (!Utility.getDayraName(getApplicationContext()).equals(str))
                         Toast.makeText(getApplicationContext(),
                                 R.string.err_msg_dayra_match,
                                 Toast.LENGTH_SHORT).show();
@@ -462,7 +456,7 @@ public class Home extends Activity {
         protected void onPostExecute(Boolean result) {
             if (result) {
                 getSharedPreferences("login", Context.MODE_PRIVATE).edit()
-                        .putString("dbname", null).commit();
+                        .putString("dbname", null).apply();
 
                 Intent intent = new Intent(getApplicationContext(), Main.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

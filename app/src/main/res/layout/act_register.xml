@@ -9,14 +9,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select.attendance.type"
-            android:textSize="@dimen/font_small"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_normal" />
 
         <Spinner
             android:id="@+id/spin"
@@ -26,13 +27,20 @@
             android:prompt="@string/select.attendance.type"
             android:spinnerMode="dialog" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
         <EditText
             android:id="@+id/edit_date"
             style="@style/attendant_labels"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:focusable="false"
-            android:hint="@string/label.day" />
+            android:focusable="false"/>
 
         <ImageView
             android:id="@+id/pick_date"

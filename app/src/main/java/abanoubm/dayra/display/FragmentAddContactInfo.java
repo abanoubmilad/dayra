@@ -138,18 +138,58 @@ public class FragmentAddContactInfo extends Fragment {
             @Override
             public void onClick(View v) {
 
-            }
-        });
-        root.findViewById(R.id.deleteImage).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                LayoutInflater li = LayoutInflater.from(getActivity());
+                final View view = li.inflate(R.layout.dialogue_back, null, false);
+                final AlertDialog ad = new AlertDialog.Builder(getActivity())
+                        .setCancelable(true).create();
+                ad.setView(view, 0, 0, 0, 0);
+                ad.show();
+                view.findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ad.dismiss();
+                    }
+                });
+                view.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().finish();
+                        ad.dismiss();
+
+                    }
+                });
+
 
             }
         });
+
+        root.findViewById(R.id.deleteImage).setVisibility(View.INVISIBLE);
+
         root.findViewById(R.id.resetImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetFields();
+                LayoutInflater li = LayoutInflater.from(getActivity());
+                final View view = li.inflate(R.layout.dialogue_reset, null, false);
+                final AlertDialog ad = new AlertDialog.Builder(getActivity())
+                        .setCancelable(true).create();
+                ad.setView(view, 0, 0, 0, 0);
+                ad.show();
+                view.findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ad.dismiss();
+                    }
+                });
+                view.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        reset();
+                        ad.dismiss();
+
+                    }
+                });
 
             }
         });
@@ -331,7 +371,7 @@ public class FragmentAddContactInfo extends Fragment {
     }
 
 
-    private void resetFields() {
+    private void reset() {
 
         if (sentName != null)
             name.setText(sentName);

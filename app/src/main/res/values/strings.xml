@@ -45,6 +45,7 @@
     <string name="err.msg.dayra.match">Name does not match current dayra name</string>
     <string name="msg.dayra.created">dayra created</string>
     <string name="msg.dayra.deleted">dayra deleted</string>
+    <string name="msg.deleted">contact deleted</string>
     <string name="err.msg.dayra.delete">Error while trying to delete dayra</string>
     <string name="msg.dayra.exported">dayra exported</string>
     <string name="err.msg.day">Invalid day</string>
@@ -149,9 +150,19 @@
     <string name="select.attendance.type">Select attendance type</string>
     <string name="search.by">Search by</string>
 
-    <string name="label.attend.max">last attendance</string>
-    <string name="label.attend.min">first attendance</string>
-    <string name="label.attend.count">attendance times</string>
+    <string name="btn.yes">yes</string>
+    <string name="btn.cancel">cancel</string>
+    <string name="btn.reset">reset</string>
+    <string name="btn.rename">rename</string>
+    <string name="dialogue.rename">confirm renaming the current dayra</string>
+    <string name="dialogue.cancel">are you sure you want to cancel ? no modifications will be saved</string>
+    <string name="dialogue.delete">are you sure you want to delete contact ?</string>
+    <string name="dialogue.reset">are you sure you want to reset ? no modifications will be saved, orgional data will be restored</string>
+    <string name="dialogue.delete.dayra">are you sure you want to delete this dayra ? this action can not de undone, always keep a backup of dayra</string>
+
+    <string name="label.attend.max">last date</string>
+    <string name="label.attend.min">first date</string>
+    <string name="label.attend.count">times</string>
 
     <string-array name="attendance_type">
         <item>Visit</item>
@@ -180,8 +191,9 @@
         <item>Supervisor</item>
     </string-array>
     <string-array name="search_dates_menu">
-        <item>last attendance</item>
-        <item>last visit</item>
+        <item>date</item>
+        <item>first date</item>
+        <item>last date</item>
     </string-array>
     <string-array name="photo_menu">
         <item>Choose</item>
@@ -222,9 +234,9 @@
     </string-array>
     <string-array name="settings_menu">
         <item>Alarm settings</item>
-        <item>Replace data dayra</item>
-        <item>Divide dayra</item>
         <item>Rename dayra</item>
+        <item>Add data dayra</item>
+        <item>Divide dayra</item>
         <item>Delete dayra</item>
     </string-array>
     <string-array name="excel_header">
@@ -289,9 +301,9 @@
     </string-array>
     <string-array name="settings_icons" translatable="false">
         <item>@mipmap/ic_alarm</item>
+        <item>@mipmap/ic_rename</item>
         <item>@mipmap/ic_replace</item>
         <item>@mipmap/ic_divide</item>
-        <item>@mipmap/ic_rename</item>
         <item>@mipmap/ic_delete</item>
     </string-array>
 

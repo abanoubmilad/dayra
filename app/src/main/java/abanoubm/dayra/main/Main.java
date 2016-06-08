@@ -175,9 +175,9 @@ public class Main extends Activity {
             getSharedPreferences("login",
                     Context.MODE_PRIVATE).edit()
                     .putString("dbname", null).apply();
-          //  if (dbm.ImportDayraExcel(params[1]))
-       //         return R.string.msg_dayra_imported;
-       //     dbm.deleteDB(getApplicationContext());
+            //  if (dbm.ImportDayraExcel(params[1]))
+            //         return R.string.msg_dayra_imported;
+            //     dbm.deleteDB(getApplicationContext());
             return R.string.err_msg_invalid_file;
 
 
@@ -417,38 +417,36 @@ public class Main extends Activity {
 
     private void register() {
         LayoutInflater li = LayoutInflater.from(getApplicationContext());
-        View regView = li.inflate(R.layout.signup, null, false);
+        final View view = li.inflate(R.layout.dialogue_create, null, false);
         final AlertDialog ad = new AlertDialog.Builder(Main.this)
                 .setCancelable(true).create();
-        ad.setView(regView, 0, 0, 0, 0);
+        ad.setView(view, 0, 0, 0, 0);
         ad.show();
-        TextView reg = (TextView) regView.findViewById(R.id.btnreg);
-        TextView back = (TextView) regView.findViewById(R.id.back);
-        final EditText name = (EditText) regView.findViewById(R.id.sign_name);
-        back.setOnClickListener(new OnClickListener() {
+        view.findViewById(R.id.cancelBtn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ad.dismiss();
             }
         });
-        reg.setOnClickListener(new OnClickListener() {
+        view.findViewById(R.id.yesBtn).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                String namestr = name.getText().toString().trim();
+                String str = ((EditText)
+                        view.findViewById(R.id.input)).getText().toString().trim();
 
-                if (!Utility.isDBName(namestr)) {
+                if (!Utility.isDBName(str)) {
                     Toast.makeText(getApplicationContext(),
                             R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
                             .show();
                 } else {
 
-                    if (DB.isDBExists(getApplicationContext(), namestr)) {
+                    if (DB.isDBExists(getApplicationContext(), str)) {
                         Toast.makeText(getApplicationContext(),
                                 R.string.err_msg_duplicate_dayra,
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        new RegisterTask().execute(namestr);
+                        new RegisterTask().execute(str);
                         ad.dismiss();
 
                     }
@@ -480,7 +478,7 @@ public class Main extends Activity {
             }
 
             LayoutInflater li = LayoutInflater.from(getApplicationContext());
-            View signView = li.inflate(R.layout.signin, null, false);
+            View signView = li.inflate(R.layout.dialogue_signin, null, false);
             final AlertDialog ad = new AlertDialog.Builder(Main.this)
                     .setCancelable(true).create();
             ad.setView(signView, 0, 0, 0, 0);

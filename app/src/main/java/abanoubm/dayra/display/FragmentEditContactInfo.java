@@ -140,20 +140,89 @@ public class FragmentEditContactInfo extends Fragment {
         root.findViewById(R.id.backImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),
-                        DisplayContactDetails.class).putExtra("id",
-                        id));
+                LayoutInflater li = LayoutInflater.from(getActivity());
+                final View view = li.inflate(R.layout.dialogue_back, null, false);
+                final AlertDialog ad = new AlertDialog.Builder(getActivity())
+                        .setCancelable(true).create();
+                ad.setView(view, 0, 0, 0, 0);
+                ad.show();
+                view.findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ad.dismiss();
+                    }
+                });
+                view.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().finish();
+                        startActivity(new Intent(getActivity(),
+                                DisplayContactDetails.class).putExtra("id",
+                                id));
+                        ad.dismiss();
+
+                    }
+                });
+
+
             }
         });
         root.findViewById(R.id.deleteImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LayoutInflater li = LayoutInflater.from(getActivity());
+                final View view = li.inflate(R.layout.dialogue_delete, null, false);
+                final AlertDialog ad = new AlertDialog.Builder(getActivity())
+                        .setCancelable(true).create();
+                ad.setView(view, 0, 0, 0, 0);
+                ad.show();
+                view.findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ad.dismiss();
+                    }
+                });
+                view.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+
+                        new DeleteTask().execute();
+                        ad.dismiss();
+
+                    }
+                });
+
 
             }
         });
         root.findViewById(R.id.resetImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LayoutInflater li = LayoutInflater.from(getActivity());
+                final View view = li.inflate(R.layout.dialogue_reset, null, false);
+                final AlertDialog ad = new AlertDialog.Builder(getActivity())
+                        .setCancelable(true).create();
+                ad.setView(view, 0, 0, 0, 0);
+                ad.show();
+                view.findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ad.dismiss();
+                    }
+                });
+                view.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        reset();
+                        ad.dismiss();
+
+                    }
+                });
+
 
             }
         });
@@ -293,6 +362,33 @@ public class FragmentEditContactInfo extends Fragment {
         }
     }
 
+    private class DeleteTask extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog pBar;
+
+        @Override
+        protected void onPreExecute() {
+            pBar = new ProgressDialog(getActivity());
+            pBar.setCancelable(false);
+            pBar.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            getActivity().finish();
+            Toast.makeText(getActivity(),
+                    R.string.msg_deleted, Toast.LENGTH_SHORT)
+                    .show();
+            pBar.dismiss();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            DB.getInstant(getActivity()).deleteContact(id);
+            return null;
+        }
+    }
+
     private class GetOptionsListTask extends
             AsyncTask<Integer, Void, ArrayList<String>> {
         private ProgressDialog pBar;
@@ -352,7 +448,7 @@ public class FragmentEditContactInfo extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            setFields();
+            reset();
             pBar.dismiss();
         }
 
@@ -363,7 +459,7 @@ public class FragmentEditContactInfo extends Fragment {
         }
     }
 
-    private void setFields() {
+    private void reset() {
 
         name.setText(contactData.getName());
         address.setText(contactData.getAddress());

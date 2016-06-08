@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -103,7 +104,7 @@ public class FragmentSearchDates extends Fragment {
             }
         });
 
-        final TextView date = (TextView) root.findViewById(R.id.date);
+        final EditText date = (EditText) root.findViewById(R.id.date);
 
         final DatePickerDialog picker;
         Calendar cal = Calendar.getInstance();

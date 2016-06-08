@@ -10,7 +10,8 @@
         android:background="@color/lightergrey"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,16 +22,18 @@
 
         <Spinner
             android:id="@+id/spin_search"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:entries="@array/search_dates_menu"
             android:spinnerMode="dialog"
             android:textSize="@dimen/font_larger" />
 
         <Spinner
             android:id="@+id/spin_type"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@color/lightergrey"
             android:entries="@array/attendance_type"
             android:prompt="@string/select.attendance.type"
@@ -43,15 +46,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/lightergrey"
-        android:gravity="center"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
-        <TextView
+
+        <EditText
             android:id="@+id/date"
-            android:layout_width="wrap_content"
+            style="@style/attendant_labels"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/lightergrey"
+            android:layout_weight="1"
+            android:focusable="false"
             android:textColor="@color/black"
             android:textSize="@dimen/font_larger" />
 
