@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
@@ -113,11 +114,13 @@ public class DB extends SQLiteOpenHelper {
         String sql = "create table " + TB_CONTACT + " ( " + CONTACT_ID
                 + " integer primary key autoincrement, " + CONTACT_MAPLAT
                 + " double, " + CONTACT_MAPLNG + " double, " + CONTACT_MAPZOM + " float, "
-                + CONTACT_NAME + CONTACT_SUPERVISOR + " text, " + CONTACT_NOTES + " text, " + CONTACT_BDAY + " text, "
+                + CONTACT_NAME + " text, " + CONTACT_SUPERVISOR
+                + " text, " + CONTACT_NOTES + " text, " + CONTACT_BDAY + " text, "
                 + CONTACT_EMAIL + " text, " + CONTACT_MOB1 + " text, " + CONTACT_MOB2 + " text, "
                 + CONTACT_MOB3 + " text, " + CONTACT_LPHONE + " text, " + CONTACT_ST
                 + " text, " + CONTACT_SITE + " text, " + CONTACT_CLASS_YEAR + " integer, "
                 + CONTACT_STUDY_WORK + " text, " + CONTACT_ADDR + " text)";
+        Log.i("check me", "onCreate: "+sql);
         db.execSQL(sql);
 
         sql = "create table " + TB_CONNECTION + " ( " + CONN_A + " integer, "
@@ -524,7 +527,7 @@ public class DB extends SQLiteOpenHelper {
 
     public ArrayList<ContactLoc> getAttendantsLoc() {
         Cursor c = readableDB.query(TB_CONTACT, new String[]{CONTACT_NAME, CONTACT_MAPLAT,
-                CONTACT_MAPLNG}, null, null, CONTACT_ID, null, null);
+                CONTACT_MAPLNG}, null, null, null, null, null);
         ArrayList<ContactLoc> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {

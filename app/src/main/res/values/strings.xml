@@ -202,7 +202,7 @@
     </string-array>
     <string-array name="sign_menu">
         <item>Enter</item>
-        <item>Create new dayra</item>
+        <item>Create dayra</item>
         <item>Import dayra file</item>
         <item>Import dayra xls</item>
         <item>User\'s manuel</item>
@@ -265,7 +265,7 @@
         <item>@mipmap/ic_manual</item>
         <item>@mipmap/ic_like</item>
         <item>@mipmap/ic_contact</item>
-        <item>@mipmap/ic_contact</item>
+        <item>@mipmap/ic_rate</item>
     </string-array>
     <string-array name="sign_icons" translatable="false">
         <item>@mipmap/ic_enter</item>
@@ -276,7 +276,7 @@
         <item>@mipmap/ic_lang</item>
         <item>@mipmap/ic_like</item>
         <item>@mipmap/ic_contact</item>
-        <item>@mipmap/ic_contact</item>
+        <item>@mipmap/ic_rate</item>
     </string-array>
     <string-array name="out_icons" translatable="false">
         <item>@mipmap/ic_mess</item>

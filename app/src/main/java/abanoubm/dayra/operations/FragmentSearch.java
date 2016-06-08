@@ -42,7 +42,7 @@ public class FragmentSearch extends Fragment {
             , DB.CONTACT_ST
             , DB.CONTACT_ADDR
             , DB.CONTACT_NOTES
-            , DB.CONTACT_PRIEST
+            , DB.CONTACT_SUPERVISOR
     };
 
     private class SearchTask extends

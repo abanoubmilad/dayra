@@ -46,7 +46,7 @@ public class FragmentDisplayContactInfo extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            contactData = DB.getInstant(getActivity()).getAttendantData(id);
+            contactData = DB.getInstant(getActivity()).getContactInfo(id);
             return null;
         }
     }

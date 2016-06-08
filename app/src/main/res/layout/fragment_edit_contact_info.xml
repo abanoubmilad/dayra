@@ -155,7 +155,7 @@
                 style="@style/attendant_labels"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:hint="@string/label.conf.father"
+                android:hint="@string/label.supervisor"
                 android:maxLength="30" />
 
             <ImageView

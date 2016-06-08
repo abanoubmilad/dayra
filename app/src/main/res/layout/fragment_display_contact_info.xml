@@ -98,7 +98,7 @@
         <TextView
             android:id="@+id/dis_priest"
             style="@style/attendant_labels"
-            android:hint="@string/label.conf.father" />
+            android:hint="@string/label.supervisor" />
 
         <LinearLayout
             android:layout_width="match_parent"

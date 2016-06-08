@@ -55,14 +55,14 @@ public class FragmentAddContactInfo extends Fragment {
             DB.CONTACT_STUDY_WORK,
             DB.CONTACT_ST,
             DB.CONTACT_SITE,
-            DB.CONTACT_PRIEST
+            DB.CONTACT_SUPERVISOR
     };
     private static final int[] optionsChoose = {
             R.string.label_choose_class_year,
             R.string.label_choose_study_work,
             R.string.label_choose_street,
             R.string.label_choose_site,
-            R.string.label_choose_priest
+            R.string.label_choose_supervisor
     };
 
 
@@ -257,8 +257,8 @@ public class FragmentAddContactInfo extends Fragment {
             } else {
                 ContentValues values = new ContentValues();
                 values.put(DB.CONTACT_NAME, params[0]);
-                values.put(DB.CONTACT_PHOTO, imgPath);
-                values.put(DB.CONTACT_PRIEST, params[13]);
+                values.put(DB.PHOTO_BLOB, imgPath);
+                values.put(DB.CONTACT_SUPERVISOR, params[13]);
                 values.put(DB.CONTACT_NOTES, params[3]);
                 values.put(DB.CONTACT_BDAY, params[2]);
                 values.put(DB.CONTACT_EMAIL, params[4]);
