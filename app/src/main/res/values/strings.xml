@@ -144,10 +144,14 @@
     <string name="msg.no.mobiles">No mobiles were selected</string>
     <string name="subhead.edit.contact">editing</string>
     <string name="flag.attended">attended</string>
-    <string name="flag.chosen">choose</string>
-    <string name="flag.exist">already exist</string>
+    <string name="flag.absent">absent</string>
+    <string name="flag.exist">exist</string>
     <string name="select.attendance.type">Select attendance type</string>
     <string name="search.by">Search by</string>
+
+    <string name="label.attend.max">last attendance</string>
+    <string name="label.attend.min">first attendance</string>
+    <string name="label.attend.count">attendance times</string>
 
     <string-array name="attendance_type">
         <item>Visit</item>

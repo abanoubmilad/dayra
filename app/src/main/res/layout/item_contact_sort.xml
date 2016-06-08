@@ -94,12 +94,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="5dp"
-                android:text="@string/label.site"
+                android:text="@string/label.street"
                 android:textColor="@color/text_pressed"
                 android:textSize="@dimen/font_small" />
 
             <TextView
-                android:id="@+id/site"
+                android:id="@+id/street"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_pressed"
@@ -116,17 +116,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="5dp"
-                android:text="@string/label.street"
+                android:text="@string/label.site"
                 android:textColor="@color/text_pressed"
                 android:textSize="@dimen/font_small" />
 
             <TextView
-                android:id="@+id/street"
+                android:id="@+id/site"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_pressed"
                 android:textSize="@dimen/font_small" />
         </LinearLayout>
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -139,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="5dp"
-            android:text="@string/label.conf.father"
+            android:text="@string/label.supervisor"
             android:textColor="@color/text_pressed"
             android:textSize="@dimen/font_small" />
 

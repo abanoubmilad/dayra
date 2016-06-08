@@ -17,9 +17,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginRight="5dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/name"
@@ -29,26 +29,70 @@
             android:textColor="@color/text_pressed"
             android:textSize="@dimen/font_larger" />
 
-        <TextView
-            android:id="@+id/min"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_pressed"
-            android:textSize="@dimen/font_normal" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/max"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_pressed"
-            android:textSize="@dimen/font_normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="@string/label.attend.count"
+                android:textColor="@color/text_pressed"
+                android:textSize="@dimen/font_normal" />
 
-        <TextView
-            android:id="@+id/count"
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_pressed"
+                android:textSize="@dimen/font_normal" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_pressed"
-            android:textSize="@dimen/font_normal" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="@string/label.attend.min"
+                android:textColor="@color/text_pressed"
+                android:textSize="@dimen/font_normal" />
+
+            <TextView
+                android:id="@+id/min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_pressed"
+                android:textSize="@dimen/font_normal" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="@string/label.attend.max"
+                android:textColor="@color/text_pressed"
+                android:textSize="@dimen/font_normal" />
+
+            <TextView
+                android:id="@+id/max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_pressed"
+                android:textSize="@dimen/font_normal" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

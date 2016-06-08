@@ -23,8 +23,8 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingRight="5dp"
+            android:layout_marginBottom="10dp"
+            android:padding="5dp"
             android:textColor="@color/text_pressed"
             android:textSize="@dimen/font_larger" />
 
@@ -32,10 +32,8 @@
             android:id="@+id/day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:textColor="@color/text_pressed"
-            android:textSize="@dimen/font_normal"
-            android:textStyle="bold" />
+            android:textSize="@dimen/font_normal" />
 
     </LinearLayout>
 

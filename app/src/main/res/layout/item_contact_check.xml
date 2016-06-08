@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@color/white">
+    android:background="@drawable/listview_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
 
-<ImageView
+    <ImageView
         android:id="@+id/img"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -14,25 +15,32 @@
         android:scaleType="fitCenter"
         android:src="@mipmap/def" />
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingBottom="10dp"
-        android:paddingRight="5dp"
-        android:textColor="@color/text_pressed"
-        android:textSize="@dimen/font_larger" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/flag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:padding="10dp"
-        android:text="@string/flag.exist"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_normal" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:padding="5dp"
+            android:textColor="@color/text_pressed"
+            android:textSize="@dimen/font_larger" />
 
+        <TextView
+            android:id="@+id/flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="30dp"
+            android:background="@color/colorAccent"
+            android:padding="10dp"
+            android:text="@string/flag.exist"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_normal"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </LinearLayout>

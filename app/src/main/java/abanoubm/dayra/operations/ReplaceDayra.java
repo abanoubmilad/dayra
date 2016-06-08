@@ -161,14 +161,14 @@ public class ReplaceDayra extends Activity {
                         dataTag.add(DB.CONTACT_STUDY_WORK);
 
                     }
-                    if (cb_lattend.isChecked()) {
-                        dataTag.add(DB.CONTACT_LAST_ATTEND);
-
-                    }
-                    if (cb_lvisit.isChecked()) {
-                        dataTag.add(DB.CONTACT_LAST_VISIT);
-
-                    }
+//                    if (cb_lattend.isChecked()) {
+//                        dataTag.add(DB.CONTACT_LAST_ATTEND);
+//
+//                    }
+//                    if (cb_lvisit.isChecked()) {
+//                        dataTag.add(DB.CONTACT_LAST_VISIT);
+//
+//                    }
 
                     if (cb_site.isChecked()) {
                         dataTag.add(DB.CONTACT_SITE);
@@ -208,13 +208,13 @@ public class ReplaceDayra extends Activity {
 
                     }
 
-                    if (cb_priest.isChecked()) {
-                        dataTag.add(DB.CONTACT_PRIEST);
-
-                    }
-                    if (cb_dates.isChecked()) {
-                        dataTag.add(DB.CONTACT_ATTEND_DATES);
-                    }
+//                    if (cb_priest.isChecked()) {
+//                        dataTag.add(DB.CONTACT_PRIEST);
+//
+//                    }
+//                    if (cb_dates.isChecked()) {
+//                        dataTag.add(DB.CONTACT_ATTEND_DATES);
+//                    }
 
                     if (dataTag.size() == 0)
                         Toast.makeText(getApplicationContext(),
