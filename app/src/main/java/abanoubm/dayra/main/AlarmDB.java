@@ -8,9 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class AlarmDB extends SQLiteOpenHelper {
     private static String DB_NAME = "alarm_db";
     private static String targetDBName = "";
-    private static final String TB_ALARM = "alarm_tb";
-    private static final String ALARM_DB_NAME = "alarm_db_name";
-    private static final String ALARM_TYPE = "alarm_type";
+
 
     private static AlarmDB dbm;
     private SQLiteDatabase readableDB, writableDB;
@@ -34,32 +32,14 @@ public class AlarmDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create table " + TB_ALARM + " ( " + ALARM_DB_NAME
-                + " text, " + ALARM_TYPE
-                + " text)";
-        db.execSQL(sql);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
     }
 
-    public void removeAlarm(String type) {
-        writableDB.delete(TB_ALARM, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ?",
-                new String[]{targetDBName, type});
-    }
 
-    public void closeDB() {
-        readableDB.close();
-        writableDB.close();
-    }
-
-    public void addAlarm(String type) {
-        ContentValues values = new ContentValues();
-        values.put(ALARM_DB_NAME, targetDBName);
-        values.put(ALARM_TYPE, type);
-        writableDB.insert(TB_ALARM, null, values);
-    }
 
 
 }

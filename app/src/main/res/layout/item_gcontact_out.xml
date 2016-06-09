@@ -44,9 +44,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginRight="20dp"
-        android:background="@color/colorAccent"
+        android:background="@color/lightgreen"
         android:padding="10dp"
-        android:text="@string/flag.exist"
+        android:text="@string/flag.contact.exist"
         android:textColor="@color/white"
         android:textSize="@dimen/font_normal"
         android:textStyle="bold" />

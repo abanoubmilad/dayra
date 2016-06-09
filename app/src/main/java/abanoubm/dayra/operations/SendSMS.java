@@ -187,8 +187,7 @@ public class SendSMS extends Activity {
                 previousPosition = lv.getFirstVisiblePosition();
 
                 Intent intent = new Intent(getApplicationContext(),
-                        DisplayContactDetails.class);
-                intent.putExtra("id", mAdapter.getItem(position).getId());
+                        DisplayContactDetails.class).putExtra("id", mAdapter.getItem(position).getId());
                 startActivity(intent);
                 return true;
             }

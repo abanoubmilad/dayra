@@ -144,10 +144,8 @@
     <string name="subhead.select.out">Copy selected contacts to phone</string>
     <string name="msg.no.mobiles">No mobiles were selected</string>
     <string name="subhead.edit.contact">editing</string>
-    <string name="flag.attended">attended</string>
-    <string name="flag.absent">absent</string>
-    <string name="flag.exist">exist</string>
-    <string name="select.attendance.type">Select attendance type</string>
+    <string name="flag.contact.exist">name exists</string>
+    <string name="select.attendance.type">attendance type</string>
     <string name="search.by">Search by</string>
 
     <string name="btn.yes">yes</string>

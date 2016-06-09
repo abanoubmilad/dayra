@@ -84,12 +84,13 @@ public class DisplayContactsStatistics extends Activity {
                 startActivity(intent);
             }
         });
-        ((Spinner) findViewById(R.id.spin_day)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ((Spinner) findViewById(R.id.spin_type)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 dayType = position + "";
+                new GetAllTask().execute();
 
             }
 

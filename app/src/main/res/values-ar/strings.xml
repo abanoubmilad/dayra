@@ -143,9 +143,7 @@
     <string name="subhead.select.out">نسخ الاسماء المٌختارة الى الموبايل</string>
     <string name="msg.no.mobiles">لم يتم اختيار ارقام موبايل</string>
     <string name="subhead.edit.contact">تعديل البيانات</string>
-    <string name="flag.attended">حاضر</string>
-    <string name="flag.absent">غائب</string>
-    <string name="flag.exist">موجود</string>
+    <string name="flag.contact.exist">الاسم مُسجل</string>
     <string name="select.attendance.type">اختر نوع الحضور</string>
     <string name="search.by">بحث بواسطة</string>
 

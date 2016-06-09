@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="@string/search.by"
             android:textColor="@color/black"
-            android:textSize="@dimen/font_large" />
+            android:textSize="@dimen/font_larger" />
 
         <Spinner
             android:id="@+id/spin_search"
@@ -27,7 +27,7 @@
             android:layout_weight="1"
             android:entries="@array/search_dates_menu"
             android:spinnerMode="dialog"
-            android:textSize="@dimen/font_larger" />
+            android:textSize="@dimen/font_largest" />
 
         <Spinner
             android:id="@+id/spin_type"
@@ -36,7 +36,8 @@
             android:layout_weight="1"
             android:entries="@array/attendance_type"
             android:prompt="@string/select.attendance.type"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dialog"
+            android:textSize="@dimen/font_largest" />
 
 
     </LinearLayout>

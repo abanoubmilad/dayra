@@ -6,7 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
@@ -68,6 +67,9 @@ public class DB extends SQLiteOpenHelper {
             CONTACT_ADDR = "addr", CONTACT_ST = "st",
             CONTACT_SITE = "site", CONTACT_STUDY_WORK = "swork";
 
+    private static final String TB_ALARM = "alarm_tb",
+            ALARM_DB_NAME = "alarm_db_name",
+            ALARM_TYPE = "alarm_type";
 
     private static DB dbm;
     private SQLiteDatabase readableDB, writableDB;
@@ -119,22 +121,21 @@ public class DB extends SQLiteOpenHelper {
                 + CONTACT_EMAIL + " text, " + CONTACT_MOB1 + " text, " + CONTACT_MOB2 + " text, "
                 + CONTACT_MOB3 + " text, " + CONTACT_LPHONE + " text, " + CONTACT_ST
                 + " text, " + CONTACT_SITE + " text, " + CONTACT_CLASS_YEAR + " integer, "
-                + CONTACT_STUDY_WORK + " text, " + CONTACT_ADDR + " text)";
-        Log.i("check me", "onCreate: " + sql);
-        db.execSQL(sql);
+                + CONTACT_STUDY_WORK + " text, " + CONTACT_ADDR + " text);"
 
-        sql = "create table " + TB_CONNECTION + " ( " + CONN_A + " integer, "
-                + CONN_B + " integer)";
-        db.execSQL(sql);
+                + "create table " + TB_CONNECTION + " ( " + CONN_A + " integer, "
+                + CONN_B + " integer);"
 
-        sql = "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
+                + "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
                 + ATTEND_TYPE + " integer, "
-                + ATTEND_DAY + " integer)";
+                + ATTEND_DAY + " integer);"
 
-        db.execSQL(sql);
+                + "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
+                + PHOTO_BLOB + " blob);"
 
-        sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
-                + PHOTO_BLOB + " blob)";
+                + "create table " + TB_ALARM + " ( " + ALARM_DB_NAME
+                + " text, " + ALARM_TYPE
+                + " text);";
         db.execSQL(sql);
     }
 
@@ -150,12 +151,14 @@ public class DB extends SQLiteOpenHelper {
         if (arg1 < 3) {
             sql = "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
                     + ATTEND_TYPE + " integer, "
-                    + ATTEND_DAY + " integer)";
+                    + ATTEND_DAY + " integer);"
 
-            db.execSQL(sql);
+                    + "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
+                    + PHOTO_BLOB + " blob);"
 
-            sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer, "
-                    + PHOTO_BLOB + " blob)";
+                    + "create table " + TB_ALARM + " ( " + ALARM_DB_NAME
+                    + " text, " + ALARM_TYPE
+                    + " text);";
             db.execSQL(sql);
 
 
@@ -311,6 +314,7 @@ public class DB extends SQLiteOpenHelper {
         writableDB.update(TB_PHOTO, values, CONTACT_ID + " = ?",
                 new String[]{id});
     }
+
     public void updateContact(ContentValues values, String id) {
         writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
                 new String[]{id});
@@ -1341,4 +1345,23 @@ public class DB extends SQLiteOpenHelper {
 //
 //        }
 //    }
+
+    // delete alarm and return true if there still an alarm enabled for the same type of any other dayras
+    public boolean removeAlarm(String type, String dbname) {
+        writableDB.delete(TB_ALARM, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ?",
+                new String[]{dbname, type});
+
+        Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
+                }, ALARM_DB_NAME + " = ? AND " + type + " = ? AND ",
+                new String[]{dbname, type}, null, null, null);
+        return c.moveToFirst();
+
+    }
+
+    public void addAlarm(String type, String dbname) {
+        ContentValues values = new ContentValues();
+        values.put(ALARM_DB_NAME, dbname);
+        values.put(ALARM_TYPE, type);
+        writableDB.insert(TB_ALARM, null, values);
+    }
 }
