@@ -30,12 +30,12 @@ public class ContactDayAdapter extends ArrayAdapter<ContactDay> {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_contact_day, parent, false);
             holder = new ViewHolder();
-            holder.name= (TextView) convertView.findViewById(R.id.name);
-            holder.day=(TextView) convertView.findViewById(R.id.day);
+            holder.name = (TextView) convertView.findViewById(R.id.name);
+            holder.day = (TextView) convertView.findViewById(R.id.day);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
-        }else{
-            holder = (ViewHolder)convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
         holder.name.setText(contact.getName());
@@ -48,6 +48,7 @@ public class ContactDayAdapter extends ArrayAdapter<ContactDay> {
 
         return convertView;
     }
+
     private static class ViewHolder {
         TextView name;
         TextView day;

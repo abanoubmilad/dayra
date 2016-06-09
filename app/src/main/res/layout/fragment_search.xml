@@ -11,12 +11,14 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="10dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search.by"
             android:textSize="@dimen/font_large"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
+
         <Spinner
             android:id="@+id/spin"
             android:layout_width="wrap_content"

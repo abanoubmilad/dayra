@@ -32,19 +32,19 @@ public class ContactStatisticsAdapter extends ArrayAdapter<ContactStatistics> {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_contact_statistics, parent, false);
             holder = new ViewHolder();
-            holder.name= (TextView) convertView.findViewById(R.id.name);
-            holder.min=(TextView) convertView.findViewById(R.id.min);
-            holder.max=(TextView) convertView.findViewById(R.id.max);
-            holder.count=(TextView) convertView.findViewById(R.id.count);
+            holder.name = (TextView) convertView.findViewById(R.id.name);
+            holder.min = (TextView) convertView.findViewById(R.id.min);
+            holder.max = (TextView) convertView.findViewById(R.id.max);
+            holder.count = (TextView) convertView.findViewById(R.id.count);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
-        }else{
-            holder = (ViewHolder)convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
         holder.name.setText(contact.getName());
         holder.min.setText(contact.getMinDay());
         holder.max.setText(contact.getMaxDay());
-        holder.count.setText(contact.getDaysCount()+"");
+        holder.count.setText(contact.getDaysCount() + "");
 
 
         if (contact.getPhoto() != null)
@@ -54,8 +54,9 @@ public class ContactStatisticsAdapter extends ArrayAdapter<ContactStatistics> {
 
         return convertView;
     }
+
     private static class ViewHolder {
-        TextView name,min,max,count;
+        TextView name, min, max, count;
         ImageView img;
     }
 }

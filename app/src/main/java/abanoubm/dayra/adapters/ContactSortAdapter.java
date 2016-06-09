@@ -46,7 +46,6 @@ public class ContactSortAdapter extends ArrayAdapter<ContactSort> {
         }
 
 
-
         if (contact.getPhoto() != null)
             holder.img.setImageBitmap(contact.getPhoto());
         else

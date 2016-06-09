@@ -120,7 +120,7 @@ public class DB extends SQLiteOpenHelper {
                 + CONTACT_MOB3 + " text, " + CONTACT_LPHONE + " text, " + CONTACT_ST
                 + " text, " + CONTACT_SITE + " text, " + CONTACT_CLASS_YEAR + " integer, "
                 + CONTACT_STUDY_WORK + " text, " + CONTACT_ADDR + " text)";
-        Log.i("check me", "onCreate: "+sql);
+        Log.i("check me", "onCreate: " + sql);
         db.execSQL(sql);
 
         sql = "create table " + TB_CONNECTION + " ( " + CONN_A + " integer, "
@@ -302,8 +302,13 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
-    public void updateContact(ContentValues values, String id) {
+    public void updateContact(ContentValues values, byte[] photo, String id) {
         writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
+                new String[]{id});
+
+        values = new ContentValues();
+        values.put(PHOTO_BLOB, photo);
+        writableDB.update(TB_PHOTO, values, CONTACT_ID + " = ?",
                 new String[]{id});
     }
 
@@ -379,8 +384,15 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public String addContact(ContentValues values) {
-        return String.valueOf(writableDB.insert(TB_CONTACT, null, values));
+    public String addContact(ContentValues values, byte[] photo) {
+        String id = String.valueOf(writableDB.insert(TB_CONTACT, null, values));
+
+        values = new ContentValues();
+        values.put(PHOTO_ID, id);
+        values.put(PHOTO_BLOB, photo);
+
+        writableDB.insert(TB_PHOTO, null, values);
+        return id;
 
     }
 

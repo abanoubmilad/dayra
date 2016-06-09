@@ -40,7 +40,7 @@
             style="@style/attendant_labels"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:focusable="false"/>
+            android:focusable="false" />
 
         <ImageView
             android:id="@+id/pick_date"

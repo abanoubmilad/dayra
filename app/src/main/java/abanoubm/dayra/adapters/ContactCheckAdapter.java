@@ -33,12 +33,12 @@ public class ContactCheckAdapter extends ArrayAdapter<ContactCheck> {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_contact_check, parent, false);
             holder = new ViewHolder();
-            holder.name= (TextView) convertView.findViewById(R.id.name);
-            holder.flag=(TextView) convertView.findViewById(R.id.flag);
+            holder.name = (TextView) convertView.findViewById(R.id.name);
+            holder.flag = (TextView) convertView.findViewById(R.id.flag);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
-        }else{
-            holder = (ViewHolder)convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
         ContactCheck contact = getItem(position);
 
@@ -57,7 +57,8 @@ public class ContactCheckAdapter extends ArrayAdapter<ContactCheck> {
 
         return convertView;
     }
-   private static class ViewHolder {
+
+    private static class ViewHolder {
         TextView name;
         TextView flag;
         ImageView img;

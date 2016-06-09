@@ -30,7 +30,6 @@
             android:textSize="@dimen/font_larger" />
 
 
-
     </LinearLayout>
 
     <ListView

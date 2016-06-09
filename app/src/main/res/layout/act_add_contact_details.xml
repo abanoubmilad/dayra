@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
+
     <include layout="@layout/header" />
 
     <LinearLayout
@@ -21,7 +22,6 @@
             android:background="@color/colorAccent"
             android:padding="10dp"
             android:src="@mipmap/ic_info" />
-
 
 
         <ImageView

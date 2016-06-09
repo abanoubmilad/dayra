@@ -63,7 +63,7 @@ public class DisplayContactsMap extends FragmentActivity implements
 
         @Override
         protected ArrayList<ContactLoc> doInBackground(Void... params) {
-            return  DB.getInstant(getApplicationContext()).getAttendantsLoc();
+            return DB.getInstant(getApplicationContext()).getAttendantsLoc();
         }
 
     }

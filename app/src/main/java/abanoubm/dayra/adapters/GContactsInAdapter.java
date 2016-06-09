@@ -34,13 +34,13 @@ public class GContactsInAdapter extends ArrayAdapter<GoogleContact> {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_gcontact_in, parent, false);
             holder = new ViewHolder();
-            holder.name= (TextView) convertView.findViewById(R.id.name);
-            holder.mobile=(TextView) convertView.findViewById(R.id.mobile);
-            holder.flag1=(TextView) convertView.findViewById(R.id.flag1);
-            holder.flag2=(CheckBox) convertView.findViewById(R.id.flag2);
+            holder.name = (TextView) convertView.findViewById(R.id.name);
+            holder.mobile = (TextView) convertView.findViewById(R.id.mobile);
+            holder.flag1 = (TextView) convertView.findViewById(R.id.flag1);
+            holder.flag2 = (CheckBox) convertView.findViewById(R.id.flag2);
             convertView.setTag(holder);
-        }else{
-            holder = (ViewHolder)convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
 

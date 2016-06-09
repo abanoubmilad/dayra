@@ -30,11 +30,11 @@ public class ContactIDAdapter extends ArrayAdapter<ContactID> {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_contact, parent, false);
             holder = new ViewHolder();
-            holder.name= (TextView) convertView.findViewById(R.id.name);
+            holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
-        }else{
-            holder = (ViewHolder)convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
         holder.name.setText(contact.getName());
 
@@ -45,6 +45,7 @@ public class ContactIDAdapter extends ArrayAdapter<ContactID> {
 
         return convertView;
     }
+
     private static class ViewHolder {
         TextView name;
         ImageView img;

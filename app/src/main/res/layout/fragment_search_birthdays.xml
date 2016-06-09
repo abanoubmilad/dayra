@@ -19,7 +19,7 @@
             android:hint="@string/label.day.optional"
             android:inputType="number"
             android:maxLength="2"
-            android:textSize="@dimen/font_larger"/>
+            android:textSize="@dimen/font_larger" />
 
         <EditText
             android:id="@+id/month"
@@ -31,7 +31,7 @@
             android:imeOptions="actionDone"
             android:inputType="number"
             android:maxLength="2"
-            android:textSize="@dimen/font_larger"/>
+            android:textSize="@dimen/font_larger" />
     </LinearLayout>
 
     <ListView
@@ -41,7 +41,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
-        android:background="@color/white"/>
+        android:background="@color/white" />
 
     <TextView
         android:id="@+id/btn"

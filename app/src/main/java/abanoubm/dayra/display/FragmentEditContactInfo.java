@@ -338,7 +338,6 @@ public class FragmentEditContactInfo extends Fragment {
 
                 ContentValues values = new ContentValues();
                 values.put(DB.CONTACT_NAME, params[0]);
-                values.put(DB.PHOTO_BLOB, Utility.getBytes(photo));
                 values.put(DB.CONTACT_SUPERVISOR, params[13]);
                 values.put(DB.CONTACT_NOTES, params[3]);
                 values.put(DB.CONTACT_BDAY, params[2]);
@@ -353,7 +352,7 @@ public class FragmentEditContactInfo extends Fragment {
                 values.put(DB.CONTACT_STUDY_WORK, params[10]);
                 values.put(DB.CONTACT_CLASS_YEAR, params[9]);
 
-                dbm.updateContact(values, contactData.getId());
+                dbm.updateContact(values, Utility.getBytes(photo), contactData.getId());
                 msgSource = R.string.msg_updated;
                 return true;
             }
@@ -559,9 +558,6 @@ public class FragmentEditContactInfo extends Fragment {
                 if (photo != null)
                     img.setImageBitmap(photo);
                 cursor.close();
-
-                ;
-
             }
         }
     }

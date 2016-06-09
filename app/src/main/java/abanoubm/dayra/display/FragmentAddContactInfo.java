@@ -8,8 +8,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -40,7 +39,7 @@ public class FragmentAddContactInfo extends Fragment {
     private static final int TAKE_IMG = 2;
     private static final int BROWSE_IMG = 1;
     private Uri fileUri;
-    private String imgPath = "";
+    private Bitmap photo = null;
 
     private static final String ARG_NAME = "name";
     private String sentName;
@@ -297,7 +296,6 @@ public class FragmentAddContactInfo extends Fragment {
             } else {
                 ContentValues values = new ContentValues();
                 values.put(DB.CONTACT_NAME, params[0]);
-                values.put(DB.PHOTO_BLOB, imgPath);
                 values.put(DB.CONTACT_SUPERVISOR, params[13]);
                 values.put(DB.CONTACT_NOTES, params[3]);
                 values.put(DB.CONTACT_BDAY, params[2]);
@@ -317,7 +315,7 @@ public class FragmentAddContactInfo extends Fragment {
                 values.put(DB.CONTACT_MAPZOM, 0);
 
                 msgSource = R.string.msg_added;
-                ((CallBack) getActivity()).notify(dbm.addContact(values));
+                ((CallBack) getActivity()).notify(dbm.addContact(values, Utility.getBytes(photo)));
 
             }
             return msgSource;
@@ -395,8 +393,8 @@ public class FragmentAddContactInfo extends Fragment {
 
         bday.setText("");
 
+        photo = null;
         img.setImageResource(R.mipmap.def);
-        imgPath = "";
 
     }
 
@@ -419,7 +417,7 @@ public class FragmentAddContactInfo extends Fragment {
                             captureImage();
 
                         } else {
-                            imgPath = "";
+                            photo = null;
                             img.setImageResource(R.mipmap.def);
 
                         }
@@ -457,10 +455,9 @@ public class FragmentAddContactInfo extends Fragment {
         if (resultCode == getActivity().RESULT_OK) {
             if (requestCode == TAKE_IMG) {
 
-                imgPath = fileUri.getPath();
-
-                img.setImageBitmap(ThumbnailUtils.extractThumbnail(
-                        BitmapFactory.decodeFile(imgPath), 250, 250));
+                photo = Utility.getBitmap(fileUri.getPath());
+                if (photo != null)
+                    img.setImageBitmap(photo);
 
             } else if (requestCode == BROWSE_IMG) {
                 Uri selectedImage = data.getData();
@@ -468,13 +465,11 @@ public class FragmentAddContactInfo extends Fragment {
                 Cursor cursor = getActivity().getContentResolver().query(selectedImage,
                         filePathColumn, null, null, null);
                 cursor.moveToFirst();
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                imgPath = cursor.getString(columnIndex);
+                photo = Utility.getBitmap(
+                        cursor.getString(cursor.getColumnIndex(filePathColumn[0])));
+                if (photo != null)
+                    img.setImageBitmap(photo);
                 cursor.close();
-
-                img.setImageBitmap(ThumbnailUtils.extractThumbnail(
-                        BitmapFactory.decodeFile(imgPath), 250, 250));
-
             }
         }
     }

@@ -99,7 +99,7 @@ public class DivideDayra extends Activity {
                     + getSharedPreferences("login", Context.MODE_PRIVATE)
                     .getString("dbname", "") + "_divided/";
             new File(path).mkdirs();
-         //   String class_year = tv_class_year.getText().toString().trim();
+            //   String class_year = tv_class_year.getText().toString().trim();
 //            try {
 //                if (class_year.equals(""))
 //                    DB.getInstant(getApplicationContext()).divideDayra(
@@ -112,7 +112,7 @@ public class DivideDayra extends Activity {
 //            } catch (Exception e) {
 //                return false;
 //            }
-            return  false;
+            return false;
         }
 
         @Override
