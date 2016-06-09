@@ -18,7 +18,7 @@ public class Utility {
     }
 
     public static final int update = Color
-            .rgb(130, 199, 132);
+            .rgb(130, 199, 132), deupdate = Color.rgb(244, 143, 177);
 
     public static String produceDate(String month) {
         if (month.length() == 1)

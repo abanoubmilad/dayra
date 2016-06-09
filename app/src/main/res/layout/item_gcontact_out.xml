@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/listview_bg"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:id="@+id/root">
 
     <ImageView
         android:id="@+id/img"
@@ -37,28 +37,17 @@
             android:textSize="@dimen/font_larger" />
     </LinearLayout>
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/flag1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_marginRight="20dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/flag1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:background="@color/colorAccent"
-            android:padding="10dp"
-            android:text="@string/flag.exist"
-            android:textColor="@color/white"
-            android:textSize="@dimen/font_normal"
-            android:textStyle="bold" />
-
-        <CheckBox
-            android:id="@+id/flag2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right" />
-    </LinearLayout>
+        android:background="@color/colorAccent"
+        android:padding="10dp"
+        android:text="@string/flag.exist"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_normal"
+        android:textStyle="bold" />
 </LinearLayout>

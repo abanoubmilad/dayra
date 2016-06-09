@@ -34,7 +34,7 @@ public class ContactCheckAdapter extends ArrayAdapter<ContactCheck> {
                     R.layout.item_contact_check, parent, false);
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.flag = (TextView) convertView.findViewById(R.id.flag);
+            holder.root =  convertView.findViewById(R.id.root);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
         } else {
@@ -43,11 +43,12 @@ public class ContactCheckAdapter extends ArrayAdapter<ContactCheck> {
         ContactCheck contact = getItem(position);
 
         holder.name.setText(contact.getName());
-        if (contact.isChecked()) {
-            holder.flag.setBackgroundColor(Utility.update);
-        } else {
-            holder.flag.setBackgroundColor(Color.WHITE);
-        }
+
+
+        if (contact.isChecked())
+            holder.root.setBackgroundColor(Utility.update);
+        else
+            holder.root.setBackgroundColor(Utility.deupdate);
 
 
         if (contact.getPhoto() != null)
@@ -60,7 +61,7 @@ public class ContactCheckAdapter extends ArrayAdapter<ContactCheck> {
 
     private static class ViewHolder {
         TextView name;
-        TextView flag;
+        View root;
         ImageView img;
     }
 }

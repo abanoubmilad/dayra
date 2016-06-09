@@ -1,21 +1,18 @@
 package abanoubm.dayra.adapters;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactMobile;
 
 public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
@@ -41,7 +38,7 @@ public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.mobile = (TextView) convertView.findViewById(R.id.mobile);
             holder.flag1 = (TextView) convertView.findViewById(R.id.flag1);
-            holder.flag2 = (CheckBox) convertView.findViewById(R.id.flag2);
+            holder.root = convertView.findViewById(R.id.root);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
         } else {
@@ -57,7 +54,11 @@ public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
         else
             holder.flag1.setBackgroundColor(white);
 
-        holder.flag2.setChecked(contact.isSelected());
+
+        if (contact.isSelected())
+            holder.root.setBackgroundColor(Utility.update);
+        else
+            holder.root.setBackgroundColor(Utility.deupdate);
 
         if (contact.getPhoto() != null)
             holder.img.setImageBitmap(contact.getPhoto());
@@ -69,7 +70,7 @@ public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
 
     private static class ViewHolder {
         TextView name, flag1, mobile;
-        CheckBox flag2;
+        View root;
         ImageView img;
     }
 }
