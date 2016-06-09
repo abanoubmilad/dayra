@@ -89,9 +89,10 @@ public class Settings extends Activity {
         @Override
         protected Boolean[] doInBackground(Void... params) {
             Boolean[] arr = new Boolean[2];
-            DB db = DB.getInstant(getApplicationContext());
-            arr[0] = db.doesAlarmExist("0");
-            arr[1] = db.doesAlarmExist("1");
+            AlarmDB db = AlarmDB.getInstant(getApplicationContext());
+            String dbname = Utility.getDayraName(getApplicationContext());
+            arr[0] = db.doesAlarmExist("0", dbname);
+            arr[1] = db.doesAlarmExist("1", dbname);
             return arr;
 
 
@@ -121,7 +122,8 @@ public class Settings extends Activity {
 
         @Override
         protected Void doInBackground(Integer... params) {
-            boolean check = DB.getInstant(getApplicationContext()).removeAlarm(params[0] + "");
+            boolean check = AlarmDB.getInstant(getApplicationContext()).
+                    removeAlarm(params[0] + "", Utility.getDayraName(getApplicationContext()));
             if (!check) {
                 if (params[0] == 1)
                     manager.cancel(attendPIntent);
@@ -157,7 +159,8 @@ public class Settings extends Activity {
         @Override
         protected Void doInBackground(Integer... params) {
 
-            boolean check = DB.getInstant(getApplicationContext()).addAlarm(params[0] + "");
+            boolean check = AlarmDB.getInstant(getApplicationContext()).
+                    addAlarm(params[0] + "", Utility.getDayraName(getApplicationContext()));
             if (check) {
                 if (params[0] == 1) {
                     Calendar calendar = Calendar.getInstance();

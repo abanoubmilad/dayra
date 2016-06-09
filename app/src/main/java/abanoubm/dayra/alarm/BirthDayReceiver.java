@@ -10,66 +10,64 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.main.AlarmDB;
 import abanoubm.dayra.main.DB;
+import abanoubm.dayra.main.Utility;
+import abanoubm.dayra.model.ContactDay;
 
 public class BirthDayReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent alarmIntent) {
+        String date = Utility.produceDate(
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "",
+                (Calendar.getInstance().get(Calendar.MONTH) + 1) + "");
 
-        String dbname = context.getSharedPreferences("alarms",
-                Context.MODE_PRIVATE).getString("dbname", "");
-        if (dbname.length() == 0 || !DB.isDBExists(context, dbname))
-            return;
-        DB db = DB.getInstance(context, dbname);
-
-        int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-
-        ArrayList<String> arr;
-        try {
-            arr = db.checkBDay(month, day);
-            if (arr != null && arr.size() != 0) {
-                int start = 100000;
-                if (arr.size() > 10) {
+        ArrayList<String> array = AlarmDB.getInstant(context).getAlarmDayras("2");
+        int start = 7;
+        for (String dayraName : array) {
+            ArrayList<ContactDay> result = DB.getInstant(context, dayraName).searchBirthdays(date);
+            if (result.size() > 5) {
+                NotificationCompat.Builder n = new NotificationCompat.Builder(
+                        context)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle(
+                                dayraName
+                                        + " - "
+                                        + context.getResources().getString(
+                                        R.string.label_noti_bday))
+                        .setContentText(
+                                context.getResources().getString(
+                                        R.string.label_noti_more)
+                                        + " " + result.size())
+                        .setAutoCancel(true);
+                NotificationManager nm = (NotificationManager) context
+                        .getSystemService(Context.NOTIFICATION_SERVICE);
+                nm.notify(start++, n.build());
+            } else {
+                for (ContactDay contactDay : result) {
                     NotificationCompat.Builder n = new NotificationCompat.Builder(
                             context)
+                            .setLargeIcon(contactDay.getPhoto())
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setContentTitle(
-                                    dbname
+                                    dayraName
                                             + " - "
-                                            + context.getResources().getString(
-                                            R.string.label_noti_bday))
-                            .setContentText(
-                                    context.getResources().getString(
-                                            R.string.label_noti_more)
-                                            + " " + arr.size())
-                            .setAutoCancel(true);
+                                            + context
+                                            .getResources()
+                                            .getString(
+                                                    R.string.label_noti_bday))
+                            .setContentText(contactDay.getName()).setAutoCancel(true);
                     NotificationManager nm = (NotificationManager) context
                             .getSystemService(Context.NOTIFICATION_SERVICE);
                     nm.notify(start++, n.build());
-                } else {
-                    for (String str : arr) {
-                        NotificationCompat.Builder n = new NotificationCompat.Builder(
-                                context)
-                                .setSmallIcon(R.mipmap.ic_launcher)
-                                .setContentTitle(
-                                        dbname
-                                                + " - "
-                                                + context
-                                                .getResources()
-                                                .getString(
-                                                        R.string.label_noti_bday))
-                                .setContentText(str).setAutoCancel(true);
-                        NotificationManager nm = (NotificationManager) context
-                                .getSystemService(Context.NOTIFICATION_SERVICE);
-                        nm.notify(start++, n.build());
-                    }
                 }
-            }
-        } catch (Exception e) {
-        }
 
+
+            }
+
+
+        }
     }
 
 }

@@ -67,16 +67,21 @@ public class DB extends SQLiteOpenHelper {
             CONTACT_ADDR = "addr", CONTACT_ST = "st",
             CONTACT_SITE = "site", CONTACT_STUDY_WORK = "swork";
 
-    private static final String TB_ALARM = "alarm_tb",
-            ALARM_DB_NAME = "alarm_db_name",
-            ALARM_TYPE = "alarm_type";
-
     private static DB dbm;
     private SQLiteDatabase readableDB, writableDB;
 
     public static DB getInstant(Context context) {
         String dbName = context.getSharedPreferences("login",
                 Context.MODE_PRIVATE).getString("dbname", "");
+        if (dbm != null && DB_NAME.equals(dbName))
+            return dbm;
+        else {
+            dbm = new DB(context, dbName);
+            return dbm;
+        }
+    }
+
+    public static DB getInstant(Context context, String dbName) {
         if (dbm != null && DB_NAME.equals(dbName))
             return dbm;
         else {
@@ -131,11 +136,8 @@ public class DB extends SQLiteOpenHelper {
                 + ATTEND_DAY + " integer);"
 
                 + "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
-                + PHOTO_BLOB + " blob);"
+                + PHOTO_BLOB + " blob);";
 
-                + "create table " + TB_ALARM + " ( " + ALARM_DB_NAME
-                + " text, " + ALARM_TYPE
-                + " text);";
         db.execSQL(sql);
     }
 
@@ -154,11 +156,7 @@ public class DB extends SQLiteOpenHelper {
                     + ATTEND_DAY + " integer);"
 
                     + "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
-                    + PHOTO_BLOB + " blob);"
-
-                    + "create table " + TB_ALARM + " ( " + ALARM_DB_NAME
-                    + " text, " + ALARM_TYPE
-                    + " text);";
+                    + PHOTO_BLOB + " blob);";
             db.execSQL(sql);
 
 
@@ -1280,7 +1278,7 @@ public class DB extends SQLiteOpenHelper {
 //        }
 //    }
 
-//    public void divideDayra(Context context, String path) {
+    //    public void divideDayra(Context context, String path) {
 //        ArrayList<String> sites = getOptionsList(CONTACT_SITE);
 //
 //        DBDivider minidbm;
@@ -1345,39 +1343,25 @@ public class DB extends SQLiteOpenHelper {
 //
 //        }
 //    }
+    public ArrayList<ContactDay> getContactsAttendanceAbsence(String previousWeekRegex) {
+        String selectQuery = "SELECT " + CONTACT_NAME + "," + PHOTO_BLOB +
+                "MAX(" + ATTEND_DAY + ")" +
+                " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
+                CONTACT_ID + "=" + ATTEND_ID + " WHERE " + ATTEND_DAY + " < ? GROUP BY " + ATTEND_ID + " ORDER BY " + CONTACT_NAME;
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{previousWeekRegex});
+        ArrayList<ContactDay> result = new ArrayList<>(
+                c.getCount());
 
-    // delete alarm and return true if there is still
-    // an alarm enabled for the same type of any other dayra
-    public boolean removeAlarm(String type) {
-        writableDB.delete(TB_ALARM, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ?",
-                new String[]{DB_NAME, type});
+        if (c.moveToFirst()) {
+            do {
+                result.add(new ContactDay(null, c.getString(0), c.getString(1),
+                        Utility.getBitmap(c.getBlob(1))));
+            } while (c.moveToNext());
+        }
+        c.close();
+        return result;
 
-        Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
-                }, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ? AND ",
-                new String[]{DB_NAME, type}, null, null, null);
-        return c.getCount() != 0;
-
-    }
-
-    public boolean doesAlarmExist(String type) {
-        Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
-                }, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ? AND ",
-                new String[]{DB_NAME, type}, null, null, null);
-        return c.getCount() != 0;
-
-    }
-
-    // add alarm and return true if it's the first
-    // alarm enabled for this type
-    public boolean addAlarm(String type) {
-        ContentValues values = new ContentValues();
-        values.put(ALARM_DB_NAME, DB_NAME);
-        values.put(ALARM_TYPE, type);
-        writableDB.insert(TB_ALARM, null, values);
-
-        Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
-                }, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ? AND ",
-                new String[]{DB_NAME, type}, null, null, null);
-        return c.getCount() != 1;
     }
 }
