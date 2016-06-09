@@ -1,7 +1,6 @@
 package abanoubm.dayra.adapters;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +15,10 @@ import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactMobile;
 
 public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
-    private final int white, highlight;
 
     public ContactMobileAdapter(Context context,
                                 ArrayList<ContactMobile> contacts) {
         super(context, 0, contacts);
-        white = ContextCompat.getColor(context, R.color.white);
-        highlight = ContextCompat.getColor(context, R.color.red);
     }
 
     @Override
@@ -48,10 +44,7 @@ public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
         holder.name.setText(contact.getName());
         holder.mobile.setText(contact.getMobile());
 
-        if (contact.isExisted())
-            holder.flag1.setBackgroundColor(highlight);
-        else
-            holder.flag1.setBackgroundColor(white);
+        holder.flag1.setVisibility(contact.isExisted() ? View.VISIBLE : View.INVISIBLE);
 
 
         if (contact.isSelected())
