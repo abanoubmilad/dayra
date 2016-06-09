@@ -165,7 +165,56 @@
     <string name="label.attend.min">اول تاريخ</string>
     <string name="label.attend.count">عدد المرات</string>
 
+    <string-array name="bday_months">
+        <item>يناير</item>
+        <item>فبراير</item>
+        <item>مارس</item>
+        <item>ابريل</item>
+        <item>مايو</item>
+        <item>يونيو</item>
+        <item>يوليو</item>
+        <item>اغسطس</item>
+        <item>سبتمر</item>
+        <item>اكتوبر</item>
+        <item>نوفمبر</item>
+        <item>ديسمبر</item>
 
+    </string-array>
+    <string-array name="bday_days">
+        <item>اى يوم</item>
+        <item>١</item>
+        <item>٢</item>
+        <item>٣</item>
+        <item>٤</item>
+        <item>٥</item>
+        <item>٦</item>
+        <item>٧</item>
+        <item>٨</item>
+        <item>٩</item>
+        <item>١٠</item>
+        <item>١١</item>
+        <item>١٢</item>
+        <item>١٣</item>
+        <item>١٤</item>
+        <item>١٥</item>
+        <item>١٦</item>
+        <item>١٧</item>
+        <item>١٨</item>
+        <item>١٩</item>
+        <item>٢٠</item>
+        <item>٢١</item>
+        <item>٢٢</item>
+        <item>٢٣</item>
+        <item>٢٤</item>
+        <item>٢٥</item>
+        <item>٢٦</item>
+        <item>٢٧</item>
+        <item>٢٨</item>
+        <item>٢٩</item>
+        <item>٣٠</item>
+        <item>٣١</item>
+
+    </string-array>
     <string-array name="attendance_type">
         <item>زيارة</item>
         <item>حضور ١</item>

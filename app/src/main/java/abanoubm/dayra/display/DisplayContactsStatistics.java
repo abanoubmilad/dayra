@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +24,7 @@ import abanoubm.dayra.model.ContactStatistics;
 public class DisplayContactsStatistics extends Activity {
     private ListView lv;
     private int previousPosition = 0;
-    private int dayType = 0;
+    private String dayType = "0";
     private ContactStatisticsAdapter mAdapter;
 
     private class GetAllTask extends
@@ -39,7 +40,7 @@ public class DisplayContactsStatistics extends Activity {
 
         @Override
         protected ArrayList<ContactStatistics> doInBackground(Void... params) {
-            return DB.getInstant(getApplicationContext()).getContactsAttendanceStatistics(dayType + "");
+            return DB.getInstant(getApplicationContext()).getContactsAttendanceStatistics(dayType);
         }
 
         @Override
@@ -64,7 +65,7 @@ public class DisplayContactsStatistics extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_display_search_results);
+        setContentView(R.layout.act_display_contacts_statistics);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_percentage);
 
@@ -79,9 +80,22 @@ public class DisplayContactsStatistics extends Activity {
 
                 ContactStatistics att = mAdapter.getItem(position);
                 Intent intent = new Intent(getApplicationContext(),
-                        DisplayContactDetails.class);
-                intent.putExtra("id", att.getId());
+                        DisplayContactDetails.class).putExtra("id", att.getId());
                 startActivity(intent);
+            }
+        });
+        ((Spinner) findViewById(R.id.spin_day)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                dayType = position + "";
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 

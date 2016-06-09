@@ -11,9 +11,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,8 +25,8 @@ import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactDay;
 
 public class FragmentSearchBirthdays extends Fragment {
-    private EditText month, day;
     private ContactDayAdapter adapter;
+    private String month = "1", day = "0";
 
     private class SearchBDayTask extends
             AsyncTask<String, Void, ArrayList<ContactDay>> {
@@ -86,22 +85,44 @@ public class FragmentSearchBirthdays extends Fragment {
 
             }
         });
-        month = (EditText) root.findViewById(R.id.month);
-        day = (EditText) root.findViewById(R.id.day);
 
         root.findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                String d = day.getText().toString().trim();
-                String m = month.getText().toString().trim();
-                if (d.length() == 0)
-                    new SearchBDayTask().execute(Utility.produceDate(m));
+                if (day.equals("0"))
+                    new SearchBDayTask().execute(Utility.produceDate(month));
                 else
-                    new SearchBDayTask().execute(Utility.produceDate(d, m));
+                    new SearchBDayTask().execute(Utility.produceDate(day, month));
 
             }
 
+        });
+        ((Spinner) root.findViewById(R.id.spin_day)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                day = position + "";
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        ((Spinner) root.findViewById(R.id.spin_month)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                month = (position + 1) + "";
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
         return root;
     }
