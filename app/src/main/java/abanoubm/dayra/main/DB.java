@@ -309,7 +309,7 @@ public class DB extends SQLiteOpenHelper {
 
         values = new ContentValues();
         values.put(PHOTO_BLOB, photo);
-        writableDB.update(TB_PHOTO, values, CONTACT_ID + " = ?",
+        writableDB.update(TB_PHOTO, values, PHOTO_ID + " = ?",
                 new String[]{id});
     }
 

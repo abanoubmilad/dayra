@@ -33,7 +33,6 @@ public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.mobile = (TextView) convertView.findViewById(R.id.mobile);
-            holder.flag1 = (TextView) convertView.findViewById(R.id.flag1);
             holder.root = convertView.findViewById(R.id.root);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
@@ -43,9 +42,6 @@ public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
 
         holder.name.setText(contact.getName());
         holder.mobile.setText(contact.getMobile());
-
-        holder.flag1.setVisibility(contact.isExisted() ? View.VISIBLE : View.INVISIBLE);
-
 
         if (contact.isSelected())
             holder.root.setBackgroundColor(Utility.update);
@@ -61,7 +57,7 @@ public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
     }
 
     private static class ViewHolder {
-        TextView name, flag1, mobile;
+        TextView name, mobile;
         ImageView img;
         View root;
     }

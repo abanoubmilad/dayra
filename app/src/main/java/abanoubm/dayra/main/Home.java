@@ -280,8 +280,8 @@ public class Home extends Activity {
                                     int position, long id) {
                 switch (position) {
                     case 0:
-//                        startActivity(new Intent(getApplicationContext(),
-//                                Settings.class));
+                        startActivity(new Intent(getApplicationContext(),
+                                Settings.class));
                         break;
                     case 1:
                         renameDB();
