@@ -175,6 +175,9 @@ public class CopyPhoneDayra extends Activity {
                 check.setChecked(false);
                 mAdapter.getItem(position).invertSelected();
                 mAdapter.notifyDataSetChanged();
+                Toast.makeText(
+                        getApplicationContext(),"state is "+mAdapter.getItem(position).isSelected(),
+                        Toast.LENGTH_SHORT).show();
 
             }
         });

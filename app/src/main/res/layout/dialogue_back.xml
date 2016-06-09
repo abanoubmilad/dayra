@@ -29,7 +29,7 @@
             android:background="@color/lightgreen"
             android:gravity="center"
             android:padding="5dp"
-            android:text="@string/btn.cancel"
+            android:text="@string/btn.back"
             android:textColor="@color/white"
             android:textSize="@dimen/font_largest" />
 
@@ -42,7 +42,7 @@
             android:background="@color/red"
             android:gravity="center"
             android:padding="5dp"
-            android:text="@string/btn.back"
+            android:text="@string/btn.yes"
             android:textColor="@color/white"
             android:textSize="@dimen/font_largest" />
     </LinearLayout>

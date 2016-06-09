@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
-        android:text="@string/dialogue.cancel"
+        android:text="@string/dialogue.create"
         android:textColor="@color/black"
         android:textSize="@dimen/font_larger" />
 
@@ -21,7 +21,7 @@
         android:layout_gravity="center"
         android:background="@color/white"
         android:gravity="center"
-        android:hint="@string/label.confirm.dayra"
+        android:hint="@string/label.dayra.name"
         android:maxLength="20"
         android:textColorHint="@color/hint">
 

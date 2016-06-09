@@ -154,6 +154,7 @@
     <string name="btn.cancel">عودة</string>
     <string name="btn.reset">مسح التعديلات</string>
     <string name="btn.rename">اعداة التسمية</string>
+    <string name="dialogue.create">اكتب اسم الدايره بامكانك استخدام حروف عربية او انجليزية ارقام او مسافات فقط</string>
     <string name="dialogue.rename">تأكيد اعادة تسمية الدايره الحالية </string>
     <string name="dialogue.cancel">تأكيد عملية التراجع لن يتم حفظ اى تعديل قمت باضافته</string>
     <string name="dialogue.delete">تأكيد مسح الاسم والبيانات الخاصة به</string>

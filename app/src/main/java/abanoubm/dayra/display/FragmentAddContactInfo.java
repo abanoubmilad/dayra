@@ -264,6 +264,7 @@ public class FragmentAddContactInfo extends Fragment {
 
     private class AddTask extends AsyncTask<String, Void, Integer> {
         private ProgressDialog pBar;
+        private String resultId;
 
         @Override
         protected void onPreExecute() {
@@ -274,6 +275,9 @@ public class FragmentAddContactInfo extends Fragment {
 
         @Override
         protected void onPostExecute(Integer msgSource) {
+            if (msgSource == R.string.msg_added)
+                ((CallBack) getActivity()).notify(resultId);
+
             pBar.dismiss();
             Toast.makeText(getActivity(), msgSource,
                     Toast.LENGTH_SHORT).show();
@@ -315,8 +319,7 @@ public class FragmentAddContactInfo extends Fragment {
                 values.put(DB.CONTACT_MAPZOM, 0);
 
                 msgSource = R.string.msg_added;
-                ((CallBack) getActivity()).notify(dbm.addContact(values, Utility.getBytes(photo)));
-
+                resultId = dbm.addContact(values, Utility.getBytes(photo));
             }
             return msgSource;
         }

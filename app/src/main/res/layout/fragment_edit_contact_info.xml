@@ -16,7 +16,8 @@
             android:layout_height="250dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:src="@mipmap/def"/>
 
         <EditText
             android:id="@+id/edit_name"

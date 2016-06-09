@@ -154,6 +154,7 @@
     <string name="btn.cancel">cancel</string>
     <string name="btn.reset">reset</string>
     <string name="btn.rename">rename</string>
+    <string name="dialogue.create">Write dayra's name, You can use English/Arabic alphabet,numbers and spaces only</string>
     <string name="dialogue.rename">confirm renaming the current dayra</string>
     <string name="dialogue.cancel">are you sure you want to cancel ? no modifications will be saved</string>
     <string name="dialogue.delete">are you sure you want to delete contact ?</string>
