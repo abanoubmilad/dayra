@@ -12,7 +12,7 @@
         <include layout="@layout/header" />
 
         <CheckBox
-            android:id="@+id/cb_attend"
+            android:id="@+id/attend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
@@ -22,17 +22,7 @@
             android:textSize="@dimen/font_larger" />
 
         <CheckBox
-            android:id="@+id/cb_visit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/label.alert.last.visit"
-            android:textSize="@dimen/font_larger" />
-
-        <CheckBox
-            android:id="@+id/cb_bday"
+            android:id="@+id/bday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
@@ -41,11 +31,6 @@
             android:text="@string/label.alert.bday"
             android:textSize="@dimen/font_larger" />
 
-
-        <TextView
-            android:id="@+id/save"
-            style="@style/bottom_button"
-            android:text="@string/btn.save" />
     </LinearLayout>
 
 </ScrollView>

@@ -70,9 +70,8 @@
         <activity android:name=".operations.CopyDayraPhone" />
         <activity android:name=".operations.CopyPhoneDayra" />
 
-        <receiver android:name=".alarm.AttendReceiver" />
-        <receiver android:name=".alarm.BDayReceiver" />
-        <receiver android:name=".alarm.VisitReceiver" />
+        <receiver android:name=".alarm.AttendanceReceiver" />
+        <receiver android:name=".alarm.BirthDayReceiver" />
     </application>
 
 </manifest>

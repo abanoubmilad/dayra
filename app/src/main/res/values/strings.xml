@@ -134,7 +134,7 @@
     <string name="label.noti.last.visit">visit absence updates</string>
     <string name="label.noti.bday">today\'s birthdays</string>
     <string name="label.noti.more">contacts number :</string>
-    <string name="label.noti.alarm.set">Alram settings have been saved</string>
+    <string name="label.noti.alarm.set">Alarm settings have been saved</string>
     <string name="label.home.main">main</string>
     <string name="label.home.out">Export/Copy contacts</string>
     <string name="label.home.settings">Options and Settings</string>

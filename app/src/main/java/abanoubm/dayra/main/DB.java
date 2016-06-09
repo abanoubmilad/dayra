@@ -1346,22 +1346,38 @@ public class DB extends SQLiteOpenHelper {
 //        }
 //    }
 
-    // delete alarm and return true if there still an alarm enabled for the same type of any other dayras
-    public boolean removeAlarm(String type, String dbname) {
+    // delete alarm and return true if there is still
+    // an alarm enabled for the same type of any other dayra
+    public boolean removeAlarm(String type) {
         writableDB.delete(TB_ALARM, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ?",
-                new String[]{dbname, type});
+                new String[]{DB_NAME, type});
 
         Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
-                }, ALARM_DB_NAME + " = ? AND " + type + " = ? AND ",
-                new String[]{dbname, type}, null, null, null);
-        return c.moveToFirst();
+                }, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ? AND ",
+                new String[]{DB_NAME, type}, null, null, null);
+        return c.getCount() != 0;
 
     }
 
-    public void addAlarm(String type, String dbname) {
+    public boolean doesAlarmExist(String type) {
+        Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
+                }, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ? AND ",
+                new String[]{DB_NAME, type}, null, null, null);
+        return c.getCount() != 0;
+
+    }
+
+    // add alarm and return true if it's the first
+    // alarm enabled for this type
+    public boolean addAlarm(String type) {
         ContentValues values = new ContentValues();
-        values.put(ALARM_DB_NAME, dbname);
+        values.put(ALARM_DB_NAME, DB_NAME);
         values.put(ALARM_TYPE, type);
         writableDB.insert(TB_ALARM, null, values);
+
+        Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
+                }, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ? AND ",
+                new String[]{DB_NAME, type}, null, null, null);
+        return c.getCount() != 1;
     }
 }
