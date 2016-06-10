@@ -179,8 +179,8 @@ public class FragmentEditContactConnection extends Fragment {
                 Toast.makeText(getActivity(),
                         R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
             } else {
-                lv.setAdapter(new ContactCheckAdapter(
-                        getActivity(), result));
+                mAdapter.clear();
+                mAdapter.addAll(result);
                 if (name.length() == 0) {
                     if (previousPosition < result.size())
                         lv.setSelection(previousPosition);

@@ -31,18 +31,6 @@
         android:spinnerMode="dialog"
         android:textSize="@dimen/font_largest" />
 
-    <TextView
-        style="@style/attendant_labels"
-        android:text="@string/label.last.attendance" />
-
-    <TextView
-        android:id="@+id/dis_last_attend"
-        style="@style/attendant_labels"
-        android:hint="@string/label.last.attendance" />
-
-    <TextView
-        style="@style/attendant_labels"
-        android:text="@string/label.last.visit" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,11 +38,62 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/dis_lvisit"
-            style="@style/attendant_labels"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:hint="@string/label.last.visit" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="@string/label.attend.count"
+            android:textColor="@color/text_pressed"
+            android:textSize="@dimen/font_normal" />
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_pressed"
+            android:textSize="@dimen/font_normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="@string/label.attend.min"
+            android:textColor="@color/text_pressed"
+            android:textSize="@dimen/font_normal" />
+
+        <TextView
+            android:id="@+id/min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_pressed"
+            android:textSize="@dimen/font_normal" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="@string/label.attend.max"
+            android:textColor="@color/text_pressed"
+            android:textSize="@dimen/font_normal" />
+
+        <TextView
+            android:id="@+id/max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_pressed"
+            android:textSize="@dimen/font_normal" />
     </LinearLayout>
 
     <LinearLayout

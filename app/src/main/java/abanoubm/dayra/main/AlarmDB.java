@@ -60,7 +60,7 @@ public class AlarmDB extends SQLiteOpenHelper {
 
     public boolean doesAlarmExist(String type, String dbname) {
         Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
-                }, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ? AND ",
+                }, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ?",
                 new String[]{dbname, type}, null, null, null);
         return c.getCount() != 0;
 

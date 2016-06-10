@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -25,7 +27,33 @@ public class FragmentDisplayContactDay extends Fragment {
     private static final String ARG_ID = "id";
     private ArrayList<String> dates;
     private DB db;
+    private int dayType = 0;
     private String choosenMonth, choosenYear;
+    private TextView max, min, count;
+
+    private class GetContactStatisticsTask extends AsyncTask<Void, Void, ArrayList<String>> {
+        private ProgressDialog pBar;
+
+        @Override
+        protected void onPreExecute() {
+            pBar = new ProgressDialog(getActivity());
+            pBar.setCancelable(false);
+            pBar.show();
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> result) {
+            min.setText(result.get(0));
+            max.setText(result.get(1));
+            count.setText(result.get(3));
+            pBar.dismiss();
+        }
+
+        @Override
+        protected ArrayList<String> doInBackground(Void... params) {
+            return db.getContactAttendanceStatistics(id, dayType + "");
+        }
+    }
 
     private class GetDatesTask extends AsyncTask<Void, Void, ArrayList<String>> {
         private ProgressDialog pBar;
@@ -46,7 +74,7 @@ public class FragmentDisplayContactDay extends Fragment {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            dates = db.getAttendances(id);
+            dates = db.getAttendances(id, dayType + "");
             ArrayList<String> temp = new ArrayList<>(dates.size());
             String last = null, check;
             for (String str : dates) {
@@ -149,6 +177,10 @@ public class FragmentDisplayContactDay extends Fragment {
 
         final ListView monthList, dayList, yearList;
 
+        max = (TextView) root.findViewById(R.id.max);
+        min = (TextView) root.findViewById(R.id.min);
+        count = (TextView) root.findViewById(R.id.count);
+
         dayList = (ListView) root.findViewById(R.id.dayList);
         monthList = (ListView) root.findViewById(R.id.monthList);
         yearList = (ListView) root.findViewById(R.id.yearList);
@@ -181,14 +213,29 @@ public class FragmentDisplayContactDay extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                choosenMonth = (String) mAdpterMonths.getItem(position);
                 mAdpterDays.clear();
+                choosenMonth = (String) mAdpterMonths.getItem(position);
                 new GetDaysTask().execute();
             }
         });
 
-        new GetDatesTask().execute();
+        ((Spinner) root.findViewById(R.id.spin)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                dayType = position;
+                new GetContactStatisticsTask().execute();
+                new GetDatesTask().execute();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        new GetContactStatisticsTask().execute();
+        new GetDatesTask().execute();
         return root;
 
     }

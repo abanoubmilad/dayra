@@ -239,6 +239,7 @@
         <TextView
             android:id="@+id/dis_address"
             style="@style/attendant_labels"
+            android:layout_marginBottom="30dp"
             android:hint="@string/label.address" />
 
 

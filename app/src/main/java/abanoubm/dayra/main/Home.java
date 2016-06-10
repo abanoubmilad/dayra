@@ -39,7 +39,7 @@ import abanoubm.dayra.display.DisplayContactsStatistics;
 import abanoubm.dayra.operations.CopyDayraPhone;
 import abanoubm.dayra.operations.CopyPhoneDayra;
 import abanoubm.dayra.operations.DivideDayra;
-import abanoubm.dayra.operations.ExportContacts;
+import abanoubm.dayra.operations.ExportContactsPDF;
 import abanoubm.dayra.operations.RegisterAttendance;
 import abanoubm.dayra.operations.ReplaceDayra;
 import abanoubm.dayra.operations.Search;
@@ -247,7 +247,7 @@ public class Home extends Activity {
                         break;
                     case 4:
                         startActivity(new Intent(getApplicationContext(),
-                                ExportContacts.class));
+                                ExportContactsPDF.class));
                         break;
                     case 5:
                         new ExportTask().execute();

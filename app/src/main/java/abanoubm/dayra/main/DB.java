@@ -543,9 +543,10 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<ContactLoc> getAttendantsLoc() {
+    public ArrayList<ContactLoc> getContactsLocations() {
         Cursor c = readableDB.query(TB_CONTACT, new String[]{CONTACT_NAME, CONTACT_MAPLAT,
-                CONTACT_MAPLNG}, null, null, null, null, null);
+                        CONTACT_MAPLNG},
+                CONTACT_MAPLAT + "!=0 OR " + CONTACT_MAPLNG + "!=0", null, null, null, null);
         ArrayList<ContactLoc> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {
@@ -606,8 +607,6 @@ public class DB extends SQLiteOpenHelper {
                                      ArrayList<String> dataHeader, String path) {
 
         String selectQuery = "SELECT * FROM " + TB_CONTACT +
-                " LEFT OUTER JOIN " + TB_PHOTO +
-                " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " ORDER BY " + CONTACT_NAME;
 
         Cursor c = readableDB.rawQuery(selectQuery, null);
@@ -623,10 +622,10 @@ public class DB extends SQLiteOpenHelper {
             document.add(new Paragraph(new SimpleDateFormat(
                     "yyyy-MM-dd  hh:mm a", Locale.getDefault())
                     .format(new Date()), font));
-            document.add(new Paragraph("made with love by dayra ©"
+            document.add(new Paragraph("made with love by dayra 3.2 ©"
                     + new SimpleDateFormat("yyyy", Locale.getDefault())
                     .format(new Date())
-                    + " Contact@ Abanoub Milad Hanna abanoubcs@gmail.com   www.facebook.com/dayraapp", font));
+                    + " Contact @ Abanoub Milad Hanna abanoubcs@gmail.com   www.facebook.com/dayraapp", font));
             document.add(new Paragraph(" "));
 
             font.setSize(14);
@@ -667,7 +666,7 @@ public class DB extends SQLiteOpenHelper {
             c.close();
             document.add(table);
             document.add(new Paragraph(" "));
-            document.add(new Paragraph("dayra ©"
+            document.add(new Paragraph("dayra 3.2 ©"
                     + new SimpleDateFormat("yyyy", Locale.getDefault())
                     .format(new Date()), font));
             document.close();
@@ -1028,11 +1027,11 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList<String> getAttendances(String id) {
+    public ArrayList<String> getAttendances(String id, String type) {
         String selectQuery = "SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
-                " WHERE " + ATTEND_ID + " = ? ORDER BY " + ATTEND_ID + " DESC";
+                " WHERE " + ATTEND_ID + " = ? AND " + ATTEND_TYPE + " = ? ORDER BY " + ATTEND_ID + " DESC";
 
-        Cursor c = readableDB.rawQuery(selectQuery, new String[]{id});
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{id, type});
         ArrayList<String> result = new ArrayList<>(
                 c.getCount());
         if (c.moveToFirst()) {
@@ -1139,6 +1138,30 @@ public class DB extends SQLiteOpenHelper {
                 result.add(new ContactStatistics(c.getString(0), c
                         .getString(1), Utility.getBitmap(c.getBlob(2)), c.getString(3), c.getString(4), c.getInt(5)));
             } while (c.moveToNext());
+        }
+        c.close();
+        return result;
+
+    }
+
+    public ArrayList<String> getContactAttendanceStatistics(String id, String type) {
+        String selectQuery = "SELECT MIN(" + ATTEND_DAY + "), " +
+                "MAX(" + ATTEND_DAY + "), " + "COUNT(" + ATTEND_DAY + ")" +
+                " FROM " + TB_CONTACT +
+                " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
+                CONTACT_ID + "=" + ATTEND_ID +
+                " AND " + CONTACT_ID + " = ? " +
+                " AND " + ATTEND_TYPE + " = ? GROUP BY " + ATTEND_ID;
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{id, type});
+        ArrayList<String> result = new ArrayList<>(
+                c.getCount());
+
+        if (c.moveToFirst()) {
+
+            result.add(c.getString(0));
+            result.add(c.getString(1));
+            result.add(c.getString(2));
+
         }
         c.close();
         return result;

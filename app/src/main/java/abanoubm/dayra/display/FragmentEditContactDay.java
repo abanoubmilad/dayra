@@ -3,6 +3,7 @@ package abanoubm.dayra.display;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -194,6 +195,18 @@ public class FragmentEditContactDay extends Fragment {
 
         new GetUpdateTask()
                 .execute();
+
+        root.findViewById(R.id.backImage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),
+                        DisplayContactDetails.class).putExtra(ARG_ID,
+                        id));
+            }
+        });
+        root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
+        root.findViewById(R.id.resetImage).setVisibility(View.GONE);
+        root.findViewById(R.id.saveImage).setVisibility(View.GONE);
 
         return root;
     }

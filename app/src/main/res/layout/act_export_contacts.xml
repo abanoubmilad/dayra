@@ -36,14 +36,6 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="@string/label.name" />
-
-            <CheckBox
-                android:id="@+id/photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/label.photo" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

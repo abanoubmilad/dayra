@@ -18,7 +18,7 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 
-public class ExportContacts extends Activity {
+public class ExportContactsPDF extends Activity {
 
     private ArrayList<String> dataHeader;
     private ArrayList<String> dataTag;
@@ -28,7 +28,7 @@ public class ExportContacts extends Activity {
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(ExportContacts.this);
+            pBar = new ProgressDialog(ExportContactsPDF.this);
             pBar.setCancelable(false);
             pBar.setMessage(getResources().getString(R.string.label_loading));
             pBar.show();
@@ -75,7 +75,7 @@ public class ExportContacts extends Activity {
 
 
         final TextView exportBtn;
-        final CheckBox numbering, name, photo, mobile1, mobile2, mobile3,
+        final CheckBox numbering, name, mobile1, mobile2, mobile3,
                 lphone, addr, bday, notes,
                 email, study_work, class_year, site,
                 street, supervisor;
@@ -91,7 +91,6 @@ public class ExportContacts extends Activity {
         lphone = (CheckBox) findViewById(R.id.lphone);
         addr = (CheckBox) findViewById(R.id.addr);
         bday = (CheckBox) findViewById(R.id.bday);
-        photo = (CheckBox) findViewById(R.id.photo);
         notes = (CheckBox) findViewById(R.id.notes);
         email = (CheckBox) findViewById(R.id.email);
         study_work = (CheckBox) findViewById(R.id.study_work);
@@ -114,10 +113,6 @@ public class ExportContacts extends Activity {
                 if (name.isChecked()) {
                     dataTag.add(DB.CONTACT_NAME);
                     dataHeader.add(temp.getString(R.string.label_name));
-                }
-                if (photo.isChecked()) {
-                    dataTag.add(DB.PHOTO_BLOB);
-                    dataHeader.add(temp.getString(R.string.label_photo));
                 }
                 if (mobile1.isChecked()) {
                     dataTag.add(DB.CONTACT_MOB1);
