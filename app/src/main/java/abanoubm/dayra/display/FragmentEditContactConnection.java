@@ -95,9 +95,9 @@ public class FragmentEditContactConnection extends Fragment {
                         id));
             }
         });
-        root.findViewById(R.id.deleteImage).setVisibility(View.INVISIBLE);
-        root.findViewById(R.id.resetImage).setVisibility(View.INVISIBLE);
-        root.findViewById(R.id.saveImage).setVisibility(View.INVISIBLE);
+        root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
+        root.findViewById(R.id.resetImage).setVisibility(View.GONE);
+        root.findViewById(R.id.saveImage).setVisibility(View.GONE);
 
         return root;
     }

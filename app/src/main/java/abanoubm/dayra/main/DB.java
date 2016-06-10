@@ -1012,6 +1012,22 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
+    public boolean isContactDayAttendance(String id, String day, String type) {
+        String selectQuery = "SELECT " + ATTEND_DAY +
+                " FROM " + TB_CONTACT + " INNER JOIN " +
+                TB_ATTEND + " ON " +
+                CONTACT_ID + "=" + ATTEND_ID +
+                " AND " + CONTACT_ID + " = ? " +
+                " AND " + ATTEND_TYPE + " = ?  AND " + ATTEND_DAY + " = ?";
+
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{id, type, day});
+        boolean result = false;
+        if (c.moveToFirst())
+            result = true;
+        c.close();
+        return result;
+    }
+
     public ArrayList<String> getAttendances(String id) {
         String selectQuery = "SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
                 " WHERE " + ATTEND_ID + " = ? ORDER BY " + ATTEND_ID + " DESC";

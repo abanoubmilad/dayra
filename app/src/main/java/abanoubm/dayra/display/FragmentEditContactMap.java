@@ -30,6 +30,8 @@ import abanoubm.dayra.main.DB;
 public class FragmentEditContactMap extends Fragment implements OnMapReadyCallback {
     private double lon, lat;
     private float zoom;
+    private double lonTemp, latTemp;
+    private float zoomTemp;
     private Marker addressMarker, dayraMarker;
     private static final String ARG_LAT = "lat";
     private static final String ARG_LNG = "lon";
@@ -41,9 +43,9 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            lon = getArguments().getDouble(ARG_LNG, 0);
-            lat = getArguments().getDouble(ARG_LAT, 0);
-            zoom = getArguments().getFloat(ARG_ZOM, 0);
+            lonTemp = lon = getArguments().getDouble(ARG_LNG, 0);
+            latTemp = lat = getArguments().getDouble(ARG_LAT, 0);
+            zoomTemp = zoom = getArguments().getFloat(ARG_ZOM, 0);
             id = getArguments().getString(ARG_ID);
         }
     }
@@ -65,18 +67,19 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
                         id));
             }
         });
-        root.findViewById(R.id.deleteImage).setVisibility(View.INVISIBLE);
+        root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
         root.findViewById(R.id.resetImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                latTemp = lat;
+                lonTemp = lon;
+                zoomTemp = zoom;
             }
         });
         root.findViewById(R.id.saveImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new UpdateTask().execute();
-
             }
         });
 
@@ -87,7 +90,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
     @Override
     public void onMapReady(final GoogleMap map) {
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(lat, lon), zoom));
+                new LatLng(latTemp, lonTemp), zoomTemp));
         map.setMyLocationEnabled(true);
 
         Location myLocation = map.getMyLocation();
@@ -121,7 +124,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
 
 
         addressMarker = map.addMarker(new MarkerOptions()
-                .position(new LatLng(lat, lon))
+                .position(new LatLng(latTemp, lonTemp))
                 .title("current location, tap or drag me to reposition")
                 .draggable(true));
 
@@ -140,9 +143,9 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
 
             @Override
             public void onMarkerDrag(Marker marker) {
-                lat = marker.getPosition().latitude;
-                lon = marker.getPosition().longitude;
-                zoom = map.getCameraPosition().zoom;
+                latTemp = marker.getPosition().latitude;
+                lonTemp = marker.getPosition().longitude;
+                zoomTemp = map.getCameraPosition().zoom;
             }
         });
         map.setOnMapClickListener(new OnMapClickListener() {
@@ -160,9 +163,9 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
                                 .draggable(true));
                 addressMarker.showInfoWindow();
 
-                lat = point.latitude;
-                lon = point.longitude;
-                zoom = map.getCameraPosition().zoom;
+                latTemp = point.latitude;
+                lonTemp = point.longitude;
+                zoomTemp = map.getCameraPosition().zoom;
             }
         });
 
@@ -194,9 +197,9 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
         protected Void doInBackground(Void... params) {
             DB dbm = DB.getInstant(getActivity());
             ContentValues values = new ContentValues();
-            values.put(DB.CONTACT_MAPLAT, lat);
-            values.put(DB.CONTACT_MAPLNG, lon);
-            values.put(DB.CONTACT_MAPZOM, zoom);
+            values.put(DB.CONTACT_MAPLAT, latTemp);
+            values.put(DB.CONTACT_MAPLNG, lonTemp);
+            values.put(DB.CONTACT_MAPZOM, zoomTemp);
             dbm.updateContact(values, id);
             return null;
         }

@@ -2,33 +2,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical">
+
+        <include layout="@layout/header" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select.attendance.type"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_normal" />
+
+            <Spinner
+                android:id="@+id/spin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/attendance_type"
+                android:prompt="@string/select.attendance.type"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/spin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/lightergrey"
-                android:entries="@array/attendance_type"
-                android:prompt="@string/select.attendance.type"
-                android:spinnerMode="dialog" />
 
             <EditText
                 android:id="@+id/edit_date"
                 style="@style/attendant_labels"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:focusable="false"
-                android:hint="@string/label.day" />
+                android:focusable="false" />
 
             <ImageView
                 android:id="@+id/pick_date"
@@ -39,11 +55,42 @@
                 android:src="@mipmap/ic_date" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/def" />
+
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_larger" />
+
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/sname_btn"
-            style="@style/bottom_button" />
+            style="@style/bottom_button"
+            android:text="@string/btn.add"
+            android:visibility="gone" />
 
     </LinearLayout>
+
 
     <include layout="@layout/edit_menu" />
 

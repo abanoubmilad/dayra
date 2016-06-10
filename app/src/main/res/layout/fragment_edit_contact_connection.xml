@@ -8,15 +8,6 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/subhead2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/lightgreen"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/font_larger" />
-
         <EditText
             android:id="@+id/input"
             android:layout_width="match_parent"

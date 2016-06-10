@@ -137,7 +137,6 @@ public class FragmentDisplayContactDetails extends Fragment {
                     buttons[current].setBackgroundColor(0);
                     current = 4;
                     buttons[4].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-                    getActivity().finish();
                     startActivity(new Intent(getActivity(), EditContactDetails.class).putExtra(ARG_ID, id));
                 }
 
