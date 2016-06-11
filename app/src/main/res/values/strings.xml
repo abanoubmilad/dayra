@@ -163,7 +163,7 @@
     <string name="label.attend.min">first date</string>
     <string name="label.attend.count">times</string>
 
-    <string-array name="bday_months">
+    <string-array name="months">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -177,7 +177,7 @@
         <item>11</item>
         <item>12</item>
     </string-array>
-    <string-array name="bday_days">
+    <string-array name="days">
         <item>any day</item>
         <item>1</item>
         <item>2</item>
@@ -274,8 +274,9 @@
         <item>Send SMS</item>
         <item>Copy contacts from phone to dayra</item>
         <item>Copy contacts from dayra to phone</item>
-        <item>Export report pdf</item>
-        <item>Export contacts pdf</item>
+        <item>Create Attendance report</item>
+        <item>Create Information report</item>
+        <item>Create Information table</item>
         <item>Export dayra file</item>
         <item>Export dayra xls</item>
     </string-array>
@@ -341,6 +342,7 @@
         <item>@mipmap/ic_mess</item>
         <item>@mipmap/ic_import</item>
         <item>@mipmap/ic_copy</item>
+        <item>@mipmap/ic_pdf</item>
         <item>@mipmap/ic_pdf</item>
         <item>@mipmap/ic_pdf</item>
         <item>@mipmap/ic_file</item>

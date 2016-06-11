@@ -1,0 +1,42 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/spin_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/days"
+            android:prompt="@string/select.attendance.type"
+            android:spinnerMode="dialog"
+            android:textSize="@dimen/font_largest" />
+
+        <Spinner
+            android:id="@+id/spin_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/months"
+            android:prompt="@string/select.attendance.type"
+            android:spinnerMode="dialog"
+            android:textSize="@dimen/font_largest" />
+        <Spinner
+            android:id="@+id/spin_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/days"
+            android:prompt="@string/select.attendance.type"
+            android:spinnerMode="dialog"
+            android:textSize="@dimen/font_largest" />
+
+        <TextView
+            android:id="@+id/btn"
+            style="@style/bottom_button"
+            android:text="@string/btn.create" />
+    </LinearLayout>
+</ScrollView>

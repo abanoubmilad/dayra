@@ -917,9 +917,11 @@ public class DB extends SQLiteOpenHelper {
                     for (int i = 0; i < colCount - 1; i++)
                         sheet.addCell(new Label(i, rowCounter, c
                                 .getString(colIndex[i])));
-                    sheet.addImage(new WritableImage(colCount - 1, rowCounter, 1,
-                            1, c
-                            .getBlob(colIndex[colCount - 1])));
+                    byte[] photo = c
+                            .getBlob(colIndex[colCount - 1]);
+                    if (photo != null)
+                        sheet.addImage(new WritableImage(colCount - 1, rowCounter, 1,
+                                1, photo));
                     rowCounter++;
                 } while (c.moveToNext());
 
@@ -929,7 +931,6 @@ public class DB extends SQLiteOpenHelper {
             workbook.close();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
 
         }

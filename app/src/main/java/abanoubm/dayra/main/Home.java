@@ -39,8 +39,9 @@ import abanoubm.dayra.display.DisplayContactsMap;
 import abanoubm.dayra.display.DisplayContactsStatistics;
 import abanoubm.dayra.operations.CopyDayraPhone;
 import abanoubm.dayra.operations.CopyPhoneDayra;
+import abanoubm.dayra.operations.CreateAttendanceReport;
+import abanoubm.dayra.operations.CreateInformationTable;
 import abanoubm.dayra.operations.DivideDayra;
-import abanoubm.dayra.operations.ExportContactsPDF;
 import abanoubm.dayra.operations.RegisterAttendance;
 import abanoubm.dayra.operations.ReplaceDayra;
 import abanoubm.dayra.operations.Search;
@@ -244,16 +245,20 @@ public class Home extends Activity {
                                 CopyDayraPhone.class));
                         break;
                     case 3:
-                        new ExportReportTask().execute();
+                        startActivity(new Intent(getApplicationContext(),
+                                CreateAttendanceReport.class));
                         break;
                     case 4:
-                        startActivity(new Intent(getApplicationContext(),
-                                ExportContactsPDF.class));
+                        new CreateInformationReportTask().execute();
                         break;
                     case 5:
-                        new ExportTask().execute();
+                        startActivity(new Intent(getApplicationContext(),
+                                CreateInformationTable.class));
                         break;
                     case 6:
+                        new ExportTask().execute();
+                        break;
+                    case 7:
                         new ExportDayraExcelTask().execute();
                         break;
                 }
@@ -401,7 +406,7 @@ public class Home extends Activity {
         });
     }
 
-    private class ExportReportTask extends AsyncTask<Void, Void, Boolean> {
+    private class CreateInformationReportTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected void onPreExecute() {
             pBar = new ProgressDialog(Home.this);
@@ -414,9 +419,9 @@ public class Home extends Activity {
         @Override
         protected Boolean doInBackground(Void... params) {
             String path = Utility.getDayraFolder() +
-                    "/dayra_report_" +
-                    Utility.getDayraName(getApplicationContext()) +
-                    new SimpleDateFormat("_yyyy-MM-dd_hh:mm:ss a", Locale.getDefault())
+                    "/" + Utility.getDayraName(getApplicationContext()) +
+                    "_dayra_information_report_" +
+                    new SimpleDateFormat("yyyy-MM-dd_hh:mm:ss a", Locale.getDefault())
                             .format(new Date()) + ".pdf";
             if (android.os.Build.VERSION.SDK_INT >= 8) {
                 MediaScannerConnection.scanFile(getApplicationContext(),

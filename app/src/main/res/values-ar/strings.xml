@@ -276,8 +276,9 @@
         <item>ارسال SMS</item>
         <item>نسخ اسماء من الموبايل الى الدايره</item>
         <item>نسخ اسماء من الدايره الى الموبايل</item>
-        <item>تصدير تقرير pdf</item>
-        <item>تصدير بيانات pdf</item>
+        <item>استخراج تقرير حضور</item>
+        <item>استخراج تقرير بيانات</item>
+        <item>استخراج جدول بيانات</item>
         <item>تصدير دايره file</item>
         <item>تصدير دايره xls</item>
     </string-array>

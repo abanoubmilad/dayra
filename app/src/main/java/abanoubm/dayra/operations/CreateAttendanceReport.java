@@ -21,7 +21,7 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 
-public class ExportContactsPDF extends Activity {
+public class CreateAttendanceReport extends Activity {
 
     private ArrayList<String> dataHeader;
     private ArrayList<String> dataTag;
@@ -31,7 +31,7 @@ public class ExportContactsPDF extends Activity {
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(ExportContactsPDF.this);
+            pBar = new ProgressDialog(CreateAttendanceReport.this);
             pBar.setCancelable(false);
             pBar.setMessage(getResources().getString(R.string.label_loading));
             pBar.show();
@@ -41,9 +41,9 @@ public class ExportContactsPDF extends Activity {
         protected Boolean doInBackground(Void... params) {
 
             String path = Utility.getDayraFolder() +
-                    "/dayra_data_" +
-                    Utility.getDayraName(getApplicationContext()) +
-                    new SimpleDateFormat("_yyyy-MM-dd_hh:mm:ss a", Locale.getDefault())
+                    "/" + Utility.getDayraName(getApplicationContext()) +
+                    "_dayra_attendance_report_" +
+                    new SimpleDateFormat("yyyy-MM-dd_hh:mm:ss a", Locale.getDefault())
                             .format(new Date()) + ".pdf";
             if (android.os.Build.VERSION.SDK_INT >= 8) {
 
@@ -73,7 +73,7 @@ public class ExportContactsPDF extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_export_contacts);
+        setContentView(R.layout.act_attendance_report);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2))
                 .setText(R.string.subhead_export_pdf);

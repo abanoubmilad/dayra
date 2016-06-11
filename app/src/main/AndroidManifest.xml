@@ -55,7 +55,8 @@
             android:name=".display.DisplayContactDetails"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".operations.Search" />
-        <activity android:name=".operations.ExportContactsPDF" />
+        <activity android:name=".operations.CreateInformationTable" />
+        <activity android:name=".operations.CreateAttendanceReport" />
         <activity android:name=".display.EditContactDetails" />
         <activity android:name=".display.AddContactDetails" />
         <activity android:name=".operations.RegisterAttendance">
