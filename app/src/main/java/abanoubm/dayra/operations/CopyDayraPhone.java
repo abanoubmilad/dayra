@@ -52,12 +52,13 @@ public class CopyDayraPhone extends Activity {
         @Override
         protected Void doInBackground(Boolean... params) {
             int count = mAdapter.getCount();
-            ContactMobile temp;
-            for (int i = 0; i < count; i++) {
-                temp = mAdapter.getItem(i);
-                if (!temp.isExisted())
-                    temp.setSelected(params[0]);
-            }
+       //     ContactMobile temp;
+            for (int i = 0; i < count; i++)
+             //   temp =
+                        mAdapter.getItem(i).setSelected(params[0]);
+             //   if (!temp.isExisted())
+                  //  temp.
+
             return null;
         }
 

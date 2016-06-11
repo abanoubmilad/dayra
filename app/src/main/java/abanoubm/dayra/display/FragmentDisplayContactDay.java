@@ -45,7 +45,7 @@ public class FragmentDisplayContactDay extends Fragment {
         protected void onPostExecute(ArrayList<String> result) {
             min.setText(result.get(0));
             max.setText(result.get(1));
-            count.setText(result.get(3));
+            count.setText(result.get(2));
             pBar.dismiss();
         }
 
@@ -63,12 +63,17 @@ public class FragmentDisplayContactDay extends Fragment {
             pBar = new ProgressDialog(getActivity());
             pBar.setCancelable(false);
             pBar.show();
+
+            mAdpterDays.clear();
+            mAdpterMonths.clear();
+            mAdpterYears.clear();
+
         }
 
         @Override
         protected void onPostExecute(ArrayList<String> result) {
-            pBar.dismiss();
             mAdpterYears.addAll(result);
+            pBar.dismiss();
 
         }
 
@@ -175,7 +180,7 @@ public class FragmentDisplayContactDay extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_display_contact_day, container, false);
 
-        final ListView monthList, dayList, yearList;
+        ListView monthList, dayList, yearList;
 
         max = (TextView) root.findViewById(R.id.max);
         min = (TextView) root.findViewById(R.id.min);

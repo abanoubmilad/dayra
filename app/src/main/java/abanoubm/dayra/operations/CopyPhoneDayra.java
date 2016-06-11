@@ -47,12 +47,14 @@ public class CopyPhoneDayra extends Activity {
         @Override
         protected Void doInBackground(Boolean... params) {
             int count = mAdapter.getCount();
-            GoogleContact temp;
-            for (int i = 0; i < count; i++) {
-                temp = mAdapter.getItem(i);
-                if (!temp.isExisted())
-                    temp.setSelected(params[0]);
-            }
+          //  GoogleContact temp;
+            for (int i = 0; i < count; i++)
+            //{
+             //   temp =
+                        mAdapter.getItem(i).setSelected(params[0]);
+           //     if (!temp.isExisted())
+             //       temp
+      //      }
             return null;
         }
 

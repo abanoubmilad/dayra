@@ -90,6 +90,8 @@ public class FragmentEditContactConnection extends Fragment {
         root.findViewById(R.id.backImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getActivity().finish();
+
                 startActivity(new Intent(getActivity(),
                         DisplayContactDetails.class).putExtra(ARG_ID,
                         id));

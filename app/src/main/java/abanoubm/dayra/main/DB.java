@@ -1029,7 +1029,7 @@ public class DB extends SQLiteOpenHelper {
 
     public ArrayList<String> getAttendances(String id, String type) {
         String selectQuery = "SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
-                " WHERE " + ATTEND_ID + " = ? AND " + ATTEND_TYPE + " = ? ORDER BY " + ATTEND_ID + " DESC";
+                " WHERE " + ATTEND_ID + " = ? AND " + ATTEND_TYPE + " = ? ORDER BY " + ATTEND_DAY + " DESC";
 
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{id, type});
         ArrayList<String> result = new ArrayList<>(
@@ -1128,7 +1128,7 @@ public class DB extends SQLiteOpenHelper {
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
-                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_TYPE + " = ? GROUP BY " + ATTEND_ID + " ORDER BY " + CONTACT_NAME;
+                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_TYPE + " = ? GROUP BY " + CONTACT_ID + " ORDER BY " + CONTACT_NAME;
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{type});
         ArrayList<ContactStatistics> result = new ArrayList<>(
                 c.getCount());
@@ -1147,11 +1147,9 @@ public class DB extends SQLiteOpenHelper {
     public ArrayList<String> getContactAttendanceStatistics(String id, String type) {
         String selectQuery = "SELECT MIN(" + ATTEND_DAY + "), " +
                 "MAX(" + ATTEND_DAY + "), " + "COUNT(" + ATTEND_DAY + ")" +
-                " FROM " + TB_CONTACT +
-                " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
-                CONTACT_ID + "=" + ATTEND_ID +
-                " AND " + CONTACT_ID + " = ? " +
-                " AND " + ATTEND_TYPE + " = ? GROUP BY " + ATTEND_ID;
+                " FROM " + TB_ATTEND + " WHERE " +
+                ATTEND_ID + " = ? " +
+                " AND " + ATTEND_TYPE + " = ? ";
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{id, type});
         ArrayList<String> result = new ArrayList<>(
                 c.getCount());
