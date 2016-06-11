@@ -43,7 +43,7 @@ public class ExportContactsPDF extends Activity {
             String path = Utility.getDayraFolder() +
                     "/dayra_data_" +
                     Utility.getDayraName(getApplicationContext()) +
-                    new SimpleDateFormat("_yyyy-MM-dd_hh-mm-ss a", Locale.getDefault())
+                    new SimpleDateFormat("_yyyy-MM-dd_hh:mm:ss a", Locale.getDefault())
                             .format(new Date()) + ".pdf";
             if (android.os.Build.VERSION.SDK_INT >= 8) {
 

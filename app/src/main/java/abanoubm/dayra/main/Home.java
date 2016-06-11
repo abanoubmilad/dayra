@@ -5,12 +5,10 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -418,7 +416,7 @@ public class Home extends Activity {
             String path = Utility.getDayraFolder() +
                     "/dayra_report_" +
                     Utility.getDayraName(getApplicationContext()) +
-                    new SimpleDateFormat("_yyyy-MM-dd_hh-mm-ss a", Locale.getDefault())
+                    new SimpleDateFormat("_yyyy-MM-dd_hh:mm:ss a", Locale.getDefault())
                             .format(new Date()) + ".pdf";
             if (android.os.Build.VERSION.SDK_INT >= 8) {
                 MediaScannerConnection.scanFile(getApplicationContext(),
@@ -505,23 +503,9 @@ public class Home extends Activity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            String path;
-            if (android.os.Environment.getExternalStorageState().equals(
-                    android.os.Environment.MEDIA_MOUNTED)) {
-                path = Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() + "/";
-            } else {
-                path = android.os.Environment.getDataDirectory()
-                        .getAbsolutePath() + "/";
-            }
-            path += "dayra folder";
-            new File(path).mkdirs();
-            path += "/";
+            String path = Utility.getDayraFolder() +
+                    "/" + Utility.getDayraName(getApplicationContext());
 
-            SharedPreferences sharedPref = getSharedPreferences("login",
-                    Context.MODE_PRIVATE);
-            DB dbm = DB.getInstant(getApplicationContext());
-            path += sharedPref.getString("dbname", "dayra db");
             if (android.os.Build.VERSION.SDK_INT >= 8) {
 
                 MediaScannerConnection.scanFile(getApplicationContext(),
@@ -530,7 +514,7 @@ public class Home extends Activity {
 
             try {
                 FileInputStream inStream = new FileInputStream(
-                        dbm.getDBFile(getApplicationContext()));
+                        DB.getInstant(getApplicationContext()).getDBFile(getApplicationContext()));
                 FileOutputStream outStream = new FileOutputStream(
                         new File(path));
                 FileChannel inChannel = inStream.getChannel();
@@ -573,21 +557,8 @@ public class Home extends Activity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            String path;
-            if (android.os.Environment.getExternalStorageState().equals(
-                    android.os.Environment.MEDIA_MOUNTED)) {
-                path = Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() + "/";
-            } else {
-                path = android.os.Environment.getDataDirectory()
-                        .getAbsolutePath() + "/";
-            }
-            path += "dayra folder";
-            new File(path).mkdirs();
-
-            path += "/"
-                    + getSharedPreferences("login", Context.MODE_PRIVATE)
-                    .getString("dbname", "dayra data") + ".xls";
+            String path = Utility.getDayraFolder() +
+                    "/" + Utility.getDayraName(getApplicationContext()) + ".xls";
             if (android.os.Build.VERSION.SDK_INT >= 8) {
 
                 MediaScannerConnection.scanFile(getApplicationContext(),

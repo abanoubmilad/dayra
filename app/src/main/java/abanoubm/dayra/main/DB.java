@@ -620,12 +620,13 @@ public class DB extends SQLiteOpenHelper {
             document.add(new Paragraph(" "));
             document.add(new Paragraph("dayra - " + DB_NAME, font));
             document.add(new Paragraph(new SimpleDateFormat(
-                    "yyyy-MM-dd  hh:mm a", Locale.getDefault())
+                    "yyyy-MM-dd  hh:mm:ss a", Locale.getDefault())
                     .format(new Date()), font));
-            document.add(new Paragraph("made with love by dayra 3.2 ©"
+            document.add(new Paragraph("made with love by dayra ©"
                     + new SimpleDateFormat("yyyy", Locale.getDefault())
-                    .format(new Date())
-                    + " Contact @ Abanoub Milad Hanna abanoubcs@gmail.com   www.facebook.com/dayraapp", font));
+                    .format(new Date()), font));
+            document.add(new Paragraph("Contact @ Abanoub Milad Hanna abanoubcs@gmail.com", font));
+            document.add(new Paragraph("Follow @ www.facebook.com/dayraapp", font));
             document.add(new Paragraph(" "));
 
             font.setSize(14);
@@ -665,10 +666,6 @@ public class DB extends SQLiteOpenHelper {
             }
             c.close();
             document.add(table);
-            document.add(new Paragraph(" "));
-            document.add(new Paragraph("dayra 3.2 ©"
-                    + new SimpleDateFormat("yyyy", Locale.getDefault())
-                    .format(new Date()), font));
             document.close();
             return true;
         } catch (Exception e) {
@@ -694,12 +691,13 @@ public class DB extends SQLiteOpenHelper {
             document.add(new Paragraph(" "));
             document.add(new Paragraph("dayra - " + DB_NAME, font));
             document.add(new Paragraph(new SimpleDateFormat(
-                    "yyyy-MM-dd  hh:mm a", Locale.getDefault())
+                    "yyyy-MM-dd  hh:mm:ss a", Locale.getDefault())
                     .format(new Date()), font));
             document.add(new Paragraph("made with love by dayra ©"
                     + new SimpleDateFormat("yyyy", Locale.getDefault())
-                    .format(new Date())
-                    + " Contact@ Abanoub Milad Hanna abanoubcs@gmail.com   www.facebook.com/dayraapp", font));
+                    .format(new Date()), font));
+            document.add(new Paragraph("Contact @ Abanoub Milad Hanna abanoubcs@gmail.com", font));
+            document.add(new Paragraph("Follow @ www.facebook.com/dayraapp", font));
             document.add(new Paragraph(" "));
 
             if (c.moveToFirst()) {
@@ -730,10 +728,11 @@ public class DB extends SQLiteOpenHelper {
                         byte[] photo = c.getBlob(COL_PHOTO);
                         if (photo != null) {
                             Image image = Image.getInstance(photo);
-                            image.scaleToFit(250f, 250f);
+                            image.scaleToFit(200f, 200f);
                             document.add(image);
                             document.add(new Paragraph(" "));
-                        }
+                        } else
+                            document.add(new Paragraph(" "));
 
                         table.addCell(new Paragraph(headerArray[0], font));
                         table.addCell(new Paragraph(c.getString(COL_NAME), font));
@@ -803,10 +802,12 @@ public class DB extends SQLiteOpenHelper {
                         byte[] photo = c.getBlob(COL_PHOTO);
                         if (photo != null) {
                             Image image = Image.getInstance(photo);
-                            image.scaleToFit(250f, 250f);
+                            image.scaleToFit(200f, 200f);
                             document.add(image);
                             document.add(new Paragraph(" "));
-                        }
+                        } else
+                            document.add(new Paragraph(" "));
+
 
                         table.addCell(new Paragraph(headerArray[0], font));
                         table.addCell(new Paragraph(c.getString(COL_NAME), font));
@@ -928,6 +929,7 @@ public class DB extends SQLiteOpenHelper {
             workbook.close();
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
 
         }
