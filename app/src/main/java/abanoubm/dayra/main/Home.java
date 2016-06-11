@@ -418,7 +418,7 @@ public class Home extends Activity {
             String path = Utility.getDayraFolder() +
                     "/dayra_report_" +
                     Utility.getDayraName(getApplicationContext()) +
-                    new SimpleDateFormat("yyyy-MM-dd HH-mm-ss", Locale.getDefault())
+                    new SimpleDateFormat("_yyyy-MM-dd_hh-mm-ss a", Locale.getDefault())
                             .format(new Date()) + ".pdf";
             if (android.os.Build.VERSION.SDK_INT >= 8) {
                 MediaScannerConnection.scanFile(getApplicationContext(),
