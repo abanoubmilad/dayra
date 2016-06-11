@@ -12,7 +12,10 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
@@ -39,7 +42,9 @@ public class ExportContactsPDF extends Activity {
 
             String path = Utility.getDayraFolder() +
                     "/dayra_data_" +
-                    Utility.getDayraName(getApplicationContext()) + ".pdf";
+                    Utility.getDayraName(getApplicationContext()) +
+                    new SimpleDateFormat("yyyy-MM-dd HH-mm-ss", Locale.getDefault())
+                            .format(new Date()) + ".pdf";
             if (android.os.Build.VERSION.SDK_INT >= 8) {
 
                 MediaScannerConnection.scanFile(getApplicationContext(),

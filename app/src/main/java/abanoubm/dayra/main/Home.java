@@ -27,8 +27,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.MenuItemAdapter;
@@ -413,7 +416,10 @@ public class Home extends Activity {
         @Override
         protected Boolean doInBackground(Void... params) {
             String path = Utility.getDayraFolder() +
-                    "/dayra_report_" + Utility.getDayraName(getApplicationContext()) + ".pdf";
+                    "/dayra_report_" +
+                    Utility.getDayraName(getApplicationContext()) +
+                    new SimpleDateFormat("yyyy-MM-dd HH-mm-ss", Locale.getDefault())
+                            .format(new Date()) + ".pdf";
             if (android.os.Build.VERSION.SDK_INT >= 8) {
                 MediaScannerConnection.scanFile(getApplicationContext(),
                         new String[]{path}, null, null);
