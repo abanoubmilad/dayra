@@ -50,7 +50,7 @@ public class CreateInformationTable extends Activity {
                 MediaScannerConnection.scanFile(getApplicationContext(),
                         new String[]{path}, null, null);
             }
-            return DB.getInstant(getApplicationContext()).exportContactsPdf(
+            return DB.getInstant(getApplicationContext()).exportInformationTable(
                     dataTag, dataHeader, path);
 
         }

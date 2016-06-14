@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -32,7 +30,6 @@ import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 
 import abanoubm.dayra.R;
@@ -100,7 +97,7 @@ public class Main extends Activity {
         }
     }
 
-    private class ImportTask extends AsyncTask<String, Void, Integer> {
+    private class ImportDayraFileTask extends AsyncTask<String, Void, Integer> {
         @Override
         protected void onPreExecute() {
             pBar.show();
@@ -333,7 +330,7 @@ public class Main extends Activity {
                         }
                         break;
                     case 9:
-                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
                         startActivity(intent);
                         break;
@@ -345,12 +342,11 @@ public class Main extends Activity {
 
     private void importDB() {
         Intent intentImport = new Intent(Intent.ACTION_GET_CONTENT);
-        intentImport.setType("file/*");
-        PackageManager manager = getApplicationContext().getPackageManager();
-        List<ResolveInfo> infos = manager
-                .queryIntentActivities(intentImport, 0);
+        intentImport.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())),
+                "application/octet-stream");
 
-        if (infos.size() > 0) {
+        if (getApplicationContext().getPackageManager()
+                .queryIntentActivities(intentImport, 0).size() > 0) {
             startActivityForResult(intentImport, IMPORT_DB);
         } else {
             Toast.makeText(getApplicationContext(), R.string.err_msg_explorer,
@@ -360,12 +356,11 @@ public class Main extends Activity {
 
     private void importExcel() {
         Intent intentImport = new Intent(Intent.ACTION_GET_CONTENT);
-        intentImport.setType("file/*");
-        PackageManager manager = getApplicationContext().getPackageManager();
-        List<ResolveInfo> infos = manager
-                .queryIntentActivities(intentImport, 0);
+        intentImport.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())),
+                "application/vnd.ms-excel");
 
-        if (infos.size() > 0) {
+        if (getApplicationContext().getPackageManager()
+                .queryIntentActivities(intentImport, 0).size() > 0) {
             startActivityForResult(intentImport, IMPORT_EXCEL);
         } else {
             Toast.makeText(getApplicationContext(), R.string.err_msg_explorer,
@@ -377,47 +372,40 @@ public class Main extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == IMPORT_DB) {
-                Uri uri = data.getData();
-                if (uri != null && new File(uri.getPath()).exists()) {
-                    String path = uri.getPath();
-                    String dbname = path.substring(path.lastIndexOf("/") + 1);
-                    if (!Utility.isDBName(dbname)) {
-                        Toast.makeText(getApplicationContext(),
-                                R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
-                                .show();
-                    } else if (DB.isDBExists(getApplicationContext(), dbname))
-                        Toast.makeText(getApplicationContext(),
-                                R.string.err_msg_duplicate_dayra, Toast.LENGTH_SHORT)
-                                .show();
-                    else {
-                        new ImportTask().execute(dbname, path);
-                    }
+                String path = data.getData().getPath();
+                String dbname = path.substring(path.lastIndexOf("/") + 1);
+                if (!Utility.isDBName(dbname))
+                    Toast.makeText(getApplicationContext(),
+                            R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
+                            .show();
+                else if (DB.isDBExists(getApplicationContext(), dbname))
+                    Toast.makeText(getApplicationContext(),
+                            R.string.err_msg_duplicate_dayra, Toast.LENGTH_SHORT)
+                            .show();
+                else
+                    new ImportDayraFileTask().execute(dbname, path);
 
-                }
 
             } else if (requestCode == IMPORT_EXCEL) {
-                Uri uri = data.getData();
-                if (uri != null && new File(uri.getPath()).exists()) {
-                    String path = uri.getPath();
-                    String dbname = path.substring(path.lastIndexOf("/") + 1)
-                            .replace(".xls", "");
-                    if (!Utility.isDBName(dbname)) {
-                        Toast.makeText(getApplicationContext(),
-                                R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
-                                .show();
-                    } else if (DB.isDBExists(getApplicationContext(), dbname)) {
-                        Toast.makeText(getApplicationContext(),
-                                R.string.err_msg_duplicate_dayra, Toast.LENGTH_SHORT)
-                                .show();
-                    } else {
-                        new ImportExcelTask().execute(dbname, path);
-                    }
+                String path = data.getData().getPath();
+                String dbname = path.substring(path.lastIndexOf("/") + 1)
+                        .replace(".xls", "");
+                if (!Utility.isDBName(dbname))
+                    Toast.makeText(getApplicationContext(),
+                            R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
+                            .show();
+                else if (DB.isDBExists(getApplicationContext(), dbname))
+                    Toast.makeText(getApplicationContext(),
+                            R.string.err_msg_duplicate_dayra, Toast.LENGTH_SHORT)
+                            .show();
+                else
+                    new ImportExcelTask().execute(dbname, path);
 
-                }
 
             }
 
         }
+
     }
 
     private void register() {

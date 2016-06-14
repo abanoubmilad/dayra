@@ -262,7 +262,7 @@ public class Home extends Activity {
                         new ExportDayraExcelTask().execute();
                         break;
                     case 8:
-                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
                         startActivity(intent);
                         break;
@@ -432,7 +432,7 @@ public class Home extends Activity {
                 MediaScannerConnection.scanFile(getApplicationContext(),
                         new String[]{path}, null, null);
             }
-            return DB.getInstant(getApplicationContext()).exportReport(path,
+            return DB.getInstant(getApplicationContext()).exportInformationReport(path,
                     getResources().getStringArray(R.array.excel_header),
                     findViewById(R.id.english_layout) != null);
         }

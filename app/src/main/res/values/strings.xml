@@ -163,19 +163,32 @@
     <string name="label.attend.min">first date</string>
     <string name="label.attend.count">times</string>
 
+
+    <string-array name="attendace_report_header">
+        <item>attendance type</item>
+        <item>first date</item>
+        <item>last date</item>
+        <item>times</item>
+    </string-array>
+    <string-array name="report_range">
+        <item>daily report</item>
+        <item>monthly report</item>
+        <item>annual report</item>
+    </string-array>
     <string-array name="months">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
+        <item>any month</item>
+        <item>january</item>
+        <item>february</item>
+        <item>march</item>
+        <item>april</item>
+        <item>may</item>
+        <item>june</item>
+        <item>july</item>
+        <item>august</item>
+        <item>september</item>
+        <item>october</item>
+        <item>november</item>
+        <item>december</item>
     </string-array>
     <string-array name="days">
         <item>any day</item>
@@ -339,7 +352,7 @@
         <item>@mipmap/ic_like</item>
         <item>@mipmap/ic_contact</item>
         <item>@mipmap/ic_rate</item>
-        <item>@mipmap/ic_file</item>
+        <item>@mipmap/ic_folder</item>
     </string-array>
     <string-array name="out_icons" translatable="false">
         <item>@mipmap/ic_mess</item>
@@ -350,7 +363,7 @@
         <item>@mipmap/ic_pdf</item>
         <item>@mipmap/ic_file</item>
         <item>@mipmap/ic_xls</item>
-        <item>@mipmap/ic_file</item>
+        <item>@mipmap/ic_folder</item>
     </string-array>
     <string-array name="settings_icons" translatable="false">
         <item>@mipmap/ic_alarm</item>

@@ -41,6 +41,20 @@ public class Utility {
         }
     }
 
+    public static String produceDate(String day, String month, String year) {
+        if (month.length() == 1) {
+            if (day.length() == 1)
+                return year + "-0" + month + "-0" + day;
+            else
+                return year + "-0" + month + "-" + day;
+        } else {
+            if (day.length() == 1)
+                return year + "-" + month + "--0" + day;
+            else
+                return year + "-" + month + "--" + day;
+        }
+    }
+
     public static String produceDate(int day, int month, int year) {
         if (month < 10) {
             if (day < 10)

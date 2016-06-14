@@ -26,10 +26,10 @@ import abanoubm.dayra.model.ContactDay;
 
 public class FragmentSearchBirthdays extends Fragment {
     private ContactDayAdapter adapter;
-    private String month = "1", day = "0";
+    private String month = "0", day = "0";
 
     private class SearchBDayTask extends
-            AsyncTask<String, Void, ArrayList<ContactDay>> {
+            AsyncTask<Void, Void, ArrayList<ContactDay>> {
         private ProgressDialog pBar;
 
         @Override
@@ -40,8 +40,8 @@ public class FragmentSearchBirthdays extends Fragment {
         }
 
         @Override
-        protected ArrayList<ContactDay> doInBackground(String... params) {
-            return DB.getInstant(getActivity()).searchBirthdays(params[0]);
+        protected ArrayList<ContactDay> doInBackground(Void... params) {
+            return DB.getInstant(getActivity()).searchBirthdays(Utility.produceDate(day, month));
         }
 
         @Override
@@ -90,11 +90,7 @@ public class FragmentSearchBirthdays extends Fragment {
 
             @Override
             public void onClick(View v) {
-                if (day.equals("0"))
-                    new SearchBDayTask().execute(Utility.produceDate(month));
-                else
-                    new SearchBDayTask().execute(Utility.produceDate(day, month));
-
+                new SearchBDayTask().execute();
             }
 
         });
@@ -103,7 +99,10 @@ public class FragmentSearchBirthdays extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                day = position + "";
+                if (position == 0)
+                    day = "--";
+                else
+                    day = position + "";
             }
 
             @Override
@@ -116,7 +115,10 @@ public class FragmentSearchBirthdays extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                month = (position + 1) + "";
+                if (position == 0)
+                    month = "--";
+                else
+                    month = position + "";
             }
 
             @Override

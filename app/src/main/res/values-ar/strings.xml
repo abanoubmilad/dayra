@@ -163,7 +163,19 @@
     <string name="label.attend.min">اول تاريخ</string>
     <string name="label.attend.count">عدد المرات</string>
 
+    <string-array name="attendace_report_header">
+        <item>نوع الحضور</item>
+        <item>اول تاريخ</item>
+        <item>اخر تاريخ</item>
+        <item>عدد المرات</item>
+    </string-array>
+    <string-array name="report_range">
+        <item>تقرير يومى</item>
+        <item>تقرير شهرى</item>
+        <item>تقرير سنوى</item>
+    </string-array>
     <string-array name="bday_months">
+        <item>اى شهر</item>
         <item>يناير</item>
         <item>فبراير</item>
         <item>مارس</item>

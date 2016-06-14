@@ -603,8 +603,8 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public boolean exportContactsPdf(ArrayList<String> dataTag,
-                                     ArrayList<String> dataHeader, String path) {
+    public boolean exportInformationTable(ArrayList<String> dataTag,
+                                          ArrayList<String> dataHeader, String path) {
 
         String selectQuery = "SELECT * FROM " + TB_CONTACT +
                 " ORDER BY " + CONTACT_NAME;
@@ -675,7 +675,116 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public boolean exportReport(String path, String[] headerArray, boolean isEnglishMode) {
+    public boolean exportAttendanceReport(String path, String dateRegex, String[] header, boolean isEnglishMode) {
+        String selectQuery = "SELECT " + CONTACT_NAME + "," + PHOTO_BLOB + "," + ATTEND_TYPE +
+                ", MIN(" + ATTEND_DAY + "), " +
+                "MAX(" + ATTEND_DAY + "), " + "COUNT(" + ATTEND_DAY + ")" +
+                " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
+                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " LIKE " + dateRegex +
+                " GROUP BY " + CONTACT_ID + "," + ATTEND_TYPE + " ORDER BY " + CONTACT_NAME;
+
+        Cursor c = readableDB.rawQuery(selectQuery, null);
+        Document document = new Document(PageSize.LETTER);
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(path));
+            document.open();
+            Font font = FontFactory.getFont("assets/fonts/arabic.ttf",
+                    BaseFont.IDENTITY_H, true, 16);
+
+            document.add(new Paragraph(" "));
+            document.add(new Paragraph("dayra - " + DB_NAME, font));
+            document.add(new Paragraph(new SimpleDateFormat(
+                    "yyyy-MM-dd  hh:mm:ss a", Locale.getDefault())
+                    .format(new Date()), font));
+            document.add(new Paragraph("made with love by dayra ©"
+                    + new SimpleDateFormat("yyyy", Locale.getDefault())
+                    .format(new Date()), font));
+            document.add(new Paragraph("Contact @ Abanoub Milad Hanna abanoubcs@gmail.com", font));
+            document.add(new Paragraph("Follow @ www.facebook.com/dayraapp", font));
+            document.add(new Paragraph(" "));
+
+            if (c.moveToFirst()) {
+                int counter = 0;
+                if (isEnglishMode) {
+                    do {
+                        document.newPage();
+                        document.add(new Paragraph(++counter + ""));
+                        PdfPTable table = new PdfPTable(4);
+                        table.setWidthPercentage(100);
+                        table.setWidths(new float[]{25f, 25f, 25f, 25f});
+
+                        byte[] photo = c.getBlob(1);
+                        if (photo != null) {
+                            Image image = Image.getInstance(photo);
+                            image.scaleToFit(200f, 200f);
+                            document.add(image);
+                            document.add(new Paragraph(" "));
+                        } else
+                            document.add(new Paragraph(" "));
+
+                        new Paragraph(c.getString(1), font);
+                        document.add(new Paragraph(" "));
+
+                        table.addCell(new Paragraph(header[0], font));
+                        table.addCell(new Paragraph(header[1], font));
+                        table.addCell(new Paragraph(header[2], font));
+                        table.addCell(new Paragraph(header[3], font));
+
+                        table.addCell(new Paragraph(c.getString(2), font));
+                        table.addCell(new Paragraph(c.getString(3), font));
+                        table.addCell(new Paragraph(c.getString(4), font));
+                        table.addCell(new Paragraph(c.getString(5), font));
+                        document.add(table);
+                    } while (c.moveToNext());
+                } else {
+                    do {
+                        document.newPage();
+                        document.add(new Paragraph(++counter + ""));
+                        PdfPTable table = new PdfPTable(4);
+                        table.setWidthPercentage(100);
+                        table.setWidths(new float[]{25f, 25f, 25f, 25f});
+                        table.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+
+                        byte[] photo = c.getBlob(1);
+                        if (photo != null) {
+                            Image image = Image.getInstance(photo);
+                            image.scaleToFit(200f, 200f);
+                            document.add(image);
+                            document.add(new Paragraph(" "));
+                        } else
+                            document.add(new Paragraph(" "));
+
+                        new Paragraph(c.getString(1), font);
+                        document.add(new Paragraph(" "));
+
+                        table.addCell(new Paragraph(header[0], font));
+                        table.addCell(new Paragraph(header[1], font));
+                        table.addCell(new Paragraph(header[2], font));
+                        table.addCell(new Paragraph(header[3], font));
+
+                        table.addCell(new Paragraph(c.getString(2), font));
+                        table.addCell(new Paragraph(c.getString(3), font));
+                        table.addCell(new Paragraph(c.getString(4), font));
+                        table.addCell(new Paragraph(c.getString(5), font));
+                        document.add(table);
+                    } while (c.moveToNext());
+
+                }
+
+            }
+            c.close();
+            document.close();
+            return true;
+        } catch (Exception e) {
+            return false;
+
+        }
+
+    }
+
+    public boolean exportInformationReport(String path, String[] headerArray, boolean isEnglishMode) {
         String selectQuery = "SELECT * FROM " + TB_CONTACT +
                 " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
@@ -1163,6 +1272,24 @@ public class DB extends SQLiteOpenHelper {
             result.add(c.getString(1));
             result.add(c.getString(2));
 
+        }
+        c.close();
+        return result;
+
+    }
+
+    public ArrayList<String> getExistingYears() {
+        String selectQuery = "SELECT DISTINCT SUBSTR(" + ATTEND_DAY + ",0,4) FROM " +
+                TB_ATTEND;
+        Cursor c = readableDB.rawQuery(selectQuery, null);
+        ArrayList<String> result = new ArrayList<>(
+                c.getCount()+1);
+        result.add("any year");
+
+        if (c.moveToFirst()) {
+            do {
+                result.add(c.getString(0));
+            } while (c.moveToNext());
         }
         c.close();
         return result;
