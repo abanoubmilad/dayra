@@ -112,39 +112,40 @@ public class Main extends Activity {
 
         @Override
         protected Integer doInBackground(String... params) {
-            ExternalDB edbm = ExternalDB.getInstance(
-                    getApplicationContext(), params[0], params[1]);
-            if (edbm.checkDB()) {
-                String inpath;
-                if (android.os.Build.VERSION.SDK_INT >= 17) {
-                    inpath = getApplicationContext().getApplicationInfo().dataDir
-                            + "/databases/";
-                } else {
-                    inpath = "/data/data/"
-                            + getApplicationContext().getPackageName()
-                            + "/databases/";
-                }
-                inpath += params[0];
-                try {
-                    FileInputStream inStream = new FileInputStream(
-                            params[1]);
-                    FileOutputStream outStream = new FileOutputStream(
-                            new File(inpath));
-                    FileChannel inChannel = inStream.getChannel();
-                    FileChannel outChannel = outStream.getChannel();
-                    inChannel.transferTo(0, inChannel.size(), outChannel);
-                    inStream.close();
-                    outStream.close();
+            String inpath;
+            if (android.os.Build.VERSION.SDK_INT >= 17) {
+                inpath = getApplicationContext().getApplicationInfo().dataDir
+                        + "/databases/";
+            } else {
+                inpath = "/data/data/"
+                        + getApplicationContext().getPackageName()
+                        + "/databases/";
+            }
+            inpath += params[0];
+            try {
+                FileInputStream inStream = new FileInputStream(
+                        params[1]);
+                FileOutputStream outStream = new FileOutputStream(
+                        new File(inpath));
+                FileChannel inChannel = inStream.getChannel();
+                FileChannel outChannel = outStream.getChannel();
+                inChannel.transferTo(0, inChannel.size(), outChannel);
+                inStream.close();
+                outStream.close();
 
+                if (DB.getInstant(getApplicationContext(),
+                        params[0]).isValidDB(getApplicationContext()))
                     return R.string.msg_dayra_imported;
+                else
 
-                } catch (Exception e) {
-                    return R.string.err_msg_import;
+                    return R.string.err_msg_invalid_file;
 
-                }
 
-            } else
-                return R.string.err_msg_invalid_file;
+            } catch (Exception e) {
+                return R.string.err_msg_import;
+
+            }
+
 
         }
 
@@ -372,7 +373,7 @@ public class Main extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == IMPORT_DB) {
-                String path = data.getData().getPath();
+                String path = Utility.getRealPath(data.getData(), getApplicationContext());
                 String dbname = path.substring(path.lastIndexOf("/") + 1);
                 if (!Utility.isDBName(dbname))
                     Toast.makeText(getApplicationContext(),
@@ -387,7 +388,7 @@ public class Main extends Activity {
 
 
             } else if (requestCode == IMPORT_EXCEL) {
-                String path = data.getData().getPath();
+                String path = Utility.getRealPath(data.getData(), getApplicationContext());
                 String dbname = path.substring(path.lastIndexOf("/") + 1)
                         .replace(".xls", "");
                 if (!Utility.isDBName(dbname))

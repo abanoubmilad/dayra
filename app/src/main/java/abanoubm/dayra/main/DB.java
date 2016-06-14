@@ -126,17 +126,20 @@ public class DB extends SQLiteOpenHelper {
                 + CONTACT_EMAIL + " text, " + CONTACT_MOB1 + " text, " + CONTACT_MOB2 + " text, "
                 + CONTACT_MOB3 + " text, " + CONTACT_LPHONE + " text, " + CONTACT_ST
                 + " text, " + CONTACT_SITE + " text, " + CONTACT_CLASS_YEAR + " integer, "
-                + CONTACT_STUDY_WORK + " text, " + CONTACT_ADDR + " text);"
+                + CONTACT_STUDY_WORK + " text, " + CONTACT_ADDR + " text)";
+        db.execSQL(sql);
 
-                + "create table " + TB_CONNECTION + " ( " + CONN_A + " integer, "
-                + CONN_B + " integer);"
+        sql = "create table " + TB_CONNECTION + " ( " + CONN_A + " integer, "
+                + CONN_B + " integer)";
+        db.execSQL(sql);
 
-                + "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
+        sql = "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
                 + ATTEND_TYPE + " integer, "
-                + ATTEND_DAY + " integer);"
+                + ATTEND_DAY + " integer)";
+        db.execSQL(sql);
 
-                + "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
-                + PHOTO_BLOB + " blob);";
+        sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
+                + PHOTO_BLOB + " blob)";
 
         db.execSQL(sql);
     }
@@ -153,10 +156,11 @@ public class DB extends SQLiteOpenHelper {
         if (arg1 < 3) {
             sql = "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
                     + ATTEND_TYPE + " integer, "
-                    + ATTEND_DAY + " integer);"
+                    + ATTEND_DAY + " integer)";
+            db.execSQL(sql);
 
-                    + "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
-                    + PHOTO_BLOB + " blob);";
+            sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
+                    + PHOTO_BLOB + " blob)";
             db.execSQL(sql);
 
 
@@ -224,6 +228,41 @@ public class DB extends SQLiteOpenHelper {
         readableDB.close();
         writableDB.close();
         return context.deleteDatabase(DB_NAME);
+    }
+
+    public boolean isValidDB(Context context) {
+        try {
+            readableDB.query(TB_ATTEND, new String[]{ATTEND_ID, ATTEND_DAY, ATTEND_TYPE}, null, null, null, null, null);
+            readableDB.query(TB_CONNECTION, new String[]{CONN_A, CONN_B}, null, null, null, null, null);
+            readableDB.query(TB_CONTACT, new String[]{
+                    CONTACT_ADDR,
+                    CONTACT_BDAY,
+                    CONTACT_CLASS_YEAR,
+                    CONTACT_EMAIL,
+                    CONTACT_ID,
+                    CONTACT_LPHONE,
+                    CONTACT_MAPLAT,
+                    CONTACT_MAPLNG,
+                    CONTACT_MAPZOM,
+                    CONTACT_MOB1,
+                    CONTACT_MOB2,
+                    CONTACT_MOB3,
+                    CONTACT_SUPERVISOR,
+                    CONTACT_STUDY_WORK,
+                    CONTACT_SITE,
+                    CONTACT_NAME,
+                    CONTACT_NOTES,
+                    CONTACT_ST}, null, null, null, null, null);
+            readableDB.query(TB_PHOTO, new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            dbm = null;
+            readableDB.close();
+            writableDB.close();
+            context.deleteDatabase(DB_NAME);
+            return false;
+        }
     }
 
     public void closeDB() {
@@ -1283,7 +1322,7 @@ public class DB extends SQLiteOpenHelper {
                 TB_ATTEND;
         Cursor c = readableDB.rawQuery(selectQuery, null);
         ArrayList<String> result = new ArrayList<>(
-                c.getCount()+1);
+                c.getCount() + 1);
         result.add("any year");
 
         if (c.moveToFirst()) {
