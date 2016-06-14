@@ -332,6 +332,11 @@ public class Main extends Activity {
                                     Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
                         }
                         break;
+                    case 9:
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
+                        startActivity(intent);
+                        break;
                 }
             }
         });

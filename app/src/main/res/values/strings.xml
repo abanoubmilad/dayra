@@ -269,6 +269,7 @@
         <item>Like us</item>
         <item>Contact developer</item>
         <item>Rate dayra</item>
+        <item>Open dayra folder</item>
     </string-array>
     <string-array name="out_menu">
         <item>Send SMS</item>
@@ -279,6 +280,7 @@
         <item>Create Information table</item>
         <item>Export dayra file</item>
         <item>Export dayra xls</item>
+        <item>Open dayra folder</item>
     </string-array>
     <string-array name="settings_menu">
         <item>Alarm settings</item>
@@ -337,6 +339,7 @@
         <item>@mipmap/ic_like</item>
         <item>@mipmap/ic_contact</item>
         <item>@mipmap/ic_rate</item>
+        <item>@mipmap/ic_file</item>
     </string-array>
     <string-array name="out_icons" translatable="false">
         <item>@mipmap/ic_mess</item>
@@ -347,6 +350,7 @@
         <item>@mipmap/ic_pdf</item>
         <item>@mipmap/ic_file</item>
         <item>@mipmap/ic_xls</item>
+        <item>@mipmap/ic_file</item>
     </string-array>
     <string-array name="settings_icons" translatable="false">
         <item>@mipmap/ic_alarm</item>

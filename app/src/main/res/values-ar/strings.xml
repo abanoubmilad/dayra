@@ -211,7 +211,6 @@
         <item>٢٩</item>
         <item>٣٠</item>
         <item>٣١</item>
-
     </string-array>
     <string-array name="attendance_type">
         <item>زيارة</item>
@@ -271,6 +270,7 @@
         <item>تابعنا على فيس بوك</item>
         <item>تواصل مع المُطور</item>
         <item>تقييم دايره</item>
+        <item>فتح dayra folder</item>
     </string-array>
     <string-array name="out_menu">
         <item>ارسال SMS</item>
@@ -281,6 +281,7 @@
         <item>استخراج جدول بيانات</item>
         <item>تصدير دايره file</item>
         <item>تصدير دايره xls</item>
+        <item>فتح dayra folder</item>
     </string-array>
     <string-array name="settings_menu">
         <item>اعدادات التنبيهات</item>

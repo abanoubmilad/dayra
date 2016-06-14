@@ -261,6 +261,11 @@ public class Home extends Activity {
                     case 7:
                         new ExportDayraExcelTask().execute();
                         break;
+                    case 8:
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
+                        startActivity(intent);
+                        break;
                 }
             }
         });
