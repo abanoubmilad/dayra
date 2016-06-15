@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -94,7 +95,16 @@ public class FragmentSearchBirthdays extends Fragment {
             }
 
         });
-        ((Spinner) root.findViewById(R.id.spin_day)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        Spinner spin_day = (Spinner) root.findViewById(R.id.spin_day);
+        spin_day.setAdapter(new ArrayAdapter<>(getActivity(),
+                R.layout.item_string, getResources().getTextArray(R.array.days)));
+
+        Spinner spin_month = (Spinner) root.findViewById(R.id.spin_month);
+        spin_month.setAdapter(new ArrayAdapter<>(getActivity(),
+                R.layout.item_string, getResources().getTextArray(R.array.months)));
+
+        spin_day.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -110,7 +120,7 @@ public class FragmentSearchBirthdays extends Fragment {
 
             }
         });
-        ((Spinner) root.findViewById(R.id.spin_month)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spin_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,

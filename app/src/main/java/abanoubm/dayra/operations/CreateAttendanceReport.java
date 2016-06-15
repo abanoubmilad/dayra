@@ -47,7 +47,7 @@ public class CreateAttendanceReport extends Activity {
         @Override
         protected void onPostExecute(ArrayList<String> result) {
             spin_year.setAdapter(new ArrayAdapter<>(getApplicationContext(),
-                    android.R.layout.simple_spinner_item, result));
+                    R.layout.item_string, result));
             pBar.dismiss();
 
         }
@@ -108,8 +108,15 @@ public class CreateAttendanceReport extends Activity {
 
 
         final Spinner spin_day, spin_month;
+
         spin_day = (Spinner) findViewById(R.id.spin_day);
+        spin_day.setAdapter(new ArrayAdapter<>(getApplicationContext(),
+                R.layout.item_string, getResources().getTextArray(R.array.days)));
+
         spin_month = (Spinner) findViewById(R.id.spin_month);
+        spin_month.setAdapter(new ArrayAdapter<>(getApplicationContext(),
+                R.layout.item_string, getResources().getTextArray(R.array.months)));
+
         spin_year = (Spinner) findViewById(R.id.spin_year);
 
         spin_day.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

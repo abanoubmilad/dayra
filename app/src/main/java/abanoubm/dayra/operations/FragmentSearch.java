@@ -11,10 +11,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -86,7 +86,12 @@ public class FragmentSearch extends Fragment {
         View root = inflater.inflate(R.layout.fragment_search, container, false);
 
         input = (EditText) root.findViewById(R.id.input);
-        ((Spinner) root.findViewById(R.id.spin)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        Spinner spin = (Spinner) root.findViewById(R.id.spin);
+        spin.setAdapter(new ArrayAdapter<>(getActivity(),
+                R.layout.item_string, getResources().getTextArray(R.array.search_menu)));
+
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -100,6 +105,8 @@ public class FragmentSearch extends Fragment {
 
             }
         });
+
+
         mAdapter = new ContactIDAdapter(getActivity(), new ArrayList<ContactID>());
         ListView lv = (ListView) root.findViewById(R.id.list);
         lv.setAdapter(mAdapter);

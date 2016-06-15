@@ -13,11 +13,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -126,7 +126,12 @@ public class FragmentSearchDates extends Fragment {
 
                     }
                 });
-        ((Spinner) root.findViewById(R.id.spin_search)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        Spinner spin_search = (Spinner) root.findViewById(R.id.spin_search);
+        spin_search.setAdapter(new ArrayAdapter<>(getActivity(),
+                R.layout.item_string, getResources().getTextArray(R.array.search_dates_menu)));
+
+        spin_search.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -140,7 +145,10 @@ public class FragmentSearchDates extends Fragment {
 
             }
         });
-        ((Spinner) root.findViewById(R.id.spin_type)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Spinner spin_type = (Spinner) root.findViewById(R.id.spin_type);
+        spin_type.setAdapter(new ArrayAdapter<>(getActivity(),
+                R.layout.item_string, getResources().getTextArray(R.array.attendance_type)));
+        spin_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,

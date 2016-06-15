@@ -232,7 +232,10 @@ public class FragmentDisplayContactDay extends Fragment {
             }
         });
 
-        ((Spinner) root.findViewById(R.id.spin)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Spinner spin = (Spinner) root.findViewById(R.id.spin);
+        spin.setAdapter(new ArrayAdapter<>(getActivity(),
+                R.layout.item_string, getResources().getTextArray(R.array.attendance_type)));
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,

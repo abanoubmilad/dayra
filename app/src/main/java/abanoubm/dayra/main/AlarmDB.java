@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 public class AlarmDB extends SQLiteOpenHelper {
-    private static String DB_NAME = "alarm_db";
+    private static String DB_NAME = "alarm_db_journal";
     private static final String TB_ALARM = "alarm_tb";
     private static final String ALARM_DB_NAME = "alarm_db_name";
     private static final String ALARM_TYPE = "alarm_type";

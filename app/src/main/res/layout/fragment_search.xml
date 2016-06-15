@@ -23,7 +23,6 @@
             android:id="@+id/spin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/search_menu"
             android:spinnerMode="dialog"
             android:textSize="@dimen/font_larger" />
 

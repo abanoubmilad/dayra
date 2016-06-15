@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <include layout="@layout/header" />
 
 
@@ -14,6 +15,7 @@
             android:id="@+id/spin_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:spinnerMode="dialog"
             android:textSize="@dimen/font_largest" />
 
@@ -22,15 +24,16 @@
             android:id="@+id/spin_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/months"
+            android:layout_margin="10dp"
             android:spinnerMode="dialog"
             android:textSize="@dimen/font_largest" />
+
 
         <Spinner
             android:id="@+id/spin_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/days"
+            android:layout_margin="10dp"
             android:spinnerMode="dialog"
             android:textSize="@dimen/font_largest" />
 

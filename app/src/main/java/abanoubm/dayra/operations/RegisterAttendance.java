@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -233,7 +234,10 @@ public class RegisterAttendance extends Activity {
 
         });
 
-        ((Spinner) findViewById(R.id.spin)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Spinner spin = (Spinner) findViewById(R.id.spin);
+        spin.setAdapter(new ArrayAdapter<>(getApplicationContext(),
+                R.layout.item_string, getResources().getTextArray(R.array.attendance_type)));
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
