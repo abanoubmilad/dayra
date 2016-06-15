@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -170,6 +171,9 @@ public class FragmentDisplayContacts extends Fragment {
         View root = inflater.inflate(R.layout.fragment_display_contacts, container, false);
 
         Spinner spin = (Spinner) root.findViewById(R.id.spin);
+        spin.setAdapter(new ArrayAdapter<>(getActivity(),
+                R.layout.item_string, getResources().getTextArray(R.array.sort_menu)));
+        
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
