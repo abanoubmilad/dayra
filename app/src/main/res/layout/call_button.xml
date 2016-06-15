@@ -4,4 +4,5 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="10dp"
-    android:src="@mipmap/ic_call" />
+    android:src="@mipmap/ic_call"
+    android:visibility="gone"/>

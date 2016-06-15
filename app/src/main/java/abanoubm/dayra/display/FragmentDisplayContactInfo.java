@@ -27,6 +27,7 @@ public class FragmentDisplayContactInfo extends Fragment {
     private ImageView img;
     private ContactData contactData;
     private String id;
+    private ImageView call1, call2, call3, call4, msg1, msg2, msg3;
 
     private class GetTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
@@ -89,7 +90,16 @@ public class FragmentDisplayContactInfo extends Fragment {
 
         new GetTask().execute();
 
-        root.findViewById(R.id.call_btn1)
+        call1 = (ImageView) root.findViewById(R.id.call_btn1);
+        call2 = (ImageView) root.findViewById(R.id.call_btn2);
+        call3 = (ImageView) root.findViewById(R.id.call_btn3);
+        call4 = (ImageView) root.findViewById(R.id.call_btn4);
+
+        msg1 = (ImageView) root.findViewById(R.id.msg_btn1);
+        msg2 = (ImageView) root.findViewById(R.id.msg_btn2);
+        msg3 = (ImageView) root.findViewById(R.id.msg_btn3);
+
+        call1
                 .setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -99,7 +109,7 @@ public class FragmentDisplayContactInfo extends Fragment {
                                         .toString(), null)));
                     }
                 });
-        root.findViewById(R.id.msg_btn1)
+        msg1
                 .setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -110,7 +120,7 @@ public class FragmentDisplayContactInfo extends Fragment {
                                         + dis_mobile1.getText().toString())));
                     }
                 });
-        root.findViewById(R.id.call_btn2)
+        call2
                 .setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -120,7 +130,7 @@ public class FragmentDisplayContactInfo extends Fragment {
                                         .toString(), null)));
                     }
                 });
-        root.findViewById(R.id.msg_btn2)
+        msg2
                 .setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -131,7 +141,7 @@ public class FragmentDisplayContactInfo extends Fragment {
                                         + dis_mobile2.getText().toString())));
                     }
                 });
-        root.findViewById(R.id.call_btn3)
+        call3
                 .setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -141,7 +151,7 @@ public class FragmentDisplayContactInfo extends Fragment {
                                         .toString(), null)));
                     }
                 });
-        root.findViewById(R.id.msg_btn3)
+        msg3
                 .setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -152,7 +162,7 @@ public class FragmentDisplayContactInfo extends Fragment {
                                         + dis_mobile3.getText().toString())));
                     }
                 });
-        root.findViewById(R.id.call_btn4)
+        call4
                 .setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -173,14 +183,42 @@ public class FragmentDisplayContactInfo extends Fragment {
         dis_address.setText(contactData.getAddress());
         dis_comm.setText(contactData.getComm());
         dis_email.setText(contactData.getEmail());
+
         dis_lphone.setText(contactData.getLandPhone());
+        if (contactData.getLandPhone().length() == 0) {
+            call4.setVisibility(View.GONE);
+        } else {
+            call4.setVisibility(View.VISIBLE);
+        }
 
         dis_mobile1.setText(contactData.getMobile1());
+        if (contactData.getMobile1().length() == 0) {
+            call1.setVisibility(View.GONE);
+            msg1.setVisibility(View.GONE);
+        } else {
+            call1.setVisibility(View.VISIBLE);
+            msg1.setVisibility(View.VISIBLE);
+        }
+
         dis_mobile2.setText(contactData.getMobile2());
+        if (contactData.getMobile2().length() == 0) {
+            call2.setVisibility(View.GONE);
+            msg2.setVisibility(View.GONE);
+        } else {
+            call2.setVisibility(View.VISIBLE);
+            msg2.setVisibility(View.VISIBLE);
+        }
+
         dis_mobile3.setText(contactData.getMobile3());
+        if (contactData.getMobile3().length() == 0) {
+            call3.setVisibility(View.GONE);
+            msg3.setVisibility(View.GONE);
+        } else {
+            call3.setVisibility(View.VISIBLE);
+            msg3.setVisibility(View.VISIBLE);
+        }
 
         dis_priest.setText(contactData.getPriest());
-
         dis_class_year.setText(contactData.getClassYear());
         dis_study_work.setText(contactData.getStudyWork());
         dis_street.setText(contactData.getStreet());

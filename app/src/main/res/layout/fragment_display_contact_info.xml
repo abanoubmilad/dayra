@@ -22,7 +22,6 @@
             android:id="@+id/dis_name"
             style="@style/attendant_labels"
             android:gravity="center"
-            android:hint="@string/label.name.required"
             android:textSize="@dimen/font_larger" />
 
         <LinearLayout

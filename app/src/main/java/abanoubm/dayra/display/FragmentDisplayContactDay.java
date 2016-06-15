@@ -30,6 +30,7 @@ public class FragmentDisplayContactDay extends Fragment {
     private int dayType = 0;
     private String choosenMonth, choosenYear;
     private TextView max, min, count;
+    private ListView yearList, monthList;
 
     private class GetContactStatisticsTask extends AsyncTask<Void, Void, ArrayList<String>> {
         private ProgressDialog pBar;
@@ -73,6 +74,10 @@ public class FragmentDisplayContactDay extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<String> result) {
             mAdpterYears.addAll(result);
+            if (result.size() != 0)
+                yearList.performItemClick(yearList.findViewWithTag(mAdpterYears.getItem(0)),
+                        0, mAdpterYears.getItemId(0));
+
             pBar.dismiss();
 
         }
@@ -107,6 +112,9 @@ public class FragmentDisplayContactDay extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<String> result) {
             mAdpterMonths.addAll(result);
+            if (result.size() != 0)
+                monthList.performItemClick(monthList.findViewWithTag(mAdpterMonths.getItem(0)),
+                        0, mAdpterMonths.getItemId(0));
             pBar.dismiss();
         }
 
@@ -180,7 +188,7 @@ public class FragmentDisplayContactDay extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_display_contact_day, container, false);
 
-        ListView monthList, dayList, yearList;
+        ListView dayList;
 
         max = (TextView) root.findViewById(R.id.max);
         min = (TextView) root.findViewById(R.id.min);
