@@ -30,6 +30,7 @@ public class FragmentDisplayContacts extends Fragment {
     private int previousPosition = 0;
     private boolean isDualMode = false;
     private ContactSortAdapter mAdapter;
+    private int clicked = -1;
 
     private class GetAllTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
@@ -63,7 +64,9 @@ public class FragmentDisplayContacts extends Fragment {
                 if (isDualMode) {
                     lv.performItemClick(lv.findViewWithTag(mAdapter.getItem(previousPosition)),
                             previousPosition, mAdapter.getItemId(previousPosition));
-
+                    clicked = 0;
+                    lv.getChildAt(clicked).setBackgroundColor(
+                            getResources().getColor(R.color.colorAccent));
                 }
             }
 
@@ -173,7 +176,7 @@ public class FragmentDisplayContacts extends Fragment {
         Spinner spin = (Spinner) root.findViewById(R.id.spin);
         spin.setAdapter(new ArrayAdapter<>(getActivity(),
                 R.layout.item_string, getResources().getTextArray(R.array.sort_menu)));
-        
+
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -195,6 +198,15 @@ public class FragmentDisplayContacts extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
+                if(isDualMode){
+                    lv.getChildAt(clicked).setBackgroundColor(
+                            getResources().getColor(R.color.white));
+                    clicked = position;
+                    lv.getChildAt(clicked).setBackgroundColor(
+                            getResources().getColor(R.color.colorAccent));
+                }
+
+
                 previousPosition = lv.getFirstVisiblePosition();
 
                 ((CallBack) getActivity()).notify(((ContactID) parent
