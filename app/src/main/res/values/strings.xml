@@ -163,6 +163,8 @@
     <string name="label.attend.min">first date</string>
     <string name="label.attend.count">times</string>
 
+    <string name="label.dayra.xls">dayra xls</string>
+    <string name="label.dayra.file">dayra file</string>
 
     <string-array name="attendace_report_header">
         <item>attendance type</item>
@@ -276,7 +278,6 @@
         <item>Enter</item>
         <item>Create dayra</item>
         <item>Import dayra file</item>
-        <item>Import dayra xls</item>
         <item>User\'s manuel</item>
         <item>Language / اللغة</item>
         <item>Like us</item>
@@ -346,7 +347,6 @@
         <item>@mipmap/ic_enter</item>
         <item>@mipmap/ic_create</item>
         <item>@mipmap/ic_file</item>
-        <item>@mipmap/ic_xls</item>
         <item>@mipmap/ic_manual</item>
         <item>@mipmap/ic_lang</item>
         <item>@mipmap/ic_like</item>

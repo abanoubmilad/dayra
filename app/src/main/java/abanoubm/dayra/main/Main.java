@@ -37,13 +37,17 @@ import abanoubm.dayra.adapters.MenuItemAdapter;
 
 public class Main extends Activity {
     private static final int IMPORT_DB = 1;
-    private static final int IMPORT_EXCEL = 2;
-    private ProgressDialog pBar;
     private MenuItemAdapter mMenuItemAdapter;
 
     private class SignTask extends AsyncTask<String, Void, Boolean> {
+        private ProgressDialog pBar;
+
         @Override
         protected void onPreExecute() {
+
+            pBar = new ProgressDialog(Main.this);
+            pBar.setMessage(getResources().getString(R.string.label_loading));
+            pBar.setCancelable(false);
             pBar.show();
         }
 
@@ -72,8 +76,13 @@ public class Main extends Activity {
     }
 
     private class RegisterTask extends AsyncTask<String, Void, Void> {
+        private ProgressDialog pBar;
+
         @Override
         protected void onPreExecute() {
+            pBar = new ProgressDialog(Main.this);
+            pBar.setMessage(getResources().getString(R.string.label_loading));
+            pBar.setCancelable(false);
             pBar.show();
         }
 
@@ -98,8 +107,14 @@ public class Main extends Activity {
     }
 
     private class ImportDayraFileTask extends AsyncTask<String, Void, Integer> {
+        private ProgressDialog pBar;
+
         @Override
         protected void onPreExecute() {
+
+            pBar = new ProgressDialog(Main.this);
+            pBar.setMessage(getResources().getString(R.string.label_loading));
+            pBar.setCancelable(false);
             pBar.show();
         }
 
@@ -151,37 +166,6 @@ public class Main extends Activity {
 
     }
 
-    private class ImportExcelTask extends AsyncTask<String, Void, Integer> {
-        @Override
-        protected void onPreExecute() {
-            pBar.show();
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            pBar.dismiss();
-            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT)
-                    .show();
-        }
-
-        @Override
-        protected Integer doInBackground(String... params) {
-            getSharedPreferences("login",
-                    Context.MODE_PRIVATE).edit()
-                    .putString("dbname", params[0]).apply();
-            DB dbm = DB.getInstant(getApplicationContext());
-            getSharedPreferences("login",
-                    Context.MODE_PRIVATE).edit()
-                    .putString("dbname", null).apply();
-            //  if (dbm.ImportDayraExcel(params[1]))
-            //         return R.string.msg_dayra_imported;
-            //     dbm.deleteDB(getApplicationContext());
-            return R.string.err_msg_invalid_file;
-
-
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sharedPref = getSharedPreferences("lang",
@@ -216,9 +200,6 @@ public class Main extends Activity {
         }
 
 
-        pBar = new ProgressDialog(Main.this);
-        pBar.setMessage(getResources().getString(R.string.label_loading));
-        pBar.setCancelable(false);
         ListView lv = (ListView) findViewById(R.id.home_list);
 
         mMenuItemAdapter = new MenuItemAdapter(getApplicationContext(),
@@ -242,15 +223,12 @@ public class Main extends Activity {
                         importDB();
                         break;
                     case 3:
-                        importExcel();
-                        break;
-                    case 4:
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri
                                 .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view"));
                         startActivity(i);
                         break;
-                    case 5: {
+                    case 4: {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(
                                 Main.this);
@@ -294,7 +272,7 @@ public class Main extends Activity {
 
                     }
                     break;
-                    case 6:
+                    case 5:
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -306,7 +284,7 @@ public class Main extends Activity {
                         }
                         break;
 
-                    case 7:
+                    case 6:
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -317,7 +295,7 @@ public class Main extends Activity {
                                     .parse("https://www.facebook.com/EngineeroBono")));
                         }
                         break;
-                    case 8:
+                    case 7:
                         Uri uri = Uri.parse("market://details?id=" + getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                         goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
@@ -330,7 +308,7 @@ public class Main extends Activity {
                                     Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
                         }
                         break;
-                    case 9:
+                    case 8:
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
                         startActivity(intent);
@@ -355,20 +333,6 @@ public class Main extends Activity {
         }
     }
 
-    private void importExcel() {
-        Intent intentImport = new Intent(Intent.ACTION_GET_CONTENT);
-        intentImport.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())),
-                "application/vnd.ms-excel");
-
-        if (getApplicationContext().getPackageManager()
-                .queryIntentActivities(intentImport, 0).size() > 0) {
-            startActivityForResult(intentImport, IMPORT_EXCEL);
-        } else {
-            Toast.makeText(getApplicationContext(), R.string.err_msg_explorer,
-                    Toast.LENGTH_SHORT).show();
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -385,22 +349,6 @@ public class Main extends Activity {
                             .show();
                 else
                     new ImportDayraFileTask().execute(dbname, path);
-
-
-            } else if (requestCode == IMPORT_EXCEL) {
-                String path = Utility.getRealPath(data.getData(), getApplicationContext());
-                String dbname = path.substring(path.lastIndexOf("/") + 1)
-                        .replace(".xls", "");
-                if (!Utility.isDBName(dbname))
-                    Toast.makeText(getApplicationContext(),
-                            R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
-                            .show();
-                else if (DB.isDBExists(getApplicationContext(), dbname))
-                    Toast.makeText(getApplicationContext(),
-                            R.string.err_msg_duplicate_dayra, Toast.LENGTH_SHORT)
-                            .show();
-                else
-                    new ImportExcelTask().execute(dbname, path);
 
 
             }

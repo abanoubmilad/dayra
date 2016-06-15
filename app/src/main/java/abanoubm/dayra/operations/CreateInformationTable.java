@@ -73,7 +73,7 @@ public class CreateInformationTable extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_export_contacts);
+        setContentView(R.layout.act_information_table);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2))
                 .setText(R.string.subhead_export_pdf);

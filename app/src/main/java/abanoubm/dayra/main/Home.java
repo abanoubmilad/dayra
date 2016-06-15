@@ -43,7 +43,7 @@ import abanoubm.dayra.operations.CreateAttendanceReport;
 import abanoubm.dayra.operations.CreateInformationTable;
 import abanoubm.dayra.operations.DivideDayra;
 import abanoubm.dayra.operations.RegisterAttendance;
-import abanoubm.dayra.operations.ReplaceDayra;
+import abanoubm.dayra.operations.AddDayraData;
 import abanoubm.dayra.operations.Search;
 import abanoubm.dayra.operations.SendSMS;
 
@@ -299,7 +299,7 @@ public class Home extends Activity {
                         break;
                     case 2:
                         startActivity(new Intent(getApplicationContext(),
-                                ReplaceDayra.class));
+                                AddDayraData.class));
                         break;
                     case 3:
                         startActivity(new Intent(getApplicationContext(),

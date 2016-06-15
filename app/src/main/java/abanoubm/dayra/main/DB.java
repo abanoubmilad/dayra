@@ -36,6 +36,7 @@ import abanoubm.dayra.model.ContactMobile;
 import abanoubm.dayra.model.ContactSort;
 import abanoubm.dayra.model.ContactStatistics;
 import abanoubm.dayra.model.IntWrapper;
+import jxl.Sheet;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableImage;
@@ -1337,8 +1338,8 @@ public class DB extends SQLiteOpenHelper {
 
     public String getNameId(String name) {
         String selectQuery = "SELECT " + CONTACT_ID + " FROM " + TB_CONTACT + " WHERE "
-                + CONTACT_NAME + "='" + name + "' LIMIT 1";
-        Cursor c = readableDB.rawQuery(selectQuery, null);
+                + CONTACT_NAME + "= ? LIMIT 1";
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{name});
         if (c.getCount() == 0) {
             c.close();
             return "-1";
@@ -1349,46 +1350,46 @@ public class DB extends SQLiteOpenHelper {
         return temp;
     }
 
-//    public boolean ImportDayraExcel(String path) {
-//        String[] colNames = {CONTACT_NAME, CONTACT_CLASS_YEAR, CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
-//                CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL, CONTACT_SITE, CONTACT_ST, CONTACT_ADDR, CONTACT_NOTES, CONTACT_BDAY,
-//                CONTACT_SUPERVISOR, CONTACT_LAST_ATTEND, CONTACT_ATTEND_DATES, CONTACT_LAST_VISIT, CONTACT_MAPLAT,
-//                CONTACT_MAPLNG, CONTACT_MAPZOM, CONTACT_PHOTO};
-//        ContentValues values;
-//
-//        try {
-//            Workbook workbook = Workbook.getWorkbook(new File(path));
-//            Sheet sheet = workbook.getSheet(0);
-//
-//            if (sheet.getColumns() != 21)
-//                return false;
-//            int rows = sheet.getRows();
-//            int rowCounter = 1;
-//            while (rowCounter < rows) {
-//                values = new ContentValues();
-//                for (int i = 0; i < 21; i++)
-//                    values.put(colNames[i], sheet.getCell(i, rowCounter)
-//                            .getContents().trim());
-//                if (sheet.getCell(17, rowCounter).getContents().trim()
-//                        .equals("")
-//                        || sheet.getCell(18, rowCounter).getContents().trim()
-//                        .equals("")
-//                        || sheet.getCell(19, rowCounter).getContents().trim()
-//                        .equals("")) {
-//                    values.put(colNames[17], "0");
-//                    values.put(colNames[18], "0");
-//                    values.put(colNames[19], "0");
-//                }
-//                writableDB.insert(TB_CONTACT, null, values);
-//                rowCounter++;
-//            }
-//            workbook.close();
-//            return true;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
+    public boolean AddDayraExcel(String path) {
+        String[] colNames = {CONTACT_NAME, CONTACT_CLASS_YEAR, CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
+                CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL, CONTACT_SITE, CONTACT_ST, CONTACT_ADDR, CONTACT_NOTES, CONTACT_BDAY,
+                CONTACT_SUPERVISOR, CONTACT_MAPLAT,
+                CONTACT_MAPLNG, CONTACT_MAPZOM, CONTACT_PHOTO};
+        ContentValues values;
+
+        try {
+            Workbook workbook = Workbook.getWorkbook(new File(path));
+            Sheet sheet = workbook.getSheet(0);
+
+            if (sheet.getColumns() != 21)
+                return false;
+            int rows = sheet.getRows();
+            int rowCounter = 1;
+            while (rowCounter < rows) {
+                values = new ContentValues();
+                for (int i = 0; i < 21; i++)
+                    values.put(colNames[i], sheet.getCell(i, rowCounter)
+                            .getContents().trim());
+                if (sheet.getCell(17, rowCounter).getContents().trim()
+                        .equals("")
+                        || sheet.getCell(18, rowCounter).getContents().trim()
+                        .equals("")
+                        || sheet.getCell(19, rowCounter).getContents().trim()
+                        .equals("")) {
+                    values.put(colNames[17], "0");
+                    values.put(colNames[18], "0");
+                    values.put(colNames[19], "0");
+                }
+                writableDB.insert(TB_CONTACT, null, values);
+                rowCounter++;
+            }
+            workbook.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 //    public void divideDayra(Context context, int range, String path) {
 //        ArrayList<String> sites = getOptionsList(CONTACT_SITE);
