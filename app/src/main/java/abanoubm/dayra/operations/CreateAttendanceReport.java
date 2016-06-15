@@ -163,7 +163,7 @@ public class CreateAttendanceReport extends Activity {
             }
         });
 
-        findViewById(R.id.export_btn).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {

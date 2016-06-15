@@ -55,7 +55,7 @@ public class Home extends Activity {
     private TextView subHead2;
     private ImageView[] buttons;
 
-    public void fireHome1Menu() {
+    private void fireHome1Menu() {
         buttons[tagCursor].setBackgroundColor(0);
         tagCursor = 0;
         buttons[0].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));

@@ -13,9 +13,6 @@ public class ContactID {
         this.photo = photo;
     }
 
-    public ContactID() {
-    }
-
     public String getId() {
         return id;
     }

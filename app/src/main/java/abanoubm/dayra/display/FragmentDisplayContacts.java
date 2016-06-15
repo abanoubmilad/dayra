@@ -27,7 +27,7 @@ public class FragmentDisplayContacts extends Fragment {
     private ListView lv;
     private ArrayList<ContactSort> list;
     private int previousPosition = 0;
-    boolean isDualMode = false;
+    private boolean isDualMode = false;
     private ContactSortAdapter mAdapter;
 
     private class GetAllTask extends AsyncTask<Void, Void, Void> {

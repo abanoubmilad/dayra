@@ -2,14 +2,14 @@ package abanoubm.dayra.display;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.Utility;
 
-public class AddContactDetails extends ActionBarActivity implements CallBack {
+public class AddContactDetails extends AppCompatActivity implements CallBack {
     private ImageView[] buttons;
     private static final String ARG_ID = "id";
     private static final String ARG_NAME = "name";

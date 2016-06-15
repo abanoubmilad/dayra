@@ -24,9 +24,8 @@ import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 
 public class DivideDayra extends Activity {
-    private TextView divideBtn, tv_class_year;
     private CheckBox cb_class_year;
-    private ImageView spin_class_year;
+    private TextView tv_class_year;
 
     private class GetClassYearsTask extends AsyncTask<Void, Void, String[]> {
         private ProgressDialog pBar;
@@ -135,6 +134,9 @@ public class DivideDayra extends Activity {
         setContentView(R.layout.act_divide_dayra);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_divide);
+
+        ImageView spin_class_year;
+        TextView divideBtn;
 
         divideBtn = (TextView) findViewById(R.id.divide_btn);
         tv_class_year = (TextView) findViewById(R.id.tv_classyear);
