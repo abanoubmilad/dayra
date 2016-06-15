@@ -1031,13 +1031,14 @@ public class DB extends SQLiteOpenHelper {
 
     public boolean exportDayraExcel(Context context, String path) {
 
-        String[] colNames = {CONTACT_NAME, CONTACT_CLASS_YEAR,
+        String[] colNames = {
+                CONTACT_NAME, CONTACT_CLASS_YEAR,
                 CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
                 CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL,
                 CONTACT_SITE, CONTACT_ST, CONTACT_ADDR,
-                CONTACT_NOTES, CONTACT_BDAY,
-                CONTACT_SUPERVISOR, CONTACT_MAPLAT,
-                CONTACT_MAPLNG, CONTACT_MAPZOM, PHOTO_BLOB};
+                CONTACT_NOTES,
+                CONTACT_SUPERVISOR,
+                PHOTO_BLOB};
 
         String[] colNotes = context.getResources().getStringArray(
                 R.array.excel_header);
@@ -1351,10 +1352,15 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public boolean AddDayraExcel(String path) {
-        String[] colNames = {CONTACT_NAME, CONTACT_CLASS_YEAR, CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
-                CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL, CONTACT_SITE, CONTACT_ST, CONTACT_ADDR, CONTACT_NOTES, CONTACT_BDAY,
+        String[] colNames = {
+                CONTACT_NAME, CONTACT_CLASS_YEAR,
+                CONTACT_STUDY_WORK, CONTACT_MOB1,
+                CONTACT_MOB2, CONTACT_MOB3,
+                CONTACT_LPHONE, CONTACT_EMAIL,
+                CONTACT_SITE, CONTACT_ST,
+                CONTACT_ADDR, CONTACT_NOTES, CONTACT_BDAY,
                 CONTACT_SUPERVISOR, CONTACT_MAPLAT,
-                CONTACT_MAPLNG, CONTACT_MAPZOM, CONTACT_PHOTO};
+                CONTACT_MAPLNG, CONTACT_MAPZOM, PHOTO_BLOB};
         ContentValues values;
 
         try {

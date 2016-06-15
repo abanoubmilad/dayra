@@ -130,7 +130,7 @@
                     android:text="@string/label.street" />
 
                 <CheckBox
-                    android:id="@+id/priest"
+                    android:id="@+id/supervisor"
                     style="@style/check_box"
                     android:text="@string/label.supervisor" />
             </LinearLayout>
@@ -152,7 +152,6 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/browsebtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

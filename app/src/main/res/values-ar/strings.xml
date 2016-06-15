@@ -314,12 +314,8 @@
         <item>شارع</item>
         <item>عنوان</item>
         <item>ملاحظات</item>
-        <item>تاريخ الميلاد</item>
         <item>المُشرف</item>
-        <item>خاص خريطة</item>
-        <item>خاص خريطة</item>
-        <item>خاص خريطة</item>
-        <item>خاص مسار صورة</item>
+        <item>صورة</item>
     </string-array>
     <string-array name="sort_menu">
         <item>اسم</item>

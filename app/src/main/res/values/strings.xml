@@ -103,7 +103,7 @@
     <string name="msg.dayra.divided">dayra divided</string>
     <string name="label.tolerance">class/year tolerance in each dayra</string>
     <string name="label.update.dayra">update dayra</string>
-    <string name="label.update.express">please read carefully before using this feature (always store a backup of dayra)\nreplacing dayra data fields by another dayra, data fields are replaced as following:\n if a new contact is found (new name), it will added to the current dayra\n if a contact already exists, the chosen fields will be replaced.</string>
+    <string name="label.update.express">Read carefully before using this feature\n(always store a backup of dayra)\nAdding data to dayra using xls or file dayra, Data fields are added as following:\nIf a new contact is found (new name), it will be added to the current dayra\nIf a contact already exists, the chosen fields will be replaced.</string>
     <string name="btn.browse.dayra">browse dayra to replace data with</string>
     <string name="err.msg.browse">you must browse dayra first</string>
     <string name="label.choose.site">Choose site</string>
@@ -316,11 +316,7 @@
         <item>street</item>
         <item>address</item>
         <item>notes</item>
-        <item>birthday</item>
         <item>supervisor</item>
-        <item>reserved latitude</item>
-        <item>reserved longitude</item>
-        <item>reserved zoom</item>
         <item>photo</item>
     </string-array>
     <string-array name="sort_menu">
