@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.BitmapFactory;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
@@ -715,7 +716,7 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public boolean exportAttendanceReport(String path, String dateRegex, String[] header, boolean isEnglishMode) {
+    public boolean exportAttendanceReport(String path, String dateRegex, String[] header, boolean isEnglishMode, Context context) {
         String selectQuery = "SELECT " + CONTACT_NAME + "," + PHOTO_BLOB + "," + ATTEND_TYPE +
                 ", MIN(" + ATTEND_DAY + "), " +
                 "MAX(" + ATTEND_DAY + "), " + "COUNT(" + ATTEND_DAY + ")" +
@@ -732,6 +733,13 @@ public class DB extends SQLiteOpenHelper {
             document.open();
             Font font = FontFactory.getFont("assets/fonts/arabic.ttf",
                     BaseFont.IDENTITY_H, true, 16);
+
+
+            Image logo = Image.getInstance(
+                    Utility.getBytes(BitmapFactory.decodeResource(
+                            context.getResources(), R.mipmap.splash)));
+            logo.scaleToFit(150f, 150f);
+            document.add(logo);
 
             document.add(new Paragraph(" "));
             document.add(new Paragraph("dayra - " + DB_NAME, font));
@@ -764,7 +772,7 @@ public class DB extends SQLiteOpenHelper {
                         } else
                             document.add(new Paragraph(" "));
 
-                        new Paragraph(c.getString(1), font);
+                        document.add(new Paragraph(c.getString(1), font));
                         document.add(new Paragraph(" "));
 
                         table.addCell(new Paragraph(header[0], font));
@@ -1320,7 +1328,7 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public ArrayList<String> getExistingYears() {
-        String selectQuery = "SELECT DISTINCT SUBSTR(" + ATTEND_DAY + ",0,4) FROM " +
+        String selectQuery = "SELECT DISTINCT SUBSTR(" + ATTEND_DAY + ",1,4) FROM " +
                 TB_ATTEND;
         Cursor c = readableDB.rawQuery(selectQuery, null);
         ArrayList<String> result = new ArrayList<>(

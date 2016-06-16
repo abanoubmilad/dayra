@@ -40,7 +40,7 @@ public class MenuItemAdapter extends ArrayAdapter<String> {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.menu_item, parent, false);
+                    R.layout.item_menu, parent, false);
             holder = new ViewHolder();
             holder.item = (TextView) convertView.findViewById(R.id.item);
             holder.img = (ImageView) convertView.findViewById(R.id.img);

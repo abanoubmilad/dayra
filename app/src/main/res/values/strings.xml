@@ -148,6 +148,10 @@
     <string name="select.attendance.type">attendance type</string>
     <string name="search.by">Search by</string>
 
+    <string name="select.day">select day</string>
+    <string name="select.month">select month</string>
+    <string name="select.year">select year</string>
+
     <string name="btn.yes">yes</string>
     <string name="btn.cancel">cancel</string>
     <string name="btn.reset">reset</string>

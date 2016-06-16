@@ -42,6 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:prompt="@string/select.day"
             android:spinnerMode="dialog"
             android:textSize="@dimen/font_larger" />
 
@@ -50,7 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:prompt="@string/select.attendance.type"
+            android:prompt="@string/select.month"
             android:spinnerMode="dialog" />
 
 

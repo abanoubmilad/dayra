@@ -30,7 +30,7 @@ public class FragmentDisplayContacts extends Fragment {
     private int previousPosition = 0;
     private boolean isDualMode = false;
     private ContactSortAdapter mAdapter;
-    private int clicked = -1;
+    private int clicked = 0;
 
     private class GetAllTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
@@ -64,9 +64,6 @@ public class FragmentDisplayContacts extends Fragment {
                 if (isDualMode) {
                     lv.performItemClick(lv.findViewWithTag(mAdapter.getItem(previousPosition)),
                             previousPosition, mAdapter.getItemId(previousPosition));
-                    clicked = 0;
-                    lv.getChildAt(clicked).setBackgroundColor(
-                            getResources().getColor(R.color.colorAccent));
                 }
             }
 

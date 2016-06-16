@@ -75,14 +75,14 @@ public class AlarmDB extends SQLiteOpenHelper {
         writableDB.insert(TB_ALARM, null, values);
 
         Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
-                }, ALARM_TYPE + " = ? AND ",
+                }, ALARM_TYPE + " = ?",
                 new String[]{type}, null, null, null);
         return c.getCount() != 1;
     }
 
     public ArrayList<String> getAlarmDayras(String type) {
         Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
-                }, ALARM_TYPE + " = ? AND ",
+                }, ALARM_TYPE + " = ?",
                 new String[]{type}, null, null, null);
         ArrayList<String> result = new ArrayList<>(c.getCount());
         if (c.moveToFirst()) {

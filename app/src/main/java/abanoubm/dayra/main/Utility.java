@@ -83,7 +83,9 @@ public class Utility {
 
     public static boolean isDBName(String str) {
 
-        return str.length() != 0 && !str.equals("dbname") && str.matches("[أؤءةابتثجحخدذرزسشصضطظعغفقكلمنهوىيa-z0-9A-Z\\s]+");
+        return str.length() != 0 && !str.equals("dbname") &&
+                str.matches("[أؤءةابتثجحخدذرزسشصضطظعغفقكلمنهوىيa-z0-9A-Z\\s]+") &&
+                !str.contains("journal");
     }
 
     public static boolean isSiteName(String str) {

@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:prompt="@string/select.year"
             android:spinnerMode="dialog"
             android:textSize="@dimen/font_largest" />
 
@@ -25,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:prompt="@string/select.month"
             android:spinnerMode="dialog"
             android:textSize="@dimen/font_largest" />
 
@@ -34,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:prompt="@string/select.day"
             android:spinnerMode="dialog"
             android:textSize="@dimen/font_largest" />
 

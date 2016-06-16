@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -84,7 +85,10 @@ public class DisplayContactsStatistics extends Activity {
                 startActivity(intent);
             }
         });
-        ((Spinner) findViewById(R.id.spin_type)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Spinner spin_type = (Spinner) findViewById(R.id.spin_type);
+        spin_type.setAdapter(new ArrayAdapter<>(getApplicationContext(),
+                R.layout.item_string, getResources().getTextArray(R.array.attendance_type)));
+        spin_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,

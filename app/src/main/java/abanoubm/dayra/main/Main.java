@@ -415,7 +415,7 @@ public class Main extends Activity {
         } else {
             ArrayList<String> names = new ArrayList<>(listOfFiles.length);
             for (File file : listOfFiles) {
-                if (!file.getName().contains("-journal"))
+                if (!file.getName().contains("journal"))
                     names.add(file.getName());
             }
 
