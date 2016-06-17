@@ -1,25 +1,23 @@
 package abanoubm.dayra.adapters;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.model.ContactSort;
 
-public class ContactSortAdapter extends ArrayAdapter<ContactSort> {
+public class ContactsDisplayListAdapter extends ArrayAdapter<ContactSort> {
 
-    public ContactSortAdapter(Context context, ArrayList<ContactSort> contacts) {
+    private int selected = -1;
+
+    public ContactsDisplayListAdapter(Context context, ArrayList<ContactSort> contacts) {
         super(context, 0, contacts);
     }
 
@@ -30,7 +28,7 @@ public class ContactSortAdapter extends ArrayAdapter<ContactSort> {
         ContactSort contact = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.item_contact_sort, parent, false);
+                    R.layout.item_display_contact_list, parent, false);
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
@@ -39,7 +37,7 @@ public class ContactSortAdapter extends ArrayAdapter<ContactSort> {
             holder.street = (TextView) convertView.findViewById(R.id.street);
             holder.site = (TextView) convertView.findViewById(R.id.site);
             holder.conf_father = (TextView) convertView.findViewById(R.id.conf_father);
-
+            holder.root = convertView.findViewById(R.id.root);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -63,11 +61,22 @@ public class ContactSortAdapter extends ArrayAdapter<ContactSort> {
                 .getSite());
         holder.conf_father.setText(contact
                 .getPriest());
+        if (selected == position)
+            holder.root.setBackgroundColor(getContext().getResources().getColor(R.color.colorAccent));
+        else
+            holder.root.setBackgroundColor(getContext().getResources().getColor(R.color.white));
+
         return convertView;
     }
 
     private static class ViewHolder {
         TextView name, class_year, study_work, street, site, conf_father;
         ImageView img;
+        View root;
+    }
+
+    public void setSelectedIndex(int pos) {
+        selected = pos;
+        notifyDataSetChanged();
     }
 }

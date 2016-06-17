@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapters.ContactSortAdapter;
+import abanoubm.dayra.adapters.ContactsDisplayListAdapter;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.model.ContactID;
 import abanoubm.dayra.model.ContactSort;
@@ -29,8 +29,7 @@ public class FragmentDisplayContacts extends Fragment {
     private ArrayList<ContactSort> list;
     private int previousPosition = 0;
     private boolean isDualMode = false;
-    private ContactSortAdapter mAdapter;
-    private int clicked = 0;
+    private ContactsDisplayListAdapter mAdapter;
 
     private class GetAllTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
@@ -52,7 +51,6 @@ public class FragmentDisplayContacts extends Fragment {
         protected void onPostExecute(Void att) {
             mAdapter.clear();
             mAdapter.addAll(list);
-            pBar.dismiss();
             if (list.size() == 0) {
                 getActivity().finish();
                 Toast.makeText(getActivity(),
@@ -60,12 +58,12 @@ public class FragmentDisplayContacts extends Fragment {
             } else {
                 if (previousPosition < list.size())
                     lv.setSelection(previousPosition);
-                previousPosition = 0;
                 if (isDualMode) {
                     lv.performItemClick(lv.findViewWithTag(mAdapter.getItem(previousPosition)),
                             previousPosition, mAdapter.getItemId(previousPosition));
                 }
             }
+            pBar.dismiss();
 
         }
     }
@@ -143,7 +141,19 @@ public class FragmentDisplayContacts extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            lv.setAdapter(new ContactSortAdapter(getActivity(), list));
+            mAdapter.clear();
+            mAdapter.addAll(list);
+            previousPosition = 0;
+            if (list.size() == 0) {
+                getActivity().finish();
+                Toast.makeText(getActivity(),
+                        R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
+            } else {
+                if (isDualMode) {
+                    lv.performItemClick(lv.findViewWithTag(mAdapter.getItem(previousPosition)),
+                            previousPosition, mAdapter.getItemId(previousPosition));
+                }
+            }
             pBar.dismiss();
 
         }
@@ -188,21 +198,15 @@ public class FragmentDisplayContacts extends Fragment {
             }
         });
         lv = (ListView) root.findViewById(R.id.list);
-        mAdapter = new ContactSortAdapter(getActivity(), new ArrayList<ContactSort>(0));
+        mAdapter = new ContactsDisplayListAdapter(getActivity(), new ArrayList<ContactSort>(0));
         lv.setAdapter(mAdapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                if(isDualMode){
-                    lv.getChildAt(clicked).setBackgroundColor(
-                            getResources().getColor(R.color.white));
-                    clicked = position;
-                    lv.getChildAt(clicked).setBackgroundColor(
-                            getResources().getColor(R.color.colorAccent));
-                }
-
+                if (isDualMode)
+                    mAdapter.setSelectedIndex(position);
 
                 previousPosition = lv.getFirstVisiblePosition();
 

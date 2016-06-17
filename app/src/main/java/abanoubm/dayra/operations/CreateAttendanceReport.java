@@ -79,7 +79,7 @@ public class CreateAttendanceReport extends Activity {
             }
             return DB.getInstant(getApplicationContext()).exportAttendanceReport(path,
                     Utility.produceDate(day, month, year), getResources().getStringArray(R.array.attendace_report_header),
-                    findViewById(R.id.english_layout) != null);
+                    findViewById(R.id.english_layout) != null,getApplicationContext());
 
         }
 

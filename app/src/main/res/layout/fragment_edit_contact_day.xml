@@ -1,70 +1,77 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/select.attendance.type"
-                android:textColor="@color/black"
-                android:textSize="@dimen/font_normal" />
 
-            <Spinner
-                android:id="@+id/spin"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:prompt="@string/select.attendance.type"
-                android:spinnerMode="dialog" />
+                android:layout_margin="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select.attendance.type"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_normal" />
+
+                <Spinner
+                    android:id="@+id/spin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:prompt="@string/select.attendance.type"
+                    android:spinnerMode="dialog" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:id="@+id/edit_date"
+                    style="@style/attendant_labels"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:focusable="false" />
+
+                <ImageView
+                    android:id="@+id/pick_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/ic_date" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/root"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_margin="20dp"
+                android:orientation="horizontal" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:orientation="horizontal">
-
-
-            <EditText
-                android:id="@+id/edit_date"
-                style="@style/attendant_labels"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:focusable="false" />
-
-            <ImageView
-                android:id="@+id/pick_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@mipmap/ic_date" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/root"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_margin="20dp"
-            android:orientation="horizontal" />
-
-    </LinearLayout>
-
+    </ScrollView>
 
     <include layout="@layout/edit_menu" />
 
-</RelativeLayout>
+</LinearLayout>
