@@ -14,9 +14,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.Calendar;
 
@@ -30,7 +29,7 @@ public class FragmentEditContactDay extends Fragment {
     private ProgressDialog pBar;
     private DB dbm;
     private int dayType = 0;
-    private LinearLayout layout;
+    private TextView date;
     private String targetDay;
     private boolean isAttendant;
 
@@ -44,7 +43,7 @@ public class FragmentEditContactDay extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             isAttendant = true;
-            layout.setBackgroundColor(Utility.update);
+            date.setBackgroundColor(Utility.update);
         }
 
         @Override
@@ -73,7 +72,7 @@ public class FragmentEditContactDay extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             isAttendant = false;
-            layout.setBackgroundColor(Utility.deupdate);
+            date.setBackgroundColor(Utility.deupdate);
             pBar.dismiss();
 
         }
@@ -96,9 +95,9 @@ public class FragmentEditContactDay extends Fragment {
         protected void onPostExecute(Boolean result) {
             isAttendant = result;
             if (result)
-                layout.setBackgroundColor(Utility.update);
+                date.setBackgroundColor(Utility.update);
             else
-                layout.setBackgroundColor(Utility.deupdate);
+                date.setBackgroundColor(Utility.deupdate);
 
             pBar.dismiss();
         }
@@ -126,22 +125,21 @@ public class FragmentEditContactDay extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_edit_contact_day, container, false);
 
-        layout = (LinearLayout) root.findViewById(R.id.root);
-        final EditText edit_date = (EditText) root.findViewById(R.id.edit_date);
+        date = (TextView) root.findViewById(R.id.date);
 
         Calendar cal = Calendar.getInstance();
         targetDay = Utility.produceDate(cal.get(Calendar.DAY_OF_MONTH),
                 cal.get(Calendar.MONTH) + 1,
                 cal.get(Calendar.YEAR));
 
-        edit_date.setText(targetDay);
+        date.setText(targetDay);
 
         final DatePickerDialog picker_date = new DatePickerDialog(getActivity(),
                 new OnDateSetListener() {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         targetDay = Utility.produceDate(dayOfMonth, monthOfYear + 1, year);
-                        edit_date.setText(targetDay);
+                        date.setText(targetDay);
                         new GetUpdateTask().execute();
                     }
 
@@ -186,7 +184,7 @@ public class FragmentEditContactDay extends Fragment {
 
             }
         });
-        layout.setOnClickListener(new OnClickListener() {
+        date.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isAttendant)
