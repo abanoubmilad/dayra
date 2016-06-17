@@ -170,8 +170,7 @@ public class SendSMS extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                ContactMobile temp = (ContactMobile) parent
-                        .getItemAtPosition(position);
+                ContactMobile temp = mAdapter.getItem(position);
                 if (temp.isExisted()) {
                     check.setChecked(false);
                     temp.invertSelected();

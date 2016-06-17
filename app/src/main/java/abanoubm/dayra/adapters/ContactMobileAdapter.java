@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactMobile;
 
 public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
@@ -33,7 +32,7 @@ public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.mobile = (TextView) convertView.findViewById(R.id.mobile);
-            holder.root = convertView.findViewById(R.id.root);
+            holder.flag2 = (ImageView) convertView.findViewById(R.id.flag2);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
         } else {
@@ -43,10 +42,7 @@ public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
         holder.name.setText(contact.getName());
         holder.mobile.setText(contact.getMobile());
 
-        if (contact.isSelected())
-            holder.root.setBackgroundColor(Utility.update);
-        else
-            holder.root.setBackgroundColor(Utility.deupdate);
+        holder.flag2.setImageResource(contact.isSelected() ? R.mipmap.ic_check : R.mipmap.ic_uncheck);
 
         if (contact.getPhoto() != null)
             holder.img.setImageBitmap(contact.getPhoto());
@@ -59,6 +55,6 @@ public class ContactMobileAdapter extends ArrayAdapter<ContactMobile> {
     private static class ViewHolder {
         TextView name, mobile;
         ImageView img;
-        View root;
+        ImageView flag2;
     }
 }

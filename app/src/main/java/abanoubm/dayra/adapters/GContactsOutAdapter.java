@@ -34,7 +34,7 @@ public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.mobile = (TextView) convertView.findViewById(R.id.mobile);
             holder.flag1 = (TextView) convertView.findViewById(R.id.flag1);
-            holder.root = convertView.findViewById(R.id.root);
+            holder.flag2 = (ImageView)convertView.findViewById(R.id.flag2);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
         } else {
@@ -47,11 +47,8 @@ public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
 
         holder.flag1.setVisibility(contact.isExisted() ? View.VISIBLE : View.INVISIBLE);
 
+        holder.flag2.setImageResource(contact.isSelected() ? R.mipmap.ic_check : R.mipmap.ic_uncheck);
 
-        if (contact.isSelected())
-            holder.root.setBackgroundColor(Utility.update);
-        else
-            holder.root.setBackgroundColor(Utility.deupdate);
 
         if (contact.getPhoto() != null)
             holder.img.setImageBitmap(contact.getPhoto());
@@ -63,7 +60,6 @@ public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
 
     private static class ViewHolder {
         TextView name, flag1, mobile;
-        View root;
-        ImageView img;
+        ImageView img,flag2;
     }
 }

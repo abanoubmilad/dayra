@@ -3,7 +3,7 @@
     android:id="@+id/english_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/listview_bg"
+    android:background="@drawable/dynamic_bg"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:padding="5dp"
-        android:textColor="@color/text_pressed"
+        android:textColor="@color/dynamic_text"
         android:textSize="@dimen/font_larger" />
 
 </LinearLayout>

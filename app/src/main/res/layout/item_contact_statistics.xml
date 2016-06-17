@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/listview_bg"
+    android:background="@drawable/dynamic_bg"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:textColor="@color/text_pressed"
+            android:textColor="@color/dynamic_text"
             android:textSize="@dimen/font_larger" />
 
         <LinearLayout
@@ -39,14 +39,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:text="@string/label.attend.count"
-                android:textColor="@color/text_pressed"
+                android:textColor="@color/dynamic_text"
                 android:textSize="@dimen/font_normal" />
 
             <TextView
                 android:id="@+id/count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_pressed"
+                android:textColor="@color/dynamic_text"
                 android:textSize="@dimen/font_normal" />
         </LinearLayout>
 
@@ -60,14 +60,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:text="@string/label.attend.min"
-                android:textColor="@color/text_pressed"
+                android:textColor="@color/dynamic_text"
                 android:textSize="@dimen/font_normal" />
 
             <TextView
                 android:id="@+id/min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_pressed"
+                android:textColor="@color/dynamic_text"
                 android:textSize="@dimen/font_normal" />
         </LinearLayout>
 
@@ -82,14 +82,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:text="@string/label.attend.max"
-                android:textColor="@color/text_pressed"
+                android:textColor="@color/dynamic_text"
                 android:textSize="@dimen/font_normal" />
 
             <TextView
                 android:id="@+id/max"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_pressed"
+                android:textColor="@color/dynamic_text"
                 android:textSize="@dimen/font_normal" />
         </LinearLayout>
 

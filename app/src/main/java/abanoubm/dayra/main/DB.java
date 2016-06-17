@@ -1115,8 +1115,7 @@ public class DB extends SQLiteOpenHelper {
             do {
                 result.add(new ContactMobile(c.getString(0), c
                         .getString(1), Utility.getBitmap(c.getBlob(2)), c
-                        .getString(3), c
-                        .getString(3).equals("")));
+                        .getString(3), !c.getString(3).equals("")));
             } while (c.moveToNext());
         }
         c.close();

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/listview_bg"
+    android:background="@drawable/dynamic_bg"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingRight="5dp"
-        android:textColor="@color/text_pressed"
+        android:textColor="@color/dynamic_text"
         android:textSize="@dimen/font_larger" />
 
 </LinearLayout>

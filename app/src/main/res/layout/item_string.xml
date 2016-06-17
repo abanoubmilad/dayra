@@ -3,8 +3,8 @@
     android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/listview_bg"
+    android:background="@drawable/dynamic_bg"
     android:gravity="left"
     android:padding="5dp"
-    android:textColor="@color/text_pressed"
+    android:textColor="@color/dynamic_text"
     android:textSize="@dimen/font_larger" />
