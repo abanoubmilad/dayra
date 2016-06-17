@@ -140,7 +140,7 @@ public class DB extends SQLiteOpenHelper {
                 + ATTEND_DAY + " integer)";
         db.execSQL(sql);
 
-        sql = "CREATE INDEX ON " + TB_ATTEND + " (" + ATTEND_ID + ")";
+        sql = "CREATE INDEX ON " + TB_ATTEND + " (" + ATTEND_ID + "," + ATTEND_TYPE + "," + ATTEND_DAY + ")";
         db.execSQL(sql);
 
         sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
@@ -164,7 +164,7 @@ public class DB extends SQLiteOpenHelper {
                     + ATTEND_DAY + " integer)";
             db.execSQL(sql);
 
-            sql = "CREATE INDEX ON " + TB_ATTEND + " (" + ATTEND_ID + ")";
+            sql = "CREATE INDEX ON " + TB_ATTEND + " (" + ATTEND_ID + "," + ATTEND_TYPE + "," + ATTEND_DAY + ")";
             db.execSQL(sql);
 
             sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "

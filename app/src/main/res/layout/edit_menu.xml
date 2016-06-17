@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:background="@color/red"
+        android:background="@color/black"
         android:padding="10dp"
         android:src="@mipmap/ic_delete2" />
 

@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <include layout="@layout/sep" />
@@ -189,6 +190,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+
             android:orientation="horizontal">
 
             <include layout="@layout/sep" />
@@ -203,17 +206,16 @@
         </LinearLayout>
 
 
+        <TextView
+            android:id="@+id/dis_site"
+            style="@style/attendant_labels"
+            android:hint="@string/label.site" />
 
-            <TextView
-                android:id="@+id/dis_site"
-                style="@style/attendant_labels"
-                android:hint="@string/label.site" />
 
-
-            <TextView
-                android:id="@+id/dis_street"
-                style="@style/attendant_labels"
-                android:hint="@string/label.street" />
+        <TextView
+            android:id="@+id/dis_street"
+            style="@style/attendant_labels"
+            android:hint="@string/label.street" />
 
         <TextView
             android:id="@+id/dis_address"
