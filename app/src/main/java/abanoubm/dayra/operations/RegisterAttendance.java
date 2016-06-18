@@ -27,7 +27,7 @@ import java.util.Calendar;
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactCheckAdapter;
 import abanoubm.dayra.display.AddContactDetails;
-import abanoubm.dayra.display.DisplayContactDetails;
+import abanoubm.dayra.display.DisplayContact;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactCheck;
@@ -193,7 +193,7 @@ public class RegisterAttendance extends Activity {
                                            int position, long id) {
                 previousPosition = lv.getFirstVisiblePosition();
                 Intent intent = new Intent(getApplicationContext(),
-                        DisplayContactDetails.class).putExtra("id", mAdapter.getItem(position).getId());
+                        DisplayContact.class).putExtra("id", mAdapter.getItem(position).getId());
                 startActivity(intent);
                 return true;
             }

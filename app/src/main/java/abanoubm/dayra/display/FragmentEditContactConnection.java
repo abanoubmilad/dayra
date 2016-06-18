@@ -93,7 +93,7 @@ public class FragmentEditContactConnection extends Fragment {
                 getActivity().finish();
 
                 startActivity(new Intent(getActivity(),
-                        DisplayContactDetails.class).putExtra(ARG_ID,
+                        DisplayContact.class).putExtra(ARG_ID,
                         id));
             }
         });

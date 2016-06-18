@@ -9,33 +9,20 @@
     <string name="msg.no.connections">ﻻ توجد معارف/صلة مسجلة</string>
     <string name="btn.export">تصدير</string>
     <string name="label.choose.data">اختر البيانات</string>
-    <string name="btn.edit">تعديل</string>
-    <string name="btn.save">حفظ</string>
     <string name="btn.search">بحث</string>
     <string name="label.dayra.name">اسم الدايره</string>
-    <string name="label.photo">صورة</string>
-    <string name="btn.delete">مسح</string>
-    <string name="btn.confirm">تأكيد</string>
     <string name="btn.create">تكوين</string>
-    <string name="btn.back">عودة</string>
-    <string name="err.msg.db">خطأ أثناء محاولة الاتصال بقاعدة البيانات</string>
     <string name="label.name.required">اسم (مطلوب)</string>
     <string name="label.name">اسم</string>
-    <string name="label.last.attendance">اخر حضور</string>
-    <string name="label.last.visit">اخر زيارة</string>
-    <string name="label.attendance.dates">تواريخ الحضور</string>
     <string name="label.supervisor">المُشرف</string>
     <string name="label.notes">ملاحظات</string>
     <string name="label.bday">تاريخ الميلاد</string>
     <string name="label.email">ايميل</string>
-    <string name="err.msg.invalid.vday">تاريخ اخر زيارة غير صالح</string>
-    <string name="err.msg.invalid.bday">تاريخ الميلاد غير صالح</string>
     <string name="label.mobile1">موبايل ١</string>
     <string name="label.mobile2">موبايل ٢</string>
     <string name="label.mobile3">موبايل ٣</string>
     <string name="label.lphone">تليفون</string>
     <string name="label.day">يوم</string>
-    <string name="label.day.optional">يوم (اختيارى)</string>
     <string name="label.month">شهر</string>
     <string name="label.year">سنة</string>
     <string name="err.msg.duplicate.name">هذا الاسم مستخدم من قبل</string>
@@ -47,44 +34,30 @@
     <string name="msg.deleted">تم مسح الاسم</string>
     <string name="err.msg.dayra.delete">خطأ أثناء محاولة مسح الدايره</string>
     <string name="msg.dayra.exported">تم تصدير الدايره</string>
-    <string name="err.msg.day">اليوم غير صالح</string>
-    <string name="err.msg.month">الشهر غير صالح</string>
-    <string name="err.msg.year">السنة غير صالح</string>
     <string name="err.msg.invalid.name">الاسم غير صالح استخدم  4 حروف على الاقل</string>
     <string name="err.msg.email">الايميل غير صالح</string>
-    <string name="subhead.search">بحث </string>
+    <string name="subhead.search.info">بحث تفاصيل</string>
     <string name="label.confirm.dayra">تأكيد اسم الدايره</string>
     <string name="subhead.search_dates">بحت تواريخ</string>
-    <string name="subhead.search_bdays">بحث اعياد الميلاد</string>
+    <string name="subhead.search_bdays">بحث تاريخ الميلاد</string>
     <string name="btn.add">اضافة</string>
     <string name="subhead.add.contact">اضافة</string>
-    <string name="subhead.display.contacts">عرض البيانات</string>
-    <string name="subhead.advanced">اعدادت متقدمة</string>
-    <string name="subhead.contact">تواصل معنا</string>
-    <string name="subhead.transfer">نسخ الاسماء من الدايره الى الهاتف</string>
-    <string name="subhead.export.pdf">تصدير البيانات pdf</string>
-    <string name="subhead.export.excel">تصدير البيانات excel</string>
-    <string name="subhead.display.contact">عرض التفاصيل</string>
-    <string name="btn.map.add">اضافة العنوان على الخريطة</string>
-    <string name="btn.map.edit">تعديل العنوان على الخريطة</string>
-    <string name="btn.map.display">عرض العنوان على الخريطة</string>
-    <string name="subhead.display.locs">عرض العناوين</string>
+    <string name="subhead.display.contacts">البيانات</string>
+    <string name="subhead.display.info">التفاصيل</string>
+    <string name="subhead.display.locs">العناوين</string>
     <string name="err.msg.duplicate.dayra">التطبيق يحتوى على دايره بنفس الاسم قم بمسحها اولا</string>
     <string name="subhead.register.attendance">تسجيل حضور</string>
-    <string name="err.msg.invalid.date">التاريخ غير صالح</string>
     <string name="msg.dayra.imported">تم استيراد الدايره</string>
     <string name="msg.dayra.replaced">تم استبدال بيانات الدايره</string>
-    <string name="subhead.dayra.update">استبدال بيانات الدايره الحالية</string>
     <string name="err.msg.import">خطأ أثناء محاولة استيراد الدايره</string>
     <string name="err.msg.invalid_file">الملف غير صالح</string>
-    <string name="btn.confirm.date">تأكيد التاريخ</string>
     <string name="msg.no.dayra">ﻻ توجد دايره متاحة قم بتكوين واحدة</string>
     <string name="label.select.dayra">اختيار دايره</string>
     <string name="err.msg.open">خطأ أثناء محاولة الاتصال بقاعدة البيانات</string>
     <string name="err.dayra.divide">خطأ أثناء محاولة تقسيم الدايره</string>
     <string name="err.copy.contacts">خطأ لم يتم نسخ جميع الاسماء</string>
     <string name="msg.copy.success">تم نسخ الاسماء</string>
-    <string name="subhead.percentage">عرض نسب الحضور</string>
+    <string name="subhead.percentage">احصائيات الحضور</string>
     <string name="label.numbering">ترقيم البيانات</string>
     <string name="msg.dayra.renamed">تم اعادة تسمية الدايره</string>
     <string name="label.site">منطقة</string>
@@ -101,36 +74,27 @@
     <string name="label.divide.express">تقسيم الدايره الحالية الى اكثر من دايره مع الاحتفاظ بالدايره الاصلية كما هى\nقم بتقسيم الدايره بحسب</string>
     <string name="msg.dayra.divided">تم تقسيم الدايره</string>
     <string name="label.tolerance">عدد الدفعات/السنين المسموح به فى كل دفعة</string>
-    <string name="label.update.dayra">استبدال بيانات دايره</string>
     <string name="label.update.express">برجاء قراءة التعليمات بعناية قبل استخدام هذه الخاصية - احتفظ دوما بنسخة احتياطية من الدايره\nاستبدال بيانات الدايره الحالية بدايره اخرى\nالاستبدال يتم كالتالى :\nفى حالة وجود اسم جديد يتم اضافة بياناته بالكامل الى الدايره الحالية\nفى حالة وجود نفس الاسم يتم استبدال حقول البيانات المحددة</string>
     <string name="btn.browse.dayra">تحديد الدايره التى سيتم الاستبدال بواستطها</string>
-    <string name="err.msg.browse">قم بتحديد الدايره التى سيتم استبدال البيانات بواستطها اولا</string>
     <string name="label.choose.site">اختر المنطقة</string>
     <string name="label.choose.street">اختر الشارع</string>
     <string name="label.choose.supervisor">اختر المُشرف</string>
     <string name="label.choose.class.year">اختر الدفعة/السنة</string>
-    <string name="label.add.site">اضافة منطقة جديدة</string>
-    <string name="label.add.class.year">اضافة دفعة/سنة جديدة</string>
     <string name="label_choose_study_work">اضافة دراسة/عمل</string>
     <string name="msg.exported">تم التصدير</string>
     <string name="err.msg.export">خطأ أثناء محاولة التصدير </string>
     <string name="err.msg.explorer">تحتاج لمتصفح ملفات لاكمال هذه الخطوة</string>
     <string name="label.choose.language">اختر اللغة</string>
-    <string name="label.choose.search">بحث بواسطة</string>
     <string name="label.choose.photo">اختيار الصورة</string>
-    <string name="label.check.all">اختيار الكل</string>
     <string name="btn.send.sms">أرسل للأسماء المختارة</string>
-    <string name="subhead.sms">ارسال رسالة قصيرة</string>
+    <string name="subhead.sms">ارسال SMS</string>
     <string name="label.loading">الرجاء الانتظار جارى التحميل</string>
     <string name="label.sortby">ترتيب بواسطة</string>
     <string name="label.selectall">اختيار الكل</string>
     <string name="msg.no.available.entries">ﻻ توجد قيم سابقة</string>
     <string name="label.settings">اعدادات التنبيهات</string>
     <string name="label.alert.last.attend">عرض تنبيهات اخر تاريخ حضور</string>
-    <string name="label.alert.last.visit">عرض تنبيهات اخر تاريخ زيارة</string>
     <string name="label.alert.bday">عرض تنبيهات اعياد الميلاد</string>
-    <string name="label.noti.last.attend">متابعة انقطاع الحضور</string>
-    <string name="label.noti.last.visit">متابعة انقطاع الزيارة</string>
     <string name="label.noti.bday">اعياد ميلاد اليوم</string>
     <string name="label.noti.more">عدد الافراد :</string>
     <string name="label.noti.alarm.set">تم حفظ اعدادات التنبيهات</string>
@@ -138,20 +102,22 @@
     <string name="label.home.out">تصدير ونسخ الاسماء</string>
     <string name="label.home.settings">اعدادات</string>
     <string name="subhead.edit.connections">تعديل المعارف/الصلة</string>
-    <string name="subhead.display.connections">عرض المعارف/الصلة</string>
+    <string name="subhead.display.connections">المعارف/الصلة</string>
     <string name="subhead.select.in">نسخ الاسماء المٌختارة الى الدايره</string>
     <string name="subhead.select.out">نسخ الاسماء المٌختارة الى الموبايل</string>
     <string name="msg.no.mobiles">لم يتم اختيار ارقام موبايل</string>
-    <string name="subhead.edit.contact">تعديل البيانات</string>
+    <string name="subhead.edit.info">تعديل التفاصيل</string>
+    <string name="subhead.edit.map">تعديل عنوان الخريطة</string>
+    <string name="subhead.edit.day">تعديل الحضور</string>
     <string name="flag.contact.exist">الاسم مُسجل</string>
-    <string name="select.attendance.type">اختر نوع الحضور</string>
+    <string name="select.attendance.type">نوع الحضور</string>
     <string name="search.by">بحث بواسطة</string>
 
 
     <string name="btn.yes">نعم</string>
     <string name="btn.cancel">عودة</string>
-    <string name="btn.reset">مسح التعديلات</string>
-    <string name="btn.rename">اعداة التسمية</string>
+    <string name="btn.confirm">تأكيد</string>
+
     <string name="dialogue.create">اكتب اسم الدايره بامكانك استخدام حروف عربية او انجليزية ارقام او مسافات فقط</string>
     <string name="dialogue.rename">تأكيد اعادة تسمية الدايره الحالية </string>
     <string name="dialogue.cancel">تأكيد عملية التراجع لن يتم حفظ اى تعديل قمت باضافته</string>
@@ -169,12 +135,8 @@
         <item>اخر تاريخ</item>
         <item>عدد المرات</item>
     </string-array>
-    <string-array name="report_range">
-        <item>تقرير يومى</item>
-        <item>تقرير شهرى</item>
-        <item>تقرير سنوى</item>
-    </string-array>
-    <string-array name="bday_months">
+
+    <string-array name="months">
         <item>اى شهر</item>
         <item>يناير</item>
         <item>فبراير</item>
@@ -190,7 +152,7 @@
         <item>ديسمبر</item>
 
     </string-array>
-    <string-array name="bday_days">
+    <string-array name="days">
         <item>اى يوم</item>
         <item>١</item>
         <item>٢</item>
@@ -325,5 +287,9 @@
         <item>شارع</item>
         <item>المُشرف</item>
     </string-array>
-
+    <string name="copyright">dayra 3.2 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="label.dayra.file">dayra file</string>
+    <string name="label.dayra.xls">dayra xls</string>
+    <string name="subhead.display.day">الحضور</string>
+    <string name="subhead.display.map">عنوان الخريطة</string>
 </resources>

@@ -51,7 +51,7 @@ public class FragmentDisplayContactConnection extends Fragment {
                                     int position, long arg3) {
                 previousPosition = lv.getFirstVisiblePosition();
                 Intent intent = new Intent(getActivity(),
-                        DisplayContactDetails.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        DisplayContact.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("id", mAdapter.getItem(position).getId());
                 startActivity(intent);
             }

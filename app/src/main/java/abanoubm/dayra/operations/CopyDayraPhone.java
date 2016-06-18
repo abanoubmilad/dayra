@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.GContactsOutAdapter;
-import abanoubm.dayra.display.DisplayContactDetails;
+import abanoubm.dayra.display.DisplayContact;
 import abanoubm.dayra.main.ContactHelper;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
@@ -191,7 +191,7 @@ public class CopyDayraPhone extends Activity {
                                            int position, long id) {
                 previousPosition = lv.getFirstVisiblePosition();
                 Intent intent = new Intent(getApplicationContext(),
-                        DisplayContactDetails.class);
+                        DisplayContact.class);
                 intent.putExtra("id", mAdapter.getItem(position).getId());
                 startActivity(intent);
                 return true;

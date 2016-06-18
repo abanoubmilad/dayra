@@ -63,7 +63,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
             public void onClick(View v) {
                 getActivity().finish();
                 startActivity(new Intent(getActivity(),
-                        DisplayContactDetails.class).putExtra("id",
+                        DisplayContact.class).putExtra("id",
                         id));
             }
         });
@@ -189,7 +189,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
             Toast.makeText(getActivity(), R.string.msg_updated,
                     Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getActivity(),
-                    DisplayContactDetails.class).putExtra("id",
+                    DisplayContact.class).putExtra("id",
                     id));
         }
 

@@ -39,7 +39,7 @@ public class DisplayContacts extends ActionBarActivity implements CallBack {
             Bundle args = new Bundle();
             args.putString("id", id);
 
-            FragmentDisplayContactDetails fragment = new FragmentDisplayContactDetails();
+            FragmentDisplayContact fragment = new FragmentDisplayContact();
             fragment.setArguments(args);
 
             getSupportFragmentManager().beginTransaction()
@@ -47,7 +47,7 @@ public class DisplayContacts extends ActionBarActivity implements CallBack {
                     .commit();
 
         } else {
-            startActivity(new Intent(this, DisplayContactDetails.class).putExtra("id", id));
+            startActivity(new Intent(this, DisplayContact.class).putExtra("id", id));
         }
 
     }

@@ -8,10 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import abanoubm.dayra.R;
 
-public class FragmentDisplayContactDetails extends Fragment {
+public class FragmentDisplayContact extends Fragment {
     private String id;
     private int current = 0;
     private static final String ARG_ID = "id";
@@ -29,6 +30,7 @@ public class FragmentDisplayContactDetails extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_display_contact, container, false);
+        final TextView subhead2 = ((TextView) root.findViewById(R.id.subhead2));
 
         final ImageView[] buttons = new ImageView[]{
                 (ImageView) root.findViewById(R.id.img1),
@@ -50,6 +52,8 @@ public class FragmentDisplayContactDetails extends Fragment {
                     Bundle arguments = new Bundle();
                     arguments.putString(ARG_ID, id);
 
+                    subhead2.setText(R.string.subhead_display_info);
+
                     FragmentDisplayContactInfo fragment = new FragmentDisplayContactInfo();
                     fragment.setArguments(arguments);
 
@@ -68,6 +72,8 @@ public class FragmentDisplayContactDetails extends Fragment {
                     buttons[current].setBackgroundColor(0);
                     current = 1;
                     buttons[1].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+
+                    subhead2.setText(R.string.subhead_display_day);
 
                     Bundle arguments = new Bundle();
                     arguments.putString(ARG_ID, id);
@@ -90,6 +96,8 @@ public class FragmentDisplayContactDetails extends Fragment {
                     current = 2;
                     buttons[2].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
 
+
+                    subhead2.setText(R.string.subhead_display_connections);
 
                     Bundle arguments = new Bundle();
                     arguments.putString(ARG_ID, id);
@@ -115,6 +123,8 @@ public class FragmentDisplayContactDetails extends Fragment {
                     buttons[3].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
 
 
+                    subhead2.setText(R.string.subhead_display_map);
+
                     Bundle arguments = new Bundle();
                     arguments.putString(ARG_ID, id);
 
@@ -137,7 +147,7 @@ public class FragmentDisplayContactDetails extends Fragment {
                     buttons[current].setBackgroundColor(0);
                     current = 4;
                     buttons[4].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-                    startActivity(new Intent(getActivity(), EditContactDetails.class).putExtra(ARG_ID, id));
+                    startActivity(new Intent(getActivity(), EditContact.class).putExtra(ARG_ID, id));
                 }
 
             }

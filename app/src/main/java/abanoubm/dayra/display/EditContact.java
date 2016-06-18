@@ -14,7 +14,7 @@ import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactLocation;
 
-public class EditContactDetails extends ActionBarActivity {
+public class EditContact extends ActionBarActivity {
     private String id;
     private int current = 0;
     private ImageView[] buttons;
@@ -29,8 +29,9 @@ public class EditContactDetails extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_edit_contact);
 
+
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
-        ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_edit_contact);
+        final TextView subhead2 = ((TextView) findViewById(R.id.subhead2));
 
         id = getIntent().getStringExtra(ARG_ID);
 
@@ -43,6 +44,8 @@ public class EditContactDetails extends ActionBarActivity {
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
             arguments.putString(ARG_ID, getIntent().getStringExtra(ARG_ID));
+
+            subhead2.setText(R.string.subhead_edit_info);
 
             FragmentEditContactInfo fragment = new FragmentEditContactInfo();
             fragment.setArguments(arguments);
@@ -61,6 +64,8 @@ public class EditContactDetails extends ActionBarActivity {
                     buttons[current].setBackgroundColor(0);
                     current = 0;
                     buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+
+                    subhead2.setText(R.string.subhead_edit_info);
 
                     Bundle arguments = new Bundle();
                     arguments.putString(ARG_ID, id);
@@ -84,6 +89,8 @@ public class EditContactDetails extends ActionBarActivity {
                     current = 1;
                     buttons[1].setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorAccent));
 
+                    subhead2.setText(R.string.subhead_edit_info);
+
                     Bundle arguments = new Bundle();
                     arguments.putString(ARG_ID, id);
 
@@ -105,6 +112,8 @@ public class EditContactDetails extends ActionBarActivity {
                     current = 2;
                     buttons[2].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
 
+                    subhead2.setText(R.string.subhead_edit_connections);
+
 
                     Bundle arguments = new Bundle();
                     arguments.putString(ARG_ID, id);
@@ -125,6 +134,7 @@ public class EditContactDetails extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 new GetLocationTask().execute();
+                subhead2.setText(R.string.subhead_edit_map);
             }
         });
 
@@ -135,7 +145,7 @@ public class EditContactDetails extends ActionBarActivity {
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(EditContactDetails.this);
+            pBar = new ProgressDialog(EditContact.this);
             pBar.setCancelable(false);
             pBar.show();
         }
@@ -146,7 +156,6 @@ public class EditContactDetails extends ActionBarActivity {
                 buttons[current].setBackgroundColor(0);
                 current = 3;
                 buttons[3].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
-
 
                 Bundle arguments = new Bundle();
                 arguments.putDouble(ARG_LAT, result.getMapLat());

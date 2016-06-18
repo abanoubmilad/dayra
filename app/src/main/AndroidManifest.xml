@@ -52,12 +52,12 @@
         <activity android:name="abanoubm.dayra.main.Home" />
         <activity android:name=".display.DisplayContacts" />
         <activity
-            android:name=".display.DisplayContactDetails"
+            android:name=".display.DisplayContact"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".operations.Search" />
         <activity android:name=".operations.CreateInformationTable" />
         <activity android:name=".operations.CreateAttendanceReport" />
-        <activity android:name=".display.EditContactDetails" />
+        <activity android:name=".display.EditContact" />
         <activity android:name=".display.AddContactDetails" />
         <activity android:name=".operations.RegisterAttendance">
 

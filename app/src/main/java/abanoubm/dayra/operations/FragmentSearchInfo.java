@@ -21,11 +21,11 @@ import java.util.ArrayList;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactIDAdapter;
-import abanoubm.dayra.display.DisplayContactDetails;
+import abanoubm.dayra.display.DisplayContact;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.model.ContactID;
 
-public class FragmentSearch extends Fragment {
+public class FragmentSearchInfo extends Fragment {
     private EditText input;
     private ContactIDAdapter mAdapter;
     private int currentTag = 0;
@@ -117,7 +117,7 @@ public class FragmentSearch extends Fragment {
                                     int position, long arg3) {
 
                 Intent intent = new Intent(getActivity(),
-                        DisplayContactDetails.class);
+                        DisplayContact.class);
                 intent.putExtra("id", mAdapter.getItem(position).getId());
                 startActivity(intent);
 

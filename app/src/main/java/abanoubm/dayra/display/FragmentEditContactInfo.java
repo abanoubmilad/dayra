@@ -158,7 +158,7 @@ public class FragmentEditContactInfo extends Fragment {
                     public void onClick(View v) {
                         getActivity().finish();
                         startActivity(new Intent(getActivity(),
-                                DisplayContactDetails.class).putExtra("id",
+                                DisplayContact.class).putExtra("id",
                                 id));
                         ad.dismiss();
 
@@ -316,7 +316,7 @@ public class FragmentEditContactInfo extends Fragment {
             if (result) {
                 //    finish();
                 startActivity(new Intent(getActivity(),
-                        DisplayContactDetails.class).putExtra("id", contactData.getId()));
+                        DisplayContact.class).putExtra("id", contactData.getId()));
             }
 
         }

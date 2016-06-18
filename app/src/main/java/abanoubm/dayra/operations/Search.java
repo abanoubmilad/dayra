@@ -31,7 +31,7 @@ public class Search extends ActionBarActivity {
             buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
 
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment, new FragmentSearch())
+                    .replace(R.id.fragment, new FragmentSearchInfo())
                     .commit();
         }
         buttons[0].setOnClickListener(new View.OnClickListener() {
@@ -42,9 +42,9 @@ public class Search extends ActionBarActivity {
                     buttons[current].setBackgroundColor(0);
                     current = 0;
                     buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
-                    text.setText(R.string.subhead_search);
+                    text.setText(R.string.subhead_search_info);
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment, new FragmentSearch())
+                            .replace(R.id.fragment, new FragmentSearchInfo())
                             .commit();
                 }
 

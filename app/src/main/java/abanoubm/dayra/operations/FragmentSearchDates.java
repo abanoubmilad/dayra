@@ -25,7 +25,7 @@ import java.util.Calendar;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactDayAdapter;
-import abanoubm.dayra.display.DisplayContactDetails;
+import abanoubm.dayra.display.DisplayContact;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactDay;
@@ -97,7 +97,7 @@ public class FragmentSearchDates extends Fragment {
                                     int position, long arg3) {
 
                 Intent intent = new Intent(getActivity(),
-                        DisplayContactDetails.class);
+                        DisplayContact.class);
                 intent.putExtra("id", adapter.getItem(position).getId());
                 startActivity(intent);
 
