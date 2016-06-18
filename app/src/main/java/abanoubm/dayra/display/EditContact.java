@@ -89,7 +89,7 @@ public class EditContact extends ActionBarActivity {
                     current = 1;
                     buttons[1].setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorAccent));
 
-                    subhead2.setText(R.string.subhead_edit_info);
+                    subhead2.setText(R.string.subhead_edit_day);
 
                     Bundle arguments = new Bundle();
                     arguments.putString(ARG_ID, id);
