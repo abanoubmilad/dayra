@@ -31,6 +31,8 @@ public class FragmentDisplayContact extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_display_contact, container, false);
+
+        root.findViewById(R.id.subhead1).setVisibility(View.GONE);
         final TextView subhead2 = ((TextView) root.findViewById(R.id.subhead2));
 
         final ImageView[] buttons = new ImageView[]{
@@ -40,6 +42,22 @@ public class FragmentDisplayContact extends Fragment {
                 (ImageView) root.findViewById(R.id.img4),
                 (ImageView) root.findViewById(R.id.img5)
         };
+
+
+        if (savedInstanceState == null) {
+            Bundle arguments = new Bundle();
+            arguments.putString(ARG_ID, id);
+
+            FragmentDisplayContactInfo fragment = new FragmentDisplayContactInfo();
+            fragment.setArguments(arguments);
+
+            subhead2.setText(R.string.subhead_display_info);
+
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.display_contact_fragment, fragment)
+                    .commit();
+
+        }
 
         buttons[0].setOnClickListener(new View.OnClickListener() {
 
@@ -155,18 +173,6 @@ public class FragmentDisplayContact extends Fragment {
         });
 
 
-        if (savedInstanceState == null) {
-            Bundle arguments = new Bundle();
-            arguments.putString(ARG_ID, id);
-
-            FragmentDisplayContactInfo fragment = new FragmentDisplayContactInfo();
-            fragment.setArguments(arguments);
-
-            getChildFragmentManager().beginTransaction()
-                    .replace(R.id.display_contact_fragment, fragment)
-                    .commit();
-
-        }
         return root;
     }
 }

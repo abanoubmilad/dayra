@@ -115,7 +115,6 @@
 
 
     <string name="btn.yes">نعم</string>
-    <string name="btn.cancel">عودة</string>
     <string name="btn.confirm">تأكيد</string>
 
     <string name="dialogue.create">اكتب اسم الدايره\nبامكانك استخدام حروف عربية او انجليزية ارقام او مسافات فقط</string>

@@ -30,7 +30,7 @@ public class EditContact extends ActionBarActivity {
         setContentView(R.layout.act_edit_contact);
 
 
-        ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
+        findViewById(R.id.subhead1).setVisibility(View.GONE);
         final TextView subhead2 = ((TextView) findViewById(R.id.subhead2));
 
         id = getIntent().getStringExtra(ARG_ID);
