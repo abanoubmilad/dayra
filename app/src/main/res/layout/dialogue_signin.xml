@@ -21,7 +21,6 @@
         android:layout_width="380dp"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
         android:layout_weight="1" />
 
     <ImageView
@@ -30,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/red"
-        android:src="@mipmap/ic_back" />
+        android:src="@mipmap/ic_back"
+        android:layout_margin="20dp"/>
 
 </LinearLayout>
