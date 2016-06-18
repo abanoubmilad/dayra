@@ -431,9 +431,8 @@ public class Main extends Activity {
             nameslv.setAdapter(new ArrayAdapter<>(
                     getApplicationContext(), R.layout.item_string,
                     R.id.item, names));
-            TextView back = (TextView) signView.findViewById(R.id.back);
 
-            back.setOnClickListener(new OnClickListener() {
+            signView.findViewById(R.id.back).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ad.dismiss();

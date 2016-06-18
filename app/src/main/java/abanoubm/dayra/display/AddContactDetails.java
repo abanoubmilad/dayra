@@ -20,7 +20,7 @@ public class AddContactDetails extends AppCompatActivity implements CallBack {
         setContentView(R.layout.act_add_contact_details);
 
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
-        ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_edit_contact);
+        ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_add_contact);
 
         buttons = new ImageView[]{
                 (ImageView) findViewById(R.id.img1),

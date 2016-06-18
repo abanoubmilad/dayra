@@ -113,16 +113,20 @@
     <string name="select.attendance.type">attendance type</string>
     <string name="search.by">Search by</string>
 
+    <string name="select.year">Select year</string>
+    <string name="select.month">Select month</string>
+    <string name="select.day">Select day</string>
+
     <string name="btn.yes">Yes</string>
     <string name="btn.cancel">Cancel</string>
     <string name="btn.confirm">Confirm</string>
 
-    <string name="dialogue.create">Write dayra\'s name, You can use English/Arabic alphabet,numbers and spaces only</string>
+    <string name="dialogue.create">Write dayra\'s name,\nYou can use English/Arabic alphabet,numbers and spaces only</string>
     <string name="dialogue.rename">Confirm renaming the current dayra</string>
-    <string name="dialogue.cancel">Are you sure you want to cancel ? no modifications will be saved</string>
+    <string name="dialogue.cancel">Are you sure you want to cancel ?\nNo modifications will be saved</string>
     <string name="dialogue.delete">Are you sure you want to delete contact ?</string>
-    <string name="dialogue.reset">Are you sure you want to reset ? no modifications will be saved, orgional data will be restored</string>
-    <string name="dialogue.delete.dayra">Are you sure you want to delete this dayra ? this action can not de undone, always keep a backup of dayra</string>
+    <string name="dialogue.reset">Are you sure you want to reset ?\nNo modifications will be saved, orgional data will be restored</string>
+    <string name="dialogue.delete.dayra">Are you sure you want to delete this dayra ?\nThis action can not de undone, always keep a backup of dayra</string>
 
     <string name="label.attend.max">last date</string>
     <string name="label.attend.min">first date</string>
@@ -132,29 +136,29 @@
     <string name="label.dayra.file">dayra file</string>
 
     <string-array name="attendace_report_header">
-        <item>attendance type</item>
-        <item>first date</item>
-        <item>last date</item>
-        <item>times</item>
+        <item>Attendance type</item>
+        <item>First date</item>
+        <item>Last date</item>
+        <item>Times</item>
     </string-array>
 
     <string-array name="months">
-        <item>any month</item>
-        <item>january</item>
-        <item>february</item>
-        <item>march</item>
-        <item>april</item>
-        <item>may</item>
-        <item>june</item>
-        <item>july</item>
-        <item>august</item>
-        <item>september</item>
-        <item>october</item>
-        <item>november</item>
-        <item>december</item>
+        <item>Any month</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
     </string-array>
     <string-array name="days">
-        <item>any day</item>
+        <item>Any day</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -214,9 +218,9 @@
         <item>Supervisor</item>
     </string-array>
     <string-array name="search_dates_menu">
-        <item>date</item>
-        <item>first date</item>
-        <item>last date</item>
+        <item>Date</item>
+        <item>First date</item>
+        <item>Last date</item>
     </string-array>
     <string-array name="photo_menu">
         <item>Choose</item>
@@ -332,5 +336,9 @@
     <string name="subhead.display.connections">Connections</string>
     <string name="subhead.display.day">Attendance</string>
     <string name="subhead.display.map">Map address</string>
+    <string name="subhead.add.data">Add data to current dayra</string>
+
+    <string name="subhead.attendance.report">Create attendance report</string>
+    <string name="subhead.information.table">Create information table</string>
 
 </resources>

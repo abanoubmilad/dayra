@@ -118,9 +118,9 @@
     <string name="btn.cancel">عودة</string>
     <string name="btn.confirm">تأكيد</string>
 
-    <string name="dialogue.create">اكتب اسم الدايره بامكانك استخدام حروف عربية او انجليزية ارقام او مسافات فقط</string>
+    <string name="dialogue.create">اكتب اسم الدايره\nبامكانك استخدام حروف عربية او انجليزية ارقام او مسافات فقط</string>
     <string name="dialogue.rename">تأكيد اعادة تسمية الدايره الحالية </string>
-    <string name="dialogue.cancel">تأكيد عملية التراجع لن يتم حفظ اى تعديل قمت باضافته</string>
+    <string name="dialogue.cancel">تأكيد عملية التراجع\nلن يتم حفظ اى تعديل قمت باضافته</string>
     <string name="dialogue.delete">تأكيد مسح الاسم والبيانات الخاصة به</string>
     <string name="dialogue.reset">تأكيد مسح التعديلات الحالية واستعادة البيانات الاصلية</string>
     <string name="dialogue.delete.dayra">تأكيد مسح الدايره لا يكون استعادة الدايره مرة اخرى بعد مسحها احتفظ دوما بنسخة احتياطية من الدايره</string>
@@ -288,8 +288,16 @@
         <item>المُشرف</item>
     </string-array>
     <string name="copyright">dayra 3.2 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
-    <string name="label.dayra.file">dayra file</string>
-    <string name="label.dayra.xls">dayra xls</string>
+    <string name="label.dayra.file">دايره file</string>
+    <string name="label.dayra.xls">دايره xls</string>
     <string name="subhead.display.day">الحضور</string>
     <string name="subhead.display.map">عنوان الخريطة</string>
+    <string name="select.day">اختر اليوم</string>
+    <string name="select.month">اختر الشهر</string>
+    <string name="select.year">اختر السنة</string>
+    <string name="subhead.add.data">اضافة بيانات للدايره الحالية</string>
+
+    <string name="subhead.attendance.report">استخراج تقرير حضور</string>
+    <string name="subhead.information.table">استخراج جدول بيانات</string>
+
 </resources>

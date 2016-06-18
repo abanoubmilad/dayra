@@ -99,7 +99,7 @@ public class AddDayraData extends Activity {
         setContentView(R.layout.act_add_dayra_data);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2))
-                .setText(R.string.subhead_dayra_update);
+                .setText(R.string.subhead_add_data);
 
 
         final CheckBox selectall, mobile1, mobile2, mobile3,

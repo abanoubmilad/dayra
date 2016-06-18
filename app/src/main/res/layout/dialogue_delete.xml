@@ -20,18 +20,14 @@
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
-        <TextView
+        <ImageView
             android:id="@+id/cancelBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="@color/lightgreen"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="@string/btn.cancel"
-            android:textColor="@color/white"
-            android:textSize="@dimen/font_largest" />
+            android:background="@color/colorPrimary"
+            android:src="@mipmap/ic_back" />
 
         <TextView
             android:id="@+id/yesBtn"

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.main.Utility;
 
 public class FragmentDisplayContact extends Fragment {
     private String id;

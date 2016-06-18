@@ -104,7 +104,7 @@ public class CreateAttendanceReport extends Activity {
         setContentView(R.layout.act_attendance_report);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2))
-                .setText(R.string.subhead_export_pdf);
+                .setText(R.string.subhead_attendance_report);
 
 
         final Spinner spin_day, spin_month;
