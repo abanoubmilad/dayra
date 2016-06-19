@@ -60,6 +60,6 @@
 
     </ScrollView>
 
-    <include layout="@layout/edit_menu" />
+    <include layout="@layout/editor_footer" />
 
 </LinearLayout>

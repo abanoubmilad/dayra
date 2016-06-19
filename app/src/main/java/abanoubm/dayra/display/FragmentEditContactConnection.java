@@ -91,10 +91,10 @@ public class FragmentEditContactConnection extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
-
-                startActivity(new Intent(getActivity(),
-                        DisplayContact.class).putExtra(ARG_ID,
-                        id));
+//
+//                startActivity(new Intent(getActivity(),
+//                        DisplayContact.class).putExtra(ARG_ID,
+//                        id));
             }
         });
         root.findViewById(R.id.deleteImage).setVisibility(View.GONE);

@@ -62,9 +62,9 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
             @Override
             public void onClick(View v) {
                 getActivity().finish();
-                startActivity(new Intent(getActivity(),
-                        DisplayContact.class).putExtra("id",
-                        id));
+//                startActivity(new Intent(getActivity(),
+//                        DisplayContact.class).putExtra("id",
+//                        id));
             }
         });
         root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
@@ -188,9 +188,9 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
 
             Toast.makeText(getActivity(), R.string.msg_updated,
                     Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getActivity(),
-                    DisplayContact.class).putExtra("id",
-                    id));
+//            startActivity(new Intent(getActivity(),
+//                    DisplayContact.class).putExtra("id",
+//                    id));
         }
 
         @Override

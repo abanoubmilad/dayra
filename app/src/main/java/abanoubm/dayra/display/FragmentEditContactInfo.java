@@ -157,9 +157,9 @@ public class FragmentEditContactInfo extends Fragment {
                     @Override
                     public void onClick(View v) {
                         getActivity().finish();
-                        startActivity(new Intent(getActivity(),
-                                DisplayContact.class).putExtra("id",
-                                id));
+//                        startActivity(new Intent(getActivity(),
+//                                DisplayContact.class).putExtra("id",
+//                                id));
                         ad.dismiss();
 
                     }
@@ -313,11 +313,11 @@ public class FragmentEditContactInfo extends Fragment {
             pBar.dismiss();
             Toast.makeText(getActivity(), msgSource,
                     Toast.LENGTH_SHORT).show();
-            if (result) {
+//            if (result) {
                 //    finish();
-                startActivity(new Intent(getActivity(),
-                        DisplayContact.class).putExtra("id", contactData.getId()));
-            }
+//                startActivity(new Intent(getActivity(),
+//                        DisplayContact.class).putExtra("id", contactData.getId()));
+//            }
 
         }
 
