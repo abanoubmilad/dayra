@@ -140,6 +140,7 @@ public class DB extends SQLiteOpenHelper {
                 + ATTEND_DAY + " integer)";
         db.execSQL(sql);
 
+
         sql = "CREATE INDEX " + TB_ATTEND + " (" + ATTEND_ID + "," + ATTEND_TYPE + "," + ATTEND_DAY + ")";
         db.execSQL(sql);
 
