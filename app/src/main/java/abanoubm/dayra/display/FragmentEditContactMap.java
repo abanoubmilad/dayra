@@ -1,5 +1,6 @@
 package abanoubm.dayra.display;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -61,10 +62,30 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
         root.findViewById(R.id.backImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
-//                startActivity(new Intent(getActivity(),
-//                        DisplayContact.class).putExtra("id",
-//                        id));
+                LayoutInflater li = LayoutInflater.from(getActivity());
+                final View view = li.inflate(R.layout.dialogue_back, null, false);
+                final AlertDialog ad = new AlertDialog.Builder(getActivity())
+                        .setCancelable(true).create();
+                ad.setView(view, 0, 0, 0, 0);
+                ad.show();
+                view.findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ad.dismiss();
+                    }
+                });
+                view.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().finish();
+//                        startActivity(new Intent(getActivity(),
+//                                DisplayContact.class).putExtra("id",
+//                                id));
+                        ad.dismiss();
+
+                    }
+                });
             }
         });
         root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
