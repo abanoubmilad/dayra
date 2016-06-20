@@ -36,7 +36,7 @@ import abanoubm.dayra.model.IntWrapper;
 public class RegisterAttendance extends Activity {
     private EditText sname;
     private ListView lv;
-    private TextView addBtn, rateView;
+    private TextView addBtn, subhead2;
     private ProgressDialog pBar;
     private ContactCheck contact;
     private DB dbm;
@@ -45,7 +45,6 @@ public class RegisterAttendance extends Activity {
     private int updatedCount;
     private ContactCheckAdapter mAdapter;
 
-    private EditText edit_date;
     private int previousPosition = 0;
     private String targetDay;
 
@@ -59,7 +58,7 @@ public class RegisterAttendance extends Activity {
         protected void onPostExecute(Void result) {
             contact.setChecked(true);
             mAdapter.notifyDataSetChanged();
-            rateView.setText(++updatedCount + " / " + totalCount);
+            subhead2.setText(++updatedCount + " / " + totalCount);
         }
 
         @Override
@@ -86,7 +85,7 @@ public class RegisterAttendance extends Activity {
         protected void onPostExecute(Void result) {
             contact.setChecked(false);
             mAdapter.notifyDataSetChanged();
-            rateView.setText(--updatedCount + " / " + totalCount);
+            subhead2.setText(--updatedCount + " / " + totalCount);
         }
     }
 
@@ -121,7 +120,7 @@ public class RegisterAttendance extends Activity {
 
             totalCount = result.size();
             updatedCount = temp.getCounter();
-            rateView.setText(updatedCount + " / " + totalCount);
+            subhead2.setText(updatedCount + " / " + totalCount);
             pBar.dismiss();
         }
 
@@ -134,9 +133,9 @@ public class RegisterAttendance extends Activity {
 
         ((TextView) findViewById(R.id.subhead1))
                 .setText(R.string.subhead_register_attendance);
-        rateView = (TextView) findViewById(R.id.subhead2);
+        subhead2 = (TextView) findViewById(R.id.subhead2);
 
-        edit_date = (EditText) findViewById(R.id.edit_date);
+        final TextView edit_date = (TextView) findViewById(R.id.edit_date);
         sname = (EditText) findViewById(R.id.sname_edittext);
         addBtn = (TextView) findViewById(R.id.sname_btn);
         lv = (ListView) findViewById(R.id.sname_list);
@@ -244,9 +243,8 @@ public class RegisterAttendance extends Activity {
                                        int position, long id) {
                 if (dayType != position) {
                     dayType = position;
-                    if (targetDay.length() > 0)
-                        new GetAllUpdateDifTask()
-                                .execute(sname.getText().toString().trim());
+                    new GetAllUpdateDifTask()
+                            .execute(sname.getText().toString().trim());
                 }
             }
 
@@ -261,8 +259,7 @@ public class RegisterAttendance extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (targetDay.length() > 0)
-            new GetAllUpdateDifTask()
-                    .execute(sname.getText().toString().trim());
+        new GetAllUpdateDifTask()
+                .execute(sname.getText().toString().trim());
     }
 }

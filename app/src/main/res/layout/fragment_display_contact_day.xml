@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
 
@@ -22,13 +21,29 @@
         <include layout="@layout/sep" />
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/spin"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:prompt="@string/select.attendance.type"
-        android:spinnerMode="dialog"
-        android:textSize="@dimen/font_largest" />
+        android:background="@color/lightgrey"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select.attendance.type"
+            android:textSize="@dimen/font_larger" />
+
+        <Spinner
+            android:id="@+id/spin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:prompt="@string/select.attendance.type"
+            android:spinnerMode="dialog" />
+
+    </LinearLayout>
 
 
     <LinearLayout

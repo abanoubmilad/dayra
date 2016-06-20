@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <ScrollView
@@ -18,16 +17,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:background="@color/lightgrey"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/select.attendance.type"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_normal" />
+                    android:textSize="@dimen/font_larger" />
 
                 <Spinner
                     android:id="@+id/spin"
@@ -52,9 +52,9 @@
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:textSize="40sp"
+                android:layout_margin="20dp"
                 android:textColor="@color/white"
-                android:layout_margin="20dp" />
+                android:textSize="40sp" />
 
         </LinearLayout>
 

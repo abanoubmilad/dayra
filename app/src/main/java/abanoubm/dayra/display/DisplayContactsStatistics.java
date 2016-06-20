@@ -25,7 +25,7 @@ import abanoubm.dayra.model.ContactStatistics;
 public class DisplayContactsStatistics extends Activity {
     private ListView lv;
     private int previousPosition = 0;
-    private String dayType = "0";
+    private int dayType = 0;
     private ContactStatisticsAdapter mAdapter;
 
     private class GetAllTask extends
@@ -41,7 +41,7 @@ public class DisplayContactsStatistics extends Activity {
 
         @Override
         protected ArrayList<ContactStatistics> doInBackground(Void... params) {
-            return DB.getInstant(getApplicationContext()).getContactsAttendanceStatistics(dayType);
+            return DB.getInstant(getApplicationContext()).getContactsAttendanceStatistics(dayType + "");
         }
 
         @Override
@@ -93,8 +93,10 @@ public class DisplayContactsStatistics extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                dayType = position + "";
-                new GetAllTask().execute();
+                if (dayType != position) {
+                    dayType = position;
+                    new GetAllTask().execute();
+                }
 
             }
 

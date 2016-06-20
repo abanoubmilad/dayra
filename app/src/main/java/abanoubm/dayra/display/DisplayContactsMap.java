@@ -48,7 +48,7 @@ public class DisplayContactsMap extends FragmentActivity implements
             if (result.size() == 0) {
                 finish();
                 Toast.makeText(getApplicationContext(),
-                        R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
+                        R.string.msg_no_locations, Toast.LENGTH_SHORT).show();
             } else {
                 for (ContactLoc attLoc : result) {
                     dmap.addMarker(new MarkerOptions()

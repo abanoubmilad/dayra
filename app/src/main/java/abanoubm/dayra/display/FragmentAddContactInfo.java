@@ -163,7 +163,7 @@ public class FragmentAddContactInfo extends Fragment {
             }
         });
 
-        root.findViewById(R.id.deleteImage).setVisibility(View.INVISIBLE);
+        root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
 
         root.findViewById(R.id.resetImage).setOnClickListener(new View.OnClickListener() {
             @Override

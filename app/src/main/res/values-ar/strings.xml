@@ -298,5 +298,6 @@
 
     <string name="subhead.attendance.report">استخراج تقرير حضور</string>
     <string name="subhead.information.table">استخراج جدول بيانات</string>
+    <string name="msg.no.locations">لا توجد عناوين</string>
 
 </resources>

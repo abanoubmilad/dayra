@@ -156,7 +156,6 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/btn.browse.dayra"
-        android:textColor="@color/black"
         android:textSize="@dimen/font_larger" />
 
     <LinearLayout

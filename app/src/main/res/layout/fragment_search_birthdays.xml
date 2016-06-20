@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -17,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/label.day"
+            android:text="@string/select.day"
             android:textSize="@dimen/font_larger" />
 
         <TextView
@@ -25,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/label.month"
+            android:text="@string/select.month"
             android:textSize="@dimen/font_larger" />
     </LinearLayout>
 
@@ -43,8 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:prompt="@string/select.day"
-            android:spinnerMode="dialog"
-            android:textSize="@dimen/font_larger" />
+            android:spinnerMode="dialog"/>
 
         <Spinner
             android:id="@+id/spin_month"
@@ -63,8 +61,7 @@
         android:layout_height="0dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_weight="1"
-        android:background="@color/white" />
+        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/btn"

@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -16,15 +15,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search.by"
-            android:textSize="@dimen/font_large"
-            android:textColor="@color/black" />
+            android:textSize="@dimen/font_larger" />
 
         <Spinner
             android:id="@+id/spin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:spinnerMode="dialog"
-            android:textSize="@dimen/font_larger" />
+            android:spinnerMode="dialog" />
 
         <EditText
             android:id="@+id/input"
@@ -33,7 +30,6 @@
             android:layout_weight="1"
             android:imeOptions="actionDone"
             android:maxLength="30"
-            android:textColor="@color/black"
             android:textSize="26sp" />
 
     </LinearLayout>

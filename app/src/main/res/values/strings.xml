@@ -6,6 +6,7 @@
     <string name="msg.added">Added</string>
     <string name="msg.no.results">No search results</string>
     <string name="msg.no.contacts">No contacts</string>
+    <string name="msg.no.locations">No locations</string>
     <string name="msg.no.connections">No connections</string>
     <string name="btn.export">export</string>
     <string name="label.choose.data">Choose data</string>
