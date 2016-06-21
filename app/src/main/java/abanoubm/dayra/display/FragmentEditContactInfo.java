@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -49,8 +50,9 @@ public class FragmentEditContactInfo extends Fragment {
     private Uri fileUri;
     private Bitmap photo = null;
 
-    private EditText name, address, bday, comm, email,
+    private EditText name, address, comm, email,
             lphone, mobile1, mobile2, mobile3;
+    private TextView date;
 
     private static EditText[] optionsInput;
 
@@ -93,7 +95,7 @@ public class FragmentEditContactInfo extends Fragment {
         name = (EditText) root.findViewById(R.id.edit_name);
         address = (EditText) root.findViewById(R.id.edit_address);
 
-        bday = (EditText) root.findViewById(R.id.edit_bday);
+        date = (TextView) root.findViewById(R.id.date);
 
         comm = (EditText) root.findViewById(R.id.edit_comm);
         email = (EditText) root.findViewById(R.id.edit_email);
@@ -113,13 +115,13 @@ public class FragmentEditContactInfo extends Fragment {
         picker_bday = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                bday.setText(Utility.produceDate(dayOfMonth, monthOfYear + 1, year));
+                date.setText(Utility.produceDate(dayOfMonth, monthOfYear + 1, year));
             }
 
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH));
 
-        root.findViewById(R.id.pick_bday)
+        root.findViewById(R.id.pick_date)
                 .setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -157,9 +159,6 @@ public class FragmentEditContactInfo extends Fragment {
                     @Override
                     public void onClick(View v) {
                         getActivity().finish();
-//                        startActivity(new Intent(getActivity(),
-//                                DisplayContact.class).putExtra("id",
-//                                id));
                         ad.dismiss();
 
                     }
@@ -232,7 +231,7 @@ public class FragmentEditContactInfo extends Fragment {
                 new EditTask().execute(
                         name.getText().toString().trim(),
                         address.getText().toString().trim(),
-                        bday.getText().toString().trim(),
+                        date.getText().toString().trim(),
                         comm.getText().toString().trim(),
                         email.getText().toString().trim(),
                         lphone.getText().toString().trim(),
@@ -314,7 +313,7 @@ public class FragmentEditContactInfo extends Fragment {
             Toast.makeText(getActivity(), msgSource,
                     Toast.LENGTH_SHORT).show();
 //            if (result) {
-                //    finish();
+            //    finish();
 //                startActivity(new Intent(getActivity(),
 //                        DisplayContact.class).putExtra("id", contactData.getId()));
 //            }
@@ -476,7 +475,7 @@ public class FragmentEditContactInfo extends Fragment {
         optionsInput[3].setText(contactData.getSite());
         optionsInput[4].setText(contactData.getPriest());
 
-        bday.setText(contactData.getBirthDay());
+        date.setText(contactData.getBirthDay());
 
         photo = contactData.getPhoto();
         if (photo != null)

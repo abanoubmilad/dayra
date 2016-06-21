@@ -13,4 +13,6 @@
     <color name="lightgrey">#EFEFEF</color>
     <color name="lightergrey">#fafafa</color>
     <color name="hotgreen">#6bc956</color>
+    <color name="midgrey">#dcdcdc</color>
+
 </resources>

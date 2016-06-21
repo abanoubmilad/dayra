@@ -218,7 +218,7 @@
         <item>Supervisor</item>
     </string-array>
     <string-array name="search_dates_menu">
-        <item>Date</item>
+        <item>Any date</item>
         <item>First date</item>
         <item>Last date</item>
     </string-array>

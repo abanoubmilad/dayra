@@ -135,7 +135,7 @@ public class RegisterAttendance extends Activity {
                 .setText(R.string.subhead_register_attendance);
         subhead2 = (TextView) findViewById(R.id.subhead2);
 
-        final TextView edit_date = (TextView) findViewById(R.id.edit_date);
+        final TextView date = (TextView) findViewById(R.id.date);
         sname = (EditText) findViewById(R.id.sname_edittext);
         addBtn = (TextView) findViewById(R.id.sname_btn);
         lv = (ListView) findViewById(R.id.sname_list);
@@ -145,7 +145,7 @@ public class RegisterAttendance extends Activity {
                 cal.get(Calendar.MONTH) + 1,
                 cal.get(Calendar.YEAR));
 
-        edit_date.setText(targetDay);
+        date.setText(targetDay);
         mAdapter = new ContactCheckAdapter(getApplicationContext(), new ArrayList<ContactCheck>());
         lv.setAdapter(mAdapter);
 
@@ -154,7 +154,7 @@ public class RegisterAttendance extends Activity {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         targetDay = Utility.produceDate(dayOfMonth, monthOfYear + 1, year);
-                        edit_date.setText(targetDay);
+                        date.setText(targetDay);
                         sname.setVisibility(View.VISIBLE);
                         new GetAllUpdateDifTask().execute(sname.getText()
                                 .toString().trim());

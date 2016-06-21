@@ -15,9 +15,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,6 +34,7 @@ public class FragmentSearchDates extends Fragment {
     private ContactDayAdapter adapter;
     private int currentTag = 0;
     private int dayType = 0;
+    private String targetDay;
     private final String[] searchTags = {
             DB.ATTEND_DAY,
             " MIN(" + DB.ATTEND_DAY + ")",
@@ -41,7 +42,7 @@ public class FragmentSearchDates extends Fragment {
     };
 
     private class SearchDatesTask extends
-            AsyncTask<String, Void, ArrayList<ContactDay>> {
+            AsyncTask<Void, Void, ArrayList<ContactDay>> {
         private ProgressDialog pBar;
 
         @Override
@@ -52,10 +53,10 @@ public class FragmentSearchDates extends Fragment {
         }
 
         @Override
-        protected ArrayList<ContactDay> doInBackground(String... params) {
+        protected ArrayList<ContactDay> doInBackground(Void... params) {
 
             return DB.getInstant(getActivity())
-                    .searchDates(params[0], dayType + "", searchTags[currentTag]);
+                    .searchDates(targetDay, dayType + "", searchTags[currentTag]);
 
 
         }
@@ -104,20 +105,27 @@ public class FragmentSearchDates extends Fragment {
             }
         });
 
-        final EditText date = (EditText) root.findViewById(R.id.date);
+        final TextView date = (TextView) root.findViewById(R.id.date);
 
         final DatePickerDialog picker;
+
         Calendar cal = Calendar.getInstance();
+        targetDay = Utility.produceDate(cal.get(Calendar.DAY_OF_MONTH),
+                cal.get(Calendar.MONTH) + 1,
+                cal.get(Calendar.YEAR));
+        date.setText(targetDay);
+
         picker = new DatePickerDialog(getActivity(), new OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                date.setText(Utility.produceDate(dayOfMonth, monthOfYear + 1, year));
+                targetDay = Utility.produceDate(dayOfMonth, monthOfYear + 1, year);
+                date.setText(targetDay);
             }
 
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal
                 .get(Calendar.DAY_OF_MONTH));
 
-        root.findViewById(R.id.pick)
+        root.findViewById(R.id.pick_date)
                 .setOnClickListener(new OnClickListener() {
 
                     @Override
@@ -166,7 +174,7 @@ public class FragmentSearchDates extends Fragment {
 
             @Override
             public void onClick(View v) {
-                new SearchDatesTask().execute(date.getText().toString());
+                new SearchDatesTask().execute();
 
             }
 

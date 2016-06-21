@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -44,8 +45,9 @@ public class FragmentAddContactInfo extends Fragment {
     private static final String ARG_NAME = "name";
     private String sentName;
 
-    private EditText name, address, bday, comm, email,
+    private EditText name, address, comm, email,
             lphone, mobile1, mobile2, mobile3;
+    private TextView date;
 
     private static EditText[] optionsInput;
 
@@ -91,7 +93,7 @@ public class FragmentAddContactInfo extends Fragment {
 
         address = (EditText) root.findViewById(R.id.edit_address);
 
-        bday = (EditText) root.findViewById(R.id.edit_bday);
+        date = (TextView) root.findViewById(R.id.date);
 
         comm = (EditText) root.findViewById(R.id.edit_comm);
         email = (EditText) root.findViewById(R.id.edit_email);
@@ -109,13 +111,13 @@ public class FragmentAddContactInfo extends Fragment {
         picker_bday = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                bday.setText(Utility.produceDate(dayOfMonth, monthOfYear + 1, year));
+                date.setText(Utility.produceDate(dayOfMonth, monthOfYear + 1, year));
             }
 
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH));
 
-        root.findViewById(R.id.pick_bday)
+        root.findViewById(R.id.pick_date)
                 .setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -198,7 +200,7 @@ public class FragmentAddContactInfo extends Fragment {
                 new AddTask().execute(
                         name.getText().toString().trim(),
                         address.getText().toString().trim(),
-                        bday.getText().toString().trim(),
+                        date.getText().toString().trim(),
                         comm.getText().toString().trim(),
                         email.getText().toString().trim(),
                         lphone.getText().toString().trim(),
@@ -394,7 +396,7 @@ public class FragmentAddContactInfo extends Fragment {
         optionsInput[3].setText("");
         optionsInput[4].setText("");
 
-        bday.setText("");
+        date.setText("");
 
         photo = null;
         img.setImageResource(R.mipmap.def);

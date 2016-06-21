@@ -212,7 +212,7 @@
         <item>المُشرف</item>
     </string-array>
     <string-array name="search_dates_menu">
-        <item>تاريخ</item>
+        <item>اى تاريخ</item>
         <item>اول تاريخ </item>
         <item>اخر تاريخ</item>
     </string-array>

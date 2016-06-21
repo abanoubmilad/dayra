@@ -116,20 +116,24 @@
                 android:text="@string/label.bday" />
 
             <LinearLayout
+                android:id="@+id/pick_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="@color/grey"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
-                <EditText
-                    android:id="@+id/edit_bday"
-                    style="@style/attendant_labels"
+
+                <TextView
+                    android:id="@+id/date"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:focusable="false"
-                    android:hint="@string/label.bday" />
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_larger" />
 
                 <ImageView
-                    android:id="@+id/pick_bday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"

@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/white"
     android:padding="10dp">
 
     <TextView
@@ -9,6 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
+        android:textColor="@color/black"
         android:text="@string/dialogue.cancel"
         android:textSize="@dimen/font_larger" />
 
