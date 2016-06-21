@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -44,20 +45,21 @@ public class Settings extends Activity {
         bdayPIntent = PendingIntent.getBroadcast(Settings.this, 200,
                 new Intent(Settings.this, BirthDayReceiver.class), 0);
 
-        attend.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        attend.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+            public void onClick(View v) {
+                if (attend.isChecked()) {
                     new addAlarmTask().execute(0);
                 } else {
                     new removeAlarmTask().execute(0);
                 }
             }
         });
-        bday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        bday.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+            public void onClick(View v) {
+                if (bday.isChecked()) {
                     new addAlarmTask().execute(1);
                 } else {
                     new removeAlarmTask().execute(1);

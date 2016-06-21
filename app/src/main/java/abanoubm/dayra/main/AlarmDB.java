@@ -36,7 +36,8 @@ public class AlarmDB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sql = "create table " + TB_ALARM + " ( " + ALARM_DB_NAME
                 + " text, " + ALARM_TYPE
-                + " text)";
+                + " text, " +
+                "primary key (" + ALARM_DB_NAME + "," + ALARM_TYPE + "))";
         db.execSQL(sql);
     }
 

@@ -1569,7 +1569,7 @@ public class DB extends SQLiteOpenHelper {
 //    }
     public ArrayList<ContactDay> getContactsAttendanceAbsence(String previousWeekRegex) {
         String selectQuery = "SELECT " + CONTACT_NAME + "," + PHOTO_BLOB +
-                "MAX(" + ATTEND_DAY + ")" +
+                ", MAX(" + ATTEND_DAY + ")" +
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
