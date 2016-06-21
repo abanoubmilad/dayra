@@ -30,6 +30,7 @@ public class FragmentDisplayContacts extends Fragment {
     private int previousPosition = 0;
     private boolean isDualMode = false;
     private ContactsDisplayListAdapter mAdapter;
+    private int sortType=0;
 
     private class GetAllTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
@@ -68,7 +69,7 @@ public class FragmentDisplayContacts extends Fragment {
         }
     }
 
-    private class SortTask extends AsyncTask<Integer, Void, Void> {
+    private class SortTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
 
         @Override
@@ -79,8 +80,8 @@ public class FragmentDisplayContacts extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Integer... params) {
-            switch (params[0]) {
+        protected Void doInBackground(Void... params) {
+            switch (sortType) {
                 // name
                 case 0:
                     Collections.sort(list, new Comparator<ContactSort>() {
@@ -189,7 +190,10 @@ public class FragmentDisplayContacts extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                new SortTask().execute(position);
+                if(sortType!=position) {
+                    sortType=position;
+                    new SortTask().execute();
+                }
             }
 
             @Override

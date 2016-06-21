@@ -181,7 +181,7 @@
                     android:id="@+id/pick_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/grey"
+                    android:background="@color/midgrey"
                     android:orientation="horizontal"
                     android:padding="5dp">
 
@@ -192,7 +192,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/font_larger" />
 
                     <ImageView

@@ -20,16 +20,6 @@ public class Utility {
                 Context.MODE_PRIVATE)).getString("dbname", "");
     }
 
-    public static final int update = Color
-            .rgb(130, 199, 132), deupdate = Color.rgb(244, 143, 177);
-
-    public static String produceDate(String month) {
-        if (month.length() == 1)
-            return "-----0" + month + "---";
-        else
-            return "-----" + month + "---";
-    }
-
     public static String produceDate(String day, String month) {
         if (month.length() == 1) {
             if (day.length() == 1)

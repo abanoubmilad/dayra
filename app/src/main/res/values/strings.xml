@@ -36,7 +36,7 @@
     <string name="msg.deleted">contact deleted</string>
     <string name="err.msg.dayra.delete">Error while trying to delete dayra</string>
     <string name="msg.dayra.exported">dayra exported</string>
-    <string name="err.msg.invalid.name">invalid name, must be at least 4 characters long</string>
+    <string name="err.msg.invalid.name">Invalid name, must be at least 4 characters long</string>
     <string name="err.msg.email">Invalid email</string>
     <string name="subhead.search.info">Search info</string>
     <string name="subhead.search_dates">Search dates</string>
@@ -47,15 +47,15 @@
     <string name="subhead.display.contacts">Contacts</string>
     <string name="subhead.display.info">Info</string>
     <string name="subhead.display.locs">Locations</string>
-    <string name="err.msg.duplicate.dayra">app contains dayra with same name, delete it first</string>
+    <string name="err.msg.duplicate.dayra">App contains dayra with same name, delete it first</string>
     <string name="subhead.register.attendance">Register attendance</string>
     <string name="msg.dayra.imported">dayra imported</string>
     <string name="msg.dayra.replaced">dayra data replaced</string>
     <string name="err.msg.import">dayra import error</string>
-    <string name="err.msg.invalid_file">invalid file</string>
+    <string name="err.msg.invalid_file">Invalid file</string>
     <string name="msg.no.dayra">no available dayra, create one</string>
     <string name="label.select.dayra">Select dayra</string>
-    <string name="err.msg.open">error while connecting to database</string>
+    <string name="err.msg.open">Error while connecting to database</string>
     <string name="err.dayra.divide">error while dividing dayra</string>
     <string name="err.copy.contacts">some contacts couldn\'t be copied</string>
     <string name="msg.copy.success">contacts copied</string>
@@ -84,8 +84,8 @@
     <string name="label.choose.class.year">Choose class/year</string>
     <string name="label_choose_study_work">Choose study/work</string>
     <string name="msg.exported">exported</string>
-    <string name="err.msg.export">error while trying to export</string>
-    <string name="err.msg.explorer">you need a file explorer to complete this action</string>
+    <string name="err.msg.export">Error while trying to export</string>
+    <string name="err.msg.explorer">You need a file explorer to complete this action</string>
     <string name="label.choose.language">Choose language</string>
     <string name="label.choose.photo">Choose photo</string>
     <string name="btn.send.sms">Send to selected contacts</string>
@@ -123,7 +123,7 @@
     <string name="btn.yes">Yes</string>
     <string name="btn.confirm">Confirm</string>
 
-    <string name="dialogue.create">Write dayra\'s name,\nYou can use English/Arabic alphabet,numbers and spaces only</string>
+    <string name="dialogue.create">Write dayra\'s name,\nYou can use English/Arabic alphabet, numbers or spaces </string>
     <string name="dialogue.rename">Confirm renaming the current dayra</string>
     <string name="dialogue.cancel">Are you sure you want to cancel ?\nNo modifications will be saved</string>
     <string name="dialogue.delete">Are you sure you want to delete contact ?</string>

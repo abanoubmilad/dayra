@@ -3,7 +3,6 @@ package abanoubm.dayra.display;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,7 +28,7 @@ public class FragmentEditContactDay extends Fragment {
     private ProgressDialog pBar;
     private DB dbm;
     private int dayType = 0;
-    private TextView date;
+    private TextView date1, date2, flag;
     private String targetDay;
     private boolean isAttendant;
 
@@ -43,13 +42,16 @@ public class FragmentEditContactDay extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             isAttendant = true;
-            date.setBackgroundColor(Utility.update);
+            flag.setText(getResources().getText(R.string.flag_contact_attend));
+            flag.setBackgroundColor(
+                    getContext().getResources().getColor(
+                            R.color.hotgreen));
+            pBar.dismiss();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             dbm.addDay(id, dayType + "", targetDay);
-            pBar.dismiss();
             return null;
         }
 
@@ -72,7 +74,10 @@ public class FragmentEditContactDay extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             isAttendant = false;
-            date.setBackgroundColor(Utility.deupdate);
+            flag.setText("");
+            flag.setBackgroundColor(
+                    getContext().getResources().getColor(
+                            R.color.colorAccent));
             pBar.dismiss();
 
         }
@@ -94,11 +99,19 @@ public class FragmentEditContactDay extends Fragment {
         @Override
         protected void onPostExecute(Boolean result) {
             isAttendant = result;
-            if (result)
-                date.setBackgroundColor(Utility.update);
-            else
-                date.setBackgroundColor(Utility.deupdate);
+            date2.setText(targetDay);
 
+            if (result) {
+                flag.setText(getResources().getText(R.string.flag_contact_attend));
+                flag.setBackgroundColor(
+                        getContext().getResources().getColor(
+                                R.color.hotgreen));
+            } else {
+                flag.setText("");
+                flag.setBackgroundColor(
+                        getContext().getResources().getColor(
+                                R.color.colorAccent));
+            }
             pBar.dismiss();
         }
 
@@ -125,21 +138,23 @@ public class FragmentEditContactDay extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_edit_contact_day, container, false);
 
-        date = (TextView) root.findViewById(R.id.date);
+        date1 = (TextView) root.findViewById(R.id.date1);
+        date2 = (TextView) root.findViewById(R.id.date2);
+        flag = (TextView) root.findViewById(R.id.flag);
 
         Calendar cal = Calendar.getInstance();
         targetDay = Utility.produceDate(cal.get(Calendar.DAY_OF_MONTH),
                 cal.get(Calendar.MONTH) + 1,
                 cal.get(Calendar.YEAR));
 
-        date.setText(targetDay);
+        date1.setText(targetDay);
 
         final DatePickerDialog picker_date = new DatePickerDialog(getActivity(),
                 new OnDateSetListener() {
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
                         targetDay = Utility.produceDate(dayOfMonth, monthOfYear + 1, year);
-                        date.setText(targetDay);
+                        date1.setText(targetDay);
                         new GetUpdateTask().execute();
                     }
 
@@ -173,9 +188,8 @@ public class FragmentEditContactDay extends Fragment {
                                        int position, long id) {
                 if (dayType != position) {
                     dayType = position;
-                    if (targetDay.length() > 0)
-                        new GetUpdateTask()
-                                .execute();
+                    new GetUpdateTask()
+                            .execute();
                 }
             }
 
@@ -184,7 +198,7 @@ public class FragmentEditContactDay extends Fragment {
 
             }
         });
-        date.setOnClickListener(new OnClickListener() {
+        root.findViewById(R.id.root).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isAttendant)
@@ -202,10 +216,6 @@ public class FragmentEditContactDay extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
-
-//                startActivity(new Intent(getActivity(),
-//                        DisplayContact.class).putExtra(ARG_ID,
-//                        id));
             }
         });
         root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
