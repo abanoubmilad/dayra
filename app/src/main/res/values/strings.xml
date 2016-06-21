@@ -98,7 +98,7 @@
     <string name="label.alert.last.attend">last attendance dates alerts</string>
     <string name="label.alert.bday">birthdays alerts</string>
     <string name="label.noti.bday">Today\'s birthdays</string>
-    <string name="label.noti.more">contacts number :</string>
+    <string name="label.noti.more">Contacts number :</string>
     <string name="label.noti.alarm.set">Alarm settings have been saved</string>
     <string name="label.home.main">Main</string>
     <string name="label.home.out">Export/Copy contacts</string>
@@ -111,7 +111,9 @@
     <string name="subhead.edit.map">Edit map address</string>
     <string name="subhead.edit.day">Edit attendance</string>
     <string name="flag.contact.exist">name exists</string>
-    <string name="select.attendance.type">attendance type</string>
+    <string name="flag.contact.attend">attended</string>
+    <string name="flag.contact.con">conn</string>
+    <string name="select.attendance.type">Attendance type</string>
     <string name="search.by">Search by</string>
 
     <string name="select.year">Select year</string>

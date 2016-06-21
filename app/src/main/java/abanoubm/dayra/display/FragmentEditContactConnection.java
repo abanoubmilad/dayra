@@ -50,7 +50,7 @@ public class FragmentEditContactConnection extends Fragment {
         sname = (EditText) root.findViewById(R.id.input);
 
         lv = (ListView) root.findViewById(R.id.sname_list);
-        mAdapter = new ContactCheckAdapter(getContext(), new ArrayList<ContactCheck>(0));
+        mAdapter = new ContactCheckAdapter(getContext(), new ArrayList<ContactCheck>(0),1);
         lv.setAdapter(mAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

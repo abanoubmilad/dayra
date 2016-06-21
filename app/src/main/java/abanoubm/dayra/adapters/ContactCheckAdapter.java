@@ -1,9 +1,6 @@
 package abanoubm.dayra.adapters;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.media.ThumbnailUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +8,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactCheck;
 
 public class ContactCheckAdapter extends ArrayAdapter<ContactCheck> {
+    private String flagStr;
 
     public ContactCheckAdapter(Context context,
-                               ArrayList<ContactCheck> contacts) {
+                               ArrayList<ContactCheck> contacts, int type) {
         super(context, 0, contacts);
+        flagStr = context.getResources().getText(
+                type == 0 ? R.string.flag_contact_attend : R.string.flag_contact_con).toString();
     }
 
     @Override
@@ -34,7 +32,7 @@ public class ContactCheckAdapter extends ArrayAdapter<ContactCheck> {
                     R.layout.item_contact_check, parent, false);
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.root =  convertView.findViewById(R.id.root);
+            holder.flag = (TextView) convertView.findViewById(R.id.flag);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
         } else {
@@ -45,10 +43,17 @@ public class ContactCheckAdapter extends ArrayAdapter<ContactCheck> {
         holder.name.setText(contact.getName());
 
 
-        if (contact.isChecked())
-            holder.root.setBackgroundColor(Utility.update);
-        else
-            holder.root.setBackgroundColor(Utility.deupdate);
+        if (contact.isChecked()) {
+            holder.flag.setText(flagStr);
+            holder.flag.setBackgroundColor(
+                    getContext().getResources().getColor(
+                            R.color.hotgreen));
+        } else {
+            holder.flag.setText("");
+            holder.flag.setBackgroundColor(
+                    getContext().getResources().getColor(
+                            R.color.colorAccent));
+        }
 
 
         if (contact.getPhoto() != null)
@@ -61,7 +66,7 @@ public class ContactCheckAdapter extends ArrayAdapter<ContactCheck> {
 
     private static class ViewHolder {
         TextView name;
-        View root;
+        TextView flag;
         ImageView img;
     }
 }

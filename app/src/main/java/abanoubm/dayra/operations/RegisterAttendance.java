@@ -146,7 +146,7 @@ public class RegisterAttendance extends Activity {
                 cal.get(Calendar.YEAR));
 
         date.setText(targetDay);
-        mAdapter = new ContactCheckAdapter(getApplicationContext(), new ArrayList<ContactCheck>());
+        mAdapter = new ContactCheckAdapter(getApplicationContext(), new ArrayList<ContactCheck>(), 0);
         lv.setAdapter(mAdapter);
 
         final DatePickerDialog picker_date = new DatePickerDialog(this,
