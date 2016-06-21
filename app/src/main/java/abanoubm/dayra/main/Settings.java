@@ -8,9 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +36,6 @@ public class Settings extends Activity {
         attend = (CheckBox) findViewById(R.id.attend);
         bday = (CheckBox) findViewById(R.id.bday);
 
-        new FetchAlarmStatesTask().execute();
-
         manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         attendPIntent =
@@ -47,31 +44,28 @@ public class Settings extends Activity {
         bdayPIntent = PendingIntent.getBroadcast(Settings.this, 200,
                 new Intent(Settings.this, BirthDayReceiver.class), 0);
 
-        attend.setOnClickListener(new OnClickListener() {
+        attend.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                if (attend.isChecked()) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    new addAlarmTask().execute(0);
+                } else {
+                    new removeAlarmTask().execute(0);
+                }
+            }
+        });
+        bday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     new addAlarmTask().execute(1);
                 } else {
                     new removeAlarmTask().execute(1);
                 }
-
-
-            }
-        });
-        bday.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (bday.isChecked()) {
-                    new addAlarmTask().execute(2);
-                } else {
-                    new removeAlarmTask().execute(2);
-
-                }
-
             }
         });
 
+        new FetchAlarmStatesTask().execute();
 
     }
 
@@ -101,7 +95,7 @@ public class Settings extends Activity {
         @Override
         protected void onPostExecute(Boolean[] result) {
             attend.setChecked(result[0]);
-            attend.setChecked(result[1]);
+            bday.setChecked(result[1]);
             pBar.dismiss();
 
 
@@ -125,7 +119,7 @@ public class Settings extends Activity {
             boolean check = AlarmDB.getInstant(getApplicationContext()).
                     removeAlarm(params[0] + "", Utility.getDayraName(getApplicationContext()));
             if (!check) {
-                if (params[0] == 1)
+                if (params[0] == 0)
                     manager.cancel(attendPIntent);
                 else
                     manager.cancel(bdayPIntent);
@@ -162,7 +156,7 @@ public class Settings extends Activity {
             boolean check = AlarmDB.getInstant(getApplicationContext()).
                     addAlarm(params[0] + "", Utility.getDayraName(getApplicationContext()));
             if (check) {
-                if (params[0] == 1) {
+                if (params[0] == 0) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
                     calendar.set(Calendar.HOUR_OF_DAY, 15);

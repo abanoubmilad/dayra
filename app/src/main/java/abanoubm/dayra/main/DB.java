@@ -132,15 +132,14 @@ public class DB extends SQLiteOpenHelper {
         db.execSQL(sql);
 
         sql = "create table " + TB_CONNECTION + " ( " + CONN_A + " integer, "
-                + CONN_B + " integer)";
+                + CONN_B + " integer, " +
+                "primary key (" + CONN_A + "," + CONN_B + "))";
         db.execSQL(sql);
 
         sql = "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
                 + ATTEND_TYPE + " integer, "
-                + ATTEND_DAY + " integer)";
-        db.execSQL(sql);
-
-        sql = "CREATE INDEX attend_index ON " + TB_ATTEND + " (" + ATTEND_ID + "," + ATTEND_TYPE + "," + ATTEND_DAY + ")";
+                + ATTEND_DAY + " integer, " +
+                "primary key (" + ATTEND_ID + "," + ATTEND_TYPE + "," + ATTEND_DAY + "))";
         db.execSQL(sql);
 
         sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
@@ -155,16 +154,15 @@ public class DB extends SQLiteOpenHelper {
         String sql;
         if (arg1 < 2) {
             sql = "create table " + TB_CONNECTION + " ( " + CONN_A + " integer, "
-                    + CONN_B + " integer)";
+                    + CONN_B + " integer, " +
+                    "primary key (" + CONN_A + "," + CONN_B + "))";
             db.execSQL(sql);
         }
         if (arg1 < 3) {
             sql = "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
                     + ATTEND_TYPE + " integer, "
-                    + ATTEND_DAY + " integer)";
-            db.execSQL(sql);
-
-            sql = "CREATE INDEX attend_index ON " + TB_ATTEND + " (" + ATTEND_ID + "," + ATTEND_TYPE + "," + ATTEND_DAY + ")";
+                    + ATTEND_DAY + " integer, " +
+                    "primary key (" + ATTEND_ID + "," + ATTEND_TYPE + "," + ATTEND_DAY + "))";
             db.execSQL(sql);
 
             sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
