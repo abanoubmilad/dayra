@@ -7,10 +7,31 @@
     android:paddingLeft="10dp">
 
 
+    <ImageView
+        android:id="@+id/flag2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:src="@mipmap/ic_check" />
+
+    <TextView
+        android:id="@+id/flag1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="20dp"
+        android:background="@color/colorAccent"
+        android:padding="10dp"
+        android:text="@string/flag.contact.exist"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_normal"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:gravity="right"
         android:orientation="vertical">
 
         <TextView
@@ -30,25 +51,5 @@
             android:textSize="@dimen/font_larger" />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/flag1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginRight="20dp"
-        android:background="@color/colorAccent"
-        android:padding="10dp"
-        android:text="@string/flag.contact.exist"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_normal"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/flag2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:src="@mipmap/ic_check" />
 
 </LinearLayout>

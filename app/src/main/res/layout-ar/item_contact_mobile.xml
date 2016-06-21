@@ -8,17 +8,17 @@
 
 
     <ImageView
-        android:id="@+id/img"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:padding="5dp"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/def" />
+        android:id="@+id/flag2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:src="@mipmap/ic_check" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:gravity="right"
         android:orientation="vertical">
 
         <TextView
@@ -41,10 +41,12 @@
 
     </LinearLayout>
 
+
     <ImageView
-        android:id="@+id/flag2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:src="@mipmap/ic_check" />
+        android:id="@+id/img"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/def" />
 </LinearLayout>

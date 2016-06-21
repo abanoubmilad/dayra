@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/root"
     android:background="@drawable/dynamic_bg"
     android:orientation="vertical">
 
@@ -10,7 +10,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:textColor="@color/dynamic_text"
+            android:textSize="@dimen/font_larger" />
 
         <ImageView
             android:id="@+id/img"
@@ -20,14 +29,6 @@
             android:scaleType="fitCenter"
             android:src="@mipmap/def" />
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:textColor="@color/dynamic_text"
-            android:textSize="@dimen/font_larger" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -39,7 +40,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="right"
             android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/class_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dynamic_text"
+                android:textSize="@dimen/font_small" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,20 +58,22 @@
                 android:text="@string/label.class.year"
                 android:textColor="@color/dynamic_text"
                 android:textSize="@dimen/font_small" />
-
-            <TextView
-                android:id="@+id/class_year"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/dynamic_text"
-                android:textSize="@dimen/font_small" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="right"
             android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/study_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dynamic_text"
+                android:textSize="@dimen/font_small" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -70,13 +82,6 @@
                 android:text="@string/label.study.work"
                 android:textColor="@color/dynamic_text"
                 android:textSize="@dimen/font_small" />
-
-            <TextView
-                android:id="@+id/study_work"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/dynamic_text"
-                android:textSize="@dimen/font_small" />
         </LinearLayout>
     </LinearLayout>
 
@@ -89,7 +94,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="right"
             android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/street"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dynamic_text"
+                android:textSize="@dimen/font_small" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -98,33 +112,28 @@
                 android:text="@string/label.street"
                 android:textColor="@color/dynamic_text"
                 android:textSize="@dimen/font_small" />
-
-            <TextView
-                android:id="@+id/street"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/dynamic_text"
-                android:textSize="@dimen/font_small" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="right"
             android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/site"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dynamic_text"
+                android:textSize="@dimen/font_small" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="5dp"
                 android:text="@string/label.site"
-                android:textColor="@color/dynamic_text"
-                android:textSize="@dimen/font_small" />
-
-            <TextView
-                android:id="@+id/site"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:textColor="@color/dynamic_text"
                 android:textSize="@dimen/font_small" />
         </LinearLayout>
@@ -135,8 +144,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:orientation="horizontal">
 
+
+        <TextView
+            android:id="@+id/conf_father"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dynamic_text"
+            android:textSize="@dimen/font_small" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -146,12 +163,6 @@
             android:textColor="@color/dynamic_text"
             android:textSize="@dimen/font_small" />
 
-        <TextView
-            android:id="@+id/conf_father"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dynamic_text"
-            android:textSize="@dimen/font_small" />
 
     </LinearLayout>
 </LinearLayout>
