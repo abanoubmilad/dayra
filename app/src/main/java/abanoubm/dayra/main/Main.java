@@ -67,9 +67,8 @@ public class Main extends Activity {
             if (!DB.isDBExists(getApplicationContext(), params[0]))
                 return false;
             else {
-                getSharedPreferences("login",
-                        Context.MODE_PRIVATE).edit()
-                        .putString("dbname", params[0]).commit();
+                Utility.makeLogin(getApplicationContext(),params[0]);
+
                 return true;
             }
         }
@@ -98,9 +97,7 @@ public class Main extends Activity {
 
         @Override
         protected Void doInBackground(String... params) {
-            getSharedPreferences("login",
-                    Context.MODE_PRIVATE).edit()
-                    .putString("dbname", params[0]).commit();
+            Utility.makeLogin(getApplicationContext(),params[0]);
             DB.getInstant(getApplicationContext());
             return null;
         }
@@ -191,10 +188,7 @@ public class Main extends Activity {
         setContentView(R.layout.act_main);
         ((TextView) findViewById(R.id.subhead1)).setText(R.string.app_name);
 
-        sharedPref = getSharedPreferences("login", Context.MODE_PRIVATE);
-        if (sharedPref.getBoolean("checked", false)
-                && DB.isDBExists(getApplicationContext(),
-                sharedPref.getString("dbname", ""))) {
+        if (!Utility.getDayraName(getApplicationContext()).equals("")) {
             startActivity(new Intent(getApplicationContext(), Home.class));
             finish();
         }

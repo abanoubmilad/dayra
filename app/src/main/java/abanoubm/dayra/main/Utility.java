@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Environment;
@@ -18,6 +17,17 @@ public class Utility {
     public static String getDayraName(Context context) {
         return (context.getSharedPreferences("login",
                 Context.MODE_PRIVATE)).getString("dbname", "");
+    }
+
+    public static void clearLogin(Context context) {
+        context.getSharedPreferences("login",
+                Context.MODE_PRIVATE).edit().clear().apply();
+    }
+
+    public static void makeLogin(Context context, String dayra) {
+        context.getSharedPreferences("login",
+                Context.MODE_PRIVATE).edit()
+                .putString("dbname", dayra).apply();
     }
 
     public static String produceDate(String day, String month) {

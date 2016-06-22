@@ -9,7 +9,7 @@ import android.widget.TextView;
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.Utility;
 
-public class AddContactDetails extends AppCompatActivity implements CallBack {
+public class AddContact extends AppCompatActivity implements CallBack {
     private ImageView[] buttons;
     private static final String ARG_ID = "id";
     private static final String ARG_NAME = "name";
@@ -17,7 +17,7 @@ public class AddContactDetails extends AppCompatActivity implements CallBack {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_add_contact_details);
+        setContentView(R.layout.act_add_contact);
 
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_add_contact);
@@ -45,7 +45,7 @@ public class AddContactDetails extends AppCompatActivity implements CallBack {
 
     @Override
     public void notify(String id) {
-        buttons[0].setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.hotgreen));
+        buttons[0].setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.grey));
         buttons[1].setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorAccent));
         Bundle arguments = new Bundle();
         arguments.putString(ARG_ID, id);

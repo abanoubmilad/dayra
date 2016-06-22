@@ -58,7 +58,7 @@
         <activity android:name=".operations.CreateInformationTable" />
         <activity android:name=".operations.CreateAttendanceReport" />
         <activity android:name=".display.EditContact" />
-        <activity android:name=".display.AddContactDetails" />
+        <activity android:name=".display.AddContact" />
         <activity android:name=".operations.RegisterAttendance">
 
         </activity>

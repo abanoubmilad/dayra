@@ -26,7 +26,7 @@ import java.util.Calendar;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactCheckAdapter;
-import abanoubm.dayra.display.AddContactDetails;
+import abanoubm.dayra.display.AddContact;
 import abanoubm.dayra.display.DisplayContact;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
@@ -202,7 +202,7 @@ public class RegisterAttendance extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),
-                        AddContactDetails.class).putExtra("name", sname.getText().toString().trim());
+                        AddContact.class).putExtra("name", sname.getText().toString().trim());
                 startActivity(intent);
             }
         });

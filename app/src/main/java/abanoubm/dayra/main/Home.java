@@ -3,7 +3,6 @@ package abanoubm.dayra.main;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -33,7 +32,7 @@ import java.util.Locale;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.MenuItemAdapter;
-import abanoubm.dayra.display.AddContactDetails;
+import abanoubm.dayra.display.AddContact;
 import abanoubm.dayra.display.DisplayContacts;
 import abanoubm.dayra.display.DisplayContactsMap;
 import abanoubm.dayra.display.DisplayContactsStatistics;
@@ -59,6 +58,7 @@ public class Home extends Activity {
         buttons[tagCursor].setBackgroundColor(0);
         tagCursor = 0;
         buttons[0].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        Utility.clearLogin(getApplicationContext());
         Intent intent = new Intent(getApplicationContext(), Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
@@ -148,7 +148,7 @@ public class Home extends Activity {
                         break;
                     case 1:
                         startActivity(new Intent(getApplicationContext(),
-                                AddContactDetails.class));
+                                AddContact.class));
                         break;
                     case 2:
                         startActivity(new Intent(getApplicationContext(),
@@ -356,8 +356,8 @@ public class Home extends Activity {
                     File to = new File(path + str);
 
                     if (dbFile.renameTo(to)) {
-                        getSharedPreferences("login", Context.MODE_PRIVATE)
-                                .edit().putString("dbname", null).apply();
+                        Utility.clearLogin(getApplicationContext());
+
                         Intent intent = new Intent(getApplicationContext(),
                                 Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
@@ -469,8 +469,7 @@ public class Home extends Activity {
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
-                getSharedPreferences("login", Context.MODE_PRIVATE).edit()
-                        .putString("dbname", null).apply();
+                Utility.clearLogin(getApplicationContext());
 
                 Intent intent = new Intent(getApplicationContext(), Main.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

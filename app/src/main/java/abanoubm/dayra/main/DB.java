@@ -73,8 +73,7 @@ public class DB extends SQLiteOpenHelper {
     private SQLiteDatabase readableDB, writableDB;
 
     public static DB getInstant(Context context) {
-        String dbName = context.getSharedPreferences("login",
-                Context.MODE_PRIVATE).getString("dbname", "");
+        String dbName = Utility.getDayraName(context);
         if (dbm != null && DB_NAME.equals(dbName))
             return dbm;
         else {

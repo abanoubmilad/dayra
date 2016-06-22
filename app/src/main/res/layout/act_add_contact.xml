@@ -19,6 +19,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@color/colorAccent"
+            android:padding="5dp"
             android:src="@mipmap/ic_info" />
 
 
@@ -28,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@color/grey"
+            android:padding="5dp"
             android:src="@mipmap/ic_loc" />
 
 

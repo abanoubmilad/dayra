@@ -95,8 +95,7 @@ public class DivideDayra extends Activity {
                         .getAbsolutePath() + "/";
             }
             path += "dayra folder/"
-                    + getSharedPreferences("login", Context.MODE_PRIVATE)
-                    .getString("dbname", "") + "_divided/";
+                    + Utility.getDayraName(getApplicationContext()) + "_divided/";
             new File(path).mkdirs();
             //   String class_year = tv_class_year.getText().toString().trim();
 //            try {
