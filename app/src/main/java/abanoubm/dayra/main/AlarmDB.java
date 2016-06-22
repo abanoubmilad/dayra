@@ -53,7 +53,7 @@ public class AlarmDB extends SQLiteOpenHelper {
                 new String[]{dbname, type});
 
         Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
-                }, ALARM_TYPE + " = ? AND ",
+                }, ALARM_TYPE + " = ?",
                 new String[]{type}, null, null, null);
         return c.getCount() != 0;
 
