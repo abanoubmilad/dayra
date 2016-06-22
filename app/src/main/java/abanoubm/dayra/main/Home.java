@@ -37,13 +37,13 @@ import abanoubm.dayra.display.AddContactDetails;
 import abanoubm.dayra.display.DisplayContacts;
 import abanoubm.dayra.display.DisplayContactsMap;
 import abanoubm.dayra.display.DisplayContactsStatistics;
+import abanoubm.dayra.operations.AddDayraData;
 import abanoubm.dayra.operations.CopyDayraPhone;
 import abanoubm.dayra.operations.CopyPhoneDayra;
 import abanoubm.dayra.operations.CreateAttendanceReport;
 import abanoubm.dayra.operations.CreateInformationTable;
 import abanoubm.dayra.operations.DivideDayra;
 import abanoubm.dayra.operations.RegisterAttendance;
-import abanoubm.dayra.operations.AddDayraData;
 import abanoubm.dayra.operations.Search;
 import abanoubm.dayra.operations.SendSMS;
 
@@ -434,7 +434,7 @@ public class Home extends Activity {
             }
             return DB.getInstant(getApplicationContext()).exportInformationReport(path,
                     getResources().getStringArray(R.array.excel_header),
-                    findViewById(R.id.english_layout) != null);
+                    findViewById(R.id.english_layout) != null, getApplicationContext());
         }
 
         @Override

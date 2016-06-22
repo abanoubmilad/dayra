@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactStatisticsAdapter;
@@ -27,9 +29,10 @@ public class DisplayContactsStatistics extends Activity {
     private int previousPosition = 0;
     private int dayType = 0;
     private ContactStatisticsAdapter mAdapter;
+    private int sortType = 0;
+    private ArrayList<ContactStatistics> list;
 
-    private class GetAllTask extends
-            AsyncTask<Void, Void, ArrayList<ContactStatistics>> {
+    private class SortTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
 
         @Override
@@ -40,23 +43,91 @@ public class DisplayContactsStatistics extends Activity {
         }
 
         @Override
-        protected ArrayList<ContactStatistics> doInBackground(Void... params) {
-            return DB.getInstant(getApplicationContext()).getContactsAttendanceStatistics(dayType + "");
+        protected Void doInBackground(Void... params) {
+            switch (sortType) {
+                // name
+                case 0:
+                    Collections.sort(list, new Comparator<ContactStatistics>() {
+                        @Override
+                        public int compare(ContactStatistics lhs, ContactStatistics rhs) {
+                            return lhs.getName().compareTo(rhs.getName());
+                        }
+                    });
+                    // oldest date
+                case 1:
+                    Collections.sort(list, new Comparator<ContactStatistics>() {
+                        @Override
+                        public int compare(ContactStatistics lhs, ContactStatistics rhs) {
+                            return lhs.getMinDay().compareTo(rhs.getMinDay());
+                        }
+                    });
+                    break;
+                // newest date
+                case 2:
+                    Collections.sort(list, new Comparator<ContactStatistics>() {
+                        @Override
+                        public int compare(ContactStatistics lhs, ContactStatistics rhs) {
+                            return lhs.getMaxDay().compareTo(rhs.getMaxDay());
+                        }
+                    });
+                    break;
+                // times
+                case 3:
+                    Collections.sort(list, new Comparator<ContactStatistics>() {
+                        @Override
+                        public int compare(ContactStatistics lhs, ContactStatistics rhs) {
+                            return lhs.getDaysCount() - rhs.getDaysCount();
+                        }
+                    });
+                    break;
+            }
+            return null;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ContactStatistics> result) {
+        protected void onPostExecute(Void result) {
             mAdapter.clear();
-            mAdapter.addAll(result);
+            mAdapter.addAll(list);
+            previousPosition = 0;
+            if (list.size() == 0) {
+                finish();
+                Toast.makeText(getApplicationContext(),
+                        R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
+            }
             pBar.dismiss();
-            if (result.size() == 0) {
+
+        }
+    }
+
+    private class GetAllTask extends
+            AsyncTask<Void, Void, Void> {
+        private ProgressDialog pBar;
+
+        @Override
+        protected void onPreExecute() {
+            pBar = new ProgressDialog(DisplayContactsStatistics.this);
+            pBar.setCancelable(false);
+            pBar.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            list = DB.getInstant(getApplicationContext()).getContactsAttendanceStatistics(dayType + "");
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            mAdapter.clear();
+            mAdapter.addAll(list);
+            pBar.dismiss();
+            if (list.size() == 0) {
                 finish();
                 Toast.makeText(getApplicationContext(),
                         R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
             } else {
-                if (previousPosition < result.size())
+                if (previousPosition < list.size())
                     lv.setSelection(previousPosition);
-                previousPosition = 0;
             }
 
         }
@@ -98,6 +169,26 @@ public class DisplayContactsStatistics extends Activity {
                     new GetAllTask().execute();
                 }
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        Spinner spin_sort = (Spinner) findViewById(R.id.spin_sort);
+        spin_sort.setAdapter(new ArrayAdapter<>(getApplicationContext(),
+                R.layout.item_string, getResources().getTextArray(R.array.sort_statistics_menu)));
+
+        spin_sort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                if (sortType != position) {
+                    sortType = position;
+                    new SortTask().execute();
+                }
             }
 
             @Override

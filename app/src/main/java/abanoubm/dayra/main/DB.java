@@ -649,7 +649,7 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public boolean exportInformationTable(ArrayList<String> dataTag,
-                                          ArrayList<String> dataHeader, String path) {
+                                          ArrayList<String> dataHeader, String path, boolean isEnglishMode, Context context) {
 
         String selectQuery = "SELECT * FROM " + TB_CONTACT +
                 " ORDER BY " + CONTACT_NAME;
@@ -661,6 +661,12 @@ public class DB extends SQLiteOpenHelper {
             document.open();
             Font font = FontFactory.getFont("assets/fonts/arabic.ttf",
                     BaseFont.IDENTITY_H, true, 16);
+
+            Image logo = Image.getInstance(
+                    Utility.getBytes(BitmapFactory.decodeResource(
+                            context.getResources(), R.mipmap.splash)));
+            logo.scaleToFit(150f, 150f);
+            document.add(logo);
 
             document.add(new Paragraph(" "));
             document.add(new Paragraph("dayra - " + DB_NAME, font));
@@ -674,11 +680,13 @@ public class DB extends SQLiteOpenHelper {
             document.add(new Paragraph("Follow @ www.facebook.com/dayraapp", font));
             document.add(new Paragraph(" "));
 
+            document.newPage();
+
             font.setSize(14);
 
             PdfPTable table = new PdfPTable(dataHeader.size());
             table.setWidthPercentage(100);
-            table.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+            table.setRunDirection(isEnglishMode ? PdfWriter.RUN_DIRECTION_LTR : PdfWriter.RUN_DIRECTION_RTL);
 
             int required = dataTag.size();
             for (int i = 0; i < required; i++)
@@ -727,8 +735,8 @@ public class DB extends SQLiteOpenHelper {
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
-                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " LIKE " + dateRegex +
-                " GROUP BY " + CONTACT_ID + "," + ATTEND_TYPE + " ORDER BY " + CONTACT_NAME;
+                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " LIKE '" + dateRegex +
+                "' GROUP BY " + CONTACT_ID + "," + ATTEND_TYPE + " ORDER BY " + CONTACT_NAME;
 
         Cursor c = readableDB.rawQuery(selectQuery, null);
         Document document = new Document(PageSize.LETTER);
@@ -759,13 +767,32 @@ public class DB extends SQLiteOpenHelper {
 
             if (c.moveToFirst()) {
                 int counter = 0;
-                if (isEnglishMode) {
-                    do {
+                PdfPTable table = null;
+                String previousName = "";
+                final int TEXT_DIRECTION = isEnglishMode ? PdfWriter.RUN_DIRECTION_LTR : PdfWriter.RUN_DIRECTION_RTL;
+                do {
+                    if (previousName.equals(c.getString(0))) {
+
+                        table.addCell(new Paragraph(header[0], font));
+                        table.addCell(new Paragraph(header[1], font));
+                        table.addCell(new Paragraph(header[2], font));
+                        table.addCell(new Paragraph(header[3], font));
+
+                        table.addCell(new Paragraph(c.getString(2), font));
+                        table.addCell(new Paragraph(c.getString(3), font));
+                        table.addCell(new Paragraph(c.getString(4), font));
+                        table.addCell(new Paragraph(c.getString(5), font));
+                    } else {
+                        if (table != null)
+                            document.add(table);
+                        previousName = c.getString(0);
+
                         document.newPage();
                         document.add(new Paragraph(++counter + ""));
-                        PdfPTable table = new PdfPTable(4);
+                        table = new PdfPTable(4);
                         table.setWidthPercentage(100);
                         table.setWidths(new float[]{25f, 25f, 25f, 25f});
+                        table.setRunDirection(TEXT_DIRECTION);
 
                         byte[] photo = c.getBlob(1);
                         if (photo != null) {
@@ -776,7 +803,7 @@ public class DB extends SQLiteOpenHelper {
                         } else
                             document.add(new Paragraph(" "));
 
-                        document.add(new Paragraph(c.getString(1), font));
+                        document.add(new Paragraph(c.getString(0), font));
                         document.add(new Paragraph(" "));
 
                         table.addCell(new Paragraph(header[0], font));
@@ -788,42 +815,12 @@ public class DB extends SQLiteOpenHelper {
                         table.addCell(new Paragraph(c.getString(3), font));
                         table.addCell(new Paragraph(c.getString(4), font));
                         table.addCell(new Paragraph(c.getString(5), font));
-                        document.add(table);
-                    } while (c.moveToNext());
-                } else {
-                    do {
-                        document.newPage();
-                        document.add(new Paragraph(++counter + ""));
-                        PdfPTable table = new PdfPTable(4);
-                        table.setWidthPercentage(100);
-                        table.setWidths(new float[]{25f, 25f, 25f, 25f});
-                        table.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+                    }
 
-                        byte[] photo = c.getBlob(1);
-                        if (photo != null) {
-                            Image image = Image.getInstance(photo);
-                            image.scaleToFit(200f, 200f);
-                            document.add(image);
-                            document.add(new Paragraph(" "));
-                        } else
-                            document.add(new Paragraph(" "));
+                } while (c.moveToNext());
+                if (table != null)
+                    document.add(table);
 
-                        new Paragraph(c.getString(1), font);
-                        document.add(new Paragraph(" "));
-
-                        table.addCell(new Paragraph(header[0], font));
-                        table.addCell(new Paragraph(header[1], font));
-                        table.addCell(new Paragraph(header[2], font));
-                        table.addCell(new Paragraph(header[3], font));
-
-                        table.addCell(new Paragraph(c.getString(2), font));
-                        table.addCell(new Paragraph(c.getString(3), font));
-                        table.addCell(new Paragraph(c.getString(4), font));
-                        table.addCell(new Paragraph(c.getString(5), font));
-                        document.add(table);
-                    } while (c.moveToNext());
-
-                }
 
             }
             c.close();
@@ -836,7 +833,7 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public boolean exportInformationReport(String path, String[] headerArray, boolean isEnglishMode) {
+    public boolean exportInformationReport(String path, String[] headerArray, boolean isEnglishMode, Context context) {
         String selectQuery = "SELECT * FROM " + TB_CONTACT +
                 " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
@@ -848,6 +845,12 @@ public class DB extends SQLiteOpenHelper {
             document.open();
             Font font = FontFactory.getFont("assets/fonts/arabic.ttf",
                     BaseFont.IDENTITY_H, true, 16);
+
+            Image logo = Image.getInstance(
+                    Utility.getBytes(BitmapFactory.decodeResource(
+                            context.getResources(), R.mipmap.splash)));
+            logo.scaleToFit(150f, 150f);
+            document.add(logo);
 
             document.add(new Paragraph(" "));
             document.add(new Paragraph("dayra - " + DB_NAME, font));
@@ -877,158 +880,84 @@ public class DB extends SQLiteOpenHelper {
                 int COL_STUDY_WORK = c.getColumnIndex(CONTACT_STUDY_WORK);
                 int COL_STREET = c.getColumnIndex(CONTACT_ST);
                 int COL_SITE = c.getColumnIndex(CONTACT_SITE);
+
                 int counter = 0;
-                if (isEnglishMode) {
-                    do {
-                        document.newPage();
-                        document.add(new Paragraph(++counter + ""));
-                        PdfPTable table = new PdfPTable(2);
-                        table.setWidthPercentage(100);
-                        table.setWidths(new float[]{18f, 82f});
 
-                        byte[] photo = c.getBlob(COL_PHOTO);
-                        if (photo != null) {
-                            Image image = Image.getInstance(photo);
-                            image.scaleToFit(200f, 200f);
-                            document.add(image);
-                            document.add(new Paragraph(" "));
-                        } else
-                            document.add(new Paragraph(" "));
+                final int TEXT_DIRECTION = isEnglishMode ? PdfWriter.RUN_DIRECTION_LTR : PdfWriter.RUN_DIRECTION_RTL;
+                final float[] WIDTHS = isEnglishMode ? new float[]{18f, 82f} : new float[]{82f, 18f};
+                do {
+                    document.newPage();
+                    document.add(new Paragraph(++counter + ""));
+                    PdfPTable table = new PdfPTable(2);
+                    table.setWidthPercentage(100);
+                    table.setWidths(WIDTHS);
+                    table.setRunDirection(TEXT_DIRECTION);
 
-                        table.addCell(new Paragraph(headerArray[0], font));
-                        table.addCell(new Paragraph(c.getString(COL_NAME), font));
+                    byte[] photo = c.getBlob(COL_PHOTO);
+                    if (photo != null) {
+                        Image image = Image.getInstance(photo);
+                        image.scaleToFit(200f, 200f);
+                        document.add(image);
+                        document.add(new Paragraph(" "));
+                    } else
+                        document.add(new Paragraph(" "));
 
-                        table.addCell(new Paragraph(headerArray[1], font));
-                        table.addCell(new Paragraph(
-                                c.getString(COL_CLASS_YEAR), font));
+                    table.addCell(new Paragraph(headerArray[0], font));
+                    table.addCell(new Paragraph(c.getString(COL_NAME), font));
 
-                        table.addCell(new Paragraph(headerArray[2], font));
-                        table.addCell(new Paragraph(
-                                c.getString(COL_STUDY_WORK), font));
+                    table.addCell(new Paragraph(headerArray[1], font));
+                    table.addCell(new Paragraph(
+                            c.getString(COL_CLASS_YEAR), font));
 
-                        table.addCell(new Paragraph(headerArray[3], font));
-                        table.addCell(new Paragraph(c.getString(COL_MOBILE1),
-                                font));
+                    table.addCell(new Paragraph(headerArray[2], font));
+                    table.addCell(new Paragraph(
+                            c.getString(COL_STUDY_WORK), font));
 
-                        table.addCell(new Paragraph(headerArray[4], font));
-                        table.addCell(new Paragraph(c.getString(COL_MOBILE2),
-                                font));
+                    table.addCell(new Paragraph(headerArray[3], font));
+                    table.addCell(new Paragraph(c.getString(COL_MOBILE1),
+                            font));
 
-                        table.addCell(new Paragraph(headerArray[5], font));
-                        table.addCell(new Paragraph(c.getString(COL_MOBILE3),
-                                font));
+                    table.addCell(new Paragraph(headerArray[4], font));
+                    table.addCell(new Paragraph(c.getString(COL_MOBILE2),
+                            font));
 
-                        table.addCell(new Paragraph(headerArray[6], font));
-                        table.addCell(new Paragraph(
-                                c.getString(COL_LAND_PHONE), font));
+                    table.addCell(new Paragraph(headerArray[5], font));
+                    table.addCell(new Paragraph(c.getString(COL_MOBILE3),
+                            font));
 
-
-                        table.addCell(new Paragraph(headerArray[7], font));
-                        table.addCell(new Paragraph(c.getString(COL_EMAIL),
-                                font));
-
-                        table.addCell(new Paragraph(headerArray[9], font));
-                        table.addCell(new Paragraph(c.getString(COL_STREET),
-                                font));
-
-                        table.addCell(new Paragraph(headerArray[8], font));
-                        table.addCell(new Paragraph(c.getString(COL_SITE), font));
-
-                        table.addCell(new Paragraph(headerArray[10], font));
-                        table.addCell(new Paragraph(c.getString(COL_ADDRESS),
-                                font));
-
-                        table.addCell(new Paragraph(headerArray[13], font));
-                        table.addCell(new Paragraph(c.getString(COL_SUPERVISOR),
-                                font));
-
-                        table.addCell(new Paragraph(headerArray[11], font));
-                        table.addCell(new Paragraph(c.getString(COL_NOTES), font));
-
-                        table.addCell(new Paragraph(headerArray[12], font));
-                        table.addCell(new Paragraph(c.getString(COL_BDAY), font));
+                    table.addCell(new Paragraph(headerArray[6], font));
+                    table.addCell(new Paragraph(
+                            c.getString(COL_LAND_PHONE), font));
 
 
-                        document.add(table);
-                    } while (c.moveToNext());
-                } else {
-                    do {
-                        document.newPage();
-                        document.add(new Paragraph(++counter + ""));
-                        PdfPTable table = new PdfPTable(2);
-                        table.setWidthPercentage(100);
-                        table.setWidths(new float[]{82f, 18f});
-                        table.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+                    table.addCell(new Paragraph(headerArray[7], font));
+                    table.addCell(new Paragraph(c.getString(COL_EMAIL),
+                            font));
 
-                        byte[] photo = c.getBlob(COL_PHOTO);
-                        if (photo != null) {
-                            Image image = Image.getInstance(photo);
-                            image.scaleToFit(200f, 200f);
-                            document.add(image);
-                            document.add(new Paragraph(" "));
-                        } else
-                            document.add(new Paragraph(" "));
+                    table.addCell(new Paragraph(headerArray[9], font));
+                    table.addCell(new Paragraph(c.getString(COL_STREET),
+                            font));
 
+                    table.addCell(new Paragraph(headerArray[8], font));
+                    table.addCell(new Paragraph(c.getString(COL_SITE), font));
 
-                        table.addCell(new Paragraph(headerArray[0], font));
-                        table.addCell(new Paragraph(c.getString(COL_NAME), font));
+                    table.addCell(new Paragraph(headerArray[10], font));
+                    table.addCell(new Paragraph(c.getString(COL_ADDRESS),
+                            font));
 
-                        table.addCell(new Paragraph(headerArray[1], font));
-                        table.addCell(new Paragraph(
-                                c.getString(COL_CLASS_YEAR), font));
+                    table.addCell(new Paragraph(headerArray[13], font));
+                    table.addCell(new Paragraph(c.getString(COL_SUPERVISOR),
+                            font));
 
-                        table.addCell(new Paragraph(headerArray[2], font));
-                        table.addCell(new Paragraph(
-                                c.getString(COL_STUDY_WORK), font));
+                    table.addCell(new Paragraph(headerArray[11], font));
+                    table.addCell(new Paragraph(c.getString(COL_NOTES), font));
 
-                        table.addCell(new Paragraph(headerArray[3], font));
-                        table.addCell(new Paragraph(c.getString(COL_MOBILE1),
-                                font));
+                    table.addCell(new Paragraph(headerArray[12], font));
+                    table.addCell(new Paragraph(c.getString(COL_BDAY), font));
 
-                        table.addCell(new Paragraph(headerArray[4], font));
-                        table.addCell(new Paragraph(c.getString(COL_MOBILE2),
-                                font));
+                    document.add(table);
+                } while (c.moveToNext());
 
-                        table.addCell(new Paragraph(headerArray[5], font));
-                        table.addCell(new Paragraph(c.getString(COL_MOBILE3),
-                                font));
-
-                        table.addCell(new Paragraph(headerArray[6], font));
-                        table.addCell(new Paragraph(
-                                c.getString(COL_LAND_PHONE), font));
-
-
-                        table.addCell(new Paragraph(headerArray[7], font));
-                        table.addCell(new Paragraph(c.getString(COL_EMAIL),
-                                font));
-
-                        table.addCell(new Paragraph(headerArray[9], font));
-                        table.addCell(new Paragraph(c.getString(COL_STREET),
-                                font));
-
-                        table.addCell(new Paragraph(headerArray[8], font));
-                        table.addCell(new Paragraph(c.getString(COL_SITE), font));
-
-                        table.addCell(new Paragraph(headerArray[10], font));
-                        table.addCell(new Paragraph(c.getString(COL_ADDRESS),
-                                font));
-
-                        table.addCell(new Paragraph(headerArray[13], font));
-                        table.addCell(new Paragraph(c.getString(COL_SUPERVISOR),
-                                font));
-
-                        table.addCell(new Paragraph(headerArray[11], font));
-                        table.addCell(new Paragraph(c.getString(COL_NOTES), font));
-
-                        table.addCell(new Paragraph(headerArray[12], font));
-                        table.addCell(new Paragraph(c.getString(COL_BDAY), font));
-
-
-                        document.add(table);
-
-                    } while (c.moveToNext());
-
-                }
 
             }
             c.close();
@@ -1207,6 +1136,26 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
+    public ArrayList<String> getAbsences(String id, String type, String minDate) {
+        String selectQuery = "SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
+                " WHERE " + ATTEND_TYPE + " = ? AND " +
+                ATTEND_DAY + " > ? AND " + ATTEND_DAY +
+                " NOT IN ( SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
+                " WHERE " + ATTEND_ID + " = ? AND " + ATTEND_TYPE + " = ? )" +
+                " ORDER BY " + ATTEND_DAY + " DESC";
+
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{type, minDate, id, type});
+        ArrayList<String> result = new ArrayList<>(
+                c.getCount());
+        if (c.moveToFirst()) {
+            do {
+                result.add(c.getString(0));
+            } while (c.moveToNext());
+        }
+        c.close();
+        return result;
+    }
+
     public void addDay(String id, String type, String day) {
         ContentValues values = new ContentValues();
         values.put(ATTEND_ID, id);
@@ -1330,13 +1279,13 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<String> getExistingYears() {
-        String selectQuery = "SELECT DISTINCT SUBSTR(" + ATTEND_DAY + ",1,4) FROM " +
+    public ArrayList<String> getExistingYears(String anyYear) {
+        String selectQuery = "SELECT DISTINCT SUBSTR (" + ATTEND_DAY + ",1,4) FROM " +
                 TB_ATTEND;
         Cursor c = readableDB.rawQuery(selectQuery, null);
         ArrayList<String> result = new ArrayList<>(
                 c.getCount() + 1);
-        result.add("any year");
+        result.add(anyYear);
 
         if (c.moveToFirst()) {
             do {

@@ -44,7 +44,27 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="@string/label.absent.count"
+            android:textColor="@color/dynamic_text"
+            android:textSize="@dimen/font_normal" />
+
+        <TextView
+            android:id="@+id/absent_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dynamic_text"
+            android:textSize="@dimen/font_normal" />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,7 +80,7 @@
             android:textSize="@dimen/font_normal" />
 
         <TextView
-            android:id="@+id/count"
+            android:id="@+id/attend_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dynamic_text"

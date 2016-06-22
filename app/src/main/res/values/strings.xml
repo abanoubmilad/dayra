@@ -130,18 +130,25 @@
     <string name="dialogue.reset">Are you sure you want to reset ?\nNo modifications will be saved, orgional data will be restored</string>
     <string name="dialogue.delete.dayra">Are you sure you want to delete this dayra ?\nThis action can not de undone, always keep a backup of dayra</string>
 
-    <string name="label.attend.max">newest date</string>
-    <string name="label.attend.min">oldest date</string>
-    <string name="label.attend.count">times</string>
+    <string name="label.attend.max">last attendance date</string>
+    <string name="label.attend.min">first attendance date</string>
+    <string name="label.attend.count">attendance times</string>
+    <string name="label.absent.count">absence times since first attendance</string>
 
     <string name="label.dayra.xls">dayra xls</string>
     <string name="label.dayra.file">dayra file</string>
 
     <string-array name="attendace_report_header">
         <item>Attendance type</item>
-        <item>Oldest date</item>
-        <item>Newest date</item>
-        <item>Times</item>
+        <item>first attendance date</item>
+        <item>last attendance date</item>
+        <item>Attendance times</item>
+    </string-array>
+    <string-array name="sort_statistics_menu">
+        <item>Name</item>
+        <item>first attendance date</item>
+        <item>last attendance date</item>
+        <item>Attendance times</item>
     </string-array>
 
     <string-array name="months">
@@ -221,8 +228,8 @@
     </string-array>
     <string-array name="search_dates_menu">
         <item>Any date</item>
-        <item>Oldest date</item>
-        <item>Newest date</item>
+        <item>first attendance date</item>
+        <item>last attendance date</item>
     </string-array>
     <string-array name="photo_menu">
         <item>Choose</item>
@@ -342,5 +349,6 @@
 
     <string name="subhead.attendance.report">Create attendance report</string>
     <string name="subhead.information.table">Create information table</string>
+    <string name="any.year">Any year</string>
 
 </resources>

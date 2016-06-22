@@ -40,7 +40,7 @@ public class CreateAttendanceReport extends Activity {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return DB.getInstant(getApplicationContext()).getExistingYears();
+            return DB.getInstant(getApplicationContext()).getExistingYears(getResources().getString(R.string.any_year));
 
         }
 
@@ -79,7 +79,7 @@ public class CreateAttendanceReport extends Activity {
             }
             return DB.getInstant(getApplicationContext()).exportAttendanceReport(path,
                     Utility.produceDate(day, month, year), getResources().getStringArray(R.array.attendace_report_header),
-                    findViewById(R.id.english_layout) != null,getApplicationContext());
+                    findViewById(R.id.english_layout) != null, getApplicationContext());
 
         }
 
@@ -125,7 +125,7 @@ public class CreateAttendanceReport extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 if (position == 0)
-                    day = "--";
+                    day = "__";
                 else
                     day = position + "";
             }
@@ -142,7 +142,7 @@ public class CreateAttendanceReport extends Activity {
                                        int position, long id) {
 
                 if (position == 0)
-                    month = "--";
+                    month = "__";
                 else
                     month = position + "";
             }
@@ -159,7 +159,7 @@ public class CreateAttendanceReport extends Activity {
                                        int position, long id) {
 
                 if (position == 0)
-                    year = "----";
+                    year = "____";
                 else
                     year = position + "";
             }

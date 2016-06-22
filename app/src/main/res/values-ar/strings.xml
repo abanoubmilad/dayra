@@ -126,17 +126,23 @@
     <string name="dialogue.reset">تأكيد مسح التعديلات الحالية واستعادة البيانات الاصلية</string>
     <string name="dialogue.delete.dayra">تأكيد مسح الدايره لا يكون استعادة الدايره مرة اخرى بعد مسحها احتفظ دوما بنسخة احتياطية من الدايره</string>
 
-    <string name="label.attend.max">احدث تاريخ</string>
-    <string name="label.attend.min">اقدم تاريخ</string>
-    <string name="label.attend.count">عدد المرات</string>
+    <string name="label.attend.max">اخر تاريخ حضور</string>
+    <string name="label.attend.min">اول تاريخ حضور</string>
+    <string name="label.attend.count">عدد مرات الحضور</string>
+    <string name="label.absent.count">عدد مرات الغياب بداية من اول حضور</string>
 
     <string-array name="attendace_report_header">
         <item>نوع الحضور</item>
-        <item>اقدم تاريخ</item>
-        <item>احدث تاريخ</item>
-        <item>عدد المرات</item>
+        <item>اول تاريخ حضور</item>
+        <item>اخر تاريخ حضور</item>
+        <item>عدد مرات الحضور</item>
     </string-array>
-
+    <string-array name="sort_statistics_menu">
+        <item>اسم</item>
+        <item>اول تاريخ حضور</item>
+        <item>اخر تاريخ حضور</item>
+        <item>عدد مرات الحضور</item>
+    </string-array>
     <string-array name="months">
         <item>اى شهر</item>
         <item>يناير</item>
@@ -215,8 +221,8 @@
     </string-array>
     <string-array name="search_dates_menu">
         <item>اى تاريخ</item>
-        <item>اقدم تاريخ</item>
-        <item>احدث تاريخ</item>
+        <item>اول تاريخ حضور</item>
+        <item>اخر تاريخ حضور</item>
     </string-array>
     <string-array name="photo_menu">
         <item>صورة من ملف</item>
@@ -301,6 +307,7 @@
     <string name="subhead.attendance.report">استخراج تقرير حضور</string>
     <string name="subhead.information.table">استخراج جدول بيانات</string>
     <string name="msg.no.locations">لا توجد عناوين</string>
+    <string name="any.year">اى سنة</string>
 
 
 </resources>

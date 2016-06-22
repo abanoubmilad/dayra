@@ -4,13 +4,15 @@
     android:orientation="vertical">
 
     <include layout="@layout/header" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/midgrey"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="5dp">
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,6 +30,31 @@
 
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/midgrey"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label.sortby"
+            android:textSize="@dimen/font_larger" />
+
+        <Spinner
+            android:id="@+id/spin_sort"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:spinnerMode="dialog" />
+
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/dsr_list"
         android:layout_width="match_parent"

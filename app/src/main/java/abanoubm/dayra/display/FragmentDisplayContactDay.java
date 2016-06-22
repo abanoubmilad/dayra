@@ -29,7 +29,7 @@ public class FragmentDisplayContactDay extends Fragment {
     private DB db;
     private int dayType = 0;
     private String choosenMonth, choosenYear;
-    private TextView max, min, count;
+    private TextView max, min, attend_count, absent_count;
     private ListView yearList, monthList;
 
     private class GetContactStatisticsTask extends AsyncTask<Void, Void, ArrayList<String>> {
@@ -46,13 +46,17 @@ public class FragmentDisplayContactDay extends Fragment {
         protected void onPostExecute(ArrayList<String> result) {
             min.setText(result.get(0));
             max.setText(result.get(1));
-            count.setText(result.get(2));
+            attend_count.setText(result.get(2));
+            absent_count.setText(result.get(3));
             pBar.dismiss();
         }
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-            return db.getContactAttendanceStatistics(id, dayType + "");
+            ArrayList<String> result = db.getContactAttendanceStatistics(id, dayType + "");
+            ArrayList<String> absences = db.getAbsences(id, dayType + "", result.get(0)==null?"":result.get(0));
+            result.add(3, absences.size() + "");
+            return result;
         }
     }
 
@@ -192,7 +196,8 @@ public class FragmentDisplayContactDay extends Fragment {
 
         max = (TextView) root.findViewById(R.id.max);
         min = (TextView) root.findViewById(R.id.min);
-        count = (TextView) root.findViewById(R.id.count);
+        attend_count = (TextView) root.findViewById(R.id.attend_count);
+        absent_count = (TextView) root.findViewById(R.id.absent_count);
 
         dayList = (ListView) root.findViewById(R.id.dayList);
         monthList = (ListView) root.findViewById(R.id.monthList);

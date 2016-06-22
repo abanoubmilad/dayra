@@ -51,7 +51,7 @@ public class CreateInformationTable extends Activity {
                         new String[]{path}, null, null);
             }
             return DB.getInstant(getApplicationContext()).exportInformationTable(
-                    dataTag, dataHeader, path);
+                    dataTag, dataHeader, path, findViewById(R.id.english_layout) != null, getApplicationContext());
 
         }
 
