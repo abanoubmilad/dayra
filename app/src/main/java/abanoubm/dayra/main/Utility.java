@@ -14,6 +14,18 @@ import java.io.File;
 
 public class Utility {
 
+
+    public static int getArabicLang(Context context) {
+        return context.getSharedPreferences("lang",
+                Context.MODE_PRIVATE).getInt("ar", 0);
+    }
+
+    public static void setArabicLang(Context context, int flag) {
+        context.getSharedPreferences("lang",
+                Context.MODE_PRIVATE).edit().putInt("ar", flag).apply();
+    }
+
+
     public static String getDayraName(Context context) {
         return (context.getSharedPreferences("login",
                 Context.MODE_PRIVATE)).getString("dbname", "");

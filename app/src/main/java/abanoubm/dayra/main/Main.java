@@ -3,10 +3,8 @@ package abanoubm.dayra.main;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -165,13 +163,9 @@ public class Main extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences sharedPref = getSharedPreferences("lang",
-                Context.MODE_PRIVATE);
-        int arRange = sharedPref.getInt("ar", 0);
-        if (arRange == 1) {
-            SharedPreferences.Editor editor = getSharedPreferences("lang",
-                    Context.MODE_PRIVATE).edit();
-            editor.putInt("ar", 2).apply();
+
+        if (Utility.getArabicLang(getApplicationContext()) == 1) {
+            Utility.setArabicLang(getApplicationContext(), 2);
 
             Locale myLocale = new Locale("ar");
             Resources res = getResources();
@@ -180,9 +174,8 @@ public class Main extends Activity {
             conf.locale = myLocale;
             res.updateConfiguration(conf, dm);
 
-            Intent refresh = new Intent(getApplicationContext(), Main.class);
             finish();
-            startActivity(refresh);
+            startActivity(new Intent(getIntent()));
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
@@ -237,16 +230,10 @@ public class Main extends Activity {
                                         String temp;
                                         if (which == 1) {
                                             temp = "en";
-                                            SharedPreferences.Editor editor = getSharedPreferences(
-                                                    "lang", Context.MODE_PRIVATE)
-                                                    .edit();
-                                            editor.putInt("ar", 0).apply();
+                                            Utility.setArabicLang(getApplicationContext(), 0);
                                         } else {
                                             temp = "ar";
-                                            SharedPreferences.Editor editor = getSharedPreferences(
-                                                    "lang", Context.MODE_PRIVATE)
-                                                    .edit();
-                                            editor.putInt("ar", 2).apply();
+                                            Utility.setArabicLang(getApplicationContext(), 2);
                                         }
                                         Locale myLocale = new Locale(temp);
                                         Resources res = getResources();
@@ -255,10 +242,8 @@ public class Main extends Activity {
                                         conf.locale = myLocale;
                                         res.updateConfiguration(conf, dm);
 
-                                        Intent refresh = new Intent(
-                                                getApplicationContext(), Main.class);
                                         finish();
-                                        startActivity(refresh);
+                                        startActivity(new Intent(getIntent()));
                                     }
 
                                 });
@@ -451,14 +436,8 @@ public class Main extends Activity {
     protected void onDestroy() {
         mMenuItemAdapter.recycleIcons();
         super.onDestroy();
-        SharedPreferences sharedPref = getSharedPreferences("lang",
-                Context.MODE_PRIVATE);
-        int arRange = sharedPref.getInt("ar", 0);
-        if (arRange != 0) {
-            SharedPreferences.Editor editor = getSharedPreferences("lang",
-                    Context.MODE_PRIVATE).edit();
-            editor.putInt("ar", 1).apply();
-        }
+        if (Utility.getArabicLang(getApplicationContext()) != 0)
+            Utility.setArabicLang(getApplicationContext(), 1);
     }
 
 }
