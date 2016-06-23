@@ -63,7 +63,7 @@
     <string name="label.street">شارع</string>
     <string name="label.class.year">دفعة/سنة</string>
     <string name="label.study.work">دراسة/عمل</string>
-    <string name="label.address">العنوان</string>
+    <string name="label.address">عنوان</string>
     <string name="label.progress">المتابعة</string>
     <string name="label.contact">التواصل</string>
     <string name="label.personal">شخصى</string>

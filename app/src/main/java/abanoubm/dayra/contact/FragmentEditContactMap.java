@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,6 +37,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
     private static final String ARG_ZOM = "zoom";
     private static final String ARG_ID = "id";
     private String id;
+    private TextView site, st, addr;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,14 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_edit_contact_map, container, false);
+
+
+        site = (TextView) root.findViewById(R.id.site);
+        addr = (TextView) root.findViewById(R.id.addr);
+        st = (TextView) root.findViewById(R.id.st);
+
+        new GetTask().execute();
+
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -210,4 +220,38 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
         }
     }
 
+    private class GetTask extends AsyncTask<Void, Void, String[]> {
+        private ProgressDialog pBar;
+
+        @Override
+        protected void onPreExecute() {
+            pBar = new ProgressDialog(getActivity());
+            pBar.setCancelable(false);
+            pBar.show();
+        }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            if (result != null) {
+                if (!result[0].equals("")) {
+                    site.setVisibility(View.VISIBLE);
+                    site.setText(result[0]);
+                }
+                if (!result[1].equals("")) {
+                    st.setVisibility(View.VISIBLE);
+                    st.setText(result[1]);
+                }
+                if (!result[2].equals("")) {
+                    addr.setVisibility(View.VISIBLE);
+                    addr.setText(result[2]);
+                }
+            }
+            pBar.dismiss();
+        }
+
+        @Override
+        protected String[] doInBackground(Void... params) {
+            return DB.getInstant(getActivity()).getContactFullAddress(id);
+        }
+    }
 }

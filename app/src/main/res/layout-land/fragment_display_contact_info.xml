@@ -27,7 +27,7 @@
             <TextView
                 android:id="@+id/dis_name"
                 style="@style/attendant_labels"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:textSize="@dimen/font_larger" />
 
             <LinearLayout

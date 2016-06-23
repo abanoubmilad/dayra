@@ -557,6 +557,22 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
+    public String[] getContactFullAddress(String id) {
+        Cursor c = readableDB.query(TB_CONTACT,
+                new String[]{
+                        CONTACT_SITE
+                        , CONTACT_ST
+                        , CONTACT_ADDR
+                }, CONTACT_ID
+                        + " = ?", new String[]{id}, null, null, null);
+        String[] result = null;
+        if (c.moveToFirst())
+            result = new String[]{c.getString(0), c.getString(1), c.getString(2)};
+
+        c.close();
+        return result;
+    }
+
     public ArrayList<ContactSort> getContactsDisplayList() {
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + PHOTO_BLOB +
                 "," + CONTACT_SUPERVISOR + "," + CONTACT_CLASS_YEAR +
@@ -669,7 +685,7 @@ public class DB extends SQLiteOpenHelper {
 
             document.add(new Paragraph(" "));
             document.add(new Paragraph("dayra - " + DB_NAME, font));
-            document.add(new Paragraph("Created @ "+new SimpleDateFormat(
+            document.add(new Paragraph("Created @ " + new SimpleDateFormat(
                     "yyyy-MM-dd  hh:mm:ss a", Locale.getDefault())
                     .format(new Date()), font));
             document.add(new Paragraph("made with love by dayra ©"
@@ -754,7 +770,7 @@ public class DB extends SQLiteOpenHelper {
 
             document.add(new Paragraph(" "));
             document.add(new Paragraph("dayra - " + DB_NAME, font));
-            document.add(new Paragraph("Created @ "+new SimpleDateFormat(
+            document.add(new Paragraph("Created @ " + new SimpleDateFormat(
                     "yyyy-MM-dd  hh:mm:ss a", Locale.getDefault())
                     .format(new Date()), font));
             document.add(new Paragraph("made with love by dayra ©"
@@ -853,7 +869,7 @@ public class DB extends SQLiteOpenHelper {
 
             document.add(new Paragraph(" "));
             document.add(new Paragraph("dayra - " + DB_NAME, font));
-            document.add(new Paragraph("Created @ "+new SimpleDateFormat(
+            document.add(new Paragraph("Created @ " + new SimpleDateFormat(
                     "yyyy-MM-dd  hh:mm:ss a", Locale.getDefault())
                     .format(new Date()), font));
             document.add(new Paragraph("made with love by dayra ©"
