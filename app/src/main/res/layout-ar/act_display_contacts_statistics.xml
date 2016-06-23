@@ -14,12 +14,6 @@
         android:padding="5dp">
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/select.attendance.type"
-            android:textSize="@dimen/font_larger" />
-
         <Spinner
             android:id="@+id/spin_type"
             android:layout_width="0dp"
@@ -27,6 +21,12 @@
             android:layout_weight="1"
             android:prompt="@string/select.attendance.type"
             android:spinnerMode="dialog" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select.attendance.type"
+            android:textSize="@dimen/font_larger" />
 
 
     </LinearLayout>
@@ -39,18 +39,18 @@
         android:orientation="horizontal"
         android:padding="5dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label.sortby"
-            android:textSize="@dimen/font_larger" />
-
         <Spinner
             android:id="@+id/spin_sort"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:spinnerMode="dialog" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label.sortby"
+            android:textSize="@dimen/font_larger" />
 
 
     </LinearLayout>

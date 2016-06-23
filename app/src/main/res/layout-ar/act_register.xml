@@ -3,6 +3,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/header" />
+
     <LinearLayout
         android:id="@+id/pick_date"
         android:layout_width="match_parent"
@@ -10,12 +12,7 @@
         android:background="@color/grey"
         android:orientation="horizontal"
         android:padding="5dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/ic_date" />
+
 
         <TextView
             android:id="@+id/date"
@@ -26,7 +23,12 @@
             android:textColor="@color/white"
             android:textSize="@dimen/font_larger" />
 
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_date" />
     </LinearLayout>
 
     <LinearLayout
@@ -37,41 +39,46 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
+
+        <Spinner
+            android:id="@+id/spin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:prompt="@string/select.attendance.type"
+            android:spinnerMode="dialog" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search.by"
+            android:text="@string/select.attendance.type"
             android:textSize="@dimen/font_larger" />
-
-        <Spinner
-            android:id="@+id/spin_type"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries="@array/attendance_type"
-            android:prompt="@string/select.attendance.type"
-            android:spinnerMode="dialog" />
-        <Spinner
-            android:id="@+id/spin_search"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:prompt="@string/search.by"
-            android:spinnerMode="dialog" />
-
 
     </LinearLayout>
 
 
+    <EditText
+        android:id="@+id/sname_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="right"
+        android:hint="@string/label.name"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:textSize="26sp" />
+
     <ListView
-        android:id="@+id/list"
+        android:id="@+id/sname_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
     <TextView
-        android:id="@+id/btn"
+        android:id="@+id/sname_btn"
         style="@style/bottom_button"
-        android:text="@string/btn.search" />
+        android:text="@string/btn.add"
+        android:visibility="gone" />
 
 </LinearLayout>

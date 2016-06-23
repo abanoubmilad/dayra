@@ -30,8 +30,6 @@ import abanoubm.dayra.main.DB;
 public class FragmentEditContactMap extends Fragment implements OnMapReadyCallback {
     private double lon, lat;
     private float zoom;
-    private double lonTemp, latTemp;
-    private float zoomTemp;
     private Marker addressMarker, dayraMarker;
     private static final String ARG_LAT = "lat";
     private static final String ARG_LNG = "lon";
@@ -43,9 +41,9 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            lonTemp = lon = getArguments().getDouble(ARG_LNG, 0);
-            latTemp = lat = getArguments().getDouble(ARG_LAT, 0);
-            zoomTemp = zoom = getArguments().getFloat(ARG_ZOM, 0);
+            lon = getArguments().getDouble(ARG_LNG, 0);
+            lat = getArguments().getDouble(ARG_LAT, 0);
+            zoom = getArguments().getFloat(ARG_ZOM, 0);
             id = getArguments().getString(ARG_ID);
         }
     }
@@ -78,9 +76,6 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
                     @Override
                     public void onClick(View v) {
                         getActivity().finish();
-//                        startActivity(new Intent(getActivity(),
-//                                DisplayContact.class).putExtra("id",
-//                                id));
                         ad.dismiss();
 
                     }
@@ -88,14 +83,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
             }
         });
         root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
-        root.findViewById(R.id.resetImage).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                latTemp = lat;
-                lonTemp = lon;
-                zoomTemp = zoom;
-            }
-        });
+
         root.findViewById(R.id.saveImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +98,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
     @Override
     public void onMapReady(final GoogleMap map) {
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(latTemp, lonTemp), zoomTemp));
+                new LatLng(lat, lon), zoom));
         map.setMyLocationEnabled(true);
 
         Location myLocation = map.getMyLocation();
@@ -144,7 +132,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
 
 
         addressMarker = map.addMarker(new MarkerOptions()
-                .position(new LatLng(latTemp, lonTemp))
+                .position(new LatLng(lat, lon))
                 .title("current location, tap or drag me to reposition")
                 .draggable(true));
 
@@ -163,9 +151,9 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
 
             @Override
             public void onMarkerDrag(Marker marker) {
-                latTemp = marker.getPosition().latitude;
-                lonTemp = marker.getPosition().longitude;
-                zoomTemp = map.getCameraPosition().zoom;
+                lat = marker.getPosition().latitude;
+                lon = marker.getPosition().longitude;
+                zoom = map.getCameraPosition().zoom;
             }
         });
         map.setOnMapClickListener(new OnMapClickListener() {
@@ -183,9 +171,9 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
                                 .draggable(true));
                 addressMarker.showInfoWindow();
 
-                latTemp = point.latitude;
-                lonTemp = point.longitude;
-                zoomTemp = map.getCameraPosition().zoom;
+                lat = point.latitude;
+                lon = point.longitude;
+                zoom = map.getCameraPosition().zoom;
             }
         });
 
@@ -208,18 +196,15 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
 
             Toast.makeText(getActivity(), R.string.msg_updated,
                     Toast.LENGTH_SHORT).show();
-//            startActivity(new Intent(getActivity(),
-//                    DisplayContact.class).putExtra("id",
-//                    id));
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             DB dbm = DB.getInstant(getActivity());
             ContentValues values = new ContentValues();
-            values.put(DB.CONTACT_MAPLAT, latTemp);
-            values.put(DB.CONTACT_MAPLNG, lonTemp);
-            values.put(DB.CONTACT_MAPZOM, zoomTemp);
+            values.put(DB.CONTACT_MAPLAT, lat);
+            values.put(DB.CONTACT_MAPLNG, lon);
+            values.put(DB.CONTACT_MAPZOM, zoom);
             dbm.updateContact(values, id);
             return null;
         }

@@ -13,6 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="right"
             android:orientation="vertical"
             android:padding="20dp">
 
@@ -26,8 +27,8 @@
                 android:id="@+id/numbering"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:button="@null"
+                android:checked="true"
                 android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                 android:text="@string/label.numbering" />
 
@@ -35,10 +36,11 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:button="@null"
+                android:checked="true"
                 android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                 android:text="@string/label.name" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

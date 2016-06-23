@@ -5,15 +5,16 @@
     android:background="@color/grey"
     android:orientation="horizontal">
 
+
     <ImageView
-        android:id="@+id/backImage"
+        android:id="@+id/saveImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:background="@color/black"
+        android:background="@color/hotgreen"
         android:padding="5dp"
-        android:src="@mipmap/ic_back" />
+        android:src="@mipmap/ic_save" />
 
     <ImageView
         android:id="@+id/deleteImage"
@@ -25,13 +26,13 @@
         android:src="@mipmap/ic_delete2" />
 
     <ImageView
-        android:id="@+id/saveImage"
+        android:id="@+id/backImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:background="@color/hotgreen"
+        android:background="@color/black"
         android:padding="5dp"
-        android:src="@mipmap/ic_save" />
+        android:src="@mipmap/ic_back" />
 
 </LinearLayout>

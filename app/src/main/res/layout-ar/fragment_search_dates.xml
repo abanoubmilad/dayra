@@ -10,12 +10,7 @@
         android:background="@color/grey"
         android:orientation="horizontal"
         android:padding="5dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/ic_date" />
+
 
         <TextView
             android:id="@+id/date"
@@ -26,7 +21,12 @@
             android:textColor="@color/white"
             android:textSize="@dimen/font_larger" />
 
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_date" />
     </LinearLayout>
 
     <LinearLayout
@@ -37,12 +37,18 @@
         android:orientation="horizontal"
         android:padding="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search.by"
-            android:textSize="@dimen/font_larger" />
 
+
+
+
+
+        <Spinner
+            android:id="@+id/spin_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:prompt="@string/search.by"
+            android:spinnerMode="dialog" />
         <Spinner
             android:id="@+id/spin_type"
             android:layout_width="0dp"
@@ -51,13 +57,11 @@
             android:entries="@array/attendance_type"
             android:prompt="@string/select.attendance.type"
             android:spinnerMode="dialog" />
-        <Spinner
-            android:id="@+id/spin_search"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:prompt="@string/search.by"
-            android:spinnerMode="dialog" />
+            android:text="@string/search.by"
+            android:textSize="@dimen/font_larger" />
 
 
     </LinearLayout>
