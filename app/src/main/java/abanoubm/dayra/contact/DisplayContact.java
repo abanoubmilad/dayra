@@ -1,11 +1,10 @@
-package abanoubm.dayra.display;
+package abanoubm.dayra.contact;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.widget.TextView;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.main.Utility;
+import abanoubm.dayra.contact.FragmentDisplayContact;
 
 public class DisplayContact extends ActionBarActivity {
     @Override

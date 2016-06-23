@@ -1,4 +1,4 @@
-package abanoubm.dayra.display;
+package abanoubm.dayra.contact;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
-import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactLocation;
 
 public class EditContact extends ActionBarActivity {

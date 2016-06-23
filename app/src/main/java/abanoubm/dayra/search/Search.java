@@ -1,4 +1,4 @@
-package abanoubm.dayra.operations;
+package abanoubm.dayra.search;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.Utility;
+import abanoubm.dayra.search.FragmentSearchBirthdays;
+import abanoubm.dayra.search.FragmentSearchDates;
+import abanoubm.dayra.search.FragmentSearchInfo;
 
 public class Search extends ActionBarActivity {
     private int current = 0;

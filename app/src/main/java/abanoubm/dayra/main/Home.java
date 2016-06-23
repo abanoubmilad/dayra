@@ -32,10 +32,10 @@ import java.util.Locale;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.MenuItemAdapter;
-import abanoubm.dayra.display.AddContact;
-import abanoubm.dayra.display.DisplayContacts;
-import abanoubm.dayra.display.DisplayContactsMap;
-import abanoubm.dayra.display.DisplayContactsStatistics;
+import abanoubm.dayra.contact.AddContact;
+import abanoubm.dayra.contacts.DisplayContacts;
+import abanoubm.dayra.contacts.DisplayContactsMap;
+import abanoubm.dayra.contacts.DisplayContactsStatistics;
 import abanoubm.dayra.operations.AddDayraData;
 import abanoubm.dayra.operations.CopyDayraPhone;
 import abanoubm.dayra.operations.CopyPhoneDayra;
@@ -43,7 +43,7 @@ import abanoubm.dayra.operations.CreateAttendanceReport;
 import abanoubm.dayra.operations.CreateInformationTable;
 import abanoubm.dayra.operations.DivideDayra;
 import abanoubm.dayra.operations.RegisterAttendance;
-import abanoubm.dayra.operations.Search;
+import abanoubm.dayra.search.Search;
 import abanoubm.dayra.operations.SendSMS;
 
 public class Home extends Activity {

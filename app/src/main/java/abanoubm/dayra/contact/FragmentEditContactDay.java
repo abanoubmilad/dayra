@@ -1,4 +1,4 @@
-package abanoubm.dayra.display;
+package abanoubm.dayra.contact;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;

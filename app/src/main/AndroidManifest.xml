@@ -50,20 +50,20 @@
         </activity>
         <activity android:name="abanoubm.dayra.main.Main" />
         <activity android:name="abanoubm.dayra.main.Home" />
-        <activity android:name=".display.DisplayContacts" />
+        <activity android:name=".contacts.DisplayContacts" />
         <activity
-            android:name=".display.DisplayContact"
+            android:name=".contact.DisplayContact"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".operations.Search" />
+        <activity android:name=".search.Search" />
         <activity android:name=".operations.CreateInformationTable" />
         <activity android:name=".operations.CreateAttendanceReport" />
-        <activity android:name=".display.EditContact" />
-        <activity android:name=".display.AddContact" />
+        <activity android:name=".contact.EditContact" />
+        <activity android:name=".contact.AddContact" />
         <activity android:name=".operations.RegisterAttendance">
 
         </activity>
-        <activity android:name=".display.DisplayContactsMap" />
-        <activity android:name=".display.DisplayContactsStatistics" />
+        <activity android:name=".contacts.DisplayContactsMap" />
+        <activity android:name=".contacts.DisplayContactsStatistics" />
         <activity android:name=".operations.DivideDayra" />
         <activity android:name=".operations.AddDayraData" />
         <activity android:name=".operations.SendSMS" />

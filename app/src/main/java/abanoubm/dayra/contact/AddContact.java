@@ -1,4 +1,4 @@
-package abanoubm.dayra.display;
+package abanoubm.dayra.contact;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -7,6 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.contact.FragmentAddContactInfo;
+import abanoubm.dayra.contact.FragmentEditContactMap;
+import abanoubm.dayra.display.CallBack;
 import abanoubm.dayra.main.Utility;
 
 public class AddContact extends AppCompatActivity implements CallBack {

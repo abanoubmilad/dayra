@@ -1,4 +1,4 @@
-package abanoubm.dayra.display;
+package abanoubm.dayra.contacts;
 
 
 import android.app.ProgressDialog;
@@ -20,6 +20,7 @@ import java.util.Comparator;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactsDisplayListAdapter;
+import abanoubm.dayra.display.CallBack;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.model.ContactID;
 import abanoubm.dayra.model.ContactSort;

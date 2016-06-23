@@ -10,13 +10,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.alarm.AlarmDB;
 import abanoubm.dayra.alarm.AttendanceReceiver;
 import abanoubm.dayra.alarm.BirthDayReceiver;
 

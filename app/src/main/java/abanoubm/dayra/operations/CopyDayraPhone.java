@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.GContactsOutAdapter;
-import abanoubm.dayra.display.DisplayContact;
+import abanoubm.dayra.contact.DisplayContact;
 import abanoubm.dayra.main.ContactHelper;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;

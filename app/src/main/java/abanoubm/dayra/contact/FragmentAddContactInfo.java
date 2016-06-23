@@ -1,4 +1,4 @@
-package abanoubm.dayra.display;
+package abanoubm.dayra.contact;
 
 
 import android.app.AlertDialog;
@@ -32,6 +32,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.contacts.
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 

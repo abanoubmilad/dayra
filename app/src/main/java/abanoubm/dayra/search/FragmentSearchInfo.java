@@ -1,4 +1,4 @@
-package abanoubm.dayra.operations;
+package abanoubm.dayra.search;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactIDAdapter;
-import abanoubm.dayra.display.DisplayContact;
+import abanoubm.dayra.contact.DisplayContact;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.model.ContactID;
 

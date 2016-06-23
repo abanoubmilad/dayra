@@ -26,8 +26,8 @@ import java.util.Calendar;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactCheckAdapter;
-import abanoubm.dayra.display.AddContact;
-import abanoubm.dayra.display.DisplayContact;
+import abanoubm.dayra.contact.AddContact;
+import abanoubm.dayra.contact.DisplayContact;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactCheck;

@@ -1,4 +1,4 @@
-package abanoubm.dayra.operations;
+package abanoubm.dayra.search;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -25,7 +25,7 @@ import java.util.Calendar;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactDayAdapter;
-import abanoubm.dayra.display.DisplayContact;
+import abanoubm.dayra.contact.DisplayContact;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactDay;
