@@ -30,7 +30,12 @@ public class Splash extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    startActivity(new Intent(Splash.this, Main.class));
+
+                    if (!Utility.getDayraName(getApplicationContext()).equals(""))
+                        startActivity(new Intent(getApplicationContext(), Home.class));
+                    else
+                        startActivity(new Intent(Splash.this, Main.class));
+
                     finish();
                 }
             }

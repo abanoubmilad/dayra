@@ -669,7 +669,7 @@ public class DB extends SQLiteOpenHelper {
 
             document.add(new Paragraph(" "));
             document.add(new Paragraph("dayra - " + DB_NAME, font));
-            document.add(new Paragraph(new SimpleDateFormat(
+            document.add(new Paragraph("Created @ "+new SimpleDateFormat(
                     "yyyy-MM-dd  hh:mm:ss a", Locale.getDefault())
                     .format(new Date()), font));
             document.add(new Paragraph("made with love by dayra ©"
@@ -754,7 +754,7 @@ public class DB extends SQLiteOpenHelper {
 
             document.add(new Paragraph(" "));
             document.add(new Paragraph("dayra - " + DB_NAME, font));
-            document.add(new Paragraph(new SimpleDateFormat(
+            document.add(new Paragraph("Created @ "+new SimpleDateFormat(
                     "yyyy-MM-dd  hh:mm:ss a", Locale.getDefault())
                     .format(new Date()), font));
             document.add(new Paragraph("made with love by dayra ©"
@@ -853,7 +853,7 @@ public class DB extends SQLiteOpenHelper {
 
             document.add(new Paragraph(" "));
             document.add(new Paragraph("dayra - " + DB_NAME, font));
-            document.add(new Paragraph(new SimpleDateFormat(
+            document.add(new Paragraph("Created @ "+new SimpleDateFormat(
                     "yyyy-MM-dd  hh:mm:ss a", Locale.getDefault())
                     .format(new Date()), font));
             document.add(new Paragraph("made with love by dayra ©"
