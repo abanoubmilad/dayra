@@ -59,7 +59,7 @@
     <string name="err.copy.contacts">some contacts couldn\'t be copied</string>
     <string name="msg.copy.success">contacts copied</string>
     <string name="subhead.percentage">Attendance statistics</string>
-    <string name="label.numbering">Auto numbering</string>
+    <string name="label.numbering">Numbering</string>
     <string name="msg.dayra.renamed">dayra renamed</string>
     <string name="label.site">site</string>
     <string name="label.street">street</string>
@@ -90,14 +90,14 @@
     <string name="btn.send.sms">Send to selected contacts</string>
     <string name="subhead.sms">Send SMS</string>
     <string name="label.loading">Loading, please wait</string>
-    <string name="label.sortby">Sort by</string>
+    <string name="label.sortby">Sort</string>
     <string name="label.selectall">Select all</string>
     <string name="msg.no.available.entries">No available entries</string>
     <string name="label.settings">alarm settings</string>
     <string name="label.alert.last.attend">last attendance dates alerts</string>
     <string name="label.alert.bday">birthdays alerts</string>
     <string name="label.noti.bday">Today\'s birthdays</string>
-    <string name="label.noti.more">Contacts number :</string>
+    <string name="label.noti.more">Contacts count :</string>
     <string name="label.noti.alarm.set">Alarm settings have been saved</string>
     <string name="label.home.main">Main</string>
     <string name="label.home.out">Export/Copy contacts</string>
@@ -242,6 +242,7 @@
         <item>Display locations</item>
         <item>Register attendance</item>
         <item>Attendance statistics</item>
+        <item>Language / اللغة</item>
         <item>User\'s manuel</item>
         <item>Like us</item>
         <item>Contact developer</item>
@@ -307,6 +308,7 @@
         <item>@mipmap/ic_map</item>
         <item>@mipmap/ic_update</item>
         <item>@mipmap/ic_statis</item>
+        <item>@mipmap/ic_lang</item>
         <item>@mipmap/ic_manual</item>
         <item>@mipmap/ic_like</item>
         <item>@mipmap/ic_contact</item>

@@ -87,8 +87,8 @@
     <string name="label.choose.photo">اختيار الصورة</string>
     <string name="btn.send.sms">أرسل للأسماء المختارة</string>
     <string name="subhead.sms">ارسال SMS</string>
-    <string name="label.loading">الرجاء الانتظار جارى التحميل</string>
-    <string name="label.sortby">ترتيب بحسب</string>
+    <string name="label.loading">جارى التحميل الرجاء الانتظار</string>
+    <string name="label.sortby">ترتيب</string>
     <string name="label.selectall">اختيار الكل</string>
     <string name="msg.no.available.entries">ﻻ توجد قيم سابقة</string>
     <string name="label.settings">اعدادات التنبيهات</string>
@@ -235,6 +235,7 @@
         <item>عرض عناوين</item>
         <item>تسجيل حضور</item>
         <item>احصائيات الحضور</item>
+        <item>اللغة / language</item>
         <item>دليل المستخدم</item>
         <item>تابعنا على فيس بوك</item>
         <item>تواصل مع المُطور</item>

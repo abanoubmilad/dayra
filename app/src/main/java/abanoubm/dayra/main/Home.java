@@ -3,12 +3,16 @@ package abanoubm.dayra.main;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -66,6 +70,20 @@ public class Home extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        if (Utility.getArabicLang(getApplicationContext()) == 1) {
+            Utility.setArabicLang(getApplicationContext(), 2);
+
+            Locale myLocale = new Locale("ar");
+            Resources res = getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            Configuration conf = res.getConfiguration();
+            conf.locale = myLocale;
+            res.updateConfiguration(conf, dm);
+
+            finish();
+            startActivity(new Intent(getIntent()));
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_home);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
@@ -167,12 +185,46 @@ public class Home extends Activity {
                                 DisplayContactsStatistics.class));
                         break;
                     case 6:
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(
+                                Home.this);
+                        builder.setTitle(R.string.label_choose_language);
+                        builder.setItems(getResources()
+                                        .getStringArray(R.array.language_menu),
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which) {
+                                        String temp;
+                                        if (which == 1) {
+                                            temp = "en";
+                                            Utility.setArabicLang(getApplicationContext(), 0);
+                                        } else {
+                                            temp = "ar";
+                                            Utility.setArabicLang(getApplicationContext(), 2);
+                                        }
+                                        Locale myLocale = new Locale(temp);
+                                        Resources res = getResources();
+                                        DisplayMetrics dm = res.getDisplayMetrics();
+                                        Configuration conf = res.getConfiguration();
+                                        conf.locale = myLocale;
+                                        res.updateConfiguration(conf, dm);
+
+                                        finish();
+                                        startActivity(new Intent(getIntent()));
+                                    }
+
+                                });
+                        builder.create().show();
+                        break;
+                    case 7:
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri
                                 .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view"));
                         startActivity(i);
                         break;
-                    case 7:
+                    case 8:
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -183,7 +235,7 @@ public class Home extends Activity {
                                     .parse("https://www.facebook.com/dayraapp")));
                         }
                         break;
-                    case 8:
+                    case 9:
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -194,7 +246,7 @@ public class Home extends Activity {
                                     .parse("https://www.facebook.com/EngineeroBono")));
                         }
                         break;
-                    case 9:
+                    case 10:
                         Uri uri = Uri.parse("market://details?id=" + getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                         goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
@@ -583,5 +635,7 @@ public class Home extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         mMenuItemAdapter.recycleIcons();
+        if (Utility.getArabicLang(getApplicationContext()) != 0)
+            Utility.setArabicLang(getApplicationContext(), 1);
     }
 }
