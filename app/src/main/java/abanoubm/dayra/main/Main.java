@@ -92,7 +92,7 @@ public class Main extends Activity {
                     R.string.msg_dayra_created, Toast.LENGTH_SHORT)
                     .show();
             startActivity(new Intent(getApplicationContext(), Home.class));
-
+            finish();
         }
 
         @Override
