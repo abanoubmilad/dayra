@@ -2,7 +2,6 @@ package abanoubm.dayra.contact;
 
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -50,7 +49,7 @@ public class FragmentEditContactConnection extends Fragment {
         sname = (EditText) root.findViewById(R.id.input);
 
         lv = (ListView) root.findViewById(R.id.sname_list);
-        mAdapter = new ContactCheckAdapter(getContext(), new ArrayList<ContactCheck>(0),1);
+        mAdapter = new ContactCheckAdapter(getContext(), new ArrayList<ContactCheck>(0), 1);
         lv.setAdapter(mAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

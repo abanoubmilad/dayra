@@ -32,7 +32,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.contacts.
+import abanoubm.dayra.contacts.CallBack;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 

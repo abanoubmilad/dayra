@@ -67,7 +67,7 @@ public class Main extends Activity {
             if (!DB.isDBExists(getApplicationContext(), params[0]))
                 return false;
             else {
-                Utility.makeLogin(getApplicationContext(),params[0]);
+                Utility.makeLogin(getApplicationContext(), params[0]);
 
                 return true;
             }
@@ -97,7 +97,7 @@ public class Main extends Activity {
 
         @Override
         protected Void doInBackground(String... params) {
-            Utility.makeLogin(getApplicationContext(),params[0]);
+            Utility.makeLogin(getApplicationContext(), params[0]);
             DB.getInstant(getApplicationContext());
             return null;
         }

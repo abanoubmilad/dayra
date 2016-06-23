@@ -54,7 +54,7 @@ public class FragmentDisplayContactDay extends Fragment {
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
             ArrayList<String> result = db.getContactAttendanceStatistics(id, dayType + "");
-            ArrayList<String> absences = db.getAbsences(id, dayType + "", result.get(0)==null?"":result.get(0));
+            ArrayList<String> absences = db.getAbsences(id, dayType + "", result.get(0) == null ? "" : result.get(0));
             result.add(3, absences.size() + "");
             return result;
         }

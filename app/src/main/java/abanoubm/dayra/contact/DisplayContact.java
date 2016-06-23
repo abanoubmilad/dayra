@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.contact.FragmentDisplayContact;
 
 public class DisplayContact extends ActionBarActivity {
     @Override

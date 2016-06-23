@@ -20,7 +20,6 @@ import java.util.Comparator;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactsDisplayListAdapter;
-import abanoubm.dayra.display.CallBack;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.model.ContactID;
 import abanoubm.dayra.model.ContactSort;
@@ -31,7 +30,7 @@ public class FragmentDisplayContacts extends Fragment {
     private int previousPosition = 0;
     private boolean isDualMode = false;
     private ContactsDisplayListAdapter mAdapter;
-    private int sortType=0;
+    private int sortType = 0;
 
     private class GetAllTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
@@ -191,8 +190,8 @@ public class FragmentDisplayContacts extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                if(sortType!=position) {
-                    sortType=position;
+                if (sortType != position) {
+                    sortType = position;
                     new SortTask().execute();
                 }
             }

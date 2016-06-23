@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactMobile;
 
 public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
@@ -34,7 +33,7 @@ public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.mobile = (TextView) convertView.findViewById(R.id.mobile);
             holder.flag1 = (TextView) convertView.findViewById(R.id.flag1);
-            holder.flag2 = (ImageView)convertView.findViewById(R.id.flag2);
+            holder.flag2 = (ImageView) convertView.findViewById(R.id.flag2);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
         } else {
@@ -60,6 +59,6 @@ public class GContactsOutAdapter extends ArrayAdapter<ContactMobile> {
 
     private static class ViewHolder {
         TextView name, flag1, mobile;
-        ImageView img,flag2;
+        ImageView img, flag2;
     }
 }

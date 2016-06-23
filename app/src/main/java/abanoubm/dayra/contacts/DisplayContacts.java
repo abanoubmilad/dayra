@@ -8,7 +8,6 @@ import android.widget.TextView;
 import abanoubm.dayra.R;
 import abanoubm.dayra.contact.DisplayContact;
 import abanoubm.dayra.contact.FragmentDisplayContact;
-import abanoubm.dayra.display.CallBack;
 import abanoubm.dayra.main.Utility;
 
 public class DisplayContacts extends ActionBarActivity implements CallBack {

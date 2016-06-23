@@ -1,5 +1,5 @@
 package abanoubm.dayra.contacts;
 
-interface CallBack {
+public interface CallBack {
     void notify(String id);
 }
