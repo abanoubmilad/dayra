@@ -28,37 +28,23 @@ public class Splash extends Activity {
         findViewById(R.id.layout).setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.fade));
 
-        Thread timerThread = new Thread() {
-            public void run() {
-                try {
+        MediaPlayer.create(getApplicationContext(), R.raw.splash_music).start();
 
-                    MediaPlayer.create(getApplicationContext(), R.raw.splash_music).start();
+        if (Utility.getArabicLang(getApplicationContext()) == 1) {
+            Utility.setArabicLang(getApplicationContext(), 2);
+            Locale myLocale = new Locale("ar");
+            Resources res = getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            Configuration conf = res.getConfiguration();
+            conf.locale = myLocale;
+            res.updateConfiguration(conf, dm);
+        }
+        finish();
+        if (!Utility.getDayraName(getApplicationContext()).equals(""))
+            startActivity(new Intent(Splash.this, Home.class));
+        else
+            startActivity(new Intent(Splash.this, Main.class));
 
-                    sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-
-                    if (Utility.getArabicLang(getApplicationContext()) == 1) {
-                        Utility.setArabicLang(getApplicationContext(), 2);
-                        Locale myLocale = new Locale("ar");
-                        Resources res = getResources();
-                        DisplayMetrics dm = res.getDisplayMetrics();
-                        Configuration conf = res.getConfiguration();
-                        conf.locale = myLocale;
-                        res.updateConfiguration(conf, dm);
-                    }
-
-                    if (!Utility.getDayraName(getApplicationContext()).equals(""))
-                        startActivity(new Intent(getApplicationContext(), Home.class));
-                    else
-                        startActivity(new Intent(Splash.this, Main.class));
-
-                    finish();
-                }
-            }
-        };
-        timerThread.start();
 
     }
 
