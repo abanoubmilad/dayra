@@ -37,20 +37,23 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
+
                 <TextView
-                    android:id="@+id/dis_mobile1"
                     style="@style/attendant_labels"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_gravity="center"
                     android:hint="@string/label.mobile1" />
 
-                <include
-                    android:id="@+id/msg_btn1"
-                    layout="@layout/msg_button" />
+                <TextView
+                    android:id="@+id/dis_mobile1"
+                    style="@style/attendant_labels" />
 
                 <include
                     android:id="@+id/call_btn1"
                     layout="@layout/call_button" />
+
+                <include
+                    android:id="@+id/msg_btn1"
+                    layout="@layout/msg_button" />
             </LinearLayout>
 
             <LinearLayout
@@ -78,20 +81,24 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
+
+                <TextView
+                    style="@style/attendant_labels"
+                    android:hint="@string/label.mobile2" />
+
                 <TextView
                     android:id="@+id/dis_mobile2"
-                    style="@style/attendant_labels"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:hint="@string/label.mobile2" />
+                    style="@style/attendant_labels" />
+
+                <include
+                    android:id="@+id/call_btn2"
+                    layout="@layout/call_button" />
+
 
                 <include
                     android:id="@+id/msg_btn2"
                     layout="@layout/msg_button" />
 
-                <include
-                    android:id="@+id/call_btn2"
-                    layout="@layout/call_button" />
             </LinearLayout>
 
             <LinearLayout
@@ -100,20 +107,23 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
+
+                <TextView
+                    style="@style/attendant_labels"
+                    android:hint="@string/label.mobile3" />
+
                 <TextView
                     android:id="@+id/dis_mobile3"
-                    style="@style/attendant_labels"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:hint="@string/label.mobile3" />
+                    style="@style/attendant_labels" />
+
+                <include
+                    android:id="@+id/call_btn3"
+                    layout="@layout/call_button" />
 
                 <include
                     android:id="@+id/msg_btn3"
                     layout="@layout/msg_button" />
 
-                <include
-                    android:id="@+id/call_btn3"
-                    layout="@layout/call_button" />
             </LinearLayout>
 
             <LinearLayout
@@ -122,22 +132,35 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
+
+                <TextView
+                    style="@style/attendant_labels"
+                    android:hint="@string/label.lphone" />
+
                 <TextView
                     android:id="@+id/dis_lphone"
-                    style="@style/attendant_labels"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:hint="@string/label.lphone" />
+                    style="@style/attendant_labels" />
 
                 <include
                     android:id="@+id/call_btn4"
                     layout="@layout/call_button" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/dis_email"
-                style="@style/attendant_labels"
-                android:hint="@string/label.email" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    style="@style/attendant_labels"
+                    android:hint="@string/label.email" />
+
+                <TextView
+                    android:id="@+id/dis_email"
+                    style="@style/attendant_labels" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -166,30 +189,90 @@
                 <include layout="@layout/sep" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/dis_class_year"
-                style="@style/attendant_labels"
-                android:hint="@string/label.class.year" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/dis_study_work"
-                style="@style/attendant_labels"
-                android:hint="@string/label.study.work" />
 
-            <TextView
-                android:id="@+id/dis_bday"
-                style="@style/attendant_labels"
-                android:hint="@string/label.bday" />
+                <TextView
+                    style="@style/attendant_labels"
+                    android:hint="@string/label.class.year" />
 
-            <TextView
-                android:id="@+id/dis_comm"
-                style="@style/attendant_labels"
-                android:hint="@string/label.notes" />
+                <TextView
+                    android:id="@+id/dis_class_year"
+                    style="@style/attendant_labels" />
 
-            <TextView
-                android:id="@+id/dis_priest"
-                style="@style/attendant_labels"
-                android:hint="@string/label.supervisor" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/attendant_labels"
+                    android:hint="@string/label.study.work" />
+
+                <TextView
+                    android:id="@+id/dis_study_work"
+                    style="@style/attendant_labels" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/attendant_labels"
+                    android:hint="@string/label.bday" />
+
+                <TextView
+                    android:id="@+id/dis_bday"
+                    style="@style/attendant_labels"
+                    android:layout_width="wrap_content" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/attendant_labels"
+                    android:hint="@string/label.notes" />
+
+                <TextView
+                    android:id="@+id/dis_comm"
+                    style="@style/attendant_labels" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/attendant_labels"
+                    android:hint="@string/label.supervisor" />
+
+                <TextView
+                    android:id="@+id/dis_priest"
+                    style="@style/attendant_labels" />
+
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -210,23 +293,53 @@
                 <include layout="@layout/sep" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/dis_site"
-                style="@style/attendant_labels"
-                android:hint="@string/label.site" />
+
+                <TextView
+                    style="@style/attendant_labels"
+                    android:hint="@string/label.site" />
+
+                <TextView
+                    android:id="@+id/dis_site"
+                    style="@style/attendant_labels" />
+            </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/dis_street"
-                style="@style/attendant_labels"
-                android:hint="@string/label.street" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/dis_address"
-                style="@style/attendant_labels"
-                android:layout_marginBottom="30dp"
-                android:hint="@string/label.address" />
+                <TextView
+                    style="@style/attendant_labels"
+                    android:hint="@string/label.street" />
+
+                <TextView
+                    android:id="@+id/dis_street"
+                    style="@style/attendant_labels" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/attendant_labels"
+                    android:hint="@string/label.address" />
+
+                <TextView
+                    android:id="@+id/dis_address"
+                    style="@style/attendant_labels" />
+
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

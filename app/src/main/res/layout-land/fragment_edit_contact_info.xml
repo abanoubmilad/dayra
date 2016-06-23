@@ -5,7 +5,8 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout
@@ -33,12 +34,8 @@
                 <EditText
                     android:id="@+id/edit_name"
                     style="@style/attendant_labels"
-                    android:layout_gravity="center_vertical"
                     android:hint="@string/label.name.required"
-                    android:maxLength="30">
-
-                    <requestFocus />
-                </EditText>
+                    android:maxLength="30" />
 
                 <EditText
                     android:id="@+id/edit_mobile1"
@@ -127,25 +124,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/edit_class_year"
-                        style="@style/attendant_labels"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:hint="@string/label.class.year"
-                        android:inputType="number"
-                        android:maxLength="4" />
 
                     <ImageView
                         android:id="@+id/spin_class_year"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:src="@mipmap/ic_spin" />
+
+                    <EditText
+                        android:id="@+id/edit_class_year"
+                        style="@style/attendant_labels"
+                        android:hint="@string/label.class.year"
+                        android:maxLength="30" />
+
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -153,29 +147,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/edit_study_work"
-                        style="@style/attendant_labels"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:hint="@string/label.study.work"
-                        android:maxLength="30" />
 
                     <ImageView
                         android:id="@+id/spin_study_work"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:src="@mipmap/ic_spin" />
+
+                    <EditText
+                        android:id="@+id/edit_study_work"
+                        style="@style/attendant_labels"
+                        android:hint="@string/label.study.work"
+                        android:maxLength="30" />
                 </LinearLayout>
 
-                <TextView
-                    style="@style/attendant_labels"
-                    android:text="@string/label.bday" />
 
                 <LinearLayout
                     android:id="@+id/pick_date"
@@ -185,6 +173,17 @@
                     android:orientation="horizontal"
                     android:padding="5dp">
 
+                    <TextView
+                        style="@style/attendant_labels"
+                        android:layout_gravity="center"
+                        android:text="@string/label.bday" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@mipmap/ic_date" />
 
                     <TextView
                         android:id="@+id/date"
@@ -195,17 +194,8 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/font_larger" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:src="@mipmap/ic_date" />
-                </LinearLayout>
 
-                <TextView
-                    style="@style/attendant_labels"
-                    android:text="@string/label.notes" />
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/edit_comm"
@@ -219,24 +209,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/edit_priest"
-                        style="@style/attendant_labels"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:hint="@string/label.supervisor"
-                        android:maxLength="30" />
 
                     <ImageView
                         android:id="@+id/spin_priest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:src="@mipmap/ic_spin" />
+
+                    <EditText
+                        android:id="@+id/edit_priest"
+                        style="@style/attendant_labels"
+                        android:hint="@string/label.supervisor"
+                        android:maxLength="30" />
+
 
                 </LinearLayout>
 
@@ -264,48 +251,43 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/edit_site"
-                        style="@style/attendant_labels"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:hint="@string/label.site"
-                        android:maxLength="30" />
 
                     <ImageView
                         android:id="@+id/spin_site"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:src="@mipmap/ic_spin" />
+
+                    <EditText
+                        android:id="@+id/edit_site"
+                        style="@style/attendant_labels"
+                        android:hint="@string/label.site"
+                        android:maxLength="30" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/edit_street"
-                        style="@style/attendant_labels"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:hint="@string/label.street"
-                        android:maxLength="30" />
 
                     <ImageView
                         android:id="@+id/spin_street"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:src="@mipmap/ic_spin" />
+
+                    <EditText
+                        android:id="@+id/edit_street"
+                        style="@style/attendant_labels"
+                        android:hint="@string/label.street"
+                        android:maxLength="30" />
+
+
                 </LinearLayout>
 
                 <EditText

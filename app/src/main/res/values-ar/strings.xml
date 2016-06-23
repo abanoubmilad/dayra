@@ -35,7 +35,6 @@
     <string name="err.msg.dayra.delete">خطأ أثناء محاولة مسح الدايره</string>
     <string name="msg.dayra.exported">تم تصدير الدايره</string>
     <string name="err.msg.invalid.name">الاسم غير صالح استخدم  4 حروف على الاقل</string>
-    <string name="err.msg.email">الايميل غير صالح</string>
     <string name="subhead.search.info">بحث تفاصيل</string>
     <string name="label.confirm.dayra">تأكيد اسم الدايره</string>
     <string name="subhead.search_dates">بحت تواريخ</string>
@@ -89,7 +88,7 @@
     <string name="btn.send.sms">أرسل للأسماء المختارة</string>
     <string name="subhead.sms">ارسال SMS</string>
     <string name="label.loading">الرجاء الانتظار جارى التحميل</string>
-    <string name="label.sortby">ترتيب بواسطة</string>
+    <string name="label.sortby">ترتيب بحسب</string>
     <string name="label.selectall">اختيار الكل</string>
     <string name="msg.no.available.entries">ﻻ توجد قيم سابقة</string>
     <string name="label.settings">اعدادات التنبيهات</string>

@@ -72,10 +72,6 @@ public class Utility {
         }
     }
 
-    public static boolean isEmail(String str) {
-        return str.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-    }
 
     public static boolean isName(String str) {
         return str.length() >= 4;

@@ -37,7 +37,6 @@
     <string name="err.msg.dayra.delete">Error while trying to delete dayra</string>
     <string name="msg.dayra.exported">dayra exported</string>
     <string name="err.msg.invalid.name">Invalid name, must be at least 4 characters long</string>
-    <string name="err.msg.email">Invalid email</string>
     <string name="subhead.search.info">Search info</string>
     <string name="subhead.search_dates">Search dates</string>
     <string name="subhead.search_bdays">Search birthdays</string>

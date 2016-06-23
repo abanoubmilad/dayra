@@ -300,8 +300,6 @@ public class FragmentEditContactInfo extends Fragment {
                 msgSource = R.string.err_msg_invalid_name;
             } else if (!check.equals("-1") && !check.equals(contactData.getId())) {
                 msgSource = R.string.err_msg_duplicate_name;
-            } else if (params[4].length() != 0 && !Utility.isEmail(params[4])) {
-                msgSource = R.string.err_msg_email;
             } else if (params[12].length() != 0 && !Utility.isSiteName(params[12])) {
                 msgSource = R.string.err_msg_site;
             } else {

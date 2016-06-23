@@ -98,6 +98,7 @@ public class FragmentSearchInfo extends Fragment {
                                        int position, long id) {
 
                 currentTag = position;
+                input.setHint((String) parent.getItemAtPosition(position));
             }
 
             @Override
