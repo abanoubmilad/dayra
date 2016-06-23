@@ -15,14 +15,6 @@
         android:padding="5dp"
         android:src="@mipmap/ic_back" />
 
-    <ImageView
-        android:id="@+id/deleteImage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:padding="5dp"
-        android:src="@mipmap/ic_delete2" />
 
     <ImageView
         android:id="@+id/saveImage"
@@ -33,5 +25,14 @@
         android:background="@color/hotgreen"
         android:padding="5dp"
         android:src="@mipmap/ic_save" />
+
+    <ImageView
+        android:id="@+id/deleteImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:padding="5dp"
+        android:src="@mipmap/ic_delete2" />
 
 </LinearLayout>
