@@ -16,7 +16,30 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
-    <style name="attendant_labels">
+    <style name="label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">5dip</item>
+        <item name="android:layout_marginTop">5dip</item>
+        <item name="android:textSize">@dimen/font_large</item>
+    </style>
+
+    <style name="label_input" parent="label">
+        <item name="android:layout_marginRight">10dip</item>
+        <item name="android:layout_marginLeft">10dip</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">@dimen/font_larger</item>
+
+    </style>
+
+    <style name="field_input" parent="label_input">
+        <item name="android:inputType">text</item>
+        <item name="android:maxLength">40</item>
+        <item name="android:layout_width">match_parent</item>
+
+    </style>
+
+    <style name="attendant_labels" parent="label">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">5dip</item>

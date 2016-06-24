@@ -12,7 +12,7 @@
     <string name="btn.search">بحث</string>
     <string name="label.dayra.name">اسم الدايره</string>
     <string name="btn.create">تكوين</string>
-    <string name="label.name.required">اسم (مطلوب)</string>
+    <string name="label.required">مطلوب</string>
     <string name="label.name">اسم</string>
     <string name="label.supervisor">المُشرف</string>
     <string name="label.notes">ملاحظات</string>

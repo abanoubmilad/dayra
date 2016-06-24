@@ -212,15 +212,6 @@ public class FragmentEditContactDay extends Fragment {
         new GetUpdateTask()
                 .execute();
 
-        root.findViewById(R.id.backImage).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
-        root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
-        root.findViewById(R.id.saveImage).setVisibility(View.GONE);
-
         return root;
     }
 }

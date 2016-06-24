@@ -84,17 +84,6 @@ public class FragmentEditContactConnection extends Fragment {
 
         });
 
-
-        dbm = DB.getInstant(getActivity());
-        root.findViewById(R.id.backImage).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
-        root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
-        root.findViewById(R.id.saveImage).setVisibility(View.GONE);
-
         return root;
     }
 

@@ -1,18 +1,19 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
-            android:paddingBottom="10dp">
+            android:padding="20dp">
 
 
             <LinearLayout
@@ -33,80 +34,70 @@
                     <include layout="@layout/sep" />
 
                     <TextView
-                        style="@style/attendant_labels"
-                        android:layout_width="wrap_content"
-                        android:gravity="center"
+                        style="@style/label_input"
                         android:text="@string/label.personal" />
 
                     <include layout="@layout/sep" />
                 </LinearLayout>
 
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.class.year" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:gravity="right"
-
+                    android:gravity="center"
                     android:orientation="horizontal">
 
+
+                    <include
+                        android:id="@+id/spin_class_year"
+                        layout="@layout/spin_picker" />
 
                     <EditText
                         android:id="@+id/edit_class_year"
-                        style="@style/attendant_labels"
-                        android:hint="@string/label.class.year"
-                        android:maxLength="30" />
+                        style="@style/field_input" />
 
-                    <ImageView
-                        android:id="@+id/spin_class_year"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@mipmap/ic_spin" />
 
                 </LinearLayout>
+
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.study.work" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:gravity="right"
+                    android:gravity="center"
                     android:orientation="horizontal">
+
+                    <include
+                        android:id="@+id/spin_study_work"
+                        layout="@layout/spin_picker" />
 
 
                     <EditText
                         android:id="@+id/edit_study_work"
-                        style="@style/attendant_labels"
-                        android:hint="@string/label.study.work"
-                        android:maxLength="30" />
-
-                    <ImageView
-                        android:id="@+id/spin_study_work"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@mipmap/ic_spin" />
+                        style="@style/field_input" />
                 </LinearLayout>
 
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.bday" />
 
                 <LinearLayout
                     android:id="@+id/pick_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/midgrey"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-
-
-                    <TextView
-                        android:id="@+id/date"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font_larger" />
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -116,41 +107,46 @@
                         android:src="@mipmap/ic_date" />
 
                     <TextView
-                        style="@style/attendant_labels"
-                        android:layout_gravity="center"
-                        android:text="@string/label.bday" />
+                        android:id="@+id/date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/font_larger" />
+
 
                 </LinearLayout>
 
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.notes" />
 
                 <EditText
                     android:id="@+id/edit_comm"
-                    style="@style/attendant_labels"
-                    android:hint="@string/label.notes"
+                    style="@style/field_input"
                     android:inputType="textMultiLine" />
 
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.supervisor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:gravity="right"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
 
-                    <ImageView
+                    <include
                         android:id="@+id/spin_priest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@mipmap/ic_spin" />
+                        layout="@layout/spin_picker" />
 
                     <EditText
                         android:id="@+id/edit_priest"
-                        style="@style/attendant_labels"
-                        android:hint="@string/label.supervisor"
-                        android:maxLength="30" />
+                        style="@style/field_input" />
+
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -164,69 +160,68 @@
                     <include layout="@layout/sep" />
 
                     <TextView
-                        style="@style/attendant_labels"
-                        android:layout_width="wrap_content"
-                        android:gravity="center"
+                        style="@style/label_input"
                         android:text="@string/label.address" />
 
                     <include layout="@layout/sep" />
                 </LinearLayout>
+
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.site" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:gravity="right"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
 
+                    <include
+                        android:id="@+id/spin_site"
+                        layout="@layout/spin_picker" />
+
                     <EditText
                         android:id="@+id/edit_site"
-                        style="@style/attendant_labels"
-                        android:hint="@string/label.site"
-                        android:maxLength="30" />
-
-                    <ImageView
-                        android:id="@+id/spin_site"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@mipmap/ic_spin" />
+                        style="@style/field_input" />
 
                 </LinearLayout>
+
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.street" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
-                    android:gravity="right"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
 
+                    <include
+                        android:id="@+id/spin_street"
+                        layout="@layout/spin_picker" />
+
                     <EditText
                         android:id="@+id/edit_street"
-                        style="@style/attendant_labels"
-                        android:hint="@string/label.street"
-                        android:maxLength="30" />
+                        style="@style/field_input" />
 
-                    <ImageView
-                        android:id="@+id/spin_street"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@mipmap/ic_spin" />
 
                 </LinearLayout>
 
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.address" />
+
                 <EditText
                     android:id="@+id/edit_address"
-                    style="@style/attendant_labels"
-                    android:hint="@string/label.address"
+                    style="@style/field_input"
                     android:inputType="textMultiLine" />
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -244,16 +239,22 @@
                     android:scaleType="fitCenter"
                     android:src="@mipmap/def" />
 
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.name" />
+
                 <EditText
                     android:id="@+id/edit_name"
-                    style="@style/attendant_labels"
-                    android:hint="@string/label.name.required"
-                    android:maxLength="30" />
+                    style="@style/field_input"
+                    android:hint="@string/label.required" />
+
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.mobile1" />
 
                 <EditText
                     android:id="@+id/edit_mobile1"
-                    style="@style/attendant_labels"
-                    android:hint="@string/label.mobile1"
+                    style="@style/field_input"
                     android:inputType="phone"
                     android:maxLength="15" />
 
@@ -268,49 +269,58 @@
                     <include layout="@layout/sep" />
 
                     <TextView
-                        style="@style/attendant_labels"
-                        android:layout_width="wrap_content"
-                        android:gravity="center"
+                        style="@style/label_input"
                         android:text="@string/label.contact" />
 
                     <include layout="@layout/sep" />
                 </LinearLayout>
 
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.mobile2" />
+
                 <EditText
                     android:id="@+id/edit_mobile2"
-                    style="@style/attendant_labels"
-                    android:hint="@string/label.mobile2"
+                    style="@style/field_input"
                     android:inputType="phone"
                     android:maxLength="15" />
+
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.mobile3" />
 
                 <EditText
                     android:id="@+id/edit_mobile3"
-                    style="@style/attendant_labels"
-                    android:hint="@string/label.mobile3"
+                    style="@style/field_input"
                     android:inputType="phone"
                     android:maxLength="15" />
+
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.lphone" />
 
                 <EditText
                     android:id="@+id/edit_lphone"
-                    style="@style/attendant_labels"
-                    android:hint="@string/label.lphone"
+                    style="@style/field_input"
                     android:inputType="phone"
                     android:maxLength="15" />
 
+                <TextView
+                    style="@style/label"
+                    android:hint="@string/label.email" />
+
                 <EditText
                     android:id="@+id/edit_email"
-                    style="@style/attendant_labels"
-                    android:hint="@string/label.email"
-                    android:inputType="textEmailAddress"
-                    android:maxLength="30" />
-
+                    style="@style/field_input"
+                    android:inputType="textEmailAddress" />
 
             </LinearLayout>
+
         </LinearLayout>
 
-        <include layout="@layout/editor_footer" />
 
-    </LinearLayout>
+    </ScrollView>
 
+    <include layout="@layout/editor_footer" />
 
-</ScrollView>
+</LinearLayout>

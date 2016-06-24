@@ -1,106 +1,96 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/pick_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/date1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_larger" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/ic_date" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/midgrey"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-            <LinearLayout
-                android:id="@+id/pick_date"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select.attendance.type"
+                android:textSize="@dimen/font_larger" />
+
+            <Spinner
+                android:id="@+id/spin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/grey"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:prompt="@string/select.attendance.type"
+                android:spinnerMode="dialog" />
 
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/date1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_larger" />
+        <LinearLayout
+            android:id="@+id/root"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/dynamic_bg"
+            android:orientation="horizontal"
+            android:textSize="40sp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@mipmap/ic_date" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/date2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/midgrey"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:textColor="@color/dynamic_text"
+                android:textSize="40dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/select.attendance.type"
-                    android:textSize="@dimen/font_larger" />
-
-                <Spinner
-                    android:id="@+id/spin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:prompt="@string/select.attendance.type"
-                    android:spinnerMode="dialog" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/root"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_margin="20dp"
-                android:background="@drawable/dynamic_bg"
-                android:orientation="horizontal"
-                android:textSize="40sp">
-
-                <TextView
-                    android:id="@+id/date2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:padding="5dp"
-                    android:textColor="@color/dynamic_text"
-                    android:textSize="40dp" />
-
-                <TextView
-                    android:id="@+id/flag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/colorAccent"
-                    android:padding="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_normal"
-                    android:textStyle="bold" />
-
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/flag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorAccent"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_normal"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
 
-    </ScrollView>
 
-    <include layout="@layout/editor_footer" />
+    </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

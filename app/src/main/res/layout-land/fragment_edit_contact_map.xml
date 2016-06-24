@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal">
+
+    <include layout="@layout/editor_footer" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+            <LinearLayout
+                android:id="@+id/layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="right"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/site"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@color/alphagrey"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_normal"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/st"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@color/alphagrey"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_normal"
+                    android:visibility="gone" />
+
+
+                <TextView
+                    android:id="@+id/addr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@color/alphagrey"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_normal"
+                    android:visibility="gone" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -3,31 +3,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+
+    <EditText
+        android:id="@+id/input"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:hint="@string/label.name"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLength="30"
+        android:textSize="26sp" />
 
-        <EditText
-            android:id="@+id/input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:hint="@string/label.name"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:maxLength="30"
-            android:textSize="26sp" />
+    <ListView
+        android:id="@+id/sname_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        <ListView
-            android:id="@+id/sname_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
-
-    <include layout="@layout/editor_footer" />
 
 </LinearLayout>
