@@ -30,6 +30,7 @@ public class Search extends ActionBarActivity {
         if (savedInstanceState == null) {
             buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
 
+            text.setText(R.string.subhead_search_info);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment, new FragmentSearchInfo())
                     .commit();

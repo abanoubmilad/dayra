@@ -24,7 +24,7 @@ public class AttendanceReceiver extends BroadcastReceiver {
                 cal.get(Calendar.DAY_OF_MONTH) + "",
                 (cal.get(Calendar.MONTH) + 1) + "");
 
-        ArrayList<String> array = AlarmDB.getInstant(context).getAlarmDayras("1");
+        ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras("1");
         int start = 70000;
         for (String dayraName : array) {
             ArrayList<ContactDay> result = DB.getInstant(context, dayraName).getContactsAttendanceAbsence(date);

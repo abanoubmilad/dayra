@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="10dp">
+        android:padding="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,20 +19,22 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/label.update.express"
-                android:textSize="@dimen/font_normal" />
+                android:layout_marginBottom="50dp"
+                android:text="@string/label.add.express"
+                android:textSize="@dimen/font_larger" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label.choose.data"
-                android:textSize="@dimen/font_large" />
+                android:layout_marginBottom="20dp"
+                android:text="@string/label.add.express.fields"
+                android:textSize="@dimen/font_larger" />
 
             <CheckBox
                 android:id="@+id/selectall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:text="@string/label.selectall" />
 
             <LinearLayout
@@ -43,7 +45,6 @@
                 <CheckBox
                     android:id="@+id/mobile1"
                     style="@style/check_box"
-                    android:checked="true"
                     android:text="@string/label.mobile1" />
 
                 <CheckBox

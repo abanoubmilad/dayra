@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     android:padding="10dp">
 
     <TextView
@@ -10,19 +10,16 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
-        android:textColor="@color/black"
         android:text="@string/dialogue.create"
+        android:textColor="@color/black"
         android:textSize="@dimen/font_larger" />
 
     <EditText
         android:id="@+id/input"
-        style="@style/attendant_labels"
-        android:layout_width="match_parent"
-        android:layout_gravity="center"
+        style="@style/field_input"
         android:gravity="center"
         android:hint="@string/label.dayra.name"
-        android:maxLength="20"
-        android:textColorHint="@color/hint">
+        android:maxLength="20">
 
         <requestFocus />
     </EditText>

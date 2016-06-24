@@ -16,7 +16,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.alarm.AlarmDB;
+import abanoubm.dayra.alarm.DBAlarm;
 import abanoubm.dayra.alarm.AttendanceReceiver;
 import abanoubm.dayra.alarm.BirthDayReceiver;
 
@@ -85,7 +85,7 @@ public class Settings extends Activity {
         @Override
         protected Boolean[] doInBackground(Void... params) {
             Boolean[] arr = new Boolean[2];
-            AlarmDB db = AlarmDB.getInstant(getApplicationContext());
+            DBAlarm db = DBAlarm.getInstant(getApplicationContext());
             String dbname = Utility.getDayraName(getApplicationContext());
             arr[0] = db.doesAlarmExist("0", dbname);
             arr[1] = db.doesAlarmExist("1", dbname);
@@ -118,7 +118,7 @@ public class Settings extends Activity {
 
         @Override
         protected Void doInBackground(Integer... params) {
-            boolean check = AlarmDB.getInstant(getApplicationContext()).
+            boolean check = DBAlarm.getInstant(getApplicationContext()).
                     removeAlarm(params[0] + "", Utility.getDayraName(getApplicationContext()));
             if (!check) {
                 if (params[0] == 0)
@@ -155,7 +155,7 @@ public class Settings extends Activity {
         @Override
         protected Void doInBackground(Integer... params) {
 
-            boolean check = AlarmDB.getInstant(getApplicationContext()).
+            boolean check = DBAlarm.getInstant(getApplicationContext()).
                     addAlarm(params[0] + "", Utility.getDayraName(getApplicationContext()));
             if (check) {
                 if (params[0] == 0) {

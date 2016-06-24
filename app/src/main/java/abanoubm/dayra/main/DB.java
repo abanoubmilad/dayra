@@ -651,15 +651,18 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public int getClassYearsCount() {
-        String selectQuery = "SELECT DISTINCT " + CONTACT_CLASS_YEAR + " FROM "
-                + TB_CONTACT + " WHERE " + CONTACT_CLASS_YEAR + "!=''";
-        Cursor c = readableDB.rawQuery(selectQuery, null);
-
-        int count = c.getCount();
+    public ArrayList<String> getDividerList(String tag) {
+        Cursor c = readableDB.query(true, TB_CONTACT, new String[]{tag}, null, null, null,
+                null, tag, null);
+        ArrayList<String> result = new ArrayList<>(c.getCount());
+        if (c.moveToFirst()) {
+            do {
+                result.add(c.getString(0));
+            } while (c.moveToNext());
+        }
         c.close();
 
-        return count;
+        return result;
 
     }
 
@@ -1372,165 +1375,70 @@ public class DB extends SQLiteOpenHelper {
         }
     }
 
-//    public void divideDayra(Context context, int range, String path) {
-//        ArrayList<String> sites = getOptionsList(CONTACT_SITE);
-//        ArrayList<String> classYears = getOptionsList(CONTACT_CLASS_YEAR);
-//        int classYearsCount = classYears.size();
-//        range = Math.min(range, classYearsCount);
-//
-//        int groupsCount = classYearsCount / range;
-//        if (classYearsCount % range != 0)
-//            groupsCount++;
-//
-//        ArrayList<String> queryArr = new ArrayList<>(groupsCount);
-//        ArrayList<String> Groupnames = new ArrayList<>(groupsCount);
-//        String temp;
-//        String tempName;
-//        int startAt;
-//        for (int i = 0; i < groupsCount; i++) {
-//            startAt = range * i;
-//            temp = CONTACT_CLASS_YEAR + "=" + classYears.get(startAt);
-//            tempName = classYears.get(startAt);
-//            for (int j = startAt + 1; j < startAt + range
-//                    && j < classYearsCount; j++) {
-//                temp += " OR " + CONTACT_CLASS_YEAR + "='" + classYears.get(j) + "'";
-//                tempName += " " + classYears.get(j);
-//            }
-//            queryArr.add(temp);
-//            Groupnames.add(tempName);
-//
-//        }
-//
-//        DBDivider minidbm;
-//        int itr;
-//        for (String site : sites) {
-//            itr = -1;
-//            for (String queryItem : queryArr) {
-//                itr++;
-//                minidbm = new DBDivider(context, path + DB_NAME + " " + site + " "
-//                        + Groupnames.get(itr));
-//
-//                temp = "SELECT * FROM " + TB_CONTACT + " WHERE " + CONTACT_SITE + "='"
-//                        + site + "' AND (" + queryItem + " )";
-//                Cursor c = readableDB.rawQuery(temp, null);
-//
-//                if (c.moveToFirst()) {
-//                    int COL_MAP_LAT = c.getColumnIndex(CONTACT_MAPLAT);
-//                    int COL_MAP_LNG = c.getColumnIndex(CONTACT_MAPLNG);
-//                    int COL_MAP_ZOOM = c.getColumnIndex(CONTACT_MAPZOM);
-//                    int COL_NAME = c.getColumnIndex(CONTACT_NAME);
-//                    int COL_PIC_DIR = c.getColumnIndex(CONTACT_PHOTO);
-//                    int COL_PRIEST = c.getColumnIndex(CONTACT_SUPERVISOR);
-//                    int COL_COMM = c.getColumnIndex(CONTACT_NOTES);
-//                    int COL_BDAY = c.getColumnIndex(CONTACT_BDAY);
-//                    int COL_EMAIL = c.getColumnIndex(CONTACT_EMAIL);
-//                    int COL_MOBILE1 = c.getColumnIndex(CONTACT_MOB1);
-//                    int COL_MOBILE2 = c.getColumnIndex(CONTACT_MOB2);
-//                    int COL_MOBILE3 = c.getColumnIndex(CONTACT_MOB3);
-//                    int COL_LAND_PHONE = c.getColumnIndex(CONTACT_LPHONE);
-//                    int COL_ADDRESS = c.getColumnIndex(CONTACT_ADDR);
-//                    int COL_CLASS_YEAR = c.getColumnIndex(CONTACT_CLASS_YEAR);
-//                    int COL_STUDY_WORK = c.getColumnIndex(CONTACT_STUDY_WORK);
-//                    int COL_STREET = c.getColumnIndex(CONTACT_ST);
-//                    int COL_SITE = c.getColumnIndex(CONTACT_SITE);
-//                    ContentValues values;
-//                    do {
-//                        values = new ContentValues();
-//                        values.put(CONTACT_MAPLAT, c.getDouble(COL_MAP_LAT));
-//                        values.put(CONTACT_MAPLNG, c.getDouble(COL_MAP_LNG));
-//                        values.put(CONTACT_MAPZOM, c.getFloat(COL_MAP_ZOOM));
-//                        values.put(CONTACT_NAME, c.getString(COL_NAME));
-//                        values.put(CONTACT_PHOTO, c.getString(COL_PIC_DIR));
-//                        values.put(CONTACT_SUPERVISOR, c.getString(COL_PRIEST));
-//                        values.put(CONTACT_NOTES, c.getString(COL_COMM));
-//                        values.put(CONTACT_BDAY, c.getString(COL_BDAY));
-//                        values.put(CONTACT_EMAIL, c.getString(COL_EMAIL));
-//                        values.put(CONTACT_MOB1, c.getString(COL_MOBILE1));
-//                        values.put(CONTACT_MOB2, c.getString(COL_MOBILE2));
-//                        values.put(CONTACT_MOB3, c.getString(COL_MOBILE3));
-//                        values.put(CONTACT_LPHONE, c.getString(COL_LAND_PHONE));
-//                        values.put(CONTACT_ADDR, c.getString(COL_ADDRESS));
-//                        values.put(CONTACT_ST, c.getString(COL_STREET));
-//                        values.put(CONTACT_SITE, c.getString(COL_SITE));
-//                        values.put(CONTACT_STUDY_WORK, c.getString(COL_STUDY_WORK));
-//                        values.put(CONTACT_CLASS_YEAR, c.getString(COL_CLASS_YEAR));
-//                        minidbm.addAttendant(values);
-//
-//                    } while (c.moveToNext());
-//                }
-//                c.close();
-//                minidbm.close();
-//
-//            }
-//
-//        }
-//    }
+    public void divideDayra(String tag, ArrayList<String> dividerList, Context context, String path) {
 
-    //    public void divideDayra(Context context, String path) {
-//        ArrayList<String> sites = getOptionsList(CONTACT_SITE);
-//
-//        DBDivider minidbm;
-//        String temp;
-//        for (String site : sites) {
-//            minidbm = new DBDivider(context, path + DB_NAME + " " + site);
-//            temp = "SELECT * FROM " + TB_CONTACT + " WHERE " + CONTACT_SITE + "='"
-//                    + site + "'";
-//            Cursor c = readableDB.rawQuery(temp, null);
-//            if (c.moveToFirst()) {
-//                int COL_MAP_LAT = c.getColumnIndex(CONTACT_MAPLAT);
-//                int COL_MAP_LNG = c.getColumnIndex(CONTACT_MAPLNG);
-//                int COL_MAP_ZOOM = c.getColumnIndex(CONTACT_MAPZOM);
-//                int COL_NAME = c.getColumnIndex(CONTACT_NAME);
-//                int COL_ATTEND_DATES = c.getColumnIndex(CONTACT_ATTEND_DATES);
-//                int COL_LAST_ATTEND = c.getColumnIndex(CONTACT_LAST_ATTEND);
-//                int COL_PIC_DIR = c.getColumnIndex(CONTACT_PHOTO);
-//                int COL_PRIEST = c.getColumnIndex(CONTACT_SUPERVISOR);
-//                int COL_COMM = c.getColumnIndex(CONTACT_NOTES);
-//                int COL_BDAY = c.getColumnIndex(CONTACT_BDAY);
-//                int COL_EMAIL = c.getColumnIndex(CONTACT_EMAIL);
-//                int COL_MOBILE1 = c.getColumnIndex(CONTACT_MOB1);
-//                int COL_MOBILE2 = c.getColumnIndex(CONTACT_MOB2);
-//                int COL_MOBILE3 = c.getColumnIndex(CONTACT_MOB3);
-//                int COL_LAND_PHONE = c.getColumnIndex(CONTACT_LPHONE);
-//                int COL_ADDRESS = c.getColumnIndex(CONTACT_ADDR);
-//                int COL_LAST_VISIT = c.getColumnIndex(CONTACT_LAST_VISIT);
-//                int COL_CLASS_YEAR = c.getColumnIndex(CONTACT_CLASS_YEAR);
-//                int COL_STUDY_WORK = c.getColumnIndex(CONTACT_STUDY_WORK);
-//                int COL_STREET = c.getColumnIndex(CONTACT_ST);
-//                int COL_SITE = c.getColumnIndex(CONTACT_SITE);
-//                ContentValues values;
-//                do {
-//                    values = new ContentValues();
-//                    values.put(CONTACT_MAPLAT, c.getDouble(COL_MAP_LAT));
-//                    values.put(CONTACT_MAPLNG, c.getDouble(COL_MAP_LNG));
-//                    values.put(CONTACT_MAPZOM, c.getFloat(COL_MAP_ZOOM));
-//                    values.put(CONTACT_NAME, c.getString(COL_NAME));
-//                    values.put(CONTACT_ATTEND_DATES, c.getString(COL_ATTEND_DATES));
-//                    values.put(CONTACT_LAST_VISIT, c.getString(COL_LAST_VISIT));
-//                    values.put(CONTACT_LAST_ATTEND, c.getString(COL_LAST_ATTEND));
-//                    values.put(CONTACT_PHOTO, c.getString(COL_PIC_DIR));
-//                    values.put(CONTACT_SUPERVISOR, c.getString(COL_PRIEST));
-//                    values.put(CONTACT_NOTES, c.getString(COL_COMM));
-//                    values.put(CONTACT_BDAY, c.getString(COL_BDAY));
-//                    values.put(CONTACT_EMAIL, c.getString(COL_EMAIL));
-//                    values.put(CONTACT_MOB1, c.getString(COL_MOBILE1));
-//                    values.put(CONTACT_MOB2, c.getString(COL_MOBILE2));
-//                    values.put(CONTACT_MOB3, c.getString(COL_MOBILE3));
-//                    values.put(CONTACT_LPHONE, c.getString(COL_LAND_PHONE));
-//                    values.put(CONTACT_ADDR, c.getString(COL_ADDRESS));
-//                    values.put(CONTACT_ST, c.getString(COL_STREET));
-//                    values.put(CONTACT_SITE, c.getString(COL_SITE));
-//                    values.put(CONTACT_STUDY_WORK, c.getString(COL_STUDY_WORK));
-//                    values.put(CONTACT_CLASS_YEAR, c.getString(COL_CLASS_YEAR));
-//                    minidbm.addAttendant(values);
-//
-//                } while (c.moveToNext());
-//            }
-//            c.close();
-//            minidbm.close();
-//
-//        }
-//    }
+        DBDivider miniDB;
+        String temp;
+        for (String dividerItem : dividerList) {
+            miniDB = new DBDivider(context, path + DB_NAME + " " + dividerItem);
+
+            temp = "SELECT *" +
+                    " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                    " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                    " WHERE " + tag + "='"
+                    + dividerItem + "'";
+
+            Cursor c = readableDB.rawQuery(temp, null);
+            if (c.moveToFirst()) {
+                int COL_MAP_LAT = c.getColumnIndex(CONTACT_MAPLAT);
+                int COL_MAP_LNG = c.getColumnIndex(CONTACT_MAPLNG);
+                int COL_MAP_ZOOM = c.getColumnIndex(CONTACT_MAPZOM);
+                int COL_NAME = c.getColumnIndex(CONTACT_NAME);
+                int COL_PHOTO = c.getColumnIndex(PHOTO_BLOB);
+                int COL_SuperVisor = c.getColumnIndex(CONTACT_SUPERVISOR);
+                int COL_Notes = c.getColumnIndex(CONTACT_NOTES);
+                int COL_BDAY = c.getColumnIndex(CONTACT_BDAY);
+                int COL_EMAIL = c.getColumnIndex(CONTACT_EMAIL);
+                int COL_MOBILE1 = c.getColumnIndex(CONTACT_MOB1);
+                int COL_MOBILE2 = c.getColumnIndex(CONTACT_MOB2);
+                int COL_MOBILE3 = c.getColumnIndex(CONTACT_MOB3);
+                int COL_LAND_PHONE = c.getColumnIndex(CONTACT_LPHONE);
+                int COL_ADDRESS = c.getColumnIndex(CONTACT_ADDR);
+                int COL_CLASS_YEAR = c.getColumnIndex(CONTACT_CLASS_YEAR);
+                int COL_STUDY_WORK = c.getColumnIndex(CONTACT_STUDY_WORK);
+                int COL_STREET = c.getColumnIndex(CONTACT_ST);
+                int COL_SITE = c.getColumnIndex(CONTACT_SITE);
+                ContentValues values;
+                do {
+                    values = new ContentValues();
+                    values.put(CONTACT_MAPLAT, c.getDouble(COL_MAP_LAT));
+                    values.put(CONTACT_MAPLNG, c.getDouble(COL_MAP_LNG));
+                    values.put(CONTACT_MAPZOM, c.getFloat(COL_MAP_ZOOM));
+                    values.put(CONTACT_NAME, c.getString(COL_NAME));
+                    values.put(CONTACT_SUPERVISOR, c.getString(COL_SuperVisor));
+                    values.put(CONTACT_NOTES, c.getString(COL_Notes));
+                    values.put(CONTACT_BDAY, c.getString(COL_BDAY));
+                    values.put(CONTACT_EMAIL, c.getString(COL_EMAIL));
+                    values.put(CONTACT_MOB1, c.getString(COL_MOBILE1));
+                    values.put(CONTACT_MOB2, c.getString(COL_MOBILE2));
+                    values.put(CONTACT_MOB3, c.getString(COL_MOBILE3));
+                    values.put(CONTACT_LPHONE, c.getString(COL_LAND_PHONE));
+                    values.put(CONTACT_ADDR, c.getString(COL_ADDRESS));
+                    values.put(CONTACT_ST, c.getString(COL_STREET));
+                    values.put(CONTACT_SITE, c.getString(COL_SITE));
+                    values.put(CONTACT_STUDY_WORK, c.getString(COL_STUDY_WORK));
+                    values.put(CONTACT_CLASS_YEAR, c.getString(COL_CLASS_YEAR));
+
+                    miniDB.addContact(values, c.getBlob(COL_PHOTO));
+
+                } while (c.moveToNext());
+            }
+            c.close();
+            miniDB.close();
+
+        }
+    }
+
     public ArrayList<ContactDay> getContactsAttendanceAbsence(String previousWeekRegex) {
         String selectQuery = "SELECT " + CONTACT_NAME + "," + PHOTO_BLOB +
                 ", MAX(" + ATTEND_DAY + ")" +

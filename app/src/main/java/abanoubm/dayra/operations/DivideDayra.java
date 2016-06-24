@@ -1,75 +1,24 @@
 package abanoubm.dayra.operations;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 
 public class DivideDayra extends Activity {
-    private CheckBox cb_class_year;
-    private TextView tv_class_year;
-
-    private class GetClassYearsTask extends AsyncTask<Void, Void, String[]> {
-        private ProgressDialog pBar;
-
-        @Override
-        protected void onPreExecute() {
-            pBar = new ProgressDialog(DivideDayra.this);
-            pBar.setCancelable(false);
-            pBar.show();
-        }
-
-        @Override
-        protected String[] doInBackground(Void... params) {
-            int temp = DB.getInstant(getApplicationContext()).getClassYearsCount();
-            if (temp == 0)
-                return null;
-            String[] arr = new String[temp];
-            temp++;
-            for (int i = 1; i < temp; i++)
-                arr[i - 1] = i + "";
-            return arr;
-        }
-
-        @Override
-        protected void onPostExecute(final String[] result) {
-            pBar.dismiss();
-            if (result == null)
-                cb_class_year.setChecked(false);
-            else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(
-                        DivideDayra.this);
-                builder.setTitle(getResources().getString(R.string.label_tolerance));
-                builder.setItems(result,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                tv_class_year.setText(which + 1 + "");
-                            }
-
-                        });
-                builder.create().show();
-            }
-        }
-    }
+    private String chosenTag = DB.CONTACT_SITE;
 
     private class DivideTask extends AsyncTask<Boolean, Void, Boolean> {
         private ProgressDialog pBar;
@@ -84,43 +33,37 @@ public class DivideDayra extends Activity {
 
         @Override
         protected Boolean doInBackground(Boolean... params) {
-            String path;
-            if (android.os.Environment.getExternalStorageState().equals(
-                    android.os.Environment.MEDIA_MOUNTED)) {
-                path = Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() + "/";
-            } else {
-                path = android.os.Environment.getDataDirectory()
-                        .getAbsolutePath() + "/";
-            }
-            path += "dayra folder/"
+            String path = Utility.getDayraFolder() + "/"
                     + Utility.getDayraName(getApplicationContext()) + "_divided/";
             new File(path).mkdirs();
-            //   String class_year = tv_class_year.getText().toString().trim();
-//            try {
-//                if (class_year.equals(""))
-//                    DB.getInstant(getApplicationContext()).divideDayra(
-//                            getApplicationContext(), path);
-//                else
-//                    DB.getInstant(getApplicationContext()).divideDayra(
-//                            getApplicationContext(),
-//                            Integer.parseInt(class_year), path);
-//                return true;
-//            } catch (Exception e) {
-//                return false;
-//            }
-            return false;
+            DB db = DB.getInstant(getApplicationContext());
+
+            ArrayList<String> dividerList = db.getDividerList(chosenTag);
+            if (dividerList.size() < 2)
+                return false;
+
+            try {
+                DB.getInstant(getApplicationContext()).divideDayra(chosenTag, dividerList,
+                        getApplicationContext(), path);
+                return true;
+            } catch (Exception e) {
+                return null;
+            }
         }
 
         @Override
         protected void onPostExecute(Boolean result) {
             pBar.dismiss();
+            if (result == null)
+                Toast.makeText(getApplicationContext(),
+                        R.string.err_dayra_divide, Toast.LENGTH_SHORT).show();
             if (result)
                 Toast.makeText(getApplicationContext(), R.string.msg_dayra_divided,
                         Toast.LENGTH_SHORT).show();
             else
-                Toast.makeText(getApplicationContext(),
-                        R.string.err_dayra_divide, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.msg_dayra_no_divider,
+                        Toast.LENGTH_SHORT).show();
+
 
         }
 
@@ -133,32 +76,24 @@ public class DivideDayra extends Activity {
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_divide);
 
-        ImageView spin_class_year;
-        TextView divideBtn;
-
-        divideBtn = (TextView) findViewById(R.id.divide_btn);
-        tv_class_year = (TextView) findViewById(R.id.tv_classyear);
-        spin_class_year = (ImageView) findViewById(R.id.spin_class_year);
-        cb_class_year = (CheckBox) findViewById(R.id.cb_classyear);
-        spin_class_year.setOnClickListener(new OnClickListener() {
-
+        final RadioGroup radio = (RadioGroup) findViewById(R.id.radio);
+        radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                if (cb_class_year.isChecked())
-                    new GetClassYearsTask().execute();
-
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.class_year)
+                    chosenTag = DB.CONTACT_CLASS_YEAR;
+                else if (checkedId == R.id.study_work)
+                    chosenTag = DB.CONTACT_STUDY_WORK;
+                else if (checkedId == R.id.site)
+                    chosenTag = DB.CONTACT_SITE;
+                else if (checkedId == R.id.street)
+                    chosenTag = DB.CONTACT_ST;
+                else if (checkedId == R.id.supervisor)
+                    chosenTag = DB.CONTACT_SUPERVISOR;
             }
         });
-        cb_class_year.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
-                if (isChecked)
-                    new GetClassYearsTask().execute();
-            }
-        });
-        divideBtn.setOnClickListener(new OnClickListener() {
+        findViewById(R.id.divide_btn).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {

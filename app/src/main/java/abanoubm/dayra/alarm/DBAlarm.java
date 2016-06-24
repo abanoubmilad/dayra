@@ -8,25 +8,25 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-public class AlarmDB extends SQLiteOpenHelper {
+public class DBAlarm extends SQLiteOpenHelper {
     private static String DB_NAME = "alarm_db_journal";
     private static final String TB_ALARM = "alarm_tb";
     private static final String ALARM_DB_NAME = "alarm_db_name";
     private static final String ALARM_TYPE = "alarm_type";
 
-    private static AlarmDB dbm;
+    private static DBAlarm dbm;
     private SQLiteDatabase readableDB, writableDB;
 
-    public static AlarmDB getInstant(Context context) {
+    public static DBAlarm getInstant(Context context) {
         if (dbm != null)
             return dbm;
         else {
-            dbm = new AlarmDB(context);
+            dbm = new DBAlarm(context);
             return dbm;
         }
     }
 
-    private AlarmDB(Context context) {
+    private DBAlarm(Context context) {
         super(context, DB_NAME, null, 1);
         readableDB = getReadableDatabase();
         writableDB = getWritableDatabase();

@@ -40,7 +40,7 @@ import abanoubm.dayra.contact.AddContact;
 import abanoubm.dayra.contacts.DisplayContacts;
 import abanoubm.dayra.contacts.DisplayContactsMap;
 import abanoubm.dayra.contacts.DisplayContactsStatistics;
-import abanoubm.dayra.operations.AddDayraData;
+import abanoubm.dayra.operations.AddDayra;
 import abanoubm.dayra.operations.CopyDayraPhone;
 import abanoubm.dayra.operations.CopyPhoneDayra;
 import abanoubm.dayra.operations.CreateAttendanceReport;
@@ -351,7 +351,7 @@ public class Home extends Activity {
                         break;
                     case 2:
                         startActivity(new Intent(getApplicationContext(),
-                                AddDayraData.class));
+                                AddDayra.class));
                         break;
                     case 3:
                         startActivity(new Intent(getApplicationContext(),

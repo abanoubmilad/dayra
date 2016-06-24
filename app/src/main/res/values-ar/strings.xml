@@ -70,10 +70,10 @@
     <string name="msg.choose.field">قم باختيار خانة واحدة على الاقل</string>
     <string name="btn.divide">تقسيم دايره</string>
     <string name="subhead.divide">تقسيم الدايره الحالية</string>
-    <string name="label.divide.express">تقسيم الدايره الحالية الى اكثر من دايره مع الاحتفاظ بالدايره الاصلية كما هى\nقم بتقسيم الدايره بحسب</string>
+    <string name="label.divide.express">تقسيم الدايره الحالية الى اكثر من دايره\nمع الاحتفاظ بالدايره الحالية كما هى\n\nتقسيم الدايره الحالبة بواسطة</string>
     <string name="msg.dayra.divided">تم تقسيم الدايره</string>
     <string name="label.tolerance">عدد الدفعات/السنين المسموح به فى كل دفعة</string>
-    <string name="label.update.express">برجاء قراءة التعليمات بعناية قبل استخدام هذه الخاصية - احتفظ دوما بنسخة احتياطية من الدايره\nاستبدال بيانات الدايره الحالية بدايره اخرى\nالاستبدال يتم كالتالى :\nفى حالة وجود اسم جديد يتم اضافة بياناته بالكامل الى الدايره الحالية\nفى حالة وجود نفس الاسم يتم استبدال حقول البيانات المحددة</string>
+    <string name="label.add.express">أقرأ التعليمات بعناية قبل استخدام هذه الخاصية\nاحتفظ دوما بنسخة احتياطية من الدايره عن طريق استخدام تصدير دايره file\n\nاضافة بيانات للدايره الحالية باستخدام دايره file أو دايره xls\nاضافة البيانات تتم كالتالى:\n\nفى حالة العثور على اسم جديد -- \nيتم اضافته مباشرة الى الدايره الحالية\n\nفى حالة العثور على اسم موجود بالفعل فى الدايره الحالية -- \nيتم اضافة البيانات المُختارة الى هذا الاسم\nتنبيه فى هذه الحالة يتم استبدال البيانات المُختارة لهذا الاسم بالبيانات الجديدة</string>
     <string name="btn.browse.dayra">تحديد الدايره التى سيتم الاستبدال بواستطها</string>
     <string name="label.choose.site">اختر المنطقة</string>
     <string name="label.choose.street">اختر الشارع</string>
@@ -308,6 +308,8 @@
     <string name="subhead.information.table">استخراج جدول بيانات</string>
     <string name="msg.no.locations">لا توجد عناوين</string>
     <string name="any.year">اى سنة</string>
+    <string name="msg.dayra.no.divider">لم يتم العثور على قيم لتقسيم الدايره بواسطتها</string>
+    <string name="label.add.express.fields">اختيار نوع البيانات التى سيتم استبدالها فى حالة العثور على نفس الاسم</string>
 
 
 </resources>

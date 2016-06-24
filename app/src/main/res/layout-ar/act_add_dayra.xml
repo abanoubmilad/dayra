@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/english_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -9,35 +8,37 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:padding="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:text="@string/label.add.express"
+                android:textSize="@dimen/font_larger" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="@string/label.choose.data"
+                android:text="@string/label.add.express.fields"
                 android:textSize="@dimen/font_larger" />
 
             <CheckBox
-                android:id="@+id/numbering"
+                android:id="@+id/selectall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:checked="true"
-                android:text="@string/label.numbering" />
-
-            <CheckBox
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/label.name" />
+                android:layout_marginBottom="10dp"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                android:text="@string/label.selectall" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,11 +48,15 @@
                 <CheckBox
                     android:id="@+id/mobile1"
                     style="@style/check_box"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                     android:text="@string/label.mobile1" />
 
                 <CheckBox
                     android:id="@+id/mobile2"
                     style="@style/check_box"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                     android:text="@string/label.mobile2" />
             </LinearLayout>
 
@@ -63,11 +68,15 @@
                 <CheckBox
                     android:id="@+id/classyear"
                     style="@style/check_box"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                     android:text="@string/label.class.year" />
 
                 <CheckBox
                     android:id="@+id/mobile3"
                     style="@style/check_box"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                     android:text="@string/label.mobile3" />
             </LinearLayout>
 
@@ -79,12 +88,38 @@
                 <CheckBox
                     android:id="@+id/study_work"
                     style="@style/check_box"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                     android:text="@string/label.study.work" />
 
                 <CheckBox
                     android:id="@+id/lphone"
                     style="@style/check_box"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                     android:text="@string/label.lphone" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <CheckBox
+                    android:id="@+id/email"
+                    style="@style/check_box"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="@string/label.email" />
+
+                <CheckBox
+                    android:id="@+id/comm"
+                    style="@style/check_box"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="@string/label.notes" />
             </LinearLayout>
 
             <LinearLayout
@@ -95,48 +130,17 @@
                 <CheckBox
                     android:id="@+id/site"
                     style="@style/check_box"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                     android:text="@string/label.site" />
-
-                <CheckBox
-                    android:id="@+id/email"
-                    style="@style/check_box"
-                    android:text="@string/label.email" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-                <CheckBox
-                    android:id="@+id/street"
-                    style="@style/check_box"
-                    android:text="@string/label.street" />
-
-                <CheckBox
-                    android:id="@+id/notes"
-                    style="@style/check_box"
-                    android:text="@string/label.notes" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-                <CheckBox
-                    android:id="@+id/addr"
-                    style="@style/check_box"
-                    android:text="@string/label.address" />
 
                 <CheckBox
                     android:id="@+id/bday"
                     style="@style/check_box"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                     android:text="@string/label.bday" />
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -144,16 +148,65 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/street"
+                    style="@style/check_box"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="@string/label.street" />
+
+                <CheckBox
                     android:id="@+id/supervisor"
                     style="@style/check_box"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
                     android:text="@string/label.supervisor" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/addr"
+                    style="@style/check_box"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="@string/label.address" />
+
+            </LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
 
     <TextView
-        android:id="@+id/export_btn"
-        style="@style/bottom_button"
-        android:text="@string/btn.export" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/btn.browse.dayra"
+        android:textSize="@dimen/font_larger" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btn_file"
+            style="@style/bottom_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/label.dayra.file" />
+
+        <TextView
+            android:id="@+id/btn_xls"
+            style="@style/bottom_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/label.dayra.xls" />
+    </LinearLayout>
+
 
 </LinearLayout>

@@ -19,10 +19,10 @@ import java.util.ArrayList;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
-import abanoubm.dayra.main.DBUpdater;
+import abanoubm.dayra.main.DBAdder;
 import abanoubm.dayra.main.Utility;
 
-public class AddDayraData extends Activity {
+public class AddDayra extends Activity {
     private static final int IMPORT_FILE = 1;
     private static final int IMPORT_EXCEL = 2;
 
@@ -34,7 +34,7 @@ public class AddDayraData extends Activity {
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(AddDayraData.this);
+            pBar = new ProgressDialog(AddDayra.this);
             pBar.setMessage(getResources().getString(R.string.label_loading));
             pBar.setCancelable(false);
             pBar.show();
@@ -51,7 +51,7 @@ public class AddDayraData extends Activity {
         @Override
         protected Integer doInBackground(Void... params) {
 
-            DBUpdater updater = new DBUpdater(getApplicationContext(),
+            DBAdder updater = new DBAdder(getApplicationContext(),
                     extr_dbname, extr_path);
             if (updater.checkDB()) {
                 DB.getInstant(getApplicationContext()).externalUpdater(
@@ -69,7 +69,7 @@ public class AddDayraData extends Activity {
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(AddDayraData.this);
+            pBar = new ProgressDialog(AddDayra.this);
             pBar.setMessage(getResources().getString(R.string.label_loading));
             pBar.setCancelable(false);
             pBar.show();
@@ -96,7 +96,7 @@ public class AddDayraData extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_add_dayra_data);
+        setContentView(R.layout.act_add_dayra);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2))
                 .setText(R.string.subhead_add_data);

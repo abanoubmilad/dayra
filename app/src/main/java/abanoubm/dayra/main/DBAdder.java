@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import abanoubm.dayra.model.ContactData;
 
-public class DBUpdater extends SQLiteOpenHelper {
+public class DBAdder extends SQLiteOpenHelper {
     private static String DB_PATH = "";
 
     private static final int DB_VERSION = 3;
@@ -31,7 +31,7 @@ public class DBUpdater extends SQLiteOpenHelper {
 
     private SQLiteDatabase sdb;
 
-    public DBUpdater(Context context, String dbName, String path) {
+    public DBAdder(Context context, String dbName, String path) {
         super(context, dbName, null, DB_VERSION);
         DB_PATH = path;
     }

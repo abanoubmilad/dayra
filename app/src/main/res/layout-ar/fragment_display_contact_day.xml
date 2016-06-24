@@ -13,8 +13,7 @@
         <include layout="@layout/sep" />
 
         <TextView
-            style="@style/attendant_labels"
-            android:layout_width="wrap_content"
+            style="@style/label_input"
             android:text="@string/label.progress" />
 
         <include layout="@layout/sep" />

@@ -18,7 +18,7 @@
     <string name="label.name">name</string>
     <string name="label.supervisor">supervisor</string>
     <string name="label.notes">notes</string>
-    <string name="label.bday">birthday</string>
+    <string name="label.bday">birth date</string>
     <string name="label.email">email</string>
     <string name="label.mobile1">mobile 1</string>
     <string name="label.mobile2">mobile 2</string>
@@ -39,7 +39,7 @@
     <string name="err.msg.invalid.name">Invalid name, must be at least 4 characters long</string>
     <string name="subhead.search.info">Search info</string>
     <string name="subhead.search_dates">Search dates</string>
-    <string name="subhead.search_bdays">Search birthdays</string>
+    <string name="subhead.search_bdays">Search birth dates</string>
     <string name="label.confirm.dayra">confirm dayra name</string>
     <string name="btn.add">add</string>
     <string name="subhead.add.contact">Add a contact</string>
@@ -72,10 +72,11 @@
     <string name="msg.choose.field">Choose at least one field to export</string>
     <string name="btn.divide">divide dayra</string>
     <string name="subhead.divide">Divid current dayra</string>
-    <string name="label.divide.express">create other databases by dividing this dayra into many databases (dayra), original database is kept unchanged.\n\ndivide dayra by:</string>
+    <string name="label.divide.express">Create dayra(s) by dividing the current dayra,\nThe current dayra is kept unchanged.\n\ndivide current dayra by:</string>
     <string name="msg.dayra.divided">dayra divided</string>
     <string name="label.tolerance">class/year tolerance in each dayra</string>
-    <string name="label.update.express">Read carefully before using this feature\n(always store a backup of dayra)\nAdding data to dayra using xls or file dayra, Data fields are added as following:\nIf a new contact is found (new name), it will be added to the current dayra\nIf a contact already exists, the chosen fields will be replaced.</string>
+    <string name="label.add.express">Read carefully before using this feature\n( always store a backup of dayra by using export dayra file )\n\nAdding data to the current dayra using dayra xls or dayra file,\nData is added as following:\n\n -- If a new contact ( name ) is found,\nit will be added directly to the current dayra\n\n -- If an existing contact ( name ) is found,\nthe chosen date fields will be add to this contact\nNOTE This will replace the chosen data fields of this contact by the new values.</string>
+    <string name="label.add.express.fields">Choose data fields to be replaced in case of contact name matching</string>
     <string name="btn.browse.dayra">browse dayra to replace data with</string>
     <string name="label.choose.site">Choose site</string>
     <string name="label.choose.street">Choose street</string>
@@ -136,6 +137,7 @@
 
     <string name="label.dayra.xls">dayra xls</string>
     <string name="label.dayra.file">dayra file</string>
+    <string name="msg.dayra.no.divider">No entries found for the chosen divider (divide by)</string>
 
     <string-array name="attendace_report_header">
         <item>Attendance type</item>

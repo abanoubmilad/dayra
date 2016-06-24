@@ -20,6 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:text="@string/label.choose.data"
                 android:textSize="@dimen/font_larger" />
 
@@ -27,6 +28,7 @@
                 android:id="@+id/numbering"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:button="@null"
                 android:checked="true"
                 android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
@@ -49,7 +51,6 @@
                 <CheckBox
                     android:id="@+id/mobile1"
                     style="@style/check_box_ar"
-                    android:checked="true"
                     android:text="@string/label.mobile1" />
 
                 <CheckBox

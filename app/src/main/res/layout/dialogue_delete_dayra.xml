@@ -16,13 +16,10 @@
 
     <EditText
         android:id="@+id/input"
-        style="@style/attendant_labels"
-        android:layout_width="match_parent"
-        android:layout_gravity="center"
+        style="@style/field_input"
         android:gravity="center"
         android:hint="@string/label.confirm.dayra"
-        android:maxLength="20"
-        android:textColorHint="@color/hint">
+        android:maxLength="20">
 
         <requestFocus />
     </EditText>
