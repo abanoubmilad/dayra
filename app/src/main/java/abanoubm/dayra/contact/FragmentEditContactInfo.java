@@ -282,13 +282,12 @@ public class FragmentEditContactInfo extends Fragment {
         protected void onPostExecute(Boolean result) {
 
             pBar.dismiss();
+            if (result)
+                getActivity().finish();
+
             Toast.makeText(getActivity(), msgSource,
                     Toast.LENGTH_SHORT).show();
-//            if (result) {
-            //    finish();
-//                startActivity(new Intent(getActivity(),
-//                        DisplayContact.class).putExtra("id", contactData.getId()));
-//            }
+
 
         }
 
@@ -296,7 +295,7 @@ public class FragmentEditContactInfo extends Fragment {
         protected Boolean doInBackground(String... params) {
             DB dbm = DB.getInstant(getActivity());
             String check = dbm.getNameId(params[0]);
-            if (!Utility.isName(params[0])) {
+            if (params[0].length() < 4) {
                 msgSource = R.string.err_msg_invalid_name;
             } else if (!check.equals("-1") && !check.equals(contactData.getId())) {
                 msgSource = R.string.err_msg_duplicate_name;

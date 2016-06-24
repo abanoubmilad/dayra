@@ -65,7 +65,7 @@
         <activity android:name=".contacts.DisplayContactsMap" />
         <activity android:name=".contacts.DisplayContactsStatistics" />
         <activity android:name=".operations.DivideDayra" />
-        <activity android:name=".operations.AddDayra" />
+        <activity android:name=".operations.AddToDayra" />
         <activity android:name=".operations.SendSMS" />
         <activity android:name=".main.Settings" />
         <activity android:name=".operations.CopyDayraPhone" />

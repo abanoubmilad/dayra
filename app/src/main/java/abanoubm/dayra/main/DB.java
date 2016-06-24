@@ -37,6 +37,7 @@ import abanoubm.dayra.model.ContactMobile;
 import abanoubm.dayra.model.ContactSort;
 import abanoubm.dayra.model.ContactStatistics;
 import abanoubm.dayra.model.IntWrapper;
+import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.write.Label;
@@ -237,8 +238,11 @@ public class DB extends SQLiteOpenHelper {
 
     public boolean isValidDB(Context context) {
         try {
-            readableDB.query(TB_ATTEND, new String[]{ATTEND_ID, ATTEND_DAY, ATTEND_TYPE}, null, null, null, null, null);
-            readableDB.query(TB_CONNECTION, new String[]{CONN_A, CONN_B}, null, null, null, null, null);
+            readableDB.query(TB_ATTEND,
+                    new String[]{ATTEND_ID, ATTEND_DAY, ATTEND_TYPE}, null, null, null, null, null, " LIMIT 1").close();
+            readableDB.query(TB_CONNECTION,
+                    new String[]{CONN_A, CONN_B}, null, null, null, null, null, " LIMIT 1").close();
+
             readableDB.query(TB_CONTACT, new String[]{
                     CONTACT_ADDR,
                     CONTACT_BDAY,
@@ -257,8 +261,10 @@ public class DB extends SQLiteOpenHelper {
                     CONTACT_SITE,
                     CONTACT_NAME,
                     CONTACT_NOTES,
-                    CONTACT_ST}, null, null, null, null, null);
-            readableDB.query(TB_PHOTO, new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null);
+                    CONTACT_ST}, null, null, null, null, null, " LIMIT 1").close();
+            readableDB.query(TB_PHOTO,
+                    new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null, " LIMIT 1").close();
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -362,74 +368,60 @@ public class DB extends SQLiteOpenHelper {
                 new String[]{id});
     }
 
-    public void externalUpdater(ArrayList<ContactData> arr,
-                                ArrayList<String> dataTag) {
-        for (ContactData att : arr) {
-            String idCheck = getNameId(att.getName());
-            if (idCheck.equals("-1")) {
-                addAttendant(att);
+    public void AddFromDayraFile(ArrayList<String[]> contacts,
+                                 ArrayList<Integer> tags) {
+        String[] colNames = {
+                CONTACT_NAME, CONTACT_CLASS_YEAR,
+                CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
+                CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL,
+                CONTACT_SITE, CONTACT_ST, CONTACT_ADDR,
+                CONTACT_NOTES,
+                CONTACT_SUPERVISOR,
+                PHOTO_BLOB};
+        ContentValues values;
+        String[] tagged = new String[tags.size()];
+        int itr = 0;
+        for (Integer index : tags) {
+            tagged[itr++] = colNames[index];
+        }
+
+        for (String[] contact : contacts) {
+            String id = getNameId(contact[0]);
+
+            if (id.equals("-1")) {
+                values = new ContentValues();
+                values.put(CONTACT_NAME, contact[0]);
+                values.put(CONTACT_CLASS_YEAR, contact[1]);
+                values.put(CONTACT_STUDY_WORK, contact[2]);
+                values.put(CONTACT_MOB1, contact[3]);
+                values.put(CONTACT_MOB2, contact[4]);
+                values.put(CONTACT_MOB3, contact[5]);
+                values.put(CONTACT_LPHONE, contact[6]);
+                values.put(CONTACT_EMAIL, contact[7]);
+                values.put(CONTACT_SITE, contact[8]);
+                values.put(CONTACT_ST, contact[9]);
+                values.put(CONTACT_ADDR, contact[10]);
+                values.put(CONTACT_NOTES, contact[11]);
+                values.put(CONTACT_SUPERVISOR, contact[12]);
+
+                values.put(CONTACT_BDAY, contact[13]);
+
+                values.put(CONTACT_MAPLAT, contact[14]);
+                values.put(CONTACT_MAPLNG, contact[15]);
+                values.put(CONTACT_MAPZOM, contact[16]);
+
+                addContact(values, null);
+
             } else {
-                ContentValues values = new ContentValues();
-                for (String str : dataTag) {
-                    switch (str) {
-                        case CONTACT_MAPLAT:
-                            values.put(CONTACT_MAPLAT, att.getMapLat());
-                            break;
-                        case CONTACT_MAPLNG:
-                            values.put(CONTACT_MAPLNG, att.getMapLng());
-                            break;
-                        case CONTACT_MAPZOM:
-                            values.put(CONTACT_MAPZOM, att.getMapZoom());
-                            break;
-                        case CONTACT_SUPERVISOR:
-                            values.put(CONTACT_SUPERVISOR, att.getPriest());
-                            break;
-                        case CONTACT_NOTES:
-                            values.put(CONTACT_NOTES, att.getComm());
-                            break;
-                        case CONTACT_BDAY:
-                            values.put(CONTACT_BDAY, att.getBirthDay());
-                            break;
-                        case CONTACT_EMAIL:
-                            values.put(CONTACT_EMAIL, att.getEmail());
-                            break;
-                        case CONTACT_MOB1:
-                            values.put(CONTACT_MOB1, att.getMobile1());
-                            break;
-                        case CONTACT_MOB2:
-                            values.put(CONTACT_MOB2, att.getMobile2());
-                            break;
-                        case CONTACT_MOB3:
-                            values.put(CONTACT_MOB3, att.getMobile3());
-                            break;
-                        case CONTACT_LPHONE:
-                            values.put(CONTACT_LPHONE, att.getLandPhone());
-                            break;
-                        case CONTACT_ADDR:
-                            values.put(CONTACT_ADDR, att.getAddress());
-                            break;
-                        case CONTACT_ST:
-                            values.put(CONTACT_ST, att.getStreet());
-                            break;
-                        case CONTACT_SITE:
-                            values.put(CONTACT_SITE, att.getSite());
-                            break;
-                        case CONTACT_STUDY_WORK:
-                            values.put(CONTACT_STUDY_WORK, att.getStudyWork());
-                            break;
-                        case CONTACT_CLASS_YEAR:
-                            values.put(CONTACT_CLASS_YEAR, att.getClassYear());
-                            break;
-                    }
-                }
+                values = new ContentValues();
+                itr = 0;
+                for (Integer index : tags)
+                    values.put(tagged[itr++], contact[index]);
 
-                // values.put(CONTACT_NAME, att.getName());
-                // values.put(CONTACT_PHOTO, att.getPicDir());
-
-                writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
-                        new String[]{String.valueOf(idCheck)});
-
+                updateContact(values, id);
             }
+
+
         }
 
     }
@@ -1329,42 +1321,68 @@ public class DB extends SQLiteOpenHelper {
         return temp;
     }
 
-    public boolean AddDayraExcel(String path) {
+    public boolean AddFromDayraExcel(ArrayList<Integer> tags, String path) {
         String[] colNames = {
                 CONTACT_NAME, CONTACT_CLASS_YEAR,
-                CONTACT_STUDY_WORK, CONTACT_MOB1,
-                CONTACT_MOB2, CONTACT_MOB3,
-                CONTACT_LPHONE, CONTACT_EMAIL,
-                CONTACT_SITE, CONTACT_ST,
-                CONTACT_ADDR, CONTACT_NOTES, CONTACT_BDAY,
-                CONTACT_SUPERVISOR, CONTACT_MAPLAT,
-                CONTACT_MAPLNG, CONTACT_MAPZOM, PHOTO_BLOB};
+                CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
+                CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL,
+                CONTACT_SITE, CONTACT_ST, CONTACT_ADDR,
+                CONTACT_NOTES,
+                CONTACT_SUPERVISOR,
+                PHOTO_BLOB};
         ContentValues values;
+        String[] tagged = new String[tags.size()];
+        int itr = 0;
+        for (Integer index : tags) {
+            tagged[itr++] = colNames[index];
+        }
 
         try {
             Workbook workbook = Workbook.getWorkbook(new File(path));
             Sheet sheet = workbook.getSheet(0);
 
-            if (sheet.getColumns() != 21)
+            if (sheet.getColumns() != 14)
                 return false;
             int rows = sheet.getRows();
             int rowCounter = 1;
+            Cell[] rowCells;
+            String contactName;
+            String id;
             while (rowCounter < rows) {
-                values = new ContentValues();
-                for (int i = 0; i < 21; i++)
-                    values.put(colNames[i], sheet.getCell(i, rowCounter)
-                            .getContents().trim());
-                if (sheet.getCell(17, rowCounter).getContents().trim()
-                        .equals("")
-                        || sheet.getCell(18, rowCounter).getContents().trim()
-                        .equals("")
-                        || sheet.getCell(19, rowCounter).getContents().trim()
-                        .equals("")) {
-                    values.put(colNames[17], "0");
-                    values.put(colNames[18], "0");
-                    values.put(colNames[19], "0");
+                rowCells = sheet.getRow(rowCounter);
+                contactName = rowCells[0].getContents().trim();
+                id = getNameId(contactName);
+                if (id.equals("-1")) {
+                    values = new ContentValues();
+                    values.put(CONTACT_NAME, contactName);
+                    values.put(CONTACT_CLASS_YEAR, rowCells[1].getContents().trim());
+                    values.put(CONTACT_STUDY_WORK, rowCells[2].getContents().trim());
+                    values.put(CONTACT_MOB1, rowCells[3].getContents().trim());
+                    values.put(CONTACT_MOB2, rowCells[4].getContents().trim());
+                    values.put(CONTACT_MOB3, rowCells[5].getContents().trim());
+                    values.put(CONTACT_LPHONE, rowCells[6].getContents().trim());
+                    values.put(CONTACT_EMAIL, rowCells[7].getContents().trim());
+                    values.put(CONTACT_SITE, rowCells[8].getContents().trim());
+                    values.put(CONTACT_ST, rowCells[9].getContents().trim());
+                    values.put(CONTACT_ADDR, rowCells[10].getContents().trim());
+                    values.put(CONTACT_NOTES, rowCells[11].getContents().trim());
+                    values.put(CONTACT_SUPERVISOR, rowCells[12].getContents().trim());
+
+                    values.put(CONTACT_MAPLAT, 0);
+                    values.put(CONTACT_MAPLNG, 0);
+                    values.put(CONTACT_MAPZOM, 0);
+                    values.put(CONTACT_BDAY, "");
+
+                    addContact(values, null);
+
+                } else {
+                    values = new ContentValues();
+                    itr = 0;
+                    for (Integer index : tags)
+                        values.put(tagged[itr++], rowCells[index].getContents().trim());
+                    updateContact(values, id);
                 }
-                writableDB.insert(TB_CONTACT, null, values);
+
                 rowCounter++;
             }
             workbook.close();

@@ -85,10 +85,6 @@ public class Utility {
     }
 
 
-    public static boolean isName(String str) {
-        return str.length() >= 4;
-    }
-
     public static boolean isDBName(String str) {
 
         return str.length() != 0 && !str.equals("dbname") &&

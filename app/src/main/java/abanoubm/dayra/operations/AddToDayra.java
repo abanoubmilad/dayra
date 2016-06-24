@@ -22,19 +22,19 @@ import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.DBAdder;
 import abanoubm.dayra.main.Utility;
 
-public class AddDayra extends Activity {
+public class AddToDayra extends Activity {
     private static final int IMPORT_FILE = 1;
     private static final int IMPORT_EXCEL = 2;
 
     private String extr_path, extr_dbname;
-    private ArrayList<String> dataTag;
+    ArrayList<Integer> tags;
 
-    private class AddDayraFileTask extends AsyncTask<Void, Void, Integer> {
+    private class AddFromDayraFileTask extends AsyncTask<Void, Void, Integer> {
         private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(AddDayra.this);
+            pBar = new ProgressDialog(AddToDayra.this);
             pBar.setMessage(getResources().getString(R.string.label_loading));
             pBar.setCancelable(false);
             pBar.show();
@@ -54,8 +54,8 @@ public class AddDayra extends Activity {
             DBAdder updater = new DBAdder(getApplicationContext(),
                     extr_dbname, extr_path);
             if (updater.checkDB()) {
-                DB.getInstant(getApplicationContext()).externalUpdater(
-                        updater.getAttendantsData(), dataTag);
+                DB.getInstant(getApplicationContext()).AddFromDayraFile(
+                        updater.getContactsData(), tags);
                 updater.close();
                 return R.string.msg_dayra_replaced;
             } else
@@ -64,12 +64,12 @@ public class AddDayra extends Activity {
         }
     }
 
-    private class AddDayraExcelTask extends AsyncTask<String, Void, Integer> {
+    private class AddFromDayraExcelTask extends AsyncTask<Void, Void, Integer> {
         private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(AddDayra.this);
+            pBar = new ProgressDialog(AddToDayra.this);
             pBar.setMessage(getResources().getString(R.string.label_loading));
             pBar.setCancelable(false);
             pBar.show();
@@ -83,9 +83,9 @@ public class AddDayra extends Activity {
         }
 
         @Override
-        protected Integer doInBackground(String... params) {
+        protected Integer doInBackground(Void... params) {
 
-            if (DB.getInstant(getApplicationContext()).AddDayraExcel(extr_path))
+            if (DB.getInstant(getApplicationContext()).AddFromDayraExcel(tags, extr_path))
                 return R.string.msg_dayra_imported;
             return R.string.err_msg_invalid_file;
 
@@ -103,7 +103,7 @@ public class AddDayra extends Activity {
 
 
         final CheckBox selectall, mobile1, mobile2, mobile3,
-                lphone, addr, bday, supervisor, comm,
+                lphone, addr, supervisor, comm,
                 email, study_work, class_year, site,
                 street;
         selectall = (CheckBox) findViewById(R.id.selectall);
@@ -113,7 +113,6 @@ public class AddDayra extends Activity {
         mobile3 = (CheckBox) findViewById(R.id.mobile3);
         lphone = (CheckBox) findViewById(R.id.lphone);
         addr = (CheckBox) findViewById(R.id.addr);
-        bday = (CheckBox) findViewById(R.id.bday);
         supervisor = (CheckBox) findViewById(R.id.supervisor);
         comm = (CheckBox) findViewById(R.id.comm);
         email = (CheckBox) findViewById(R.id.email);
@@ -132,7 +131,6 @@ public class AddDayra extends Activity {
                 mobile3.setChecked(isChecked);
                 lphone.setChecked(isChecked);
                 addr.setChecked(isChecked);
-                bday.setChecked(isChecked);
                 supervisor.setChecked(isChecked);
                 comm.setChecked(isChecked);
                 email.setChecked(isChecked);
@@ -146,33 +144,32 @@ public class AddDayra extends Activity {
         findViewById(R.id.btn_file).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataTag = new ArrayList<>();
-                if (mobile1.isChecked())
-                    dataTag.add(DB.CONTACT_MOB1);
+                tags = new ArrayList<>();
+
                 if (class_year.isChecked())
-                    dataTag.add(DB.CONTACT_CLASS_YEAR);
+                    tags.add(1);
                 if (study_work.isChecked())
-                    dataTag.add(DB.CONTACT_STUDY_WORK);
-                if (site.isChecked())
-                    dataTag.add(DB.CONTACT_SITE);
-                if (street.isChecked())
-                    dataTag.add(DB.CONTACT_ST);
-                if (addr.isChecked())
-                    dataTag.add(DB.CONTACT_ADDR);
+                    tags.add(2);
+                if (mobile1.isChecked())
+                    tags.add(3);
                 if (mobile2.isChecked())
-                    dataTag.add(DB.CONTACT_MOB2);
+                    tags.add(4);
                 if (mobile3.isChecked())
-                    dataTag.add(DB.CONTACT_MOB3);
+                    tags.add(5);
                 if (lphone.isChecked())
-                    dataTag.add(DB.CONTACT_LPHONE);
+                    tags.add(6);
                 if (email.isChecked())
-                    dataTag.add(DB.CONTACT_EMAIL);
+                    tags.add(7);
+                if (site.isChecked())
+                    tags.add(8);
+                if (street.isChecked())
+                    tags.add(9);
+                if (addr.isChecked())
+                    tags.add(10);
                 if (comm.isChecked())
-                    dataTag.add(DB.CONTACT_NOTES);
-                if (bday.isChecked())
-                    dataTag.add(DB.CONTACT_BDAY);
+                    tags.add(11);
                 if (supervisor.isChecked())
-                    dataTag.add(DB.CONTACT_SUPERVISOR);
+                    tags.add(12);
 
                 Intent intentImport = new Intent(Intent.ACTION_GET_CONTENT);
                 intentImport.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())),
@@ -190,34 +187,33 @@ public class AddDayra extends Activity {
         findViewById(R.id.btn_xls).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataTag = new ArrayList<>();
-                if (mobile1.isChecked())
-                    dataTag.add(DB.CONTACT_MOB1);
+                tags = new ArrayList<>();
+
                 if (class_year.isChecked())
-                    dataTag.add(DB.CONTACT_CLASS_YEAR);
+                    tags.add(1);
                 if (study_work.isChecked())
-                    dataTag.add(DB.CONTACT_STUDY_WORK);
-                if (site.isChecked())
-                    dataTag.add(DB.CONTACT_SITE);
-                if (street.isChecked())
-                    dataTag.add(DB.CONTACT_ST);
-                if (addr.isChecked())
-                    dataTag.add(DB.CONTACT_ADDR);
+                    tags.add(2);
+                if (mobile1.isChecked())
+                    tags.add(3);
                 if (mobile2.isChecked())
-                    dataTag.add(DB.CONTACT_MOB2);
+                    tags.add(4);
                 if (mobile3.isChecked())
-                    dataTag.add(DB.CONTACT_MOB3);
+                    tags.add(5);
                 if (lphone.isChecked())
-                    dataTag.add(DB.CONTACT_LPHONE);
+                    tags.add(6);
                 if (email.isChecked())
-                    dataTag.add(DB.CONTACT_EMAIL);
+                    tags.add(7);
+                if (site.isChecked())
+                    tags.add(8);
+                if (street.isChecked())
+                    tags.add(9);
+                if (addr.isChecked())
+                    tags.add(10);
                 if (comm.isChecked())
-                    dataTag.add(DB.CONTACT_NOTES);
-                if (bday.isChecked())
-                    dataTag.add(DB.CONTACT_BDAY);
+                    tags.add(11);
                 if (supervisor.isChecked())
-                    dataTag.add(DB.CONTACT_SUPERVISOR);
-                ;
+                    tags.add(12);
+
 
                 Intent intentImport = new Intent(Intent.ACTION_GET_CONTENT);
                 intentImport.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())),
@@ -250,12 +246,8 @@ public class AddDayra extends Activity {
                 } else {
                     extr_dbname = dbname;
                     extr_path = path;
-                    if (dataTag.size() == 0) {
-                        Toast.makeText(getApplicationContext(),
-                                R.string.msg_choose_field, Toast.LENGTH_SHORT)
-                                .show();
-                    } else {
-                    }
+                    new AddFromDayraFileTask().execute();
+
                 }
 
             } else if (requestCode == IMPORT_EXCEL) {
@@ -269,12 +261,8 @@ public class AddDayra extends Activity {
                 } else {
                     extr_dbname = dbname;
                     extr_path = path;
-                    if (dataTag.size() == 0) {
-                        Toast.makeText(getApplicationContext(),
-                                R.string.msg_choose_field, Toast.LENGTH_SHORT)
-                                .show();
-                    } else {
-                    }
+                    new AddFromDayraExcelTask().execute();
+
                 }
 
 

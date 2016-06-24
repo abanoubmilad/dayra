@@ -229,8 +229,8 @@
     </string-array>
     <string-array name="search_dates_menu">
         <item>Any date</item>
-        <item>first attendance date</item>
-        <item>last attendance date</item>
+        <item>First attendance date</item>
+        <item>Last attendance date</item>
     </string-array>
     <string-array name="photo_menu">
         <item>Choose</item>
@@ -275,7 +275,7 @@
     <string-array name="settings_menu">
         <item>Alarm settings</item>
         <item>Rename dayra</item>
-        <item>Add data dayra</item>
+        <item>Add data to dayra</item>
         <item>Divide dayra</item>
         <item>Delete dayra</item>
     </string-array>
