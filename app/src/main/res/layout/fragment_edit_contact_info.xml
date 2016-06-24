@@ -142,8 +142,7 @@
 
             <EditText
                 android:id="@+id/edit_comm"
-                style="@style/field_input"
-                android:inputType="textMultiLine" />
+                style="@style/field_input"/>
 
             <TextView
                 style="@style/label"
@@ -296,8 +295,7 @@
             <EditText
                 android:id="@+id/edit_address"
                 style="@style/field_input"
-                android:layout_marginBottom="50dp"
-                android:inputType="textMultiLine" />
+                android:layout_marginBottom="50dp" />
 
         </LinearLayout>
 

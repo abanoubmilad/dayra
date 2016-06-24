@@ -33,10 +33,9 @@
     </style>
 
     <style name="field_input" parent="label_input">
-        <item name="android:inputType">text</item>
         <item name="android:maxLength">40</item>
         <item name="android:layout_width">match_parent</item>
-
+        <item name="android:inputType">textMultiLine</item>
     </style>
 
     <style name="attendant_labels" parent="label">

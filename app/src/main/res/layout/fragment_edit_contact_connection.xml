@@ -12,8 +12,7 @@
         android:layout_margin="10dp"
         android:hint="@string/label.name"
         android:imeOptions="actionDone"
-        android:inputType="text"
-        android:maxLength="30"
+        android:maxLength="40"
         android:textSize="26sp" />
 
     <ListView

@@ -64,7 +64,6 @@
         android:layout_marginRight="10dp"
         android:hint="@string/label.name"
         android:imeOptions="actionDone"
-        android:inputType="text"
         android:textSize="26sp" />
 
     <ListView
