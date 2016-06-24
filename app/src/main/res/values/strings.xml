@@ -36,7 +36,7 @@
     <string name="msg.deleted">contact deleted</string>
     <string name="err.msg.dayra.delete">Error while trying to delete dayra</string>
     <string name="msg.dayra.exported">dayra exported</string>
-    <string name="err.msg.empty.name">Name can't be empty!</string>
+    <string name="err.msg.empty.name">Name can\'t be empty!</string>
     <string name="subhead.search.info">Search info</string>
     <string name="subhead.search_dates">Search dates</string>
     <string name="subhead.search_bdays">Search birth dates</string>
