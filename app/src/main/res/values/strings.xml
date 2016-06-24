@@ -36,7 +36,7 @@
     <string name="msg.deleted">contact deleted</string>
     <string name="err.msg.dayra.delete">Error while trying to delete dayra</string>
     <string name="msg.dayra.exported">dayra exported</string>
-    <string name="err.msg.invalid.name">Invalid name, must be at least 4 characters long</string>
+    <string name="err.msg.empty.name">Name can't be empty!</string>
     <string name="subhead.search.info">Search info</string>
     <string name="subhead.search_dates">Search dates</string>
     <string name="subhead.search_bdays">Search birth dates</string>
@@ -74,8 +74,7 @@
     <string name="subhead.divide">Divid current dayra</string>
     <string name="label.divide.express">Create dayra(s) by dividing the current dayra,\nThe current dayra is kept unchanged.\n\ndivide current dayra by:</string>
     <string name="msg.dayra.divided">dayra divided</string>
-    <string name="label.tolerance">class/year tolerance in each dayra</string>
-    <string name="label.add.express">Read carefully before using this feature\n( always store a backup of dayra by using export dayra file )\n\nAdding data to the current dayra using dayra xls or dayra file,\nData is added as following:\n\n -- If a new contact ( name ) is found,\nit will be added directly to the current dayra\n\n -- If an existing contact ( name ) is found,\nthe chosen date fields will be add to this contact\nNOTE This will replace the chosen data fields of this contact by the new values.</string>
+    <string name="label.add.express">Read carefully before using this feature\n( always store a backup of dayra by using export dayra file )\n\nAdding data to the current dayra using dayra xls or dayra file,\nData is added as following:\n\n ——— If a new contact ( name ) is found,\nit will be added directly to the current dayra\n\n ——— If an existing contact ( name ) is found,\nthe chosen date fields will be add to this contact\nNOTE This will replace the chosen data fields of this contact by the new values.</string>
     <string name="label.add.express.fields">Choose data fields to be replaced in case of contact name matching</string>
     <string name="btn.browse.dayra">browse dayra to replace data with</string>
     <string name="label.choose.site">Choose site</string>

@@ -239,9 +239,9 @@ public class DB extends SQLiteOpenHelper {
     public boolean isValidDB(Context context) {
         try {
             readableDB.query(TB_ATTEND,
-                    new String[]{ATTEND_ID, ATTEND_DAY, ATTEND_TYPE}, null, null, null, null, null, " LIMIT 1").close();
+                    new String[]{ATTEND_ID, ATTEND_DAY, ATTEND_TYPE}, null, null, null, null, null, "1").close();
             readableDB.query(TB_CONNECTION,
-                    new String[]{CONN_A, CONN_B}, null, null, null, null, null, " LIMIT 1").close();
+                    new String[]{CONN_A, CONN_B}, null, null, null, null, null, "1").close();
 
             readableDB.query(TB_CONTACT, new String[]{
                     CONTACT_ADDR,
@@ -261,9 +261,9 @@ public class DB extends SQLiteOpenHelper {
                     CONTACT_SITE,
                     CONTACT_NAME,
                     CONTACT_NOTES,
-                    CONTACT_ST}, null, null, null, null, null, " LIMIT 1").close();
+                    CONTACT_ST}, null, null, null, null, null, "1").close();
             readableDB.query(TB_PHOTO,
-                    new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null, " LIMIT 1").close();
+                    new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null, "1").close();
 
             return true;
         } catch (Exception e) {
@@ -1375,7 +1375,7 @@ public class DB extends SQLiteOpenHelper {
 
                     addContact(values, null);
 
-                } else {
+                } else if (tags.size() > 0) {
                     values = new ContentValues();
                     itr = 0;
                     for (Integer index : tags)

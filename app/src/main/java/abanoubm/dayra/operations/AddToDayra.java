@@ -51,12 +51,12 @@ public class AddToDayra extends Activity {
         @Override
         protected Integer doInBackground(Void... params) {
 
-            DBAdder updater = new DBAdder(getApplicationContext(),
+            DBAdder adder = new DBAdder(getApplicationContext(),
                     extr_dbname, extr_path);
-            if (updater.checkDB()) {
+            if (adder.checkDB()) {
                 DB.getInstant(getApplicationContext()).AddFromDayraFile(
-                        updater.getContactsData(), tags);
-                updater.close();
+                        adder.getContactsData(), tags);
+                adder.close();
                 return R.string.msg_dayra_replaced;
             } else
                 return R.string.err_msg_invalid_file;

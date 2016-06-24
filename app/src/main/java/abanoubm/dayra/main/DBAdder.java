@@ -23,9 +23,9 @@ public class DBAdder extends SQLiteOpenHelper {
                     SQLiteDatabase.OPEN_READONLY);
 
 //            sdb.query(TB_ATTEND,
-//                    new String[]{ATTEND_ID, ATTEND_DAY, ATTEND_TYPE}, null, null, null, null, null, " LIMIT 1").close();
+//                    new String[]{ATTEND_ID, ATTEND_DAY, ATTEND_TYPE}, null, null, null, null, null, "1").close();
 //            sdb.query(TB_CONNECTION,
-//                    new String[]{CONN_A, CONN_B}, null, null, null, null, null, " LIMIT 1").close();
+//                    new String[]{CONN_A, CONN_B}, null, null, null, null, null, "1").close();
 
             sdb.query(DB.TB_CONTACT, new String[]{
                     DB.CONTACT_ADDR,
@@ -45,12 +45,13 @@ public class DBAdder extends SQLiteOpenHelper {
                     DB.CONTACT_SITE,
                     DB.CONTACT_NAME,
                     DB.CONTACT_NOTES,
-                    DB.CONTACT_ST}, null, null, null, null, null, " LIMIT 1").close();
+                    DB.CONTACT_ST}, null, null, null, null, null, "1").close();
 //            sdb.query(TB_PHOTO,
-//                    new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null, " LIMIT 1").close();
+//                    new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null, "1").close();
 
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

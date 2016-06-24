@@ -83,7 +83,7 @@ public class FragmentEditContactConnection extends Fragment {
             }
 
         });
-
+        dbm = DB.getInstant(getActivity());
         return root;
     }
 

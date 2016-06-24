@@ -34,7 +34,7 @@
     <string name="msg.deleted">تم مسح الاسم</string>
     <string name="err.msg.dayra.delete">خطأ أثناء محاولة مسح الدايره</string>
     <string name="msg.dayra.exported">تم تصدير الدايره</string>
-    <string name="err.msg.invalid.name">الاسم غير صالح استخدم  4 حروف على الاقل</string>
+    <string name="err.msg.empty.name">خانة الاسم مطلوبة</string>
     <string name="subhead.search.info">بحث تفاصيل</string>
     <string name="label.confirm.dayra">تأكيد اسم الدايره</string>
     <string name="subhead.search_dates">بحت تواريخ</string>
@@ -72,8 +72,7 @@
     <string name="subhead.divide">تقسيم الدايره الحالية</string>
     <string name="label.divide.express">تقسيم الدايره الحالية الى اكثر من دايره\nمع الاحتفاظ بالدايره الحالية كما هى\n\nتقسيم الدايره الحالية بواسطة</string>
     <string name="msg.dayra.divided">تم تقسيم الدايره</string>
-    <string name="label.tolerance">عدد الدفعات/السنين المسموح به فى كل دفعة</string>
-    <string name="label.add.express">أقرأ التعليمات بعناية قبل استخدام هذه الخاصية\nاحتفظ دوما بنسخة احتياطية من الدايره عن طريق استخدام تصدير دايره file\n\nاضافة بيانات للدايره الحالية باستخدام دايره file أو دايره xls\nاضافة البيانات تتم كالتالى:\n\nفى حالة العثور على اسم جديد -- \nيتم اضافته مباشرة الى الدايره الحالية\n\nفى حالة العثور على اسم موجود بالفعل فى الدايره الحالية -- \nيتم اضافة البيانات المُختارة الى هذا الاسم\nتنبيه فى هذه الحالة يتم استبدال البيانات المُختارة لهذا الاسم بالبيانات الجديدة</string>
+    <string name="label.add.express">أقرأ التعليمات بعناية قبل استخدام هذه الخاصية\nاحتفظ دوما بنسخة احتياطية من الدايره عن طريق استخدام تصدير دايره file\n\nاضافة بيانات للدايره الحالية باستخدام دايره file أو دايره xls\nاضافة البيانات تتم كالتالى:\n\n ——— فى حالة العثور على اسم جديد\nيتم اضافته مباشرة الى الدايره الحالية\n\n ——— فى حالة العثور على اسم موجود بالفعل فى الدايره الحالية\nيتم اضافة البيانات المُختارة الى هذا الاسم\nتنبيه فى هذه الحالة يتم استبدال البيانات المُختارة لهذا الاسم بالبيانات الجديدة</string>
     <string name="btn.browse.dayra">تحديد الدايره التى سيتم الاستبدال بواستطها</string>
     <string name="label.choose.site">اختر المنطقة</string>
     <string name="label.choose.street">اختر الشارع</string>
