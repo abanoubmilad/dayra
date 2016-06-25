@@ -28,7 +28,7 @@ public class Splash extends Activity {
         findViewById(R.id.layout).setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.fade));
 
-        MediaPlayer.create(getApplicationContext(), R.raw.splash_music).start();
+        MediaPlayer.create(getApplicationContext(), R.raw.bing).start();
 
         if (Utility.getArabicLang(getApplicationContext()) == 1) {
             Utility.setArabicLang(getApplicationContext(), 2);
