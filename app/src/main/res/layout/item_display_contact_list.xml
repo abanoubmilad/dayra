@@ -21,8 +21,9 @@
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="left"            android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:textColor="@color/dynamic_text"
             android:textSize="@dimen/font_larger" />

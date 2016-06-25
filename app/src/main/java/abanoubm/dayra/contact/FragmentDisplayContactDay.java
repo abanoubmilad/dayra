@@ -76,7 +76,7 @@ public class FragmentDisplayContactDay extends Fragment {
 
             ArrayList<String> result = db.getContactAttendanceStatistics(id, dayType + "");
 
-            days = db.getAttendanceAbsence(id, dayType + "", result.get(0) == null ? "" : result.get(0));
+            days = db.getAttendanceAbsence(id, dayType + "", result.get(0) == null ? "9999-99-99" : result.get(0));
 
             Collections.sort(days, new Comparator<DayCheck>() {
                 @Override
