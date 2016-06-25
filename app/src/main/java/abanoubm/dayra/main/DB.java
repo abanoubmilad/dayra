@@ -680,7 +680,13 @@ public class DB extends SQLiteOpenHelper {
             document.add(logo);
 
             document.add(new Paragraph(" "));
-            document.add(new Paragraph("dayra - " + DB_NAME, font));
+            PdfPTable tb = new PdfPTable(1);
+            tb.setWidthPercentage(100);
+            tb.setRunDirection(isEnglishMode ? PdfWriter.RUN_DIRECTION_LTR : PdfWriter.RUN_DIRECTION_RTL);
+            tb.addCell(new PdfPCell(new Paragraph("dayra - " + DB_NAME, font)));
+            document.add(tb);
+            document.add(new Paragraph(" "));
+
             document.add(new Paragraph("Created @ " + new SimpleDateFormat(
                     "yyyy-MM-dd  hh:mm:ss a", Locale.getDefault())
                     .format(new Date()), font));
@@ -765,7 +771,13 @@ public class DB extends SQLiteOpenHelper {
             document.add(logo);
 
             document.add(new Paragraph(" "));
-            document.add(new Paragraph("dayra - " + DB_NAME, font));
+            PdfPTable tb = new PdfPTable(1);
+            tb.setWidthPercentage(100);
+            tb.setRunDirection(isEnglishMode ? PdfWriter.RUN_DIRECTION_LTR : PdfWriter.RUN_DIRECTION_RTL);
+            tb.addCell(new PdfPCell(new Paragraph("dayra - " + DB_NAME, font)));
+            document.add(tb);
+            document.add(new Paragraph(" "));
+
             document.add(new Paragraph("Created @ " + new SimpleDateFormat(
                     "yyyy-MM-dd  hh:mm:ss a", Locale.getDefault())
                     .format(new Date()), font));
@@ -810,11 +822,15 @@ public class DB extends SQLiteOpenHelper {
                             Image image = Image.getInstance(photo);
                             image.scaleToFit(200f, 200f);
                             document.add(image);
-                            document.add(new Paragraph(" "));
-                        } else
-                            document.add(new Paragraph(" "));
+                        }
+                        document.add(new Paragraph(" "));
 
-                        document.add(new Paragraph(c.getString(0), font));
+
+                        tb = new PdfPTable(1);
+                        tb.setWidthPercentage(100);
+                        tb.setRunDirection(isEnglishMode ? PdfWriter.RUN_DIRECTION_LTR : PdfWriter.RUN_DIRECTION_RTL);
+                        tb.addCell(new PdfPCell(new Paragraph(c.getString(0), font)));
+                        document.add(tb);
                         document.add(new Paragraph(" "));
 
                         table.addCell(new Paragraph(header[0], font));
@@ -864,7 +880,13 @@ public class DB extends SQLiteOpenHelper {
             document.add(logo);
 
             document.add(new Paragraph(" "));
-            document.add(new Paragraph("dayra - " + DB_NAME, font));
+            PdfPTable tb = new PdfPTable(1);
+            tb.setWidthPercentage(100);
+            tb.setRunDirection(isEnglishMode ? PdfWriter.RUN_DIRECTION_LTR : PdfWriter.RUN_DIRECTION_RTL);
+            tb.addCell(new PdfPCell(new Paragraph("dayra - " + DB_NAME, font)));
+            document.add(tb);
+            document.add(new Paragraph(" "));
+
             document.add(new Paragraph("Created @ " + new SimpleDateFormat(
                     "yyyy-MM-dd  hh:mm:ss a", Locale.getDefault())
                     .format(new Date()), font));
@@ -909,9 +931,8 @@ public class DB extends SQLiteOpenHelper {
                         Image image = Image.getInstance(photo);
                         image.scaleToFit(200f, 200f);
                         document.add(image);
-                        document.add(new Paragraph(" "));
-                    } else
-                        document.add(new Paragraph(" "));
+                    }
+                    document.add(new Paragraph(" "));
 
                     table.addCell(new Paragraph(headerArray[0], font));
                     table.addCell(new Paragraph(c.getString(COL_NAME), font));
