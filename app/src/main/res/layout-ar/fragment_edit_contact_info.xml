@@ -296,7 +296,7 @@
             <EditText
                 android:id="@+id/edit_address"
                 style="@style/field_input"
-                android:maxLength="300"
+                android:maxLength="400"
                 android:layout_marginBottom="50dp" />
 
         </LinearLayout>
