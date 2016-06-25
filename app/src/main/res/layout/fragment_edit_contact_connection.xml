@@ -6,13 +6,10 @@
 
     <EditText
         android:id="@+id/input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        style="@style/field_input"
         android:layout_margin="10dp"
         android:hint="@string/label.name"
         android:imeOptions="actionDone"
-        android:maxLength="40"
         android:textSize="26sp" />
 
     <ListView

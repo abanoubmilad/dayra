@@ -19,7 +19,6 @@
         style="@style/field_input"
         android:gravity="center"
         android:hint="@string/label.confirm.dayra"
-        android:maxLength="20"
         android:textColor="@color/black" >
     </EditText>
 
