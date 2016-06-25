@@ -294,6 +294,22 @@
         <item>supervisor</item>
         <item>photo</item>
     </string-array>
+    <string-array name="pdf_header">
+        <item>name</item>
+        <item>class/year</item>
+        <item>study/work</item>
+        <item>mobile 1</item>
+        <item>mobile 2</item>
+        <item>mobile 3</item>
+        <item>landphone</item>
+        <item>email</item>
+        <item>site</item>
+        <item>street</item>
+        <item>address</item>
+        <item>notes</item>
+        <item>supervisor</item>
+        <item>birth date</item>
+    </string-array>
     <string-array name="sort_menu">
         <item>Name</item>
         <item>Class/year</item>

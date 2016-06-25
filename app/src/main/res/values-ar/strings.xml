@@ -285,6 +285,22 @@
         <item>المُشرف</item>
         <item>صورة</item>
     </string-array>
+    <string-array name="pdf_header">
+        <item>اسم</item>
+        <item>دفعة/سنة</item>
+        <item>دراسة/عمل</item>
+        <item>موبايل ١</item>
+        <item>موبايل ٢</item>
+        <item>موبايل ٣</item>
+        <item>تليفون</item>
+        <item>ايميل</item>
+        <item>منطقة</item>
+        <item>شارع</item>
+        <item>عنوان</item>
+        <item>ملاحظات</item>
+        <item>المُشرف</item>
+        <item>تاريخ الميلاد</item>
+    </string-array>
     <string-array name="sort_menu">
         <item>اسم</item>
         <item>دفعة/سنة</item>

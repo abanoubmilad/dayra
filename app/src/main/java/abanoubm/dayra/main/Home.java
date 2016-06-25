@@ -485,7 +485,7 @@ public class Home extends Activity {
                         new String[]{path}, null, null);
             }
             return DB.getInstant(getApplicationContext()).exportInformationReport(path,
-                    getResources().getStringArray(R.array.excel_header),
+                    getResources().getStringArray(R.array.pdf_header),
                     findViewById(R.id.english_layout) != null, getApplicationContext());
         }
 
