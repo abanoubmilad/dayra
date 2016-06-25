@@ -20,8 +20,6 @@
         android:gravity="center"
         android:hint="@string/label.dayra.name"
         android:maxLength="20">
-
-        <requestFocus />
     </EditText>
 
     <LinearLayout
@@ -34,9 +32,8 @@
             android:id="@+id/cancelBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:textColor="@color/black"
             android:src="@mipmap/ic_back" />
 
         <TextView

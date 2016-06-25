@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,9 +44,7 @@ public class FragmentEditContactDay extends Fragment {
         protected void onPostExecute(Void result) {
             isAttendant = true;
             flag.setText(getResources().getText(R.string.flag_contact_attend));
-            flag.setBackgroundColor(
-                    getContext().getResources().getColor(
-                            R.color.hotgreen));
+            flag.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.hotgreen));
             pBar.dismiss();
         }
 
@@ -75,9 +74,7 @@ public class FragmentEditContactDay extends Fragment {
         protected void onPostExecute(Void result) {
             isAttendant = false;
             flag.setText("");
-            flag.setBackgroundColor(
-                    getContext().getResources().getColor(
-                            R.color.colorAccent));
+            flag.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
             pBar.dismiss();
 
         }
@@ -103,14 +100,10 @@ public class FragmentEditContactDay extends Fragment {
 
             if (result) {
                 flag.setText(getResources().getText(R.string.flag_contact_attend));
-                flag.setBackgroundColor(
-                        getContext().getResources().getColor(
-                                R.color.hotgreen));
+                flag.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.hotgreen));
             } else {
                 flag.setText("");
-                flag.setBackgroundColor(
-                        getContext().getResources().getColor(
-                                R.color.colorAccent));
+                flag.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
             }
             pBar.dismiss();
         }

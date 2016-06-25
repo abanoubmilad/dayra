@@ -63,9 +63,9 @@ public class FragmentDisplayContact extends Fragment {
             @Override
             public void onClick(View v) {
                 if (current != 0) {
-                    buttons[current].setBackgroundColor(0);
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.lightergrey));
                     current = 0;
-                    buttons[0].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+                    buttons[0].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
 
                     Bundle arguments = new Bundle();
                     arguments.putString(ARG_ID, id);
@@ -87,9 +87,9 @@ public class FragmentDisplayContact extends Fragment {
             @Override
             public void onClick(View v) {
                 if (current != 1) {
-                    buttons[current].setBackgroundColor(0);
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.lightergrey));
                     current = 1;
-                    buttons[1].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+                    buttons[1].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
 
                     subhead2.setText(R.string.subhead_display_day);
 
@@ -110,9 +110,9 @@ public class FragmentDisplayContact extends Fragment {
             @Override
             public void onClick(View v) {
                 if (current != 2) {
-                    buttons[current].setBackgroundColor(0);
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.lightergrey));
                     current = 2;
-                    buttons[2].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+                    buttons[2].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
 
 
                     subhead2.setText(R.string.subhead_display_connections);
@@ -136,9 +136,9 @@ public class FragmentDisplayContact extends Fragment {
             @Override
             public void onClick(View v) {
                 if (current != 3) {
-                    buttons[current].setBackgroundColor(0);
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.lightergrey));
                     current = 3;
-                    buttons[3].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+                    buttons[3].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
 
 
                     subhead2.setText(R.string.subhead_display_map);
@@ -162,9 +162,9 @@ public class FragmentDisplayContact extends Fragment {
             @Override
             public void onClick(View v) {
                 if (current != 4) {
-                    buttons[current].setBackgroundColor(0);
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.lightergrey));
                     current = 4;
-                    buttons[4].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+                    buttons[4].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
                     startActivity(new Intent(getActivity(), EditContact.class).putExtra(ARG_ID, id));
                 }
 

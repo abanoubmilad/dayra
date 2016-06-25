@@ -1,6 +1,7 @@
 package abanoubm.dayra.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,14 +46,10 @@ public class ContactCheckAdapter extends ArrayAdapter<ContactCheck> {
 
         if (contact.isChecked()) {
             holder.flag.setText(flagStr);
-            holder.flag.setBackgroundColor(
-                    getContext().getResources().getColor(
-                            R.color.hotgreen));
+            holder.flag.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.hotgreen));
         } else {
             holder.flag.setText("");
-            holder.flag.setBackgroundColor(
-                    getContext().getResources().getColor(
-                            R.color.colorAccent));
+            holder.flag.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         }
 
 

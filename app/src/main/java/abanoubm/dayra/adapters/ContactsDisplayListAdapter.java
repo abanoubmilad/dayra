@@ -1,6 +1,7 @@
 package abanoubm.dayra.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,9 +63,9 @@ public class ContactsDisplayListAdapter extends ArrayAdapter<ContactSort> {
         holder.conf_father.setText(contact
                 .getPriest());
         if (selected == position)
-            holder.root.setBackgroundColor(getContext().getResources().getColor(R.color.colorAccent));
+            holder.root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.lightgrey));
         else
-            holder.root.setBackgroundColor(getContext().getResources().getColor(R.color.white));
+            holder.root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
 
         return convertView;
     }

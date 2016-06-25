@@ -60,9 +60,9 @@ public class EditContact extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (current != 0) {
-                    buttons[current].setBackgroundColor(0);
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightergrey));
                     current = 0;
-                    buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                    buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
 
                     subhead2.setText(R.string.subhead_edit_info);
 
@@ -84,9 +84,9 @@ public class EditContact extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (current != 1) {
-                    buttons[current].setBackgroundColor(0);
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightergrey));
                     current = 1;
-                    buttons[1].setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.colorAccent));
+                    buttons[1].setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.white));
 
                     subhead2.setText(R.string.subhead_edit_day);
 
@@ -107,9 +107,9 @@ public class EditContact extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (current != 2) {
-                    buttons[current].setBackgroundColor(0);
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightergrey));
                     current = 2;
-                    buttons[2].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                    buttons[2].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
 
                     subhead2.setText(R.string.subhead_edit_connections);
 
@@ -152,9 +152,9 @@ public class EditContact extends ActionBarActivity {
         @Override
         protected void onPostExecute(ContactLocation result) {
             if (current != 3) {
-                buttons[current].setBackgroundColor(0);
+                buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightergrey));
                 current = 3;
-                buttons[3].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                buttons[3].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
 
                 Bundle arguments = new Bundle();
                 arguments.putDouble(ARG_LAT, result.getMapLat());

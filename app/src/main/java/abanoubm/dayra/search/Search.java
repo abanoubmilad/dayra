@@ -28,7 +28,7 @@ public class Search extends ActionBarActivity {
 
 
         if (savedInstanceState == null) {
-            buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+            buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
 
             text.setText(R.string.subhead_search_info);
             getSupportFragmentManager().beginTransaction()
@@ -40,9 +40,9 @@ public class Search extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (current != 0) {
-                    buttons[current].setBackgroundColor(0);
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
                     current = 0;
-                    buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                    buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                     text.setText(R.string.subhead_search_info);
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment, new FragmentSearchInfo())
@@ -56,9 +56,9 @@ public class Search extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (current != 1) {
-                    buttons[current].setBackgroundColor(0);
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
                     current = 1;
-                    buttons[1].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                    buttons[1].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                     text.setText(R.string.subhead_search_dates);
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment, new FragmentSearchDates())
@@ -71,9 +71,9 @@ public class Search extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (current != 2) {
-                    buttons[current].setBackgroundColor(0);
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
                     current = 2;
-                    buttons[2].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                    buttons[2].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                     text.setText(R.string.subhead_search_bdays);
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment, new FragmentSearchBirthdays())

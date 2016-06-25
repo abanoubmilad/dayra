@@ -296,7 +296,7 @@ public class FragmentEditContactInfo extends Fragment {
             DB dbm = DB.getInstant(getActivity());
             String check = dbm.getNameId(params[0]);
             if (params[0].length()==0) {
-                msgSource = R.string.err_msg_invalid_name;
+                msgSource = R.string.err_msg_empty_name;
             } else if (!check.equals("-1") && !check.equals(contactData.getId())) {
                 msgSource = R.string.err_msg_duplicate_name;
             } else if (params[12].length() != 0 && !Utility.isSiteName(params[12])) {

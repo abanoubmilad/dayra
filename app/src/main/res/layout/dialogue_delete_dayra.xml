@@ -19,9 +19,8 @@
         style="@style/field_input"
         android:gravity="center"
         android:hint="@string/label.confirm.dayra"
-        android:maxLength="20">
-
-        <requestFocus />
+        android:maxLength="20"
+        android:textColor="@color/black" >
     </EditText>
 
     <LinearLayout
@@ -34,9 +33,7 @@
             android:id="@+id/cancelBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
             android:src="@mipmap/ic_back" />
 
         <TextView

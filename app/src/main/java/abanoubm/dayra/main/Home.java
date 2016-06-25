@@ -59,9 +59,9 @@ public class Home extends Activity {
     private ImageView[] buttons;
 
     private void fireHome1Menu() {
-        buttons[tagCursor].setBackgroundColor(0);
+        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
         tagCursor = 0;
-        buttons[0].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        buttons[0].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
         Utility.clearLogin(getApplicationContext());
         Intent intent = new Intent(getApplicationContext(), Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -139,9 +139,9 @@ public class Home extends Activity {
 
     private void fireHome2Menu() {
 
-        buttons[tagCursor].setBackgroundColor(0);
+        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
         tagCursor = 1;
-        buttons[1].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        buttons[1].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
         subHead2.setText(R.string.label_home_main);
 
@@ -267,9 +267,9 @@ public class Home extends Activity {
 
     private void fireOutMenu() {
 
-        buttons[tagCursor].setBackgroundColor(0);
+        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
         tagCursor = 2;
-        buttons[2].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        buttons[2].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
         subHead2.setText(R.string.label_home_out);
         if (mMenuItemAdapter != null)
@@ -325,9 +325,9 @@ public class Home extends Activity {
 
     private void fireSettingsMenu() {
 
-        buttons[tagCursor].setBackgroundColor(0);
+        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
         tagCursor = 3;
-        buttons[3].setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        buttons[3].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
         subHead2.setText(R.string.label_home_settings);
         if (mMenuItemAdapter != null)

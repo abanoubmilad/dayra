@@ -266,7 +266,7 @@ public class FragmentAddContactInfo extends Fragment {
             String check = dbm.getNameId(params[0]);
             int msgSource;
             if (params[0].length()==0) {
-                msgSource = R.string.err_msg_invalid_name;
+                msgSource = R.string.err_msg_empty_name;
             } else if (!check.equals("-1")) {
                 msgSource = R.string.err_msg_duplicate_name;
             }  else if (params[12].length() != 0 && !Utility.isSiteName(params[12])) {
