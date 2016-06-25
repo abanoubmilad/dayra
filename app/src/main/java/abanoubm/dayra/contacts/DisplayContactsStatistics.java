@@ -87,8 +87,7 @@ public class DisplayContactsStatistics extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
-            mAdapter.clear();
-            mAdapter.addAll(list);
+            mAdapter.clearThenAddAll(list);
             previousPosition = 0;
             if (list.size() == 0) {
                 finish();
@@ -119,8 +118,7 @@ public class DisplayContactsStatistics extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
-            mAdapter.clear();
-            mAdapter.addAll(list);
+            mAdapter.clearThenAddAll(list);
             pBar.dismiss();
             if (list.size() == 0) {
                 finish();

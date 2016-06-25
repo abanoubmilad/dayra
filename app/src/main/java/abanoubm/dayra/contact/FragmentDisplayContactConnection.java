@@ -81,8 +81,8 @@ public class FragmentDisplayContactConnection extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<ContactID> result) {
-            mAdapter.clear();
-            mAdapter.addAll(result);
+            mAdapter.clearThenAddAll(result);
+
             pBar.dismiss();
 
             if (result.size() > 0) {

@@ -135,8 +135,7 @@ public class SendSMS extends Activity {
                 Toast.makeText(getApplicationContext(),
                         R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
             } else {
-                mAdapter.clear();
-                mAdapter.addAll(result);
+                mAdapter.clearThenAddAll(result);
                 if (previousPosition < result.size())
                     lv.setSelection(previousPosition);
                 previousPosition = 0;

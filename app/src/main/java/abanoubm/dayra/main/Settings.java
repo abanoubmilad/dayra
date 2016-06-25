@@ -16,9 +16,9 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.alarm.DBAlarm;
 import abanoubm.dayra.alarm.AttendanceReceiver;
 import abanoubm.dayra.alarm.BirthDayReceiver;
+import abanoubm.dayra.alarm.DBAlarm;
 
 public class Settings extends Activity {
 

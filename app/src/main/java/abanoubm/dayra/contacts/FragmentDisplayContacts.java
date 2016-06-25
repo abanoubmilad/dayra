@@ -50,8 +50,7 @@ public class FragmentDisplayContacts extends Fragment {
 
         @Override
         protected void onPostExecute(Void att) {
-            mAdapter.clear();
-            mAdapter.addAll(list);
+            mAdapter.clearThenAddAll(list);
             if (list.size() == 0) {
                 getActivity().finish();
                 Toast.makeText(getActivity(),
@@ -142,8 +141,7 @@ public class FragmentDisplayContacts extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            mAdapter.clear();
-            mAdapter.addAll(list);
+            mAdapter.clearThenAddAll(list);
             previousPosition = 0;
             if (list.size() == 0) {
                 getActivity().finish();

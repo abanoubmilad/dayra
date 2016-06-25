@@ -20,19 +20,20 @@ import java.util.Comparator;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.DayCheckAdapter;
+import abanoubm.dayra.adapters.StringAdapter;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.model.DayCheck;
 
 public class FragmentDisplayContactDay extends Fragment {
     private String id;
-    private ArrayAdapter mAdpterYears;
-    private ArrayAdapter mAdpterMonths;
-    private ArrayAdapter mAdpterDays;
+    private StringAdapter mAdapterYears;
+    private StringAdapter mAdapterMonths;
+    private DayCheckAdapter mAdapterDays;
     private static final String ARG_ID = "id";
     private ArrayList<DayCheck> days;
     private DB db;
     private int dayType = 0;
-    private String choosenMonth, choosenYear;
+    private String chosenMonth, chosenYear;
     private TextView max, min, attend_count, absent_count;
     private ListView yearList, monthList;
 
@@ -43,9 +44,9 @@ public class FragmentDisplayContactDay extends Fragment {
         @Override
         protected void onPreExecute() {
 
-            mAdpterDays.clear();
-            mAdpterMonths.clear();
-            mAdpterYears.clear();
+            mAdapterDays.clear();
+            mAdapterMonths.clear();
+            mAdapterYears.clear();
 
             pBar = new ProgressDialog(getActivity());
             pBar.setCancelable(false);
@@ -60,10 +61,11 @@ public class FragmentDisplayContactDay extends Fragment {
             absent_count.setText(result.get(3));
 
 
-            mAdpterYears.addAll(yearsStr);
+            mAdapterYears.addAll(yearsStr);
+
             if (yearsStr.size() != 0)
-                yearList.performItemClick(yearList.findViewWithTag(mAdpterYears.getItem(0)),
-                        0, mAdpterYears.getItemId(0));
+                yearList.performItemClick(yearList.findViewWithTag(mAdapterYears.getItem(0)),
+                        0, mAdapterYears.getItemId(0));
 
             pBar.dismiss();
 
@@ -111,10 +113,10 @@ public class FragmentDisplayContactDay extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<String> result) {
-            mAdpterMonths.addAll(result);
+            mAdapterMonths.addAll(result);
             if (result.size() != 0)
-                monthList.performItemClick(monthList.findViewWithTag(mAdpterMonths.getItem(0)),
-                        0, mAdpterMonths.getItemId(0));
+                monthList.performItemClick(monthList.findViewWithTag(mAdapterMonths.getItem(0)),
+                        0, mAdapterMonths.getItemId(0));
             pBar.dismiss();
         }
 
@@ -124,7 +126,7 @@ public class FragmentDisplayContactDay extends Fragment {
 
             String last = null, check;
             for (DayCheck day : days) {
-                if (day.getDay().startsWith(choosenYear)) {
+                if (day.getDay().startsWith(chosenYear)) {
                     check = day.getDay().substring(5, 7);
                     if (!check.equals(last)) {
                         last = check;
@@ -150,7 +152,7 @@ public class FragmentDisplayContactDay extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<DayCheck> result) {
-            mAdpterDays.addAll(result);
+            mAdapterDays.addAll(result);
             pBar.dismiss();
         }
 
@@ -160,7 +162,7 @@ public class FragmentDisplayContactDay extends Fragment {
 
             String last = null, check;
             for (DayCheck day : days) {
-                if (day.getDay().startsWith(choosenYear + "-" + choosenMonth)) {
+                if (day.getDay().startsWith(chosenYear + "-" + chosenMonth)) {
                     check = day.getDay().substring(8, 10);
                     if (!check.equals(last)) {
                         last = check;
@@ -201,24 +203,22 @@ public class FragmentDisplayContactDay extends Fragment {
 
         db = DB.getInstant(getContext());
 
-        mAdpterDays = new DayCheckAdapter(getActivity(), new ArrayList<DayCheck>(0));
+        mAdapterDays = new DayCheckAdapter(getActivity(), new ArrayList<DayCheck>(0));
 
-        mAdpterMonths = new ArrayAdapter(getContext(), R.layout.item_string,
-                R.id.item, new ArrayList<String>(0));
-        mAdpterYears = new ArrayAdapter(getContext(), R.layout.item_string,
-                R.id.item, new ArrayList<String>(0));
+        mAdapterMonths = new StringAdapter(getContext(), new ArrayList<String>(0));
+        mAdapterYears = new StringAdapter(getContext(), new ArrayList<String>(0));
 
-        dayList.setAdapter(mAdpterDays);
-        monthList.setAdapter(mAdpterMonths);
-        yearList.setAdapter(mAdpterYears);
+        dayList.setAdapter(mAdapterDays);
+        monthList.setAdapter(mAdapterMonths);
+        yearList.setAdapter(mAdapterYears);
 
         yearList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                mAdpterMonths.clear();
-                mAdpterDays.clear();
-                choosenYear = (String) mAdpterYears.getItem(position);
+                mAdapterMonths.clear();
+                mAdapterDays.clear();
+                chosenYear = mAdapterYears.getItem(position);
                 new GetMonthsTask().execute();
 
             }
@@ -227,8 +227,8 @@ public class FragmentDisplayContactDay extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                mAdpterDays.clear();
-                choosenMonth = (String) mAdpterMonths.getItem(position);
+                mAdapterDays.clear();
+                chosenMonth = mAdapterMonths.getItem(position);
                 new GetDaysTask().execute();
             }
         });

@@ -5,7 +5,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import abanoubm.dayra.R;
 import abanoubm.dayra.model.DayCheck;
 
-public class DayCheckAdapter extends ArrayAdapter<DayCheck> {
+public class DayCheckAdapter extends Adapter<DayCheck> {
 
     public DayCheckAdapter(Context context, ArrayList<DayCheck> contacts) {
         super(context, 0, contacts);

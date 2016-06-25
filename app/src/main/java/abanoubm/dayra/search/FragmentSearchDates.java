@@ -63,8 +63,7 @@ public class FragmentSearchDates extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<ContactField> att) {
-            adapter.clear();
-            adapter.addAll(att);
+            adapter.clearThenAddAll(att);
             pBar.dismiss();
             if (att.size() == 0)
                 Toast.makeText(getActivity(),

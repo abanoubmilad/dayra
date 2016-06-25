@@ -107,8 +107,7 @@ public class RegisterAttendance extends Activity {
 
         @Override
         protected void onPostExecute(ArrayList<ContactCheck> result) {
-            mAdapter.clear();
-            mAdapter.addAll(result);
+            mAdapter.clearThenAddAll(result);
 
             if (result.size() > 0 || name.length() == 0) {
                 if (previousPosition < result.size())

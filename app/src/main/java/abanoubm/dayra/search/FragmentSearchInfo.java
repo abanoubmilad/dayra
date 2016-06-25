@@ -21,11 +21,9 @@ import java.util.ArrayList;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactFieldAdapter;
-import abanoubm.dayra.adapters.ContactIDAdapter;
 import abanoubm.dayra.contact.DisplayContact;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.model.ContactField;
-import abanoubm.dayra.model.ContactID;
 
 public class FragmentSearchInfo extends Fragment {
     private EditText input;
@@ -65,8 +63,7 @@ public class FragmentSearchInfo extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<ContactField> result) {
-            mAdapter.clear();
-            mAdapter.addAll(result);
+            mAdapter.clearThenAddAll(result);
             if (result.size() == 0)
                 Toast.makeText(getActivity(),
                         R.string.msg_no_results, Toast.LENGTH_SHORT).show();

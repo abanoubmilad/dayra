@@ -47,8 +47,7 @@ public class FragmentSearchBirthdays extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<ContactField> att) {
-            adapter.clear();
-            adapter.addAll(att);
+            adapter.clearThenAddAll(att);
             if (att.size() == 0)
                 Toast.makeText(getActivity(),
                         R.string.msg_no_results, Toast.LENGTH_SHORT).show();
