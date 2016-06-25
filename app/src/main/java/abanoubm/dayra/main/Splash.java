@@ -39,11 +39,23 @@ public class Splash extends Activity {
             conf.locale = myLocale;
             res.updateConfiguration(conf, dm);
         }
-        finish();
-        if (!Utility.getDayraName(getApplicationContext()).equals(""))
-            startActivity(new Intent(Splash.this, Home.class));
-        else
-            startActivity(new Intent(Splash.this, Main.class));
+        Thread timerThread = new Thread() {
+            public void run() {
+                try {
+                    sleep(2500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    finish();
+                    if (!Utility.getDayraName(getApplicationContext()).equals(""))
+                        startActivity(new Intent(Splash.this, Home.class));
+                    else
+                        startActivity(new Intent(Splash.this, Main.class));
+                }
+            }
+        };
+        timerThread.start();
+
 
 
     }

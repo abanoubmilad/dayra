@@ -51,9 +51,7 @@
         <activity android:name="abanoubm.dayra.main.Main" />
         <activity android:name="abanoubm.dayra.main.Home" />
         <activity android:name=".contacts.DisplayContacts" />
-        <activity
-            android:name=".contact.DisplayContact"
-            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".contact.DisplayContact" />
         <activity android:name=".search.Search" />
         <activity android:name=".operations.CreateInformationTable" />
         <activity android:name=".operations.CreateAttendanceReport" />

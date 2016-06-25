@@ -1153,7 +1153,7 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public ArrayList<DayCheck> getAttendanceAbsence(String id, String type, String minDate) {
-        String absenceQuery = "SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
+        String absenceQuery = "SELECT DISTINCT " + ATTEND_DAY + " FROM " + TB_ATTEND +
                 " WHERE " + ATTEND_TYPE + " = ? AND " +
                 ATTEND_DAY + " > ? AND " + ATTEND_DAY +
                 " NOT IN ( SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
