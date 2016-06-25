@@ -62,10 +62,9 @@ public class ContactsDisplayListAdapter extends ArrayAdapter<ContactSort> {
                 .getSite());
         holder.conf_father.setText(contact
                 .getPriest());
-        if (selected == position)
-            holder.root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.lightgrey));
-        else
-            holder.root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
+
+        holder.root.setBackgroundColor(
+                ContextCompat.getColor(getContext(), selected == position ? R.color.lightgrey : R.color.white));
 
         return convertView;
     }

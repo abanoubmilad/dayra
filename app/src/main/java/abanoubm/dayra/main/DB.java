@@ -36,6 +36,7 @@ import abanoubm.dayra.model.ContactLocation;
 import abanoubm.dayra.model.ContactMobile;
 import abanoubm.dayra.model.ContactSort;
 import abanoubm.dayra.model.ContactStatistics;
+import abanoubm.dayra.model.DayCheck;
 import abanoubm.dayra.model.IntWrapper;
 import jxl.Cell;
 import jxl.Sheet;
@@ -1130,36 +1131,30 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList<String> getAttendances(String id, String type) {
-        String selectQuery = "SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
-                " WHERE " + ATTEND_ID + " = ? AND " + ATTEND_TYPE + " = ? ORDER BY " + ATTEND_DAY + " DESC";
-
-        Cursor c = readableDB.rawQuery(selectQuery, new String[]{id, type});
-        ArrayList<String> result = new ArrayList<>(
-                c.getCount());
-        if (c.moveToFirst()) {
-            do {
-                result.add(c.getString(0));
-            } while (c.moveToNext());
-        }
-        c.close();
-        return result;
-    }
-
-    public ArrayList<String> getAbsences(String id, String type, String minDate) {
-        String selectQuery = "SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
+    public ArrayList<DayCheck> getAttendanceAbsence(String id, String type, String minDate) {
+        String absenceQuery = "SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
                 " WHERE " + ATTEND_TYPE + " = ? AND " +
                 ATTEND_DAY + " > ? AND " + ATTEND_DAY +
                 " NOT IN ( SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
-                " WHERE " + ATTEND_ID + " = ? AND " + ATTEND_TYPE + " = ? )" +
-                " ORDER BY " + ATTEND_DAY + " DESC";
+                " WHERE " + ATTEND_ID + " = ? AND " + ATTEND_TYPE + " = ? )";
 
-        Cursor c = readableDB.rawQuery(selectQuery, new String[]{type, minDate, id, type});
-        ArrayList<String> result = new ArrayList<>(
+        Cursor c = readableDB.rawQuery(absenceQuery, new String[]{type, minDate, id, type});
+        ArrayList<DayCheck> result = new ArrayList<>(
                 c.getCount());
         if (c.moveToFirst()) {
             do {
-                result.add(c.getString(0));
+                result.add(new DayCheck(c.getString(0)));
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        String attendantQuery = "SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
+                " WHERE " + ATTEND_ID + " = ? AND " + ATTEND_TYPE + " = ?";
+
+        c = readableDB.rawQuery(attendantQuery, new String[]{id, type});
+        if (c.moveToFirst()) {
+            do {
+                result.add(new DayCheck(c.getString(0), true));
             } while (c.moveToNext());
         }
         c.close();
