@@ -12,7 +12,7 @@ import java.util.Calendar;
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.model.ContactDay;
+import abanoubm.dayra.model.ContactField;
 
 public class BirthDayReceiver extends BroadcastReceiver {
 
@@ -25,7 +25,7 @@ public class BirthDayReceiver extends BroadcastReceiver {
         ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras("2");
         int start = 7;
         for (String dayraName : array) {
-            ArrayList<ContactDay> result = DB.getInstant(context, dayraName).searchBirthdays(date);
+            ArrayList<ContactField> result = DB.getInstant(context, dayraName).searchBirthdays(date);
             if (result.size() > 5) {
                 NotificationCompat.Builder n = new NotificationCompat.Builder(
                         context)
@@ -44,7 +44,7 @@ public class BirthDayReceiver extends BroadcastReceiver {
                         .getSystemService(Context.NOTIFICATION_SERVICE);
                 nm.notify(start++, n.build());
             } else {
-                for (ContactDay contactDay : result) {
+                for (ContactField contactDay : result) {
                     NotificationCompat.Builder n = new NotificationCompat.Builder(
                             context)
                             .setLargeIcon(contactDay.getPhoto())

@@ -29,7 +29,7 @@ import java.util.Locale;
 import abanoubm.dayra.R;
 import abanoubm.dayra.model.ContactCheck;
 import abanoubm.dayra.model.ContactData;
-import abanoubm.dayra.model.ContactDay;
+import abanoubm.dayra.model.ContactField;
 import abanoubm.dayra.model.ContactID;
 import abanoubm.dayra.model.ContactLoc;
 import abanoubm.dayra.model.ContactLocation;
@@ -1197,19 +1197,19 @@ public class DB extends SQLiteOpenHelper {
                         day});
     }
 
-    public ArrayList<ContactID> search(String value, String tag) {
+    public ArrayList<ContactField> search(String value, String tag) {
 
-        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + PHOTO_BLOB +
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + tag + "," + PHOTO_BLOB +
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " WHERE " + tag + " LIKE ? ORDER BY " + tag;
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{"%" + value + "%"});
-        ArrayList<ContactID> result = new ArrayList<>(c.getCount());
+        ArrayList<ContactField> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {
             do {
-                result.add(new ContactID(c.getString(0), c.getString(1),
-                        Utility.getBitmap(c.getBlob(2))));
+                result.add(new ContactField(c.getString(0), c.getString(1), c.getString(2),
+                        Utility.getBitmap(c.getBlob(3))));
             } while (c.moveToNext());
         }
         c.close();
@@ -1217,7 +1217,7 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<ContactDay> searchBirthdays(String dateRegex) {
+    public ArrayList<ContactField> searchBirthdays(String dateRegex) {
 
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + PHOTO_BLOB + "," +
                 CONTACT_BDAY +
@@ -1225,11 +1225,11 @@ public class DB extends SQLiteOpenHelper {
                 + " ON " + CONTACT_ID + "=" + PHOTO_ID
                 + " WHERE " + CONTACT_BDAY + " LIKE ? ORDER BY " + CONTACT_BDAY;
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{dateRegex});
-        ArrayList<ContactDay> result = new ArrayList<>(c.getCount());
+        ArrayList<ContactField> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {
             do {
-                result.add(new ContactDay(c.getString(0), c.getString(1),
+                result.add(new ContactField(c.getString(0), c.getString(1),
                         c.getString(3), Utility.getBitmap(c.getBlob(2))));
             } while (c.moveToNext());
         }
@@ -1238,7 +1238,7 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<ContactDay> searchDates(String date, String type, String selectTag) {
+    public ArrayList<ContactField> searchDates(String date, String type, String selectTag) {
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + selectTag + "," +
                 PHOTO_BLOB + " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
@@ -1247,11 +1247,11 @@ public class DB extends SQLiteOpenHelper {
                 + " ORDER BY " + CONTACT_NAME;
 
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{date, type});
-        ArrayList<ContactDay> result = new ArrayList<>(c.getCount());
+        ArrayList<ContactField> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {
             do {
-                result.add(new ContactDay(c.getString(0), c.getString(1),
+                result.add(new ContactField(c.getString(0), c.getString(1),
                         c.getString(2), Utility.getBitmap(c.getBlob(3))));
             } while (c.moveToNext());
         }
@@ -1473,7 +1473,7 @@ public class DB extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<ContactDay> getContactsAttendanceAbsence(String previousWeekRegex) {
+    public ArrayList<ContactField> getContactsAttendanceAbsence(String previousWeekRegex) {
         String selectQuery = "SELECT " + CONTACT_NAME + "," + PHOTO_BLOB +
                 ", MAX(" + ATTEND_DAY + ")" +
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
@@ -1481,12 +1481,12 @@ public class DB extends SQLiteOpenHelper {
                 " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
                 CONTACT_ID + "=" + ATTEND_ID + " WHERE " + ATTEND_DAY + " < ? GROUP BY " + ATTEND_ID + " ORDER BY " + CONTACT_NAME;
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{previousWeekRegex});
-        ArrayList<ContactDay> result = new ArrayList<>(
+        ArrayList<ContactField> result = new ArrayList<>(
                 c.getCount());
 
         if (c.moveToFirst()) {
             do {
-                result.add(new ContactDay(null, c.getString(0), c.getString(1),
+                result.add(new ContactField(null, c.getString(0), c.getString(1),
                         Utility.getBitmap(c.getBlob(1))));
             } while (c.moveToNext());
         }

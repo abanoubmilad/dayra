@@ -23,11 +23,11 @@
             android:textSize="@dimen/font_larger" />
 
         <TextView
-            android:id="@+id/day"
+            android:id="@+id/field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dynamic_text"
-            android:textSize="@dimen/font_larger" />
+            android:textSize="@dimen/font_large" />
 
     </LinearLayout>
 

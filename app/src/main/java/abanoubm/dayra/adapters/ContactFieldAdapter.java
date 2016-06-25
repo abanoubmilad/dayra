@@ -11,24 +11,24 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.model.ContactDay;
+import abanoubm.dayra.model.ContactField;
 
-public class ContactDayAdapter extends ArrayAdapter<ContactDay> {
+public class ContactFieldAdapter extends ArrayAdapter<ContactField> {
 
-    public ContactDayAdapter(Context context, ArrayList<ContactDay> contacts) {
+    public ContactFieldAdapter(Context context, ArrayList<ContactField> contacts) {
         super(context, 0, contacts);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        ContactDay contact = getItem(position);
+        ContactField contact = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.item_contact_day, parent, false);
+                    R.layout.item_contact_field, parent, false);
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.day = (TextView) convertView.findViewById(R.id.day);
+            holder.field = (TextView) convertView.findViewById(R.id.field);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
             convertView.setTag(holder);
         } else {
@@ -36,7 +36,7 @@ public class ContactDayAdapter extends ArrayAdapter<ContactDay> {
         }
 
         holder.name.setText(contact.getName());
-        holder.day.setText(contact.getDay());
+        holder.field.setText(contact.getField());
 
         if (contact.getPhoto() != null)
             holder.img.setImageBitmap(contact.getPhoto());
@@ -48,7 +48,7 @@ public class ContactDayAdapter extends ArrayAdapter<ContactDay> {
 
     private static class ViewHolder {
         TextView name;
-        TextView day;
+        TextView field;
         ImageView img;
     }
 }

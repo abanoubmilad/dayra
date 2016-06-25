@@ -12,7 +12,7 @@ import java.util.Calendar;
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.model.ContactDay;
+import abanoubm.dayra.model.ContactField;
 
 public class AttendanceReceiver extends BroadcastReceiver {
 
@@ -27,7 +27,7 @@ public class AttendanceReceiver extends BroadcastReceiver {
         ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras("1");
         int start = 70000;
         for (String dayraName : array) {
-            ArrayList<ContactDay> result = DB.getInstant(context, dayraName).getContactsAttendanceAbsence(date);
+            ArrayList<ContactField> result = DB.getInstant(context, dayraName).getContactsAttendanceAbsence(date);
             if (result.size() > 5) {
                 NotificationCompat.Builder n = new NotificationCompat.Builder(
                         context)
@@ -46,7 +46,7 @@ public class AttendanceReceiver extends BroadcastReceiver {
                         .getSystemService(Context.NOTIFICATION_SERVICE);
                 nm.notify(start++, n.build());
             } else {
-                for (ContactDay contactDay : result) {
+                for (ContactField contactDay : result) {
                     NotificationCompat.Builder n = new NotificationCompat.Builder(
                             context)
                             .setLargeIcon(contactDay.getPhoto())

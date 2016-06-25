@@ -24,14 +24,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapters.ContactDayAdapter;
+import abanoubm.dayra.adapters.ContactFieldAdapter;
 import abanoubm.dayra.contact.DisplayContact;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.model.ContactDay;
+import abanoubm.dayra.model.ContactField;
 
 public class FragmentSearchDates extends Fragment {
-    private ContactDayAdapter adapter;
+    private ContactFieldAdapter adapter;
     private int currentTag = 0;
     private int dayType = 0;
     private String targetDay;
@@ -42,7 +42,7 @@ public class FragmentSearchDates extends Fragment {
     };
 
     private class SearchDatesTask extends
-            AsyncTask<Void, Void, ArrayList<ContactDay>> {
+            AsyncTask<Void, Void, ArrayList<ContactField>> {
         private ProgressDialog pBar;
 
         @Override
@@ -53,7 +53,7 @@ public class FragmentSearchDates extends Fragment {
         }
 
         @Override
-        protected ArrayList<ContactDay> doInBackground(Void... params) {
+        protected ArrayList<ContactField> doInBackground(Void... params) {
 
             return DB.getInstant(getActivity())
                     .searchDates(targetDay, dayType + "", searchTags[currentTag]);
@@ -62,7 +62,7 @@ public class FragmentSearchDates extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ContactDay> att) {
+        protected void onPostExecute(ArrayList<ContactField> att) {
             adapter.clear();
             adapter.addAll(att);
             pBar.dismiss();
@@ -89,7 +89,7 @@ public class FragmentSearchDates extends Fragment {
 
 
         ListView lv = (ListView) root.findViewById(R.id.list);
-        adapter = new ContactDayAdapter(getActivity(), new ArrayList<ContactDay>(0));
+        adapter = new ContactFieldAdapter(getActivity(), new ArrayList<ContactField>(0));
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new OnItemClickListener() {
 

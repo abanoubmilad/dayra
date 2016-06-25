@@ -19,18 +19,18 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapters.ContactDayAdapter;
+import abanoubm.dayra.adapters.ContactFieldAdapter;
 import abanoubm.dayra.contact.DisplayContact;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.model.ContactDay;
+import abanoubm.dayra.model.ContactField;
 
 public class FragmentSearchBirthdays extends Fragment {
-    private ContactDayAdapter adapter;
+    private ContactFieldAdapter adapter;
     private String month = "0", day = "0";
 
     private class SearchBDayTask extends
-            AsyncTask<Void, Void, ArrayList<ContactDay>> {
+            AsyncTask<Void, Void, ArrayList<ContactField>> {
         private ProgressDialog pBar;
 
         @Override
@@ -41,12 +41,12 @@ public class FragmentSearchBirthdays extends Fragment {
         }
 
         @Override
-        protected ArrayList<ContactDay> doInBackground(Void... params) {
+        protected ArrayList<ContactField> doInBackground(Void... params) {
             return DB.getInstant(getActivity()).searchBirthdays(Utility.produceDate(day, month));
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ContactDay> att) {
+        protected void onPostExecute(ArrayList<ContactField> att) {
             adapter.clear();
             adapter.addAll(att);
             if (att.size() == 0)
@@ -71,8 +71,8 @@ public class FragmentSearchBirthdays extends Fragment {
         View root = inflater.inflate(R.layout.fragment_search_birthdays, container, false);
 
         ListView lv = (ListView) root.findViewById(R.id.list);
-        adapter = new ContactDayAdapter(getActivity(),
-                new ArrayList<ContactDay>(0));
+        adapter = new ContactFieldAdapter(getActivity(),
+                new ArrayList<ContactField>(0));
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new OnItemClickListener() {
 

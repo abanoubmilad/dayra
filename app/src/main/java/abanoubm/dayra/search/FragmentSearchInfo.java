@@ -20,14 +20,16 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.adapters.ContactFieldAdapter;
 import abanoubm.dayra.adapters.ContactIDAdapter;
 import abanoubm.dayra.contact.DisplayContact;
 import abanoubm.dayra.main.DB;
+import abanoubm.dayra.model.ContactField;
 import abanoubm.dayra.model.ContactID;
 
 public class FragmentSearchInfo extends Fragment {
     private EditText input;
-    private ContactIDAdapter mAdapter;
+    private ContactFieldAdapter mAdapter;
     private int currentTag = 0;
     private final String[] searchTags = {
             DB.CONTACT_NAME
@@ -46,7 +48,7 @@ public class FragmentSearchInfo extends Fragment {
     };
 
     private class SearchTask extends
-            AsyncTask<String, Void, ArrayList<ContactID>> {
+            AsyncTask<String, Void, ArrayList<ContactField>> {
         private ProgressDialog pBar;
 
         @Override
@@ -57,12 +59,12 @@ public class FragmentSearchInfo extends Fragment {
         }
 
         @Override
-        protected ArrayList<ContactID> doInBackground(String... params) {
+        protected ArrayList<ContactField> doInBackground(String... params) {
             return DB.getInstant(getActivity()).search(params[0], searchTags[currentTag]);
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ContactID> result) {
+        protected void onPostExecute(ArrayList<ContactField> result) {
             mAdapter.clear();
             mAdapter.addAll(result);
             if (result.size() == 0)
@@ -108,7 +110,7 @@ public class FragmentSearchInfo extends Fragment {
         });
 
 
-        mAdapter = new ContactIDAdapter(getActivity(), new ArrayList<ContactID>());
+        mAdapter = new ContactFieldAdapter(getActivity(), new ArrayList<ContactField>());
         ListView lv = (ListView) root.findViewById(R.id.list);
         lv.setAdapter(mAdapter);
         lv.setOnItemClickListener(new OnItemClickListener() {
