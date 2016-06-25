@@ -203,8 +203,10 @@ public class FragmentDisplayContactDay extends Fragment {
 
         mAdpterDays = new DayCheckAdapter(getActivity(), new ArrayList<DayCheck>(0));
 
-        mAdpterMonths = new DayCheckAdapter(getActivity(), new ArrayList<DayCheck>(0));
-        mAdpterYears = new DayCheckAdapter(getActivity(), new ArrayList<DayCheck>(0));
+        mAdpterMonths = new ArrayAdapter(getContext(), R.layout.item_string,
+                R.id.item, new ArrayList<String>(0));
+        mAdpterYears = new ArrayAdapter(getContext(), R.layout.item_string,
+                R.id.item, new ArrayList<String>(0));
 
         dayList.setAdapter(mAdpterDays);
         monthList.setAdapter(mAdpterMonths);
