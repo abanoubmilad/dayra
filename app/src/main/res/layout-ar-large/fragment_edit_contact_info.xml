@@ -218,7 +218,8 @@
 
                 <EditText
                     android:id="@+id/edit_address"
-                    style="@style/field_input"/>
+                    style="@style/field_input"
+                    android:maxLength="300"/>
             </LinearLayout>
 
             <LinearLayout
