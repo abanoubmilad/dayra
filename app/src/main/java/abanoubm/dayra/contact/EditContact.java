@@ -60,7 +60,7 @@ public class EditContact extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (current != 0) {
-                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightergrey));
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.semigrey));
                     current = 0;
                     buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
 
@@ -84,7 +84,7 @@ public class EditContact extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (current != 1) {
-                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightergrey));
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.semigrey));
                     current = 1;
                     buttons[1].setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.white));
 
@@ -107,7 +107,7 @@ public class EditContact extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (current != 2) {
-                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightergrey));
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.semigrey));
                     current = 2;
                     buttons[2].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
 
@@ -152,7 +152,7 @@ public class EditContact extends ActionBarActivity {
         @Override
         protected void onPostExecute(ContactLocation result) {
             if (current != 3) {
-                buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightergrey));
+                buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.semigrey));
                 current = 3;
                 buttons[3].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
 

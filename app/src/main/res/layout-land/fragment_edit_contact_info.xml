@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <include layout="@layout/editor_footer" />
+    <include layout="@layout/edit_contact_footer" />
 
     <ScrollView
         android:layout_width="0dp"

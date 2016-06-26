@@ -3,7 +3,7 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal">
 
-    <include layout="@layout/editor_footer" />
+    <include layout="@layout/edit_contact_footer" />
 
     <RelativeLayout
         android:layout_width="0dp"

@@ -15,7 +15,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightgrey"
+        android:background="@color/semigrey"
         android:orientation="horizontal">
 
 

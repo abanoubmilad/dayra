@@ -8,12 +8,11 @@
     <color name="black">#000000</color>
     <color name="grey">#323232</color>
     <color name="alphagrey">#81000000</color>
-    <color name="lightgreen">#00BCD4</color>
     <color name="hint">#808080</color>
     <color name="lightgrey">#EFEFEF</color>
     <color name="lightergrey">#fafafa</color>
     <color name="hotgreen">#6bc956</color>
     <color name="midgrey">#f2f2f2</color>
-    <color name="semigrey">#dcdcdc</color>
+    <color name="semigrey">#cacaca</color>
 
 </resources>

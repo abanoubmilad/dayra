@@ -304,5 +304,5 @@
 
     </ScrollView>
 
-    <include layout="@layout/editor_footer" />
+    <include layout="@layout/edit_contact_footer" />
 </LinearLayout>

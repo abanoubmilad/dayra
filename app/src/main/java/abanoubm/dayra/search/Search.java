@@ -40,7 +40,7 @@ public class Search extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (current != 0) {
-                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.semigrey));
                     current = 0;
                     buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                     text.setText(R.string.subhead_search_info);
@@ -56,7 +56,7 @@ public class Search extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (current != 1) {
-                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.semigrey));
                     current = 1;
                     buttons[1].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                     text.setText(R.string.subhead_search_dates);
@@ -71,7 +71,7 @@ public class Search extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (current != 2) {
-                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
+                    buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.semigrey));
                     current = 2;
                     buttons[2].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                     text.setText(R.string.subhead_search_bdays);
