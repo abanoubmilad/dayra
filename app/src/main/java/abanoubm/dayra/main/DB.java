@@ -185,60 +185,49 @@ public class DB extends SQLiteOpenHelper {
                             "dates",
                             "lvisit",
                     }, null, null, null, null, null);
-            String[][] data = new String[c.getCount()][4];
             if (c.moveToFirst()) {
-                int itr = 0;
-                do {
-                    data[itr][0] = c.getString(0);
-                    data[itr][1] = c.getString(1);
-                    data[itr][2] = c.getString(2);
-                    data[itr][3] = c.getString(3);
-                    itr++;
-
-                } while (c.moveToFirst());
-                c.close();
-
-
                 ContentValues values;
                 db.beginTransaction();
+                String id;
                 String date;
+                do {
+                    id = c.getString(0);
 
-                for (int i = 0; i < itr; i++) {
+                    Log.i("checkme", "entered photo id= " + id);
                     values = new ContentValues();
-                    values.put(PHOTO_ID, data[i][0]);
-                    values.put(PHOTO_BLOB, Utility.getBytes(Utility.getBitmap(data[i][1])));
-                    Log.i("checkme", "entered photo id= " + data[i][0]);
-
+                    values.put(PHOTO_ID, id);
+                    values.put(PHOTO_BLOB, Utility.getBytes(Utility.getBitmap(c.getString(1))));
                     db.insert(TB_PHOTO, null, values);
 
-                    date = Utility.migirateDate(data[i][3]);
+                    date = Utility.migirateDate(c.getString(3));
                     if (date.length() != 0) {
-                        Log.i("checkme", "entered day id= " + data[i][0] + " day type 0, day=" + date);
+                        Log.i("checkme", "entered day id= " + id + " day type 0, day=" + date);
 
                         values = new ContentValues();
-                        values.put(ATTEND_ID, data[i][0]);
+                        values.put(ATTEND_ID, id);
                         values.put(ATTEND_TYPE, "0");
                         values.put(ATTEND_DAY, date);
                         db.insert(TB_ATTEND, null, values);
                     }
+                    String[] arr = c.getString(2).split(",");
 
-                    String[] arr = data[i][2].split(",");
-                    for (int j = 0; j < arr.length; j++) {
-                        date = Utility.migirateDate(arr[j]);
+                    for (int i = 0; i < arr.length; i++) {
+                        date = Utility.migirateDate(arr[i]);
                         if (date.length() != 0) {
-                            Log.i("checkme", "entered day id= " + data[i][0] + " day type 1, day=" + date);
+                            Log.i("checkme", "entered day id= " + id + " day type 1, day=" + date);
                             values = new ContentValues();
-                            values.put(ATTEND_ID, data[i][0]);
+                            values.put(ATTEND_ID, id);
                             values.put(ATTEND_TYPE, "1");
                             values.put(ATTEND_DAY, date);
                             db.insert(TB_ATTEND, null, values);
                         }
                     }
-
-                }
+                } while (c.moveToNext());
+                c.close();
                 db.endTransaction();
 
             }
+
 
         }
 

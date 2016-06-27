@@ -16,6 +16,8 @@ import java.util.Locale;
 import abanoubm.dayra.R;
 
 public class Splash extends Activity {
+    MediaPlayer mMedia;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +30,9 @@ public class Splash extends Activity {
         findViewById(R.id.layout).setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.fade));
 
-        MediaPlayer m =
+        mMedia =
                 MediaPlayer.create(getApplicationContext(), R.raw.bing);
-        m.start();
-     //   m.release();
+        mMedia.start();
 
         if (Utility.getArabicLang(getApplicationContext()) == 1) {
             Utility.setArabicLang(getApplicationContext(), 2);
@@ -62,4 +63,10 @@ public class Splash extends Activity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mMedia.release();
+
+    }
 }
