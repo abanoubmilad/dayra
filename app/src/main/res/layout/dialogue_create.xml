@@ -18,6 +18,7 @@
         android:id="@+id/input"
         style="@style/field_input"
         android:gravity="center"
+        android:textColor="@color/black"
         android:hint="@string/label.dayra.name">
     </EditText>
 

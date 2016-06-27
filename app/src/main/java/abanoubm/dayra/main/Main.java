@@ -180,6 +180,7 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
         ((TextView) findViewById(R.id.subhead1)).setText(R.string.app_name);
+        ((TextView) findViewById(R.id.subhead2)).setText(" dayra 4.0 ");
 
         if (!Utility.getDayraName(getApplicationContext()).equals("")) {
             startActivity(new Intent(getApplicationContext(), Home.class));

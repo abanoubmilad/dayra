@@ -309,7 +309,7 @@
         <item>شارع</item>
         <item>المُشرف</item>
     </string-array>
-    <string name="copyright">dayra 3.2 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="copyright">dayra 4.0 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
     <string name="label.dayra.file">دايره file</string>
     <string name="label.dayra.xls">دايره xls</string>
     <string name="subhead.display.day">الحضور</string>

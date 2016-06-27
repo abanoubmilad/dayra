@@ -86,7 +86,7 @@ public class Home extends Activity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_home);
-        ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
+        ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this)+" - dayra 4.0 ");
         buttons = new ImageView[]{
                 (ImageView) findViewById(R.id.img1),
                 (ImageView) findViewById(R.id.img2),

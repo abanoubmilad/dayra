@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
@@ -172,41 +173,49 @@ public class DB extends SQLiteOpenHelper {
 
 
             // modifications over data
-            final String CONTACT_PHOTO = "pdir",
-                    CONTACT_ATTEND_DATES = "dates",
-                    CONTACT_LAST_VISIT = "lvisit",
-                    CONTACT_LAST_ATTEND = "lattend";
+            //    final String CONTACT_PHOTO = "pdir",
+            ///          CONTACT_ATTEND_DATES = "dates",
+            //       CONTACT_LAST_VISIT = "lvisit",
+            //     CONTACT_LAST_ATTEND = "lattend";
 
             Cursor c = db.query(TB_CONTACT,
                     new String[]{
                             CONTACT_ID,
-                            CONTACT_PHOTO,
-                            CONTACT_ATTEND_DATES,
-                            CONTACT_LAST_VISIT,
+                            "pdir",
+                            "dates",
+                            "lvisit",
                     }, null, null, null, null, null);
             if (c.moveToFirst()) {
                 ContentValues values;
                 db.beginTransaction();
+                String id;
                 do {
+                    id=c.getString(0);
 
+                    Log.i("checkme", "entered photo id= "+id);
                     values = new ContentValues();
-                    values.put(PHOTO_ID, c.getString(0));
+                    values.put(PHOTO_ID, id);
                     values.put(PHOTO_BLOB, Utility.getBytes(Utility.getBitmap(c.getString(1))));
-                    db.insert(TB_PHOTO, null, values);
+                  //  db.insert(TB_PHOTO, null, values);
                     if (c.getString(3).length() != 0) {
+                        Log.i("checkme", "entered day id= "+id+" day type 0, day="+Utility.migirateDate(c.getString(3)));
+
                         values = new ContentValues();
-                        values.put(ATTEND_ID, c.getString(0));
+                        values.put(ATTEND_ID, id);
                         values.put(ATTEND_TYPE, "0");
                         values.put(ATTEND_DAY, Utility.migirateDate(c.getString(3)));
-                        db.insert(TB_ATTEND, null, values);
+                    //    db.insert(TB_ATTEND, null, values);
                     }
                     String[] arr = c.getString(2).split(",");
                     values = new ContentValues();
                     for (int i = 0; i < arr.length; i++) {
                         if (arr[i].length() != 0) {
-                            values.put(ATTEND_ID, c.getString(0));
+                            Log.i("checkme", "entered day id= "+id+" day type 1, day="+Utility.migirateDate(arr[i]));
+                            values = new ContentValues();
+                            values.put(ATTEND_ID, id);
                             values.put(ATTEND_TYPE, "1");
                             values.put(ATTEND_DAY, Utility.migirateDate(arr[i]));
+                            //    db.insert(TB_ATTEND, null, values);
                         }
                     }
                 } while (c.moveToFirst());

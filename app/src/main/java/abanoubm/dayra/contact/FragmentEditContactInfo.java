@@ -496,7 +496,7 @@ public class FragmentEditContactInfo extends Fragment {
                     + "/";
         }
 
-        path += "img_"
+        path += "temp_"
                 + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())
                 .format(new Date()) + ".jpg";
         fileUri = Uri.fromFile(new File(path));
