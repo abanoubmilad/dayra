@@ -24,6 +24,7 @@
     <string name="label.mobile2">mobile 2</string>
     <string name="label.mobile3">mobile 3</string>
     <string name="label.lphone">landphone</string>
+    <string name="label.home">home</string>
     <string name="label.day">day</string>
     <string name="label.month">month</string>
     <string name="label.year">year</string>
@@ -79,6 +80,7 @@
     <string name="btn.browse.dayra">browse dayra to replace data with</string>
     <string name="label.choose.site">Choose site</string>
     <string name="label.choose.street">Choose street</string>
+    <string name="label.choose.home">Choose home</string>
     <string name="label.choose.supervisor">Choose supervisor</string>
     <string name="label.choose.class.year">Choose class/year</string>
     <string name="label_choose_study_work">Choose study/work</string>
@@ -222,6 +224,7 @@
         <item>Email</item>
         <item>Site</item>
         <item>Street</item>
+        <item>Home</item>
         <item>Address</item>
         <item>Notes</item>
         <item>Supervisor</item>
@@ -279,36 +282,38 @@
         <item>Delete dayra</item>
     </string-array>
     <string-array name="excel_header">
-        <item>name</item>
-        <item>class/year</item>
-        <item>study/work</item>
-        <item>mobile 1</item>
-        <item>mobile 2</item>
-        <item>mobile 3</item>
-        <item>landphone</item>
-        <item>email</item>
-        <item>site</item>
-        <item>street</item>
-        <item>address</item>
-        <item>notes</item>
-        <item>supervisor</item>
-        <item>photo</item>
+        <item>Name</item>
+        <item>Class/year</item>
+        <item>Study/work</item>
+        <item>Mobile 1</item>
+        <item>Mobile 2</item>
+        <item>Mobile 3</item>
+        <item>Landphone</item>
+        <item>Email</item>
+        <item>Site</item>
+        <item>Street</item>
+        <item>Home</item>
+        <item>Address</item>
+        <item>Notes</item>
+        <item>Supervisor</item>
+        <item>Photo</item>
     </string-array>
     <string-array name="pdf_header">
-        <item>name</item>
-        <item>class/year</item>
-        <item>study/work</item>
-        <item>mobile 1</item>
-        <item>mobile 2</item>
-        <item>mobile 3</item>
-        <item>landphone</item>
-        <item>email</item>
-        <item>site</item>
-        <item>street</item>
-        <item>address</item>
-        <item>notes</item>
-        <item>supervisor</item>
-        <item>birth date</item>
+        <item>Name</item>
+        <item>Class/year</item>
+        <item>Study/work</item>
+        <item>Mobile 1</item>
+        <item>Mobile 2</item>
+        <item>Mobile 3</item>
+        <item>Landphone</item>
+        <item>Email</item>
+        <item>Site</item>
+        <item>Street</item>
+        <item>Home</item>
+        <item>Address</item>
+        <item>Notes</item>
+        <item>Supervisor</item>
+        <item>Birth date</item>
     </string-array>
     <string-array name="sort_menu">
         <item>Name</item>
@@ -316,6 +321,7 @@
         <item>Study/work</item>
         <item>Site</item>
         <item>Street</item>
+        <item>Home</item>
         <item>Supervisor</item>
     </string-array>
     <string-array name="home_icons" translatable="false">

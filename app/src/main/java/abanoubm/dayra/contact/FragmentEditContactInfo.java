@@ -60,6 +60,7 @@ public class FragmentEditContactInfo extends Fragment {
             DB.CONTACT_CLASS_YEAR,
             DB.CONTACT_STUDY_WORK,
             DB.CONTACT_ST,
+            DB.CONTACT_HOME,
             DB.CONTACT_SITE,
             DB.CONTACT_SUPERVISOR
     };
@@ -67,6 +68,7 @@ public class FragmentEditContactInfo extends Fragment {
             R.string.label_choose_class_year,
             R.string.label_choose_study_work,
             R.string.label_choose_street,
+            R.string.label_choose_home,
             R.string.label_choose_site,
             R.string.label_choose_supervisor
     };
@@ -88,6 +90,7 @@ public class FragmentEditContactInfo extends Fragment {
                 (EditText) root.findViewById(R.id.edit_class_year),
                 (EditText) root.findViewById(R.id.edit_study_work),
                 (EditText) root.findViewById(R.id.edit_street),
+                (EditText) root.findViewById(R.id.edit_home),
                 (EditText) root.findViewById(R.id.edit_site),
                 (EditText) root.findViewById(R.id.edit_priest)
         };
@@ -214,7 +217,8 @@ public class FragmentEditContactInfo extends Fragment {
                         optionsInput[1].getText().toString().trim(),
                         optionsInput[2].getText().toString().trim(),
                         optionsInput[3].getText().toString().trim(),
-                        optionsInput[4].getText().toString().trim()
+                        optionsInput[4].getText().toString().trim(),
+                        optionsInput[5].getText().toString().trim()
                 );
             }
         });
@@ -306,19 +310,20 @@ public class FragmentEditContactInfo extends Fragment {
 
                 ContentValues values = new ContentValues();
                 values.put(DB.CONTACT_NAME, params[0]);
-                values.put(DB.CONTACT_SUPERVISOR, params[13]);
-                values.put(DB.CONTACT_NOTES, params[3]);
+                values.put(DB.CONTACT_ADDR, params[1]);
                 values.put(DB.CONTACT_BDAY, params[2]);
+                values.put(DB.CONTACT_NOTES, params[3]);
                 values.put(DB.CONTACT_EMAIL, params[4]);
+                values.put(DB.CONTACT_LPHONE, params[5]);
                 values.put(DB.CONTACT_MOB1, params[6]);
                 values.put(DB.CONTACT_MOB2, params[7]);
                 values.put(DB.CONTACT_MOB3, params[8]);
-                values.put(DB.CONTACT_LPHONE, params[5]);
-                values.put(DB.CONTACT_ADDR, params[1]);
-                values.put(DB.CONTACT_ST, params[11]);
-                values.put(DB.CONTACT_SITE, params[12]);
-                values.put(DB.CONTACT_STUDY_WORK, params[10]);
                 values.put(DB.CONTACT_CLASS_YEAR, params[9]);
+                values.put(DB.CONTACT_STUDY_WORK, params[10]);
+                values.put(DB.CONTACT_ST, params[11]);
+                values.put(DB.CONTACT_HOME, params[12]);
+                values.put(DB.CONTACT_SITE, params[13]);
+                values.put(DB.CONTACT_SUPERVISOR, params[14]);
 
                 dbm.updateContact(values, Utility.getBytes(photo), contactData.getId());
                 msgSource = R.string.msg_updated;
@@ -441,8 +446,9 @@ public class FragmentEditContactInfo extends Fragment {
         optionsInput[0].setText(contactData.getClassYear());
         optionsInput[1].setText(contactData.getStudyWork());
         optionsInput[2].setText(contactData.getStreet());
-        optionsInput[3].setText(contactData.getSite());
-        optionsInput[4].setText(contactData.getPriest());
+        optionsInput[3].setText(contactData.getHome());
+        optionsInput[4].setText(contactData.getSite());
+        optionsInput[5].setText(contactData.getPriest());
 
         date.setText(contactData.getBirthDay());
 

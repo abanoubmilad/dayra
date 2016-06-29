@@ -241,6 +241,13 @@
             android:id="@+id/dis_street"
             style="@style/label_input" />
 
+        <TextView
+            style="@style/label"
+            android:hint="@string/label.home" />
+
+        <TextView
+            android:id="@+id/dis_home"
+            style="@style/label_input" />
 
         <TextView
             style="@style/label"

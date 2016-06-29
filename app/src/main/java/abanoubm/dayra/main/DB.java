@@ -70,7 +70,8 @@ public class DB extends SQLiteOpenHelper {
             CONTACT_MOB1 = "mob1", CONTACT_MOB2 = "mob2",
             CONTACT_MOB3 = "mob3", CONTACT_LPHONE = "lphone",
             CONTACT_ADDR = "addr", CONTACT_ST = "st",
-            CONTACT_SITE = "site", CONTACT_STUDY_WORK = "swork";
+            CONTACT_SITE = "site", CONTACT_STUDY_WORK = "swork",
+            CONTACT_HOME= "home";
 
     private static DB dbm;
     private SQLiteDatabase readableDB, writableDB;
@@ -130,7 +131,7 @@ public class DB extends SQLiteOpenHelper {
                 + CONTACT_EMAIL + " text, " + CONTACT_MOB1 + " text, " + CONTACT_MOB2 + " text, "
                 + CONTACT_MOB3 + " text, " + CONTACT_LPHONE + " text, " + CONTACT_ST
                 + " text, " + CONTACT_SITE + " text, " + CONTACT_CLASS_YEAR + " integer, "
-                + CONTACT_STUDY_WORK + " text, " + CONTACT_ADDR + " text)";
+                + CONTACT_STUDY_WORK + " text, " + CONTACT_ADDR + " text, " + CONTACT_HOME + " text)";
         db.execSQL(sql);
 
         sql = "create table " + TB_CONNECTION + " ( " + CONN_A + " integer, "
@@ -161,6 +162,10 @@ public class DB extends SQLiteOpenHelper {
             db.execSQL(sql);
         }
         if (arg1 < 3) {
+
+            sql = "alter table " + TB_CONTACT + " add column " + CONTACT_HOME + " text";
+            db.execSQL(sql);
+
             sql = "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
                     + ATTEND_TYPE + " integer, "
                     + ATTEND_DAY + " integer, " +
@@ -193,7 +198,6 @@ public class DB extends SQLiteOpenHelper {
                 do {
                     id = c.getString(0);
 
-                    Log.i("checkme", "entered photo id= " + id);
                     values = new ContentValues();
                     values.put(PHOTO_ID, id);
                     values.put(PHOTO_BLOB, Utility.getBytes(Utility.getBitmap(c.getString(1))));
@@ -201,7 +205,6 @@ public class DB extends SQLiteOpenHelper {
 
                     date = Utility.migirateDate(c.getString(3));
                     if (date.length() != 0) {
-                        Log.i("checkme", "entered day id= " + id + " day type 0, day=" + date);
 
                         values = new ContentValues();
                         values.put(ATTEND_ID, id);
@@ -214,7 +217,6 @@ public class DB extends SQLiteOpenHelper {
                     for (int i = 0; i < arr.length; i++) {
                         date = Utility.migirateDate(arr[i]);
                         if (date.length() != 0) {
-                            Log.i("checkme", "entered day id= " + id + " day type 1, day=" + date);
                             values = new ContentValues();
                             values.put(ATTEND_ID, id);
                             values.put(ATTEND_TYPE, "1");
@@ -275,7 +277,8 @@ public class DB extends SQLiteOpenHelper {
                     CONTACT_SITE,
                     CONTACT_NAME,
                     CONTACT_NOTES,
-                    CONTACT_ST}, null, null, null, null, null, "1").close();
+                    CONTACT_ST,
+                    CONTACT_HOME}, null, null, null, null, null, "1").close();
             readableDB.query(TB_PHOTO,
                     new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null, "1").close();
 
@@ -388,7 +391,7 @@ public class DB extends SQLiteOpenHelper {
                 CONTACT_NAME, CONTACT_CLASS_YEAR,
                 CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
                 CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL,
-                CONTACT_SITE, CONTACT_ST, CONTACT_ADDR,
+                CONTACT_SITE, CONTACT_ST, CONTACT_HOME,CONTACT_ADDR,
                 CONTACT_NOTES,
                 CONTACT_SUPERVISOR,
                 PHOTO_BLOB};
@@ -414,15 +417,16 @@ public class DB extends SQLiteOpenHelper {
                 values.put(CONTACT_EMAIL, contact[7]);
                 values.put(CONTACT_SITE, contact[8]);
                 values.put(CONTACT_ST, contact[9]);
-                values.put(CONTACT_ADDR, contact[10]);
-                values.put(CONTACT_NOTES, contact[11]);
-                values.put(CONTACT_SUPERVISOR, contact[12]);
+                values.put(CONTACT_HOME, contact[10]);
+                values.put(CONTACT_ADDR, contact[11]);
+                values.put(CONTACT_NOTES, contact[12]);
+                values.put(CONTACT_SUPERVISOR, contact[13]);
 
-                values.put(CONTACT_BDAY, contact[13]);
+                values.put(CONTACT_BDAY, contact[14]);
 
-                values.put(CONTACT_MAPLAT, contact[14]);
-                values.put(CONTACT_MAPLNG, contact[15]);
-                values.put(CONTACT_MAPZOM, contact[16]);
+                values.put(CONTACT_MAPLAT, contact[15]);
+                values.put(CONTACT_MAPLNG, contact[16]);
+                values.put(CONTACT_MAPZOM, contact[17]);
 
                 addContact(values, null);
 
@@ -468,6 +472,7 @@ public class DB extends SQLiteOpenHelper {
         values.put(CONTACT_LPHONE, "");
         values.put(CONTACT_ADDR, "");
         values.put(CONTACT_ST, "");
+        values.put(CONTACT_HOME, "");
         values.put(CONTACT_SITE, "");
         values.put(CONTACT_STUDY_WORK, "");
         values.put(CONTACT_CLASS_YEAR, "");
@@ -501,6 +506,7 @@ public class DB extends SQLiteOpenHelper {
         values.put(CONTACT_LPHONE, att.getLandPhone());
         values.put(CONTACT_ADDR, att.getAddress());
         values.put(CONTACT_ST, att.getStreet());
+        values.put(CONTACT_HOME, att.getHome());
         values.put(CONTACT_SITE, att.getSite());
         values.put(CONTACT_STUDY_WORK, att.getStudyWork());
         values.put(CONTACT_CLASS_YEAR, att.getClassYear());
@@ -540,6 +546,7 @@ public class DB extends SQLiteOpenHelper {
                         , CONTACT_STUDY_WORK
                         , CONTACT_ST
                         , CONTACT_SITE
+                        , CONTACT_HOME
                 }, CONTACT_ID
                         + " = ?", new String[]{id}, null, null, null);
         ContactData result = null;
@@ -551,7 +558,7 @@ public class DB extends SQLiteOpenHelper {
                     c.getString(7), c.getString(8), c.getString(9),
                     c.getString(10), c.getString(11), c.getString(12),
                     c.getString(13), c.getString(14), c.getString(15),
-                    c.getString(16), c.getString(17));
+                    c.getString(16), c.getString(17), c.getString(18));
             c = readableDB.query(TB_PHOTO, new String[]{
                     PHOTO_BLOB
             }, PHOTO_ID
@@ -568,6 +575,7 @@ public class DB extends SQLiteOpenHelper {
                 new String[]{
                         CONTACT_SITE
                         , CONTACT_ST
+                        , CONTACT_HOME
                         , CONTACT_ADDR
                 }, CONTACT_ID
                         + " = ?", new String[]{id}, null, null, null);
@@ -925,6 +933,7 @@ public class DB extends SQLiteOpenHelper {
                 int COL_CLASS_YEAR = c.getColumnIndex(CONTACT_CLASS_YEAR);
                 int COL_STUDY_WORK = c.getColumnIndex(CONTACT_STUDY_WORK);
                 int COL_STREET = c.getColumnIndex(CONTACT_ST);
+                int COL_HOME = c.getColumnIndex(CONTACT_HOME);
                 int COL_SITE = c.getColumnIndex(CONTACT_SITE);
 
                 int counter = 0;
@@ -983,21 +992,25 @@ public class DB extends SQLiteOpenHelper {
                     table.addCell(new Paragraph(c.getString(COL_STREET),
                             font));
 
+                    table.addCell(new Paragraph(headerArray[10], font));
+                    table.addCell(new Paragraph(c.getString(COL_HOME),
+                            font));
+
                     table.addCell(new Paragraph(headerArray[8], font));
                     table.addCell(new Paragraph(c.getString(COL_SITE), font));
 
-                    table.addCell(new Paragraph(headerArray[10], font));
+                    table.addCell(new Paragraph(headerArray[11], font));
                     table.addCell(new Paragraph(c.getString(COL_ADDRESS),
                             font));
 
-                    table.addCell(new Paragraph(headerArray[13], font));
+                    table.addCell(new Paragraph(headerArray[14], font));
                     table.addCell(new Paragraph(c.getString(COL_SUPERVISOR),
                             font));
 
-                    table.addCell(new Paragraph(headerArray[11], font));
+                    table.addCell(new Paragraph(headerArray[12], font));
                     table.addCell(new Paragraph(c.getString(COL_NOTES), font));
 
-                    table.addCell(new Paragraph(headerArray[12], font));
+                    table.addCell(new Paragraph(headerArray[13], font));
                     table.addCell(new Paragraph(c.getString(COL_BDAY), font));
 
                     document.add(table);
@@ -1021,7 +1034,7 @@ public class DB extends SQLiteOpenHelper {
                 CONTACT_NAME, CONTACT_CLASS_YEAR,
                 CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
                 CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL,
-                CONTACT_SITE, CONTACT_ST, CONTACT_ADDR,
+                CONTACT_SITE, CONTACT_ST, CONTACT_HOME,CONTACT_ADDR,
                 CONTACT_NOTES,
                 CONTACT_SUPERVISOR,
                 PHOTO_BLOB};
@@ -1355,7 +1368,7 @@ public class DB extends SQLiteOpenHelper {
                 CONTACT_NAME, CONTACT_CLASS_YEAR,
                 CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
                 CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL,
-                CONTACT_SITE, CONTACT_ST, CONTACT_ADDR,
+                CONTACT_SITE, CONTACT_ST,CONTACT_HOME, CONTACT_ADDR,
                 CONTACT_NOTES,
                 CONTACT_SUPERVISOR,
                 PHOTO_BLOB};
@@ -1393,9 +1406,10 @@ public class DB extends SQLiteOpenHelper {
                     values.put(CONTACT_EMAIL, rowCells[7].getContents().trim());
                     values.put(CONTACT_SITE, rowCells[8].getContents().trim());
                     values.put(CONTACT_ST, rowCells[9].getContents().trim());
-                    values.put(CONTACT_ADDR, rowCells[10].getContents().trim());
-                    values.put(CONTACT_NOTES, rowCells[11].getContents().trim());
-                    values.put(CONTACT_SUPERVISOR, rowCells[12].getContents().trim());
+                    values.put(CONTACT_HOME, rowCells[10].getContents().trim());
+                    values.put(CONTACT_ADDR, rowCells[11].getContents().trim());
+                    values.put(CONTACT_NOTES, rowCells[12].getContents().trim());
+                    values.put(CONTACT_SUPERVISOR, rowCells[13].getContents().trim());
 
                     values.put(CONTACT_MAPLAT, 0);
                     values.put(CONTACT_MAPLNG, 0);
@@ -1454,6 +1468,7 @@ public class DB extends SQLiteOpenHelper {
                 int COL_CLASS_YEAR = c.getColumnIndex(CONTACT_CLASS_YEAR);
                 int COL_STUDY_WORK = c.getColumnIndex(CONTACT_STUDY_WORK);
                 int COL_STREET = c.getColumnIndex(CONTACT_ST);
+                int COL_HOME = c.getColumnIndex(CONTACT_HOME);
                 int COL_SITE = c.getColumnIndex(CONTACT_SITE);
                 ContentValues values;
                 do {
@@ -1472,6 +1487,7 @@ public class DB extends SQLiteOpenHelper {
                     values.put(CONTACT_LPHONE, c.getString(COL_LAND_PHONE));
                     values.put(CONTACT_ADDR, c.getString(COL_ADDRESS));
                     values.put(CONTACT_ST, c.getString(COL_STREET));
+                    values.put(CONTACT_HOME, c.getString(COL_HOME));
                     values.put(CONTACT_SITE, c.getString(COL_SITE));
                     values.put(CONTACT_STUDY_WORK, c.getString(COL_STUDY_WORK));
                     values.put(CONTACT_CLASS_YEAR, c.getString(COL_CLASS_YEAR));

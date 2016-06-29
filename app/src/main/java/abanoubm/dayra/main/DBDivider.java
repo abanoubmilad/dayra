@@ -57,6 +57,11 @@ public class DBDivider extends SQLiteOpenHelper {
             db.execSQL(sql);
         }
         if (arg1 < 3) {
+
+
+            sql = "alter table " + DB.TB_CONTACT + " add column " + DB.CONTACT_HOME + " text";
+            db.execSQL(sql);
+
             sql = "create table " + DB.TB_ATTEND + " ( " + DB.ATTEND_ID + " integer, "
                     + DB.ATTEND_TYPE + " integer, "
                     + DB.ATTEND_DAY + " integer, " +

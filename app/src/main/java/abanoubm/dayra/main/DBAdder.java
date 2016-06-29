@@ -45,7 +45,8 @@ public class DBAdder extends SQLiteOpenHelper {
                     DB.CONTACT_SITE,
                     DB.CONTACT_NAME,
                     DB.CONTACT_NOTES,
-                    DB.CONTACT_ST}, null, null, null, null, null, "1").close();
+                    DB.CONTACT_ST,
+                    DB.CONTACT_HOME}, null, null, null, null, null, "1").close();
 //            sdb.query(TB_PHOTO,
 //                    new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null, "1").close();
 
@@ -70,6 +71,10 @@ public class DBAdder extends SQLiteOpenHelper {
             db.execSQL(sql);
         }
         if (arg1 < 3) {
+
+            sql = "alter table " + DB.TB_CONTACT + " add column " + DB.CONTACT_HOME + " text";
+            db.execSQL(sql);
+
             sql = "create table " + DB.TB_ATTEND + " ( " + DB.ATTEND_ID + " integer, "
                     + DB.ATTEND_TYPE + " integer, "
                     + DB.ATTEND_DAY + " integer, " +
@@ -144,6 +149,7 @@ public class DBAdder extends SQLiteOpenHelper {
 
                         DB.CONTACT_SITE + "," +
                         DB.CONTACT_ST + "," +
+                        DB.CONTACT_HOME + "," +
                         DB.CONTACT_ADDR + "," +
 
                         DB.CONTACT_NOTES + "," +
@@ -181,7 +187,8 @@ public class DBAdder extends SQLiteOpenHelper {
                         c.getString(13),
                         c.getString(14),
                         c.getString(15),
-                        c.getString(16)
+                        c.getString(16),
+                        c.getString(17)
                 });
 
             } while (c.moveToNext());

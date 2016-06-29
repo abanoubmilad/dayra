@@ -288,6 +288,31 @@
 
             </LinearLayout>
 
+
+            <TextView
+                style="@style/label"
+                android:hint="@string/label.home" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <include
+                    android:id="@+id/spin_home"
+                    layout="@layout/spin_picker" />
+
+                <EditText
+                    android:id="@+id/edit_home"
+                    style="@style/field_input" />
+
+
+            </LinearLayout>
+
             <TextView
                 style="@style/label"
                 android:hint="@string/label.address" />

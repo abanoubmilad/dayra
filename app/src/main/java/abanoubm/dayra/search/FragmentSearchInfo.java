@@ -40,6 +40,7 @@ public class FragmentSearchInfo extends Fragment {
             , DB.CONTACT_EMAIL
             , DB.CONTACT_SITE
             , DB.CONTACT_ST
+            , DB.CONTACT_HOME
             , DB.CONTACT_ADDR
             , DB.CONTACT_NOTES
             , DB.CONTACT_SUPERVISOR

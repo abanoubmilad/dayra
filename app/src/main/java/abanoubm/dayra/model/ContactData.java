@@ -7,7 +7,7 @@ public class ContactData extends ContactID {
     private float mapZoom;
     private String priest, comm, birthDay, email,
             mobile1, mobile2, mobile3, landPhone, address,
-            classYear, studyWork, street, site;
+            classYear, studyWork, street, site,home;
 
     public ContactData(String id, String name, Bitmap photo, double mapLat,
                        double mapLng, float mapZoom, String priest,
@@ -16,7 +16,7 @@ public class ContactData extends ContactID {
                        String mobile2, String mobile3,
                        String landPhone, String address,
                        String classYear, String studyWork,
-                       String street, String site) {
+                       String street, String site,String home) {
         super(id, name, photo);
         this.mapLat = mapLat;
         this.mapLng = mapLng;
@@ -34,6 +34,7 @@ public class ContactData extends ContactID {
         this.studyWork = studyWork;
         this.street = street;
         this.site = site;
+        this.home = home;
     }
 
     public double getMapLat() {
@@ -139,4 +140,11 @@ public class ContactData extends ContactID {
     }
 
 
+    public String getHome() {
+        return home;
+    }
+
+    public void setHome(String home) {
+        this.home = home;
+    }
 }

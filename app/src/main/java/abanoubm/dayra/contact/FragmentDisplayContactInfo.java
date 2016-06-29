@@ -22,7 +22,7 @@ public class FragmentDisplayContactInfo extends Fragment {
 
     private TextView dis_name, dis_address, dis_bday, dis_comm, dis_email,
             dis_lphone, dis_mobile1, dis_mobile2, dis_mobile3, dis_priest,
-            dis_class_year, dis_study_work, dis_street, dis_site;
+            dis_class_year, dis_study_work, dis_street, dis_site,dis_home;
 
     private ImageView img;
     private ContactData contactData;
@@ -87,6 +87,7 @@ public class FragmentDisplayContactInfo extends Fragment {
         dis_study_work = (TextView) root.findViewById(R.id.dis_study_work);
         dis_street = (TextView) root.findViewById(R.id.dis_street);
         dis_site = (TextView) root.findViewById(R.id.dis_site);
+        dis_home = (TextView) root.findViewById(R.id.dis_home);
 
         new GetTask().execute();
 
@@ -223,6 +224,7 @@ public class FragmentDisplayContactInfo extends Fragment {
         dis_study_work.setText(contactData.getStudyWork());
         dis_street.setText(contactData.getStreet());
         dis_site.setText(contactData.getSite());
+        dis_home.setText(contactData.getHome());
 
 
         dis_bday.setText(contactData.getBirthDay());
