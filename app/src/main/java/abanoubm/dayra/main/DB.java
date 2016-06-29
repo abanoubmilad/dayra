@@ -1383,7 +1383,7 @@ public class DB extends SQLiteOpenHelper {
             Workbook workbook = Workbook.getWorkbook(new File(path));
             Sheet sheet = workbook.getSheet(0);
 
-            if (sheet.getColumns() != 14)
+            if (sheet.getColumns() != 15)
                 return false;
             int rows = sheet.getRows();
             int rowCounter = 1;
