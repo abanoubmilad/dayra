@@ -69,6 +69,7 @@
     <string name="label.contact">التواصل</string>
     <string name="label.personal">شخصى</string>
     <string name="msg.choose.field">قم باختيار خانة واحدة على الاقل</string>
+    <string name="label.attendance.absence">ايام الحضور والغياب</string>
     <string name="btn.divide">تقسيم دايره</string>
     <string name="subhead.divide">تقسيم الدايره الحالية</string>
     <string name="label.divide.express">تقسيم الدايره الحالية الى اكثر من دايره\nمع الاحتفاظ بالدايره الحالية كما هى\n\nتقسيم الدايره الحالية بواسطة</string>

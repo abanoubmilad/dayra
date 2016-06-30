@@ -70,6 +70,7 @@
     <string name="label.progress">progress</string>
     <string name="label.contact">contact</string>
     <string name="label.personal">personal</string>
+    <string name="label.attendance.absence">Attendance and absence days</string>
     <string name="msg.choose.field">Choose at least one field to export</string>
     <string name="btn.divide">divide dayra</string>
     <string name="subhead.divide">Divid current dayra</string>
