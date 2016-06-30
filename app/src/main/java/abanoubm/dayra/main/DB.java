@@ -581,7 +581,7 @@ public class DB extends SQLiteOpenHelper {
                         + " = ?", new String[]{id}, null, null, null);
         String[] result = null;
         if (c.moveToFirst())
-            result = new String[]{c.getString(0), c.getString(1), c.getString(2)};
+            result = new String[]{c.getString(0), c.getString(1), c.getString(2), c.getString(3)};
 
         c.close();
         return result;

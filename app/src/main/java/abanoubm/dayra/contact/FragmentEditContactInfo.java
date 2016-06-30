@@ -228,7 +228,7 @@ public class FragmentEditContactInfo extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-                        new GetOptionsListTask().execute(3);
+                        new GetOptionsListTask().execute(4);
                     }
                 });
 
@@ -254,7 +254,7 @@ public class FragmentEditContactInfo extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-                        new GetOptionsListTask().execute(4);
+                        new GetOptionsListTask().execute(5);
 
                     }
                 });
@@ -264,6 +264,16 @@ public class FragmentEditContactInfo extends Fragment {
                     @Override
                     public void onClick(View v) {
                         new GetOptionsListTask().execute(1);
+
+                    }
+                });
+
+        root.findViewById(R.id.spin_home)
+                .setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        new GetOptionsListTask().execute(3);
 
                     }
                 });

@@ -35,7 +35,7 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
     private static final String ARG_ID = "id";
     private String id;
 
-    private TextView site, st, addr;
+    private TextView site, st, addr,home;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
         site = (TextView) root.findViewById(R.id.site);
         addr = (TextView) root.findViewById(R.id.addr);
         st = (TextView) root.findViewById(R.id.st);
+        home = (TextView) root.findViewById(R.id.home);
 
         new GetTask().execute();
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
@@ -128,8 +129,12 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
                     st.setText(result[1]);
                 }
                 if (!result[2].equals("")) {
+                    home.setVisibility(View.VISIBLE);
+                    home.setText(result[2]);
+                }
+                if (!result[3].equals("")) {
                     addr.setVisibility(View.VISIBLE);
-                    addr.setText(result[2]);
+                    addr.setText(result[3]);
                 }
             }
             pBar.dismiss();
