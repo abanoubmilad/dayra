@@ -161,12 +161,11 @@ public class CopyDayraPhone extends Activity {
         CopyBtn.setText(R.string.subhead_select_out);
 
         check = (CheckBox) findViewById(R.id.check_all);
-        check.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
+        check.setOnClickListener(new OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
-                new CheckAllContactsTask().execute(isChecked);
+            public void onClick(View v) {
+                new CheckAllContactsTask().execute(check.isChecked());
+
             }
         });
 

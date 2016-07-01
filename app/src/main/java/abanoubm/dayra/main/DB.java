@@ -131,7 +131,7 @@ public class DB extends SQLiteOpenHelper {
                 + CONTACT_EMAIL + " text, " + CONTACT_MOB1 + " text, " + CONTACT_MOB2 + " text, "
                 + CONTACT_MOB3 + " text, " + CONTACT_LPHONE + " text, " + CONTACT_ST
                 + " text, " + CONTACT_SITE + " text, " + CONTACT_CLASS_YEAR + " integer, "
-                + CONTACT_STUDY_WORK + " text, " + CONTACT_ADDR + " text, " + CONTACT_HOME + " text)";
+                + CONTACT_STUDY_WORK + " text, " + CONTACT_ADDR + " text, " + CONTACT_HOME + " text default '')";
         db.execSQL(sql);
 
         sql = "create table " + TB_CONNECTION + " ( " + CONN_A + " integer, "
@@ -163,7 +163,7 @@ public class DB extends SQLiteOpenHelper {
         }
         if (arg1 < 3) {
 
-            sql = "alter table " + TB_CONTACT + " add column " + CONTACT_HOME + " text";
+            sql = "alter table " + TB_CONTACT + " add column " + CONTACT_HOME + " text default ''";
             db.execSQL(sql);
 
             sql = "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "

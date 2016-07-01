@@ -56,6 +56,7 @@ public class FragmentAddContactInfo extends Fragment {
             DB.CONTACT_CLASS_YEAR,
             DB.CONTACT_STUDY_WORK,
             DB.CONTACT_ST,
+            DB.CONTACT_HOME,
             DB.CONTACT_SITE,
             DB.CONTACT_SUPERVISOR
     };
@@ -63,6 +64,7 @@ public class FragmentAddContactInfo extends Fragment {
             R.string.label_choose_class_year,
             R.string.label_choose_study_work,
             R.string.label_choose_street,
+            R.string.label_choose_home,
             R.string.label_choose_site,
             R.string.label_choose_supervisor
     };
@@ -84,6 +86,7 @@ public class FragmentAddContactInfo extends Fragment {
                 (EditText) root.findViewById(R.id.edit_class_year),
                 (EditText) root.findViewById(R.id.edit_study_work),
                 (EditText) root.findViewById(R.id.edit_street),
+                (EditText) root.findViewById(R.id.edit_home),
                 (EditText) root.findViewById(R.id.edit_site),
                 (EditText) root.findViewById(R.id.edit_priest)
         };
@@ -185,7 +188,8 @@ public class FragmentAddContactInfo extends Fragment {
                         optionsInput[1].getText().toString().trim(),
                         optionsInput[2].getText().toString().trim(),
                         optionsInput[3].getText().toString().trim(),
-                        optionsInput[4].getText().toString().trim()
+                        optionsInput[4].getText().toString().trim(),
+                        optionsInput[5].getText().toString().trim()
                 );
             }
         });
@@ -195,7 +199,7 @@ public class FragmentAddContactInfo extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-                        new GetOptionsListTask().execute(3);
+                        new GetOptionsListTask().execute(4);
                     }
                 });
 
@@ -221,7 +225,7 @@ public class FragmentAddContactInfo extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-                        new GetOptionsListTask().execute(4);
+                        new GetOptionsListTask().execute(5);
 
                     }
                 });
@@ -231,6 +235,15 @@ public class FragmentAddContactInfo extends Fragment {
                     @Override
                     public void onClick(View v) {
                         new GetOptionsListTask().execute(1);
+
+                    }
+                });
+        root.findViewById(R.id.spin_home)
+                .setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        new GetOptionsListTask().execute(3);
 
                     }
                 });
@@ -273,20 +286,21 @@ public class FragmentAddContactInfo extends Fragment {
                 msgSource = R.string.err_msg_site;
             } else {
                 ContentValues values = new ContentValues();
+
                 values.put(DB.CONTACT_NAME, params[0]);
-                values.put(DB.CONTACT_SUPERVISOR, params[13]);
-                values.put(DB.CONTACT_NOTES, params[3]);
+                values.put(DB.CONTACT_ADDR, params[1]);
                 values.put(DB.CONTACT_BDAY, params[2]);
+                values.put(DB.CONTACT_NOTES, params[3]);
                 values.put(DB.CONTACT_EMAIL, params[4]);
+                values.put(DB.CONTACT_LPHONE, params[5]);
                 values.put(DB.CONTACT_MOB1, params[6]);
                 values.put(DB.CONTACT_MOB2, params[7]);
                 values.put(DB.CONTACT_MOB3, params[8]);
-                values.put(DB.CONTACT_LPHONE, params[5]);
-                values.put(DB.CONTACT_ADDR, params[1]);
-                values.put(DB.CONTACT_ST, params[11]);
-                values.put(DB.CONTACT_SITE, params[12]);
-                values.put(DB.CONTACT_STUDY_WORK, params[10]);
                 values.put(DB.CONTACT_CLASS_YEAR, params[9]);
+                values.put(DB.CONTACT_STUDY_WORK, params[10]);
+                values.put(DB.CONTACT_ST, params[11]);
+                values.put(DB.CONTACT_HOME, params[12]);
+                values.put(DB.CONTACT_SITE, params[13]);
 
                 values.put(DB.CONTACT_MAPLNG, 0);
                 values.put(DB.CONTACT_MAPLAT, 0);
@@ -343,36 +357,6 @@ public class FragmentAddContactInfo extends Fragment {
                     });
             builder.create().show();
         }
-    }
-
-
-    private void reset() {
-
-        if (sentName != null)
-            name.setText(sentName);
-        else
-            name.setText("");
-
-        address.setText("");
-        comm.setText("");
-        email.setText("");
-        lphone.setText("");
-
-        mobile1.setText("");
-        mobile2.setText("");
-        mobile3.setText("");
-
-        optionsInput[0].setText("");
-        optionsInput[1].setText("");
-        optionsInput[2].setText("");
-        optionsInput[3].setText("");
-        optionsInput[4].setText("");
-
-        date.setText("");
-
-        photo = null;
-        img.setImageResource(R.mipmap.def);
-
     }
 
     private void editImage() {

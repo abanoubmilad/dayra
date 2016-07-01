@@ -63,7 +63,7 @@ public class ContactsDisplayListAdapter extends Adapter<ContactSort> {
                 .getPriest());
 
         holder.root.setBackgroundColor(
-                ContextCompat.getColor(getContext(), selected == position ? R.color.lightgrey : R.color.white));
+                ContextCompat.getColor(getContext(), selected == position ? R.color.semigrey : R.color.white));
 
         return convertView;
     }
