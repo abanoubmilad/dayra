@@ -151,7 +151,10 @@ public class FragmentDisplayContacts extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             mAdapter.clearThenAddAll(list);
-            previousPosition = 0;
+
+            if (previousPosition >= list.size())
+                previousPosition = 0;
+
             if (list.size() == 0) {
                 getActivity().finish();
                 Toast.makeText(getActivity(),

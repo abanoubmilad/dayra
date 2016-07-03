@@ -129,7 +129,8 @@ public class SendSMS extends Activity {
         @Override
         protected void onPostExecute(ArrayList<ContactMobile> result) {
             pBar.dismiss();
-
+            if (previousPosition >= result.size())
+                previousPosition = 0;
             if (result.size() == 0) {
                 finish();
                 Toast.makeText(getApplicationContext(),
@@ -138,7 +139,6 @@ public class SendSMS extends Activity {
                 mAdapter.clearThenAddAll(result);
                 if (previousPosition < result.size())
                     lv.setSelection(previousPosition);
-                previousPosition = 0;
             }
         }
 
