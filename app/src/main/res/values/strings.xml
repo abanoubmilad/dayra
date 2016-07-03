@@ -127,7 +127,6 @@
 
     <string name="dialogue.create">Write dayra\'s name,\nYou can use English/Arabic alphabet, numbers or spaces </string>
     <string name="dialogue.rename">Confirm renaming the current dayra</string>
-    <string name="dialogue.cancel">Are you sure you want to cancel ?\nNo modifications will be saved</string>
     <string name="dialogue.delete">Are you sure you want to delete contact ?</string>
     <string name="dialogue.reset">Are you sure you want to reset ?\nNo modifications will be saved, orgional data will be restored</string>
     <string name="dialogue.delete.dayra">Are you sure you want to delete this dayra ?\nThis action can not de undone, always keep a backup of dayra</string>

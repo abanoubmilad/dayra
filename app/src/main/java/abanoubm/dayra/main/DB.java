@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.BitmapFactory;
@@ -102,6 +103,12 @@ public class DB extends SQLiteOpenHelper {
         writableDB = getWritableDatabase();
     }
 
+    public void closeDB() {
+        readableDB.close();
+        writableDB.close();
+        dbm = null;
+    }
+
     public static boolean isDBExists(Context context, String name) {
         try {
             File dbFile = context.getDatabasePath(name);
@@ -153,6 +160,7 @@ public class DB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
+        Log.i("ana v",arg1+"");
 
         String sql;
         if (arg1 < 2) {
@@ -165,16 +173,44 @@ public class DB extends SQLiteOpenHelper {
 
             sql = "alter table " + TB_CONTACT + " add column " + CONTACT_HOME + " text default ''";
             db.execSQL(sql);
+            Log.i("ana v",sql);
 
             sql = "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
                     + ATTEND_TYPE + " integer, "
                     + ATTEND_DAY + " integer, " +
                     "primary key (" + ATTEND_ID + "," + ATTEND_TYPE + "," + ATTEND_DAY + "))";
             db.execSQL(sql);
+            Log.i("ana v",sql);
 
             sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
                     + PHOTO_BLOB + " blob)";
             db.execSQL(sql);
+            Log.i("ana v",sql);
+
+            db.query(TB_ATTEND,
+                    new String[]{ATTEND_ID, ATTEND_DAY, ATTEND_TYPE}, null, null, null, null, null, "1").close();
+            db.query(TB_CONTACT, new String[]{
+                    CONTACT_ADDR,
+                    CONTACT_BDAY,
+                    CONTACT_CLASS_YEAR,
+                    CONTACT_EMAIL,
+                    CONTACT_ID,
+                    CONTACT_LPHONE,
+                    CONTACT_MAPLAT,
+                    CONTACT_MAPLNG,
+                    CONTACT_MAPZOM,
+                    CONTACT_MOB1,
+                    CONTACT_MOB2,
+                    CONTACT_MOB3,
+                    CONTACT_SUPERVISOR,
+                    CONTACT_STUDY_WORK,
+                    CONTACT_SITE,
+                    CONTACT_NAME,
+                    CONTACT_NOTES,
+                    CONTACT_ST,
+                    CONTACT_HOME}, null, null, null, null, null, "1").close();
+            db.query(TB_PHOTO,
+                    new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null, "1").close();
 
 
             // modifications over data
@@ -283,20 +319,16 @@ public class DB extends SQLiteOpenHelper {
                     new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null, "1").close();
 
             return true;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            dbm = null;
             readableDB.close();
             writableDB.close();
+            dbm = null;
             context.deleteDatabase(DB_NAME);
             return false;
         }
     }
 
-    public void closeDB() {
-        readableDB.close();
-        writableDB.close();
-    }
 
     public void addConnection(String conA, String conB) {
         ContentValues values = new ContentValues();

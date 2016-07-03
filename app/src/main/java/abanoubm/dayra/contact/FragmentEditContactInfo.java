@@ -152,12 +152,7 @@ public class FragmentEditContactInfo extends Fragment {
                         .setCancelable(true).create();
                 ad.setView(view, 0, 0, 0, 0);
                 ad.show();
-                view.findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ad.dismiss();
-                    }
-                });
+
                 view.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
 
                     @Override

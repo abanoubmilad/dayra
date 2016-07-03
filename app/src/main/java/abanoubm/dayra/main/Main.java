@@ -25,6 +25,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -133,15 +134,22 @@ public class Main extends Activity {
             }
             inpath += params[0];
             try {
+                // create empty db with that name
+                DB db =
+                        DB.getInstant(getApplicationContext(),
+                                params[0]);
+                db.closeDB();
+
                 FileInputStream inStream = new FileInputStream(
                         params[1]);
-                FileOutputStream outStream = new FileOutputStream(
-                        new File(inpath));
+                FileOutputStream outStream = new FileOutputStream(getDatabasePath(params[0]));
+
                 FileChannel inChannel = inStream.getChannel();
                 FileChannel outChannel = outStream.getChannel();
                 inChannel.transferTo(0, inChannel.size(), outChannel);
                 inStream.close();
                 outStream.close();
+
 
                 if (DB.getInstant(getApplicationContext(),
                         params[0]).isValidDB(getApplicationContext()))
@@ -152,6 +160,7 @@ public class Main extends Activity {
 
 
             } catch (Exception e) {
+                e.printStackTrace();
                 return R.string.err_msg_import;
 
             }
@@ -344,12 +353,7 @@ public class Main extends Activity {
                 .setCancelable(true).create();
         ad.setView(view, 0, 0, 0, 0);
         ad.show();
-        view.findViewById(R.id.cancelBtn).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ad.dismiss();
-            }
-        });
+
         view.findViewById(R.id.yesBtn).setOnClickListener(new OnClickListener() {
 
             @Override
@@ -412,12 +416,6 @@ public class Main extends Activity {
                     getApplicationContext(), R.layout.item_string,
                     R.id.item, names));
 
-            signView.findViewById(R.id.back).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ad.dismiss();
-                }
-            });
             nameslv.setOnItemClickListener(new OnItemClickListener() {
 
                 @Override

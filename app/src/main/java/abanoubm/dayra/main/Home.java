@@ -376,13 +376,7 @@ public class Home extends Activity {
 
         ((EditText) view.findViewById(R.id.input)).setText(
                 Utility.getDayraName(getApplicationContext()));
-        view.findViewById(R.id.cancelBtn).setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                ad.dismiss();
-            }
-        });
         view.findViewById(R.id.yesBtn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -433,13 +427,7 @@ public class Home extends Activity {
                 .setCancelable(true).create();
         ad.setView(view, 0, 0, 0, 0);
         ad.show();
-        view.findViewById(R.id.cancelBtn).setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                ad.dismiss();
-            }
-        });
         view.findViewById(R.id.yesBtn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -576,8 +564,7 @@ public class Home extends Activity {
             try {
                 FileInputStream inStream = new FileInputStream(
                         DB.getInstant(getApplicationContext()).getDBFile(getApplicationContext()));
-                FileOutputStream outStream = new FileOutputStream(
-                        new File(path));
+                FileOutputStream outStream = new FileOutputStream(path);
                 FileChannel inChannel = inStream.getChannel();
                 FileChannel outChannel = outStream.getChannel();
                 inChannel.transferTo(0, inChannel.size(), outChannel);

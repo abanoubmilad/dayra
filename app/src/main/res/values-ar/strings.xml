@@ -122,7 +122,6 @@
 
     <string name="dialogue.create">اكتب اسم الدايره\nبامكانك استخدام حروف عربية انجليزية ارقام مسافات</string>
     <string name="dialogue.rename">تأكيد اعادة تسمية الدايره الحالية </string>
-    <string name="dialogue.cancel">تأكيد عملية التراجع\nلن يتم حفظ اى تعديل قمت باضافته</string>
     <string name="dialogue.delete">تأكيد مسح الاسم والبيانات الخاصة به</string>
     <string name="dialogue.reset">تأكيد مسح التعديلات الحالية واستعادة البيانات الاصلية</string>
     <string name="dialogue.delete.dayra">تأكيد مسح الدايره لا يكون استعادة الدايره مرة اخرى بعد مسحها احتفظ دوما بنسخة احتياطية من الدايره</string>
