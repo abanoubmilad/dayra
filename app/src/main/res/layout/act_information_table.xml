@@ -125,11 +125,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-
                 <CheckBox
-                    android:id="@+id/addr"
+                    android:id="@+id/home"
                     style="@style/check_box"
-                    android:text="@string/label.address" />
+                    android:text="@string/label.home" />
+
 
                 <CheckBox
                     android:id="@+id/bday"
@@ -142,7 +142,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
+                <CheckBox
+                    android:id="@+id/addr"
+                    style="@style/check_box"
+                    android:text="@string/label.address" />
                 <CheckBox
                     android:id="@+id/supervisor"
                     style="@style/check_box"

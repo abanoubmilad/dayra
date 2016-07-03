@@ -83,7 +83,7 @@ public class CreateInformationTable extends Activity {
         final CheckBox numbering, name, mobile1, mobile2, mobile3,
                 lphone, addr, bday, notes,
                 email, study_work, class_year, site,
-                street, supervisor;
+                street, supervisor,home;
 
 
         exportBtn = (TextView) findViewById(R.id.export_btn);
@@ -103,6 +103,7 @@ public class CreateInformationTable extends Activity {
         street = (CheckBox) findViewById(R.id.street);
         site = (CheckBox) findViewById(R.id.site);
         supervisor = (CheckBox) findViewById(R.id.supervisor);
+        home = (CheckBox) findViewById(R.id.home);
 
         exportBtn.setOnClickListener(new OnClickListener() {
 
@@ -143,6 +144,11 @@ public class CreateInformationTable extends Activity {
                 if (street.isChecked()) {
                     dataTag.add(DB.CONTACT_ST);
                     dataHeader.add(temp.getString(R.string.label_street));
+
+                }
+                if (home.isChecked()) {
+                        dataTag.add(DB.CONTACT_HOME);
+                    dataHeader.add(temp.getString(R.string.label_home));
 
                 }
                 if (addr.isChecked()) {

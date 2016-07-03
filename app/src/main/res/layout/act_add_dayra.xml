@@ -135,6 +135,17 @@
                     android:text="@string/label.supervisor" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/home"
+                    style="@style/check_box"
+                    android:text="@string/label.home" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"

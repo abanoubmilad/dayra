@@ -593,6 +593,7 @@ public class DB extends SQLiteOpenHelper {
                 "," + CONTACT_STUDY_WORK +
                 "," + CONTACT_ST +
                 "," + CONTACT_SITE +
+                "," + CONTACT_HOME+
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " ORDER BY " + CONTACT_NAME;
@@ -607,7 +608,7 @@ public class DB extends SQLiteOpenHelper {
                 result.add(new ContactSort(c.getString(0), c
                         .getString(1), Utility.getBitmap(c.getBlob(2)), c
                         .getString(3), c.getString(4), c.getString(5), c
-                        .getString(6), c.getString(7)));
+                        .getString(6), c.getString(7), c.getString(8)));
 
             } while (c.moveToNext());
         }

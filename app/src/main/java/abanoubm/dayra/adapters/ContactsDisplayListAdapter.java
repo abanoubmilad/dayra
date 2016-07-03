@@ -38,6 +38,7 @@ public class ContactsDisplayListAdapter extends Adapter<ContactSort> {
             holder.site = (TextView) convertView.findViewById(R.id.site);
             holder.conf_father = (TextView) convertView.findViewById(R.id.conf_father);
             holder.root = convertView.findViewById(R.id.root);
+            holder.home = (TextView) convertView.findViewById(R.id.home);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -61,6 +62,8 @@ public class ContactsDisplayListAdapter extends Adapter<ContactSort> {
                 .getSite());
         holder.conf_father.setText(contact
                 .getPriest());
+        holder.home.setText(contact
+                .getHome());
 
         holder.root.setBackgroundColor(
                 ContextCompat.getColor(getContext(), selected == position ? R.color.semigrey : R.color.white));
@@ -69,7 +72,7 @@ public class ContactsDisplayListAdapter extends Adapter<ContactSort> {
     }
 
     private static class ViewHolder {
-        TextView name, class_year, study_work, street, site, conf_father;
+        TextView name, class_year, study_work, street, site, conf_father, home;
         ImageView img;
         View root;
     }

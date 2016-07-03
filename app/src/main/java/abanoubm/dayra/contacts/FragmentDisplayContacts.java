@@ -126,8 +126,17 @@ public class FragmentDisplayContacts extends Fragment {
                         }
                     });
                     break;
-                // confession father
+                // home
                 case 5:
+                    Collections.sort(list, new Comparator<ContactSort>() {
+                        @Override
+                        public int compare(ContactSort lhs, ContactSort rhs) {
+                            return lhs.getHome().compareTo(rhs.getHome());
+                        }
+                    });
+                    break;
+                // confession father
+                case 6:
                     Collections.sort(list, new Comparator<ContactSort>() {
                         @Override
                         public int compare(ContactSort lhs, ContactSort rhs) {

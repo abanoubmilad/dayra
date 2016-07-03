@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:text="@string/label.attend.count"
-                android:textColor="@color/dynamic_text"
+                android:textColor="@color/hint"
                 android:textSize="@dimen/font_normal" />
 
             <TextView
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:text="@string/label.attend.min"
-                android:textColor="@color/dynamic_text"
+                android:textColor="@color/hint"
                 android:textSize="@dimen/font_normal" />
 
             <TextView
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:text="@string/label.attend.max"
-                android:textColor="@color/dynamic_text"
+                android:textColor="@color/hint"
                 android:textSize="@dimen/font_normal" />
 
             <TextView

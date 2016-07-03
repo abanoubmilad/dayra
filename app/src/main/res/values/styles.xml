@@ -45,7 +45,7 @@
         <item name="android:textSize">@dimen/font_normal</item>
     </style>
 
-    <style name="check_box_ar">
+    <style name="check_box_rtl">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>

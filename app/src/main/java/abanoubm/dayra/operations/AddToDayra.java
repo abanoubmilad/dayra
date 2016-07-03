@@ -105,7 +105,8 @@ public class AddToDayra extends Activity {
         final CheckBox selectall, mobile1, mobile2, mobile3,
                 lphone, addr, supervisor, comm,
                 email, study_work, class_year, site,
-                street;
+                street,home;
+
         selectall = (CheckBox) findViewById(R.id.selectall);
 
         mobile1 = (CheckBox) findViewById(R.id.mobile1);
@@ -120,6 +121,7 @@ public class AddToDayra extends Activity {
         class_year = (CheckBox) findViewById(R.id.classyear);
         street = (CheckBox) findViewById(R.id.street);
         site = (CheckBox) findViewById(R.id.site);
+        home = (CheckBox) findViewById(R.id.home);
 
         selectall.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -138,6 +140,7 @@ public class AddToDayra extends Activity {
                 class_year.setChecked(isChecked);
                 street.setChecked(isChecked);
                 site.setChecked(isChecked);
+                home.setChecked(isChecked);
             }
         });
 
@@ -164,12 +167,14 @@ public class AddToDayra extends Activity {
                     tags.add(8);
                 if (street.isChecked())
                     tags.add(9);
-                if (addr.isChecked())
+                if (home.isChecked())
                     tags.add(10);
-                if (comm.isChecked())
+                if (addr.isChecked())
                     tags.add(11);
-                if (supervisor.isChecked())
+                if (comm.isChecked())
                     tags.add(12);
+                if (supervisor.isChecked())
+                    tags.add(13);
 
                 Intent intentImport = new Intent(Intent.ACTION_GET_CONTENT);
                 intentImport.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())),
@@ -207,12 +212,14 @@ public class AddToDayra extends Activity {
                     tags.add(8);
                 if (street.isChecked())
                     tags.add(9);
-                if (addr.isChecked())
+                if (home.isChecked())
                     tags.add(10);
-                if (comm.isChecked())
+                if (addr.isChecked())
                     tags.add(11);
-                if (supervisor.isChecked())
+                if (comm.isChecked())
                     tags.add(12);
+                if (supervisor.isChecked())
+                    tags.add(13);
 
 
                 Intent intentImport = new Intent(Intent.ACTION_GET_CONTENT);

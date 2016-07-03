@@ -142,34 +142,7 @@ public class FragmentEditContactInfo extends Fragment {
             }
         });
 
-        root.findViewById(R.id.backImage).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LayoutInflater li = LayoutInflater.from(getActivity());
-                final View view = li.inflate(R.layout.dialogue_back, null, false);
-                final AlertDialog ad = new AlertDialog.Builder(getActivity())
-                        .setCancelable(true).create();
-                ad.setView(view, 0, 0, 0, 0);
-                ad.show();
-                view.findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ad.dismiss();
-                    }
-                });
-                view.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
 
-                    @Override
-                    public void onClick(View v) {
-                        getActivity().finish();
-                        ad.dismiss();
-
-                    }
-                });
-
-
-            }
-        });
         root.findViewById(R.id.deleteImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

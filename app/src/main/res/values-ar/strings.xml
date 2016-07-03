@@ -259,9 +259,9 @@
         <item>ارسال SMS</item>
         <item>نسخ اسماء من الموبايل الى الدايره</item>
         <item>نسخ اسماء من الدايره الى الموبايل</item>
-        <item>استخراج تقرير حضور</item>
-        <item>استخراج تقرير بيانات</item>
-        <item>استخراج جدول بيانات</item>
+        <item>عمل تقرير حضور</item>
+        <item>عمل تقرير بيانات</item>
+        <item>عمل جدول بيانات</item>
         <item>تصدير دايره file</item>
         <item>تصدير دايره xls</item>
         <item>فتح dayra folder</item>
@@ -326,8 +326,8 @@
     <string name="select.year">اختر السنة</string>
     <string name="subhead.add.data">اضافة بيانات للدايره الحالية</string>
 
-    <string name="subhead.attendance.report">استخراج تقرير حضور</string>
-    <string name="subhead.information.table">استخراج جدول بيانات</string>
+    <string name="subhead.attendance.report">عمل تقرير حضور</string>
+    <string name="subhead.information.table">عمل جدول بيانات</string>
     <string name="msg.no.locations">لا توجد عناوين</string>
     <string name="any.year">اى سنة</string>
     <string name="msg.dayra.no.divider">لم يتم العثور على قيم لتقسيم الدايره بواسطتها</string>

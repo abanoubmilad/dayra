@@ -50,12 +50,12 @@
 
                 <CheckBox
                     android:id="@+id/mobile1"
-                    style="@style/check_box_ar"
+                    style="@style/check_box_rtl"
                     android:text="@string/label.mobile1" />
 
                 <CheckBox
                     android:id="@+id/mobile2"
-                    style="@style/check_box_ar"
+                    style="@style/check_box_rtl"
                     android:text="@string/label.mobile2" />
             </LinearLayout>
 
@@ -66,12 +66,12 @@
 
                 <CheckBox
                     android:id="@+id/classyear"
-                    style="@style/check_box_ar"
+                    style="@style/check_box_rtl"
                     android:text="@string/label.class.year" />
 
                 <CheckBox
                     android:id="@+id/mobile3"
-                    style="@style/check_box_ar"
+                    style="@style/check_box_rtl"
                     android:text="@string/label.mobile3" />
             </LinearLayout>
 
@@ -82,12 +82,12 @@
 
                 <CheckBox
                     android:id="@+id/study_work"
-                    style="@style/check_box_ar"
+                    style="@style/check_box_rtl"
                     android:text="@string/label.study.work" />
 
                 <CheckBox
                     android:id="@+id/lphone"
-                    style="@style/check_box_ar"
+                    style="@style/check_box_rtl"
                     android:text="@string/label.lphone" />
             </LinearLayout>
 
@@ -98,12 +98,12 @@
 
                 <CheckBox
                     android:id="@+id/site"
-                    style="@style/check_box_ar"
+                    style="@style/check_box_rtl"
                     android:text="@string/label.site" />
 
                 <CheckBox
                     android:id="@+id/email"
-                    style="@style/check_box_ar"
+                    style="@style/check_box_rtl"
                     android:text="@string/label.email" />
             </LinearLayout>
 
@@ -115,12 +115,12 @@
 
                 <CheckBox
                     android:id="@+id/street"
-                    style="@style/check_box_ar"
+                    style="@style/check_box_rtl"
                     android:text="@string/label.street" />
 
                 <CheckBox
                     android:id="@+id/notes"
-                    style="@style/check_box_ar"
+                    style="@style/check_box_rtl"
                     android:text="@string/label.notes" />
             </LinearLayout>
 
@@ -131,13 +131,14 @@
 
 
                 <CheckBox
-                    android:id="@+id/addr"
-                    style="@style/check_box_ar"
-                    android:text="@string/label.address" />
+                    android:id="@+id/home"
+                    style="@style/check_box_rtl"
+                    android:text="@string/label.home" />
+
 
                 <CheckBox
                     android:id="@+id/bday"
-                    style="@style/check_box_ar"
+                    style="@style/check_box_rtl"
                     android:text="@string/label.bday" />
             </LinearLayout>
 
@@ -146,10 +147,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
+                <CheckBox
+                    android:id="@+id/addr"
+                    style="@style/check_box_rtl"
+                    android:text="@string/label.address" />
                 <CheckBox
                     android:id="@+id/supervisor"
-                    style="@style/check_box_ar"
+                    style="@style/check_box_rtl"
                     android:text="@string/label.supervisor" />
             </LinearLayout>
         </LinearLayout>

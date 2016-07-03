@@ -118,7 +118,7 @@ public class Utility {
                 || !new File(path).exists())
             return null;
         return ThumbnailUtils.extractThumbnail(
-                BitmapFactory.decodeFile(path), 250, 250);
+                BitmapFactory.decodeFile(path), 175, 175);
     }
 
 

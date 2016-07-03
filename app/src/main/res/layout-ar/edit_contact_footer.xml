@@ -1,25 +1,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:background="@color/lightgrey"
-    android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/semigrey"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/deleteImage"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:padding="20dp"
+        android:padding="5dp"
         android:src="@mipmap/ic_delete2" />
 
     <ImageView
         android:id="@+id/saveImage"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:padding="20dp"
+        android:padding="5dp"
         android:src="@mipmap/ic_save" />
 
 </LinearLayout>
