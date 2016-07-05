@@ -62,6 +62,13 @@ public class DBAlarm extends SQLiteOpenHelper {
 
     }
 
+    // remove all alarms associated with a dayra
+    // to be added check if there is still any alarm types left
+    public void removeDayraAlarms(String dbname) {
+        writableDB.delete(TB_ALARM, ALARM_DB_NAME + " = ?",
+                new String[]{dbname});
+    }
+
     public boolean doesAlarmExist(String type, String dbname) {
         Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
                 }, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ?",

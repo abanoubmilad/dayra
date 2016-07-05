@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.alarm.DBAlarm;
 import abanoubm.dayra.model.ContactCheck;
 import abanoubm.dayra.model.ContactData;
 import abanoubm.dayra.model.ContactField;
@@ -72,18 +73,21 @@ public class DB extends SQLiteOpenHelper {
             CONTACT_MOB3 = "mob3", CONTACT_LPHONE = "lphone",
             CONTACT_ADDR = "addr", CONTACT_ST = "st",
             CONTACT_SITE = "site", CONTACT_STUDY_WORK = "swork",
-            CONTACT_HOME= "home";
+            CONTACT_HOME = "home";
 
     private static DB dbm;
     private SQLiteDatabase readableDB, writableDB;
 
-    private boolean dirtyFlag=false;
-    public boolean isDirty(){
+    private boolean dirtyFlag = false;
+
+    public boolean isDirty() {
         return this.dirtyFlag;
     }
-    public boolean clearDirty(){
-        return this.dirtyFlag=false;
+
+    public boolean clearDirty() {
+        return this.dirtyFlag = false;
     }
+
     public static DB getInstant(Context context) {
         String dbName = Utility.getDayraName(context);
         if (dbm != null && DB_NAME.equals(dbName))
@@ -167,7 +171,7 @@ public class DB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
-        Log.i("ana v",arg1+"");
+        Log.i("ana v", arg1 + "");
 
         String sql;
         if (arg1 < 2) {
@@ -180,19 +184,19 @@ public class DB extends SQLiteOpenHelper {
 
             sql = "alter table " + TB_CONTACT + " add column " + CONTACT_HOME + " text default ''";
             db.execSQL(sql);
-            Log.i("ana v",sql);
+            Log.i("ana v", sql);
 
             sql = "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
                     + ATTEND_TYPE + " integer, "
                     + ATTEND_DAY + " integer, " +
                     "primary key (" + ATTEND_ID + "," + ATTEND_TYPE + "," + ATTEND_DAY + "))";
             db.execSQL(sql);
-            Log.i("ana v",sql);
+            Log.i("ana v", sql);
 
             sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
                     + PHOTO_BLOB + " blob)";
             db.execSQL(sql);
-            Log.i("ana v",sql);
+            Log.i("ana v", sql);
 
             db.query(TB_ATTEND,
                     new String[]{ATTEND_ID, ATTEND_DAY, ATTEND_TYPE}, null, null, null, null, null, "1").close();
@@ -279,7 +283,7 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public void deleteContact(String id) {
-        this.dirtyFlag=true;
+        this.dirtyFlag = true;
         removeAttendantConnections(id);
         writableDB.delete(TB_ATTEND, ATTEND_ID + " = ?",
                 new String[]{id});
@@ -293,6 +297,7 @@ public class DB extends SQLiteOpenHelper {
         dbm = null;
         readableDB.close();
         writableDB.close();
+        DBAlarm.getInstant(context).removeDayraAlarms(DB_NAME);
         return context.deleteDatabase(DB_NAME);
     }
 
@@ -411,7 +416,7 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public void updateContact(ContentValues values, byte[] photo, String id) {
-        this.dirtyFlag=true;
+        this.dirtyFlag = true;
 
         writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
                 new String[]{id});
@@ -423,7 +428,7 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public void updateContact(ContentValues values, String id) {
-        this.dirtyFlag=true;
+        this.dirtyFlag = true;
 
         writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
                 new String[]{id});
@@ -435,7 +440,7 @@ public class DB extends SQLiteOpenHelper {
                 CONTACT_NAME, CONTACT_CLASS_YEAR,
                 CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
                 CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL,
-                CONTACT_SITE, CONTACT_ST, CONTACT_HOME,CONTACT_ADDR,
+                CONTACT_SITE, CONTACT_ST, CONTACT_HOME, CONTACT_ADDR,
                 CONTACT_NOTES,
                 CONTACT_SUPERVISOR,
                 PHOTO_BLOB};
@@ -604,7 +609,7 @@ public class DB extends SQLiteOpenHelper {
                 "," + CONTACT_STUDY_WORK +
                 "," + CONTACT_ST +
                 "," + CONTACT_SITE +
-                "," + CONTACT_HOME+
+                "," + CONTACT_HOME +
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " ORDER BY " + CONTACT_NAME;
@@ -1045,7 +1050,7 @@ public class DB extends SQLiteOpenHelper {
                 CONTACT_NAME, CONTACT_CLASS_YEAR,
                 CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
                 CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL,
-                CONTACT_SITE, CONTACT_ST, CONTACT_HOME,CONTACT_ADDR,
+                CONTACT_SITE, CONTACT_ST, CONTACT_HOME, CONTACT_ADDR,
                 CONTACT_NOTES,
                 CONTACT_SUPERVISOR,
                 PHOTO_BLOB};
@@ -1380,7 +1385,7 @@ public class DB extends SQLiteOpenHelper {
                 CONTACT_NAME, CONTACT_CLASS_YEAR,
                 CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
                 CONTACT_MOB3, CONTACT_LPHONE, CONTACT_EMAIL,
-                CONTACT_SITE, CONTACT_ST,CONTACT_HOME, CONTACT_ADDR,
+                CONTACT_SITE, CONTACT_ST, CONTACT_HOME, CONTACT_ADDR,
                 CONTACT_NOTES,
                 CONTACT_SUPERVISOR,
                 PHOTO_BLOB};
