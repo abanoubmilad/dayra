@@ -162,23 +162,19 @@ public class Settings extends Activity {
                 if (params[0] == Utility.ATTEND_ALARM_TYPE) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, 0);
-                    calendar.set(Calendar.MINUTE,4);
-
+                    calendar.set(Calendar.HOUR_OF_DAY, 19);
                     manager.setInexactRepeating(
                             AlarmManager.RTC_WAKEUP,
                             calendar.getTimeInMillis(),
-                            10 * 1000, attendPIntent);
+                            1000 * 60 * 60 * 24 * 8, attendPIntent);
                 } else {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, 0);
-                    calendar.set(Calendar.MINUTE, 4);
+                    calendar.set(Calendar.HOUR_OF_DAY, 14);
                     manager.setInexactRepeating(
                             AlarmManager.RTC_WAKEUP,
                             calendar.getTimeInMillis(),
-                            10 * 1000, bdayPIntent);
-                    // 60 * 60 * 24 * 1000
+                            1000 * 60 * 60 * 24, bdayPIntent);
                 }
             }
             return null;

@@ -4,8 +4,10 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,8 +25,11 @@ public class BirthDayReceiver extends BroadcastReceiver {
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "",
                 (Calendar.getInstance().get(Calendar.MONTH) + 1) + "");
 
-        ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras(Utility.BDAY_ALARM_TYPE+"");
+        ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras(Utility.BDAY_ALARM_TYPE + "");
         int start = 7;
+        Bitmap defPhoto = ((BitmapDrawable)
+                ContextCompat.getDrawable(context, R.mipmap.def)).getBitmap();
+
         for (String dayraName : array) {
 
             ArrayList<ContactField> result = DB.getInstant(context, dayraName).searchBirthdays(date);
@@ -50,8 +55,8 @@ public class BirthDayReceiver extends BroadcastReceiver {
                 for (ContactField contactDay : result) {
                     NotificationCompat.Builder n = new NotificationCompat.Builder(
                             context)
-                            .setLargeIcon(contactDay.getPhoto())
-                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setLargeIcon(contactDay.getPhoto() != null ?contactDay.getPhoto():defPhoto)
+                    .setSmallIcon(R.mipmap.ic_launcher)
                             .setContentTitle(
                                     dayraName
                                             + " - "
@@ -59,7 +64,7 @@ public class BirthDayReceiver extends BroadcastReceiver {
                                             .getResources()
                                             .getString(
                                                     R.string.label_noti_bday))
-                            .setContentText(contactDay.getName()).setAutoCancel(true);
+                            .setContentText(contactDay.getName() + " - " + contactDay.getField()).setAutoCancel(true);
                     NotificationManager nm = (NotificationManager) context
                             .getSystemService(Context.NOTIFICATION_SERVICE);
                     nm.notify(start++, n.build());

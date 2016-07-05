@@ -4,7 +4,10 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,6 +26,9 @@ public class AttendanceReceiver extends BroadcastReceiver {
         String pastMonth = Utility.produceDateRegex(
                 cal.get(Calendar.DAY_OF_MONTH) + "",
                 (cal.get(Calendar.MONTH) + 1) + "", cal.get(Calendar.YEAR) + "");
+
+        Bitmap defPhoto = ((BitmapDrawable)
+                ContextCompat.getDrawable(context, R.mipmap.def)).getBitmap();
 
         ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras(Utility.ATTEND_ALARM_TYPE + "");
         int start = 70000;
@@ -49,7 +55,7 @@ public class AttendanceReceiver extends BroadcastReceiver {
                 for (ContactField contactDay : result) {
                     NotificationCompat.Builder n = new NotificationCompat.Builder(
                             context)
-                            .setLargeIcon(contactDay.getPhoto())
+                            .setLargeIcon(contactDay.getPhoto() != null ? contactDay.getPhoto() : defPhoto)
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setContentTitle(
                                     dayraName
