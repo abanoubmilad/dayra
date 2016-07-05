@@ -14,6 +14,7 @@ import java.io.File;
 
 public class Utility {
 
+    public final static int BDAY_ALARM_TYPE = 1, ATTEND_ALARM_TYPE = 0;
 
     public static int getArabicLang(Context context) {
         return context.getSharedPreferences("lang",

@@ -59,7 +59,7 @@ public class Home extends Activity {
     private ImageView[] buttons;
 
     private void fireHome1Menu() {
-        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.semigrey));
+        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.grey));
         tagCursor = 0;
         buttons[0].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
         Utility.clearLogin(getApplicationContext());
@@ -139,7 +139,7 @@ public class Home extends Activity {
 
     private void fireHome2Menu() {
 
-        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.semigrey));
+        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.grey));
         tagCursor = 1;
         buttons[1].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
@@ -267,7 +267,7 @@ public class Home extends Activity {
 
     private void fireOutMenu() {
 
-        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.semigrey));
+        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.grey));
         tagCursor = 2;
         buttons[2].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
@@ -325,7 +325,7 @@ public class Home extends Activity {
 
     private void fireSettingsMenu() {
 
-        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.semigrey));
+        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.grey));
         tagCursor = 3;
         buttons[3].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 

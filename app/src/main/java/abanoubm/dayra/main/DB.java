@@ -1547,14 +1547,14 @@ public class DB extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<ContactField> getContactsAttendanceAbsence(String previousWeekRegex) {
+    public ArrayList<ContactField> getContactsAttendanceAbsence(String pastMonthRegex) {
         String selectQuery = "SELECT " + CONTACT_NAME + "," + PHOTO_BLOB +
                 ", MAX(" + ATTEND_DAY + ")" +
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
                 CONTACT_ID + "=" + ATTEND_ID + " WHERE " + ATTEND_DAY + " < ? GROUP BY " + ATTEND_ID + " ORDER BY " + CONTACT_NAME;
-        Cursor c = readableDB.rawQuery(selectQuery, new String[]{previousWeekRegex});
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{pastMonthRegex});
         ArrayList<ContactField> result = new ArrayList<>(
                 c.getCount());
 

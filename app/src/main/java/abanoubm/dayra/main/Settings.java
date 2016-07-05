@@ -49,9 +49,9 @@ public class Settings extends Activity {
             @Override
             public void onClick(View v) {
                 if (attend.isChecked()) {
-                    new addAlarmTask().execute(0);
+                    new addAlarmTask().execute(Utility.ATTEND_ALARM_TYPE);
                 } else {
-                    new removeAlarmTask().execute(0);
+                    new removeAlarmTask().execute(Utility.ATTEND_ALARM_TYPE);
                 }
             }
         });
@@ -60,9 +60,9 @@ public class Settings extends Activity {
             @Override
             public void onClick(View v) {
                 if (bday.isChecked()) {
-                    new addAlarmTask().execute(1);
+                    new addAlarmTask().execute(Utility.BDAY_ALARM_TYPE);
                 } else {
-                    new removeAlarmTask().execute(1);
+                    new removeAlarmTask().execute(Utility.BDAY_ALARM_TYPE);
                 }
             }
         });
@@ -87,8 +87,8 @@ public class Settings extends Activity {
             Boolean[] arr = new Boolean[2];
             DBAlarm db = DBAlarm.getInstant(getApplicationContext());
             String dbname = Utility.getDayraName(getApplicationContext());
-            arr[0] = db.doesAlarmExist("0", dbname);
-            arr[1] = db.doesAlarmExist("1", dbname);
+            arr[0] = db.doesAlarmExist(Utility.ATTEND_ALARM_TYPE+"", dbname);
+            arr[1] = db.doesAlarmExist(Utility.BDAY_ALARM_TYPE+"", dbname);
             return arr;
 
 
@@ -121,7 +121,7 @@ public class Settings extends Activity {
             boolean check = DBAlarm.getInstant(getApplicationContext()).
                     removeAlarm(params[0] + "", Utility.getDayraName(getApplicationContext()));
             if (!check) {
-                if (params[0] == 0)
+                if (params[0] == Utility.ATTEND_ALARM_TYPE)
                     manager.cancel(attendPIntent);
                 else
                     manager.cancel(bdayPIntent);
@@ -158,7 +158,7 @@ public class Settings extends Activity {
             boolean check = DBAlarm.getInstant(getApplicationContext()).
                     addAlarm(params[0] + "", Utility.getDayraName(getApplicationContext()));
             if (check) {
-                if (params[0] == 0) {
+                if (params[0] == Utility.ATTEND_ALARM_TYPE) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
                     calendar.set(Calendar.HOUR_OF_DAY, 15);
@@ -169,11 +169,13 @@ public class Settings extends Activity {
                 } else {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, 14);
+                    calendar.set(Calendar.HOUR_OF_DAY, 22);
+                    calendar.set(Calendar.MINUTE, 22);
                     manager.setInexactRepeating(
                             AlarmManager.RTC_WAKEUP,
                             calendar.getTimeInMillis(),
-                            60 * 60 * 24 * 1000, bdayPIntent);
+                            10 * 1000, bdayPIntent);
+                    // 60 * 60 * 24 * 1000
                 }
             }
             return null;

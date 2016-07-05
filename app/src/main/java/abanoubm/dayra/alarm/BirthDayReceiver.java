@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,11 +19,12 @@ public class BirthDayReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent alarmIntent) {
+        Log.i("herebyu","ana hnnnnnnnnnnnnna");
         String date = Utility.produceDate(
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "",
                 (Calendar.getInstance().get(Calendar.MONTH) + 1) + "");
 
-        ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras("2");
+        ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras(Utility.BDAY_ALARM_TYPE+"");
         int start = 7;
         for (String dayraName : array) {
             ArrayList<ContactField> result = DB.getInstant(context, dayraName).searchBirthdays(date);
