@@ -13,6 +13,7 @@ public class DBAlarm extends SQLiteOpenHelper {
     private static final String TB_ALARM = "alarm_tb";
     private static final String ALARM_DB_NAME = "alarm_db_name";
     private static final String ALARM_TYPE = "alarm_type";
+    private static final int DB_VERSION = 1;
 
     private static DBAlarm dbm;
     private SQLiteDatabase readableDB, writableDB;
@@ -27,7 +28,7 @@ public class DBAlarm extends SQLiteOpenHelper {
     }
 
     private DBAlarm(Context context) {
-        super(context, DB_NAME, null, 1);
+        super(context, DB_NAME, null, DB_VERSION);
         readableDB = getReadableDatabase();
         writableDB = getWritableDatabase();
     }
@@ -55,7 +56,9 @@ public class DBAlarm extends SQLiteOpenHelper {
         Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
                 }, ALARM_TYPE + " = ?",
                 new String[]{type}, null, null, null);
-        return c.getCount() != 0;
+        boolean check = c.getCount() != 0;
+        c.close();
+        return check;
 
     }
 
@@ -63,7 +66,9 @@ public class DBAlarm extends SQLiteOpenHelper {
         Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
                 }, ALARM_DB_NAME + " = ? AND " + ALARM_TYPE + " = ?",
                 new String[]{dbname, type}, null, null, null);
-        return c.getCount() != 0;
+        boolean check = c.getCount() != 0;
+        c.close();
+        return check;
 
     }
 
@@ -78,7 +83,9 @@ public class DBAlarm extends SQLiteOpenHelper {
         Cursor c = readableDB.query(TB_ALARM, new String[]{ALARM_DB_NAME
                 }, ALARM_TYPE + " = ?",
                 new String[]{type}, null, null, null);
-        return c.getCount() != 1;
+        boolean check = c.getCount() == 1;
+        c.close();
+        return check;
     }
 
     public ArrayList<String> getAlarmDayras(String type) {

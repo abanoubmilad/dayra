@@ -20,11 +20,11 @@ public class AttendanceReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent alarmIntent) {
         Calendar cal = Calendar.getInstance();
         cal.roll(Calendar.MONTH, false);
-        String pastMonth = Utility.produceDate(
+        String pastMonth = Utility.produceDateRegex(
                 cal.get(Calendar.DAY_OF_MONTH) + "",
                 (cal.get(Calendar.MONTH) + 1) + "", cal.get(Calendar.YEAR) + "");
 
-        ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras(Utility.ATTEND_ALARM_TYPE+"");
+        ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras(Utility.ATTEND_ALARM_TYPE + "");
         int start = 70000;
         for (String dayraName : array) {
             ArrayList<ContactField> result = DB.getInstant(context, dayraName).getContactsAttendanceAbsence(pastMonth);
@@ -58,7 +58,7 @@ public class AttendanceReceiver extends BroadcastReceiver {
                                             .getResources()
                                             .getString(
                                                     R.string.label_noti_bday))
-                            .setContentText(contactDay.getName()).setAutoCancel(true);
+                            .setContentText(contactDay.getName() + " - " + contactDay.getField()).setAutoCancel(true);
                     NotificationManager nm = (NotificationManager) context
                             .getSystemService(Context.NOTIFICATION_SERVICE);
                     nm.notify(start++, n.build());

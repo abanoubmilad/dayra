@@ -43,21 +43,21 @@ public class Utility {
                 .putString("dbname", dayra).apply();
     }
 
-    public static String produceDate(String day, String month) {
+    public static String produceDateRegex(String day, String month) {
         if (month.length() == 1) {
             if (day.length() == 1)
-                return "-----0" + month + "-0" + day;
+                return "____-0" + month + "-0" + day;
             else
-                return "-----0" + month + "-" + day;
+                return "____-0" + month + "-" + day;
         } else {
             if (day.length() == 1)
-                return "-----" + month + "--0" + day;
+                return "____-" + month + "-0" + day;
             else
-                return "-----" + month + "--" + day;
+                return "____-" + month + "-" + day;
         }
     }
 
-    public static String produceDate(String day, String month, String year) {
+    public static String produceDateRegex(String day, String month, String year) {
         if (month.length() == 1) {
             if (day.length() == 1)
                 return year + "-0" + month + "-0" + day;
@@ -65,9 +65,9 @@ public class Utility {
                 return year + "-0" + month + "-" + day;
         } else {
             if (day.length() == 1)
-                return year + "-" + month + "--0" + day;
+                return year + "-" + month + "-0" + day;
             else
-                return year + "-" + month + "--" + day;
+                return year + "-" + month + "-" + day;
         }
     }
 

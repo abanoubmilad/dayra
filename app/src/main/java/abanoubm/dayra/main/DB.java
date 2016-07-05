@@ -818,10 +818,9 @@ public class DB extends SQLiteOpenHelper {
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
-                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " LIKE '" + dateRegex +
-                "' GROUP BY " + CONTACT_ID + "," + ATTEND_TYPE + " ORDER BY " + CONTACT_NAME;
+                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " LIKE ? GROUP BY " + CONTACT_ID + "," + ATTEND_TYPE + " ORDER BY " + CONTACT_NAME;
 
-        Cursor c = readableDB.rawQuery(selectQuery, null);
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{dateRegex});
         Document document = new Document(PageSize.LETTER);
         try {
             PdfWriter.getInstance(document, new FileOutputStream(path));
@@ -1295,6 +1294,7 @@ public class DB extends SQLiteOpenHelper {
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO
                 + " ON " + CONTACT_ID + "=" + PHOTO_ID
                 + " WHERE " + CONTACT_BDAY + " LIKE ? ORDER BY " + CONTACT_BDAY;
+
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{dateRegex});
         ArrayList<ContactField> result = new ArrayList<>(c.getCount());
 
@@ -1547,14 +1547,14 @@ public class DB extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<ContactField> getContactsAttendanceAbsence(String pastMonthRegex) {
+    public ArrayList<ContactField> getContactsAttendanceAbsence(String previousWeekRegex) {
         String selectQuery = "SELECT " + CONTACT_NAME + "," + PHOTO_BLOB +
                 ", MAX(" + ATTEND_DAY + ")" +
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
                 CONTACT_ID + "=" + ATTEND_ID + " WHERE " + ATTEND_DAY + " < ? GROUP BY " + ATTEND_ID + " ORDER BY " + CONTACT_NAME;
-        Cursor c = readableDB.rawQuery(selectQuery, new String[]{pastMonthRegex});
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{previousWeekRegex});
         ArrayList<ContactField> result = new ArrayList<>(
                 c.getCount());
 

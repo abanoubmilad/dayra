@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -169,8 +170,8 @@ public class Settings extends Activity {
                 } else {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, 22);
-                    calendar.set(Calendar.MINUTE, 22);
+                    calendar.set(Calendar.HOUR_OF_DAY, 23);
+                    calendar.set(Calendar.MINUTE, 41);
                     manager.setInexactRepeating(
                             AlarmManager.RTC_WAKEUP,
                             calendar.getTimeInMillis(),

@@ -45,7 +45,7 @@ public class FragmentSearchBirthdays extends Fragment {
         protected ArrayList<ContactField> doInBackground(Void... params) {
             if(mDB==null)
                 mDB =DB.getInstant(getActivity());
-            return mDB.searchBirthdays(Utility.produceDate(day, month));
+            return mDB.searchBirthdays(Utility.produceDateRegex(day, month));
         }
 
         @Override
@@ -112,7 +112,7 @@ public class FragmentSearchBirthdays extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 if (position == 0)
-                    day = "--";
+                    day = "__";
                 else
                     day = position + "";
             }
@@ -128,7 +128,7 @@ public class FragmentSearchBirthdays extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 if (position == 0)
-                    month = "--";
+                    month = "__";
                 else
                     month = position + "";
             }

@@ -19,15 +19,16 @@ public class BirthDayReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent alarmIntent) {
-        Log.i("herebyu","ana hnnnnnnnnnnnnna");
-        String date = Utility.produceDate(
+        String date = Utility.produceDateRegex(
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "",
                 (Calendar.getInstance().get(Calendar.MONTH) + 1) + "");
 
         ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras(Utility.BDAY_ALARM_TYPE+"");
         int start = 7;
         for (String dayraName : array) {
+
             ArrayList<ContactField> result = DB.getInstant(context, dayraName).searchBirthdays(date);
+
             if (result.size() > 5) {
                 NotificationCompat.Builder n = new NotificationCompat.Builder(
                         context)
