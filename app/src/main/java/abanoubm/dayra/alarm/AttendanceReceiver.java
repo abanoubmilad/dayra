@@ -36,7 +36,7 @@ public class AttendanceReceiver extends BroadcastReceiver {
                                 dayraName
                                         + " - "
                                         + context.getResources().getString(
-                                        R.string.label_noti_bday))
+                                        R.string.label_noti_attend))
                         .setContentText(
                                 context.getResources().getString(
                                         R.string.label_noti_more)
@@ -57,7 +57,7 @@ public class AttendanceReceiver extends BroadcastReceiver {
                                             + context
                                             .getResources()
                                             .getString(
-                                                    R.string.label_noti_bday))
+                                                    R.string.label_noti_attend))
                             .setContentText(contactDay.getName() + " - " + contactDay.getField()).setAutoCancel(true);
                     NotificationManager nm = (NotificationManager) context
                             .getSystemService(Context.NOTIFICATION_SERVICE);

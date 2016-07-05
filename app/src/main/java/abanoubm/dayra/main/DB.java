@@ -1560,7 +1560,7 @@ public class DB extends SQLiteOpenHelper {
 
         if (c.moveToFirst()) {
             do {
-                result.add(new ContactField(null, c.getString(0), c.getString(1),
+                result.add(new ContactField(null, c.getString(0), c.getString(2),
                         Utility.getBitmap(c.getBlob(1))));
             } while (c.moveToNext());
         }

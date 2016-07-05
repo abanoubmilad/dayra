@@ -100,6 +100,7 @@
     <string name="label.alert.last.attend">last attendance dates alerts</string>
     <string name="label.alert.bday">birthdays alerts</string>
     <string name="label.noti.bday">Today\'s birthdays</string>
+    <string name="label.noti.attend">Last Attendance</string>
     <string name="label.noti.more">Contacts count :</string>
     <string name="label.noti.alarm.set">Alarm settings have been saved</string>
     <string name="label.home.main">Main</string>

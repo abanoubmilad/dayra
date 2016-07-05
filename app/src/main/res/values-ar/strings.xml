@@ -331,6 +331,7 @@
     <string name="any.year">اى سنة</string>
     <string name="msg.dayra.no.divider">لم يتم العثور على قيم لتقسيم الدايره بواسطتها</string>
     <string name="label.add.express.fields">اختيار نوع البيانات التى سيتم استبدالها فى حالة العثور على نفس الاسم</string>
+    <string name="label.noti.attend">اخر حضور</string>
 
 
 </resources>
