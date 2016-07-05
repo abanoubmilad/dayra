@@ -15,7 +15,9 @@ import abanoubm.dayra.R;
 public class FragmentDisplayContact extends Fragment {
     private String id;
     private int current = 0;
+    private boolean dualMode;
     private static final String ARG_ID = "id";
+    private static final String ARG_DUAL_MODE = "dual";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class FragmentDisplayContact extends Fragment {
         Bundle arguments = getArguments();
         if (arguments != null) {
             id = arguments.getString(ARG_ID);
+            dualMode = arguments.getBoolean(ARG_DUAL_MODE);
         }
     }
 
@@ -166,6 +169,11 @@ public class FragmentDisplayContact extends Fragment {
                     current = 4;
                     buttons[4].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
                     startActivity(new Intent(getActivity(), EditContact.class).putExtra(ARG_ID, id));
+                    if(dualMode){
+                        buttons[0].performClick();
+                    }else {
+                        getActivity().finish();
+                    }
                 }
 
             }

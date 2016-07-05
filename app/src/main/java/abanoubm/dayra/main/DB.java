@@ -533,39 +533,6 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public String addAttendant(ContactData att) {
-        ContentValues values = new ContentValues();
-
-        values.put(CONTACT_MAPLAT, att.getMapLat());
-        values.put(CONTACT_MAPLNG, att.getMapLng());
-        values.put(CONTACT_MAPZOM, att.getMapZoom());
-        values.put(CONTACT_NAME, att.getName());
-        values.put(CONTACT_SUPERVISOR, att.getPriest());
-        values.put(CONTACT_NOTES, att.getComm());
-        values.put(CONTACT_BDAY, att.getBirthDay());
-        values.put(CONTACT_EMAIL, att.getEmail());
-        values.put(CONTACT_MOB1, att.getMobile1());
-        values.put(CONTACT_MOB2, att.getMobile2());
-        values.put(CONTACT_MOB3, att.getMobile3());
-        values.put(CONTACT_LPHONE, att.getLandPhone());
-        values.put(CONTACT_ADDR, att.getAddress());
-        values.put(CONTACT_ST, att.getStreet());
-        values.put(CONTACT_HOME, att.getHome());
-        values.put(CONTACT_SITE, att.getSite());
-        values.put(CONTACT_STUDY_WORK, att.getStudyWork());
-        values.put(CONTACT_CLASS_YEAR, att.getClassYear());
-
-        String id = String.valueOf(writableDB.insert(TB_CONTACT, null, values));
-
-        values = new ContentValues();
-        values.put(PHOTO_ID, id);
-        values.put(PHOTO_BLOB, Utility.getBytes(att.getPhoto()));
-
-        writableDB.insert(TB_PHOTO, null, values);
-        return id;
-
-    }
-
     public ContactData getContactInfo(String id) {
         Cursor c = readableDB.query(TB_CONTACT,
                 new String[]{

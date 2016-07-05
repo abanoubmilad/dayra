@@ -3,6 +3,7 @@ package abanoubm.dayra.contacts;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import abanoubm.dayra.R;
@@ -10,9 +11,11 @@ import abanoubm.dayra.contact.DisplayContact;
 import abanoubm.dayra.contact.FragmentDisplayContact;
 import abanoubm.dayra.main.Utility;
 
-public class DisplayContacts extends ActionBarActivity implements CallBack {
+public class DisplayContacts extends AppCompatActivity implements CallBack {
 
     private boolean dualMode;
+    private static final String ARG_ID = "id";
+    private static final String ARG_DUAL_MODE = "dual";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,8 @@ public class DisplayContacts extends ActionBarActivity implements CallBack {
     public void notify(String id) {
         if (dualMode) {
             Bundle args = new Bundle();
-            args.putString("id", id);
+            args.putString(ARG_ID, id);
+            args.putBoolean(ARG_DUAL_MODE, true);
 
             FragmentDisplayContact fragment = new FragmentDisplayContact();
             fragment.setArguments(args);
@@ -49,7 +53,7 @@ public class DisplayContacts extends ActionBarActivity implements CallBack {
                     .commit();
 
         } else {
-            startActivity(new Intent(this, DisplayContact.class).putExtra("id", id));
+            startActivity(new Intent(this, DisplayContact.class).putExtra(ARG_ID, id));
         }
 
     }

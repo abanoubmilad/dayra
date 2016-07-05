@@ -2,10 +2,14 @@ package abanoubm.dayra.contact;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import abanoubm.dayra.R;
 
-public class DisplayContact extends ActionBarActivity {
+public class DisplayContact extends AppCompatActivity {
+    private static final String ARG_ID = "id";
+    private static final String ARG_DUAL_MODE = "dual";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -13,7 +17,8 @@ public class DisplayContact extends ActionBarActivity {
 
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
-            arguments.putString("id", getIntent().getStringExtra("id"));
+            arguments.putString(ARG_ID, getIntent().getStringExtra(ARG_ID));
+            arguments.putBoolean(ARG_DUAL_MODE, false);
 
             FragmentDisplayContact fragment = new FragmentDisplayContact();
             fragment.setArguments(arguments);
