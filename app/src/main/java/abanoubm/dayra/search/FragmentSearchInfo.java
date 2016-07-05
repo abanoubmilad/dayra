@@ -45,7 +45,7 @@ public class FragmentSearchInfo extends Fragment {
             , DB.CONTACT_NOTES
             , DB.CONTACT_SUPERVISOR
     };
-
+private  DB mDB;
     private class SearchTask extends
             AsyncTask<String, Void, ArrayList<ContactField>> {
         private ProgressDialog pBar;
@@ -59,7 +59,9 @@ public class FragmentSearchInfo extends Fragment {
 
         @Override
         protected ArrayList<ContactField> doInBackground(String... params) {
-            return DB.getInstant(getActivity()).search(params[0], searchTags[currentTag]);
+            if(mDB==null)
+                mDB =DB.getInstant(getActivity());
+            return mDB.search(params[0], searchTags[currentTag]);
         }
 
         @Override
@@ -96,9 +98,11 @@ public class FragmentSearchInfo extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
+                if(currentTag!=position) {
 
-                currentTag = position;
-                input.setHint((String) parent.getItemAtPosition(position));
+                    currentTag = position;
+                    input.setHint((String) parent.getItemAtPosition(position));
+                }
             }
 
             @Override
@@ -133,6 +137,15 @@ public class FragmentSearchInfo extends Fragment {
             }
         });
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (DB.getInstant(getActivity()).isDirty()) {
+            new SearchTask().execute(input.getText().toString().trim());
+            DB.getInstant(getActivity()).clearDirty();
+        }
     }
 
 }

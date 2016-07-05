@@ -77,6 +77,13 @@ public class DB extends SQLiteOpenHelper {
     private static DB dbm;
     private SQLiteDatabase readableDB, writableDB;
 
+    private boolean dirtyFlag=false;
+    public boolean isDirty(){
+        return this.dirtyFlag;
+    }
+    public boolean clearDirty(){
+        return this.dirtyFlag=false;
+    }
     public static DB getInstant(Context context) {
         String dbName = Utility.getDayraName(context);
         if (dbm != null && DB_NAME.equals(dbName))
@@ -272,6 +279,7 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public void deleteContact(String id) {
+        this.dirtyFlag=true;
         removeAttendantConnections(id);
         writableDB.delete(TB_ATTEND, ATTEND_ID + " = ?",
                 new String[]{id});
@@ -403,6 +411,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public void updateContact(ContentValues values, byte[] photo, String id) {
+        this.dirtyFlag=true;
+
         writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
                 new String[]{id});
 
@@ -413,6 +423,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public void updateContact(ContentValues values, String id) {
+        this.dirtyFlag=true;
+
         writableDB.update(TB_CONTACT, values, CONTACT_ID + " = ?",
                 new String[]{id});
     }

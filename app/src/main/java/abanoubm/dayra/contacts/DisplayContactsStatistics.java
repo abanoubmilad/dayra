@@ -32,6 +32,7 @@ public class DisplayContactsStatistics extends Activity {
     private ContactStatisticsAdapter mAdapter;
     private int sortType = 0;
     private ArrayList<ContactStatistics> list;
+    private DB mDB;
 
     private class SortTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
@@ -112,7 +113,9 @@ public class DisplayContactsStatistics extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            list = DB.getInstant(getApplicationContext()).getContactsAttendanceStatistics(dayType + "");
+            if(mDB==null)
+                mDB =DB.getInstant(getApplicationContext());
+            list = mDB.getContactsAttendanceStatistics(dayType + "");
             return null;
         }
 
@@ -195,12 +198,16 @@ public class DisplayContactsStatistics extends Activity {
 
             }
         });
+        new GetAllTask().execute();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        new GetAllTask().execute();
+        if (DB.getInstant(getApplicationContext()).isDirty()) {
+            new GetAllTask().execute();
+            DB.getInstant(getApplicationContext()).clearDirty();
+        }
     }
 }

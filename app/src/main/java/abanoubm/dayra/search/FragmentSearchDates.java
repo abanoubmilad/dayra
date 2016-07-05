@@ -41,6 +41,7 @@ public class FragmentSearchDates extends Fragment {
             " MAX(" + DB.ATTEND_DAY + ")"
     };
 
+    private DB mDB;
     private class SearchDatesTask extends
             AsyncTask<Void, Void, ArrayList<ContactField>> {
         private ProgressDialog pBar;
@@ -54,8 +55,9 @@ public class FragmentSearchDates extends Fragment {
 
         @Override
         protected ArrayList<ContactField> doInBackground(Void... params) {
-
-            return DB.getInstant(getActivity())
+            if(mDB==null)
+                mDB =DB.getInstant(getActivity());
+            return mDB
                     .searchDates(targetDay, dayType + "", searchTags[currentTag]);
 
 
@@ -181,4 +183,12 @@ public class FragmentSearchDates extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (DB.getInstant(getActivity()).isDirty()) {
+            new SearchDatesTask().execute();
+            DB.getInstant(getActivity()).clearDirty();
+        }
+    }
 }

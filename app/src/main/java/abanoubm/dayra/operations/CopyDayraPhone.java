@@ -32,6 +32,7 @@ public class CopyDayraPhone extends Activity {
     private GContactsOutAdapter mAdapter;
     private int previousPosition = 0;
     private ListView lv;
+    private  DB mDB;
 
     private class CheckAllContactsTask extends AsyncTask<Boolean, Void, Void> {
         private ProgressDialog pBar;
@@ -77,7 +78,9 @@ public class CopyDayraPhone extends Activity {
 
         @Override
         protected ArrayList<ContactMobile> doInBackground(Void... params) {
-            return DB.getInstant(getApplicationContext()).getGContactsMobile(getContentResolver());
+            if(mDB==null)
+                mDB =DB.getInstant(getApplicationContext());
+            return mDB.getGContactsMobile(getContentResolver());
         }
 
         @Override
@@ -203,12 +206,17 @@ public class CopyDayraPhone extends Activity {
             }
         });
 
+        new GetContactsMobileTask().execute();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        check.setChecked(false);
-        new GetContactsMobileTask().execute();
+        if (DB.getInstant(getApplicationContext()).isDirty()) {
+            check.setChecked(false);
+            new GetContactsMobileTask().execute();
+            DB.getInstant(getApplicationContext()).clearDirty();
+        }
     }
 }

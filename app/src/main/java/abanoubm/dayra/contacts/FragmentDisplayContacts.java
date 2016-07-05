@@ -4,6 +4,7 @@ package abanoubm.dayra.contacts;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ public class FragmentDisplayContacts extends Fragment {
     private boolean isDualMode = false;
     private ContactsDisplayListAdapter mAdapter;
     private int sortType = 0;
+    private  DB mDB;
 
     private class GetAllTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
@@ -44,7 +46,9 @@ public class FragmentDisplayContacts extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            list = DB.getInstant(getActivity()).getContactsDisplayList();
+            if(mDB==null)
+                mDB =DB.getInstant(getActivity());
+            list = mDB.getContactsDisplayList();
             return null;
         }
 
@@ -174,7 +178,10 @@ public class FragmentDisplayContacts extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        new GetAllTask().execute();
+        if (DB.getInstant(getActivity()).isDirty()) {
+            new GetAllTask().execute();
+            DB.getInstant(getActivity()).clearDirty();
+        }
     }
 
     @Override
@@ -231,4 +238,10 @@ public class FragmentDisplayContacts extends Fragment {
         return root;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        new GetAllTask().execute();
+
+    }
 }

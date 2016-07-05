@@ -28,6 +28,7 @@ import abanoubm.dayra.model.ContactField;
 public class FragmentSearchBirthdays extends Fragment {
     private ContactFieldAdapter adapter;
     private String month = "0", day = "0";
+    private  DB mDB;
 
     private class SearchBDayTask extends
             AsyncTask<Void, Void, ArrayList<ContactField>> {
@@ -42,7 +43,9 @@ public class FragmentSearchBirthdays extends Fragment {
 
         @Override
         protected ArrayList<ContactField> doInBackground(Void... params) {
-            return DB.getInstant(getActivity()).searchBirthdays(Utility.produceDate(day, month));
+            if(mDB==null)
+                mDB =DB.getInstant(getActivity());
+            return mDB.searchBirthdays(Utility.produceDate(day, month));
         }
 
         @Override
@@ -138,4 +141,12 @@ public class FragmentSearchBirthdays extends Fragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (DB.getInstant(getActivity()).isDirty()) {
+            new SearchBDayTask().execute();
+            DB.getInstant(getActivity()).clearDirty();
+        }
+    }
 }

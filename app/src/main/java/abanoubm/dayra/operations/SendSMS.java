@@ -30,7 +30,7 @@ import abanoubm.dayra.model.ContactMobile;
 public class SendSMS extends Activity {
     private ListView lv;
     private ProgressDialog pBar;
-    private DB dbm;
+    private DB mDB;
     private ContactMobileAdapter mAdapter;
     private CheckBox check;
     private int previousPosition = 0;
@@ -123,7 +123,9 @@ public class SendSMS extends Activity {
 
         @Override
         protected ArrayList<ContactMobile> doInBackground(Void... params) {
-            return dbm.getContactsMobile();
+            if(mDB==null)
+                mDB =DB.getInstant(getApplicationContext());
+            return mDB.getContactsMobile();
         }
 
         @Override
@@ -202,13 +204,17 @@ public class SendSMS extends Activity {
         pBar = new ProgressDialog(SendSMS.this);
         pBar.setCancelable(false);
 
-        dbm = DB.getInstant(getApplicationContext());
+        new GetContactsMobileTask().execute();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        check.setChecked(false);
-        new GetContactsMobileTask().execute();
+        if (DB.getInstant(getApplicationContext()).isDirty()) {
+            check.setChecked(false);
+            new GetContactsMobileTask().execute();
+            DB.getInstant(getApplicationContext()).clearDirty();
+        }
     }
 }

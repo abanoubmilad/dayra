@@ -39,7 +39,7 @@ public class RegisterAttendance extends Activity {
     private TextView addBtn, subhead2;
     private ProgressDialog pBar;
     private ContactCheck contact;
-    private DB dbm;
+    private DB mDB;
     private int totalCount;
     private int dayType = 0;
     private int updatedCount;
@@ -63,7 +63,9 @@ public class RegisterAttendance extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.addDay(contact.getId(), dayType + "", targetDay);
+            if(mDB==null)
+                mDB =DB.getInstant(getApplicationContext());
+            mDB.addDay(contact.getId(), dayType + "", targetDay);
             return null;
         }
 
@@ -77,7 +79,9 @@ public class RegisterAttendance extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.removeDay(contact.getId(), dayType + "", targetDay);
+            if(mDB==null)
+                mDB =DB.getInstant(getApplicationContext());
+            mDB.removeDay(contact.getId(), dayType + "", targetDay);
             return null;
         }
 
@@ -101,8 +105,10 @@ public class RegisterAttendance extends Activity {
 
         @Override
         protected ArrayList<ContactCheck> doInBackground(String... params) {
+            if(mDB==null)
+                mDB =DB.getInstant(getApplicationContext());
             name = params[0];
-            return dbm.getDayAttendance(dayType + "", targetDay, params[0], temp);
+            return mDB.getDayAttendance(dayType + "", targetDay, params[0], temp);
         }
 
         @Override
@@ -209,8 +215,6 @@ public class RegisterAttendance extends Activity {
         pBar = new ProgressDialog(RegisterAttendance.this);
         pBar.setCancelable(false);
 
-        dbm = DB.getInstant(getApplicationContext());
-
         sname.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -253,12 +257,20 @@ public class RegisterAttendance extends Activity {
             }
         });
 
+        new GetAllUpdateDifTask()
+                .execute(sname.getText().toString().trim());
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        new GetAllUpdateDifTask()
-                .execute(sname.getText().toString().trim());
+
+        if (DB.getInstant(getApplicationContext()).isDirty()) {
+            new GetAllUpdateDifTask()
+                    .execute(sname.getText().toString().trim());
+            DB.getInstant(getApplicationContext()).clearDirty();
+        }
+
     }
 }

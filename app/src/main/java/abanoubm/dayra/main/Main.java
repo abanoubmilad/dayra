@@ -123,22 +123,11 @@ public class Main extends Activity {
 
         @Override
         protected Integer doInBackground(String... params) {
-            String inpath;
-            if (android.os.Build.VERSION.SDK_INT >= 17) {
-                inpath = getApplicationContext().getApplicationInfo().dataDir
-                        + "/databases/";
-            } else {
-                inpath = "/data/data/"
-                        + getApplicationContext().getPackageName()
-                        + "/databases/";
-            }
-            inpath += params[0];
+            // create empty db with that name
+            DB db =
+                    DB.getInstant(getApplicationContext(),
+                            params[0]);
             try {
-                // create empty db with that name
-                DB db =
-                        DB.getInstant(getApplicationContext(),
-                                params[0]);
-                db.closeDB();
 
                 FileInputStream inStream = new FileInputStream(
                         params[1]);
@@ -149,21 +138,17 @@ public class Main extends Activity {
                 inChannel.transferTo(0, inChannel.size(), outChannel);
                 inStream.close();
                 outStream.close();
-
-
-                if (DB.getInstant(getApplicationContext(),
-                        params[0]).isValidDB(getApplicationContext()))
-                    return R.string.msg_dayra_imported;
-                else
-
-                    return R.string.err_msg_invalid_file;
-
-
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
                 return R.string.err_msg_import;
 
             }
+
+            if (DB.getInstant(getApplicationContext(),
+                    params[0]).isValidDB(getApplicationContext()))
+                return R.string.msg_dayra_imported;
+            else
+                return R.string.err_msg_invalid_file;
 
 
         }
