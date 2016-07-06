@@ -21,11 +21,18 @@ public class BirthDayReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent alarmIntent) {
+
+        ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras(Utility.BDAY_ALARM_TYPE + "");
+        if (array.size() == 0) {
+            Utility.removeAlarming(context, Utility.BDAY_ALARM_TYPE);
+            return;
+        }
+
         String date = Utility.produceDateRegex(
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "",
                 (Calendar.getInstance().get(Calendar.MONTH) + 1) + "");
 
-        ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras(Utility.BDAY_ALARM_TYPE + "");
+
         int start = 7;
         Bitmap defPhoto = ((BitmapDrawable)
                 ContextCompat.getDrawable(context, R.mipmap.def)).getBitmap();
@@ -55,8 +62,8 @@ public class BirthDayReceiver extends BroadcastReceiver {
                 for (ContactField contactDay : result) {
                     NotificationCompat.Builder n = new NotificationCompat.Builder(
                             context)
-                            .setLargeIcon(contactDay.getPhoto() != null ?contactDay.getPhoto():defPhoto)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                            .setLargeIcon(contactDay.getPhoto() != null ? contactDay.getPhoto() : defPhoto)
+                            .setSmallIcon(R.mipmap.ic_launcher)
                             .setContentTitle(
                                     dayraName
                                             + " - "

@@ -1,6 +1,9 @@
 package abanoubm.dayra.main;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +14,10 @@ import android.provider.MediaStore;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.Calendar;
+
+import abanoubm.dayra.alarm.AttendanceReceiver;
+import abanoubm.dayra.alarm.BirthDayReceiver;
 
 public class Utility {
 
@@ -166,6 +173,48 @@ public class Utility {
         }
         cursor.close();
         return path;
+    }
+
+    public static void removeAlarming(Context context, int alarm_type) {
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        if (alarm_type == BDAY_ALARM_TYPE)
+            manager.cancel(PendingIntent.getBroadcast(context, 200,
+                    new Intent(context, BirthDayReceiver.class), 0));
+        else if (alarm_type == ATTEND_ALARM_TYPE)
+            manager.cancel(PendingIntent.getBroadcast(context, 100,
+                    new Intent(context, AttendanceReceiver.class), 0));
+
+
+    }
+
+    public static void addAlarming(Context context, int alarm_type) {
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        if (alarm_type == BDAY_ALARM_TYPE) {
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, 14);
+            manager.setInexactRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    1000 * 60 * 60 * 24, PendingIntent.getBroadcast(context, 200,
+                            new Intent(context, BirthDayReceiver.class), 0));
+
+        } else if (alarm_type == ATTEND_ALARM_TYPE) {
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, 19);
+            manager.setInexactRepeating(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    1000 * 60 * 60 * 24 * 8, PendingIntent.getBroadcast(context, 100,
+                            new Intent(context, AttendanceReceiver.class), 0));
+        }
+
+
     }
 
 }

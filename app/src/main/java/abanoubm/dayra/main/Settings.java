@@ -1,11 +1,7 @@
 package abanoubm.dayra.main;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -13,18 +9,12 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Calendar;
-
 import abanoubm.dayra.R;
-import abanoubm.dayra.alarm.AttendanceReceiver;
-import abanoubm.dayra.alarm.BirthDayReceiver;
 import abanoubm.dayra.alarm.DBAlarm;
 
 public class Settings extends Activity {
 
     private CheckBox attend, bday;
-    private AlarmManager manager;
-    private PendingIntent attendPIntent, bdayPIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +26,6 @@ public class Settings extends Activity {
 
         attend = (CheckBox) findViewById(R.id.attend);
         bday = (CheckBox) findViewById(R.id.bday);
-
-        manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        attendPIntent =
-                PendingIntent.getBroadcast(Settings.this, 100,
-                        new Intent(Settings.this, AttendanceReceiver.class), 0);
-        bdayPIntent = PendingIntent.getBroadcast(Settings.this, 200,
-                new Intent(Settings.this, BirthDayReceiver.class), 0);
 
         attend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,8 +69,8 @@ public class Settings extends Activity {
             Boolean[] arr = new Boolean[2];
             DBAlarm db = DBAlarm.getInstant(getApplicationContext());
             String dbname = Utility.getDayraName(getApplicationContext());
-            arr[0] = db.doesAlarmExist(Utility.ATTEND_ALARM_TYPE+"", dbname);
-            arr[1] = db.doesAlarmExist(Utility.BDAY_ALARM_TYPE+"", dbname);
+            arr[0] = db.doesAlarmExist(Utility.ATTEND_ALARM_TYPE + "", dbname);
+            arr[1] = db.doesAlarmExist(Utility.BDAY_ALARM_TYPE + "", dbname);
             return arr;
 
 
@@ -122,9 +104,9 @@ public class Settings extends Activity {
                     removeAlarm(params[0] + "", Utility.getDayraName(getApplicationContext()));
             if (!check) {
                 if (params[0] == Utility.ATTEND_ALARM_TYPE)
-                    manager.cancel(attendPIntent);
+                    Utility.removeAlarming(getApplicationContext(), Utility.ATTEND_ALARM_TYPE);
                 else
-                    manager.cancel(bdayPIntent);
+                    Utility.removeAlarming(getApplicationContext(), Utility.BDAY_ALARM_TYPE);
             }
             return null;
 
@@ -158,23 +140,10 @@ public class Settings extends Activity {
             boolean check = DBAlarm.getInstant(getApplicationContext()).
                     addAlarm(params[0] + "", Utility.getDayraName(getApplicationContext()));
             if (check) {
-                if (params[0] == Utility.ATTEND_ALARM_TYPE) {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, 19);
-                    manager.setInexactRepeating(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.getTimeInMillis(),
-                            1000 * 60 * 60 * 24 * 8, attendPIntent);
-                } else {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(Calendar.HOUR_OF_DAY, 14);
-                    manager.setInexactRepeating(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.getTimeInMillis(),
-                            1000 * 60 * 60 * 24, bdayPIntent);
-                }
+                if (params[0] == Utility.ATTEND_ALARM_TYPE)
+                    Utility.addAlarming(getApplicationContext(), Utility.ATTEND_ALARM_TYPE);
+                else
+                    Utility.addAlarming(getApplicationContext(), Utility.BDAY_ALARM_TYPE);
             }
             return null;
 

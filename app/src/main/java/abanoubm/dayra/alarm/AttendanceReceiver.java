@@ -21,6 +21,13 @@ public class AttendanceReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent alarmIntent) {
+
+        ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras(Utility.ATTEND_ALARM_TYPE + "");
+        if (array.size() == 0) {
+            Utility.removeAlarming(context, Utility.ATTEND_ALARM_TYPE);
+            return;
+        }
+
         Calendar cal = Calendar.getInstance();
         cal.roll(Calendar.MONTH, false);
         String pastMonth = Utility.produceDateRegex(
@@ -30,7 +37,6 @@ public class AttendanceReceiver extends BroadcastReceiver {
         Bitmap defPhoto = ((BitmapDrawable)
                 ContextCompat.getDrawable(context, R.mipmap.def)).getBitmap();
 
-        ArrayList<String> array = DBAlarm.getInstant(context).getAlarmDayras(Utility.ATTEND_ALARM_TYPE + "");
         int start = 70000;
         for (String dayraName : array) {
             ArrayList<ContactField> result = DB.getInstant(context, dayraName).getContactsAttendanceAbsence(pastMonth);
