@@ -1,6 +1,5 @@
 package abanoubm.dayra.contact;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.location.Location;

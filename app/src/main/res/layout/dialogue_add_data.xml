@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
-        android:text="@string/dialogue.total_contacts"
+        android:text="@string/dialogue.total.contacts"
         android:textColor="@color/black"
         android:textSize="@dimen/font_larger" />
 
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
-        android:text="@string/dialogue.added_contacts"
+        android:text="@string/dialogue.added.contacts"
         android:textColor="@color/black"
         android:textSize="@dimen/font_larger" />
 
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
-        android:text="@string/dialogue.updated_contacts"
+        android:text="@string/dialogue.updated.contacts"
         android:textColor="@color/black"
         android:textSize="@dimen/font_larger" />
 
@@ -54,7 +54,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
-        android:text="@string/dialogue.updated_contacts"
         android:textColor="@color/black"
         android:textSize="@dimen/font_larger" />
 
