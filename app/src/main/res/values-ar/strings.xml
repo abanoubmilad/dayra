@@ -74,8 +74,7 @@
     <string name="subhead.divide">تقسيم الدايره الحالية</string>
     <string name="label.divide.express">تقسيم الدايره الحالية الى اكثر من دايره\nمع الاحتفاظ بالدايره الحالية كما هى\n\nتقسيم الدايره الحالية بواسطة</string>
     <string name="msg.dayra.divided">تم تقسيم الدايره</string>
-    <string name="label.add.express">أقرأ التعليمات بعناية قبل استخدام هذه الخاصية\nاحتفظ دوما بنسخة احتياطية من الدايره عن طريق استخدام تصدير دايره file\n\nاضافة بيانات للدايره الحالية باستخدام دايره file أو دايره xls\nاضافة البيانات تتم كالتالى:\n\n — فى حالة العثور على اسم جديد\nيتم اضافته مباشرة الى الدايره الحالية\n\n — فى حالة العثور على اسم موجود بالفعل فى الدايره الحالية\nيتم اضافة البيانات المُختارة الى هذا الاسم\nتنبيه فى هذه الحالة يتم استبدال البيانات المُختارة لهذا الاسم بالبيانات الجديدة</string>
-    <string name="btn.browse.dayra">تحديد الدايره التى سيتم الاستبدال بواستطها</string>
+    <string name="label.add.express">أقرأ التعليمات بعناية قبل استخدام هذه الخاصية\nاحتفظ دوما بنسخة احتياطية من الدايره عن طريق استخدام تصدير دايره file\n\nاضافة بيانات للدايره الحالية باستخدام دايره file أو دايره xls\nاضافة البيانات تتم كالتالى:\n\n — فى حالة العثور على اسم جديد\nيتم اضافته مباشرة الى الدايره الحالية\n\n — فى حالة العثور على اسم موجود بالفعل فى الدايره الحالية\nيتم تحديث البيانات المُختارة\nتنبيه يتم استبدال البيانات المُختارة لهذا الاسم بالبيانات الجديدة</string>
     <string name="label.choose.site">اختر المنطقة</string>
     <string name="label.choose.street">اختر الشارع</string>
     <string name="label.choose.home">اختر المنزل</string>
@@ -118,6 +117,7 @@
 
 
     <string name="btn.yes">نعم</string>
+    <string name="btn.ok">حسنا</string>
     <string name="btn.confirm">تأكيد</string>
 
     <string name="dialogue.create">اكتب اسم الدايره\nبامكانك استخدام حروف عربية انجليزية ارقام مسافات</string>
@@ -329,9 +329,12 @@
     <string name="subhead.information.table">عمل جدول بيانات</string>
     <string name="msg.no.locations">لا توجد عناوين</string>
     <string name="any.year">اى سنة</string>
-    <string name="msg.dayra.no.divider">لم يتم العثور على قيم لتقسيم الدايره بواسطتها</string>
-    <string name="label.add.express.fields">اختيار نوع البيانات التى سيتم استبدالها فى حالة العثور على نفس الاسم</string>
+    <string name="msg.dayra.no.divider">لم يتم العثور على قيم كافية لتقسيم الدايره بواسطتها</string>
+    <string name="label.add.express.fields">اختر نوع البيانات التى سيتم تحديثها فى حالة العثور على اسم موجود فى الدايره الحالية</string>
     <string name="label.noti.attend">اخر حضور</string>
+    <string name="dialogue.total.contacts">عدد الاسماء الموجودة فى الدايره المُختارة</string>
+    <string name="dialogue.updated.contacts">عدد الاسماء التى تم تحديث بياناتها</string>
+    <string name="dialogue.added.contacts">عدد الاسماء التى تم اضافتها</string>
 
 
 </resources>

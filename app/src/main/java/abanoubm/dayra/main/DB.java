@@ -8,7 +8,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
@@ -200,52 +199,53 @@ public class DB extends SQLiteOpenHelper {
             //       CONTACT_LAST_VISIT = "lvisit",
             //     CONTACT_LAST_ATTEND = "lattend";
 
-//            Cursor c = db.query(TB_CONTACT,
-//                    new String[]{
-//                            CONTACT_ID,
-//                            "pdir",
-//                            "dates",
-//                            "lvisit",
-//                    }, null, null, null, null, null);
-//            if (c.moveToFirst()) {
-//                ContentValues values;
-//                db.beginTransaction();
-//                String id;
-//                String date;
-//                do {
-//                    id = c.getString(0);
-//
-//                    values = new ContentValues();
-//                    values.put(PHOTO_ID, id);
-//                    values.put(PHOTO_BLOB, Utility.getBytes(Utility.getBitmap(c.getString(1))));
-//                    db.insert(TB_PHOTO, null, values);
-//
-//                    date = Utility.migirateDate(c.getString(3));
-//                    if (date.length() != 0) {
-//
-//                        values = new ContentValues();
-//                        values.put(ATTEND_ID, id);
-//                        values.put(ATTEND_TYPE, "0");
-//                        values.put(ATTEND_DAY, date);
-//                        db.insert(TB_ATTEND, null, values);
-//                    }
-//                    String[] arr = c.getString(2).split(",");
-//
-//                    for (int i = 0; i < arr.length; i++) {
-//                        date = Utility.migirateDate(arr[i]);
-//                        if (date.length() != 0) {
-//                            values = new ContentValues();
-//                            values.put(ATTEND_ID, id);
-//                            values.put(ATTEND_TYPE, "1");
-//                            values.put(ATTEND_DAY, date);
-//                            db.insert(TB_ATTEND, null, values);
-//                        }
-//                    }
-//                } while (c.moveToNext());
-//                c.close();
-//                db.endTransaction();
-//
-//            }
+            Cursor c = db.query(TB_CONTACT,
+                    new String[]{
+                            CONTACT_ID,
+                            "pdir",
+                            "dates",
+                            "lvisit",
+                    }, null, null, null, null, null);
+            if (c.moveToFirst()) {
+                ContentValues values;
+                db.beginTransaction();
+                String id;
+                String date;
+                do {
+                    id = c.getString(0);
+
+                    values = new ContentValues();
+                    values.put(PHOTO_ID, id);
+                    values.put(PHOTO_BLOB, Utility.getBytes(Utility.getBitmap(c.getString(1))));
+                    db.insert(TB_PHOTO, null, values);
+
+                    date = Utility.migirateDate(c.getString(3));
+                    if (date.length() != 0) {
+
+                        values = new ContentValues();
+                        values.put(ATTEND_ID, id);
+                        values.put(ATTEND_TYPE, "0");
+                        values.put(ATTEND_DAY, date);
+                        db.insert(TB_ATTEND, null, values);
+                    }
+                    String[] arr = c.getString(2).split(",");
+
+                    for (int i = 0; i < arr.length; i++) {
+                        date = Utility.migirateDate(arr[i]);
+                        if (date.length() != 0) {
+                            values = new ContentValues();
+                            values.put(ATTEND_ID, id);
+                            values.put(ATTEND_TYPE, "1");
+                            values.put(ATTEND_DAY, date);
+                            db.insert(TB_ATTEND, null, values);
+                        }
+                    }
+                } while (c.moveToNext());
+                c.close();
+                db.setTransactionSuccessful();
+                db.endTransaction();
+
+            }
 
 
         }
@@ -303,7 +303,6 @@ public class DB extends SQLiteOpenHelper {
 
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             readableDB.close();
             writableDB.close();
             dbm = null;
@@ -405,7 +404,10 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public void AddFromDayraFile(ArrayList<String[]> contacts,
-                                 ArrayList<Integer> tags) {
+                                 ArrayList<Integer> tags,IntWrapper totalCounter, IntWrapper addedCounter, IntWrapper updatedCounter) {
+        int addedCounterTemp = 0;
+        int updatedCounterTemp = 0;
+
         String[] colNames = {
                 CONTACT_NAME, CONTACT_CLASS_YEAR,
                 CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
@@ -421,46 +423,90 @@ public class DB extends SQLiteOpenHelper {
             tagged[itr++] = colNames[index];
         }
 
-        for (String[] contact : contacts) {
-            String id = getNameId(contact[0]);
+        if (tags.size() > 0) {
+            for (String[] contact : contacts) {
+                String id = getNameId(contact[0]);
 
-            if (id.equals("-1")) {
-                values = new ContentValues();
-                values.put(CONTACT_NAME, contact[0]);
-                values.put(CONTACT_CLASS_YEAR, contact[1]);
-                values.put(CONTACT_STUDY_WORK, contact[2]);
-                values.put(CONTACT_MOB1, contact[3]);
-                values.put(CONTACT_MOB2, contact[4]);
-                values.put(CONTACT_MOB3, contact[5]);
-                values.put(CONTACT_LPHONE, contact[6]);
-                values.put(CONTACT_EMAIL, contact[7]);
-                values.put(CONTACT_SITE, contact[8]);
-                values.put(CONTACT_ST, contact[9]);
-                values.put(CONTACT_HOME, contact[10]);
-                values.put(CONTACT_ADDR, contact[11]);
-                values.put(CONTACT_NOTES, contact[12]);
-                values.put(CONTACT_SUPERVISOR, contact[13]);
+                if (id.equals("-1")) {
+                    addedCounterTemp++;
+                    ;
+                    values = new ContentValues();
+                    values.put(CONTACT_NAME, contact[0]);
+                    values.put(CONTACT_CLASS_YEAR, contact[1]);
+                    values.put(CONTACT_STUDY_WORK, contact[2]);
+                    values.put(CONTACT_MOB1, contact[3]);
+                    values.put(CONTACT_MOB2, contact[4]);
+                    values.put(CONTACT_MOB3, contact[5]);
+                    values.put(CONTACT_LPHONE, contact[6]);
+                    values.put(CONTACT_EMAIL, contact[7]);
+                    values.put(CONTACT_SITE, contact[8]);
+                    values.put(CONTACT_ST, contact[9]);
+                    values.put(CONTACT_HOME, contact[10]);
+                    values.put(CONTACT_ADDR, contact[11]);
+                    values.put(CONTACT_NOTES, contact[12]);
+                    values.put(CONTACT_SUPERVISOR, contact[13]);
 
-                values.put(CONTACT_BDAY, contact[14]);
+                    values.put(CONTACT_BDAY, contact[14]);
 
-                values.put(CONTACT_MAPLAT, contact[15]);
-                values.put(CONTACT_MAPLNG, contact[16]);
-                values.put(CONTACT_MAPZOM, contact[17]);
+                    values.put(CONTACT_MAPLAT, contact[15]);
+                    values.put(CONTACT_MAPLNG, contact[16]);
+                    values.put(CONTACT_MAPZOM, contact[17]);
 
-                addContact(values, null);
+                    addContact(values, null);
 
-            } else {
-                values = new ContentValues();
-                itr = 0;
-                for (Integer index : tags)
-                    values.put(tagged[itr++], contact[index]);
+                } else {
+                    updatedCounterTemp++;
+                    ;
 
-                updateContact(values, id);
+                    values = new ContentValues();
+                    itr = 0;
+                    for (Integer index : tags)
+                        values.put(tagged[itr++], contact[index]);
+
+                    updateContact(values, id);
+                }
+
+
             }
+        } else {
+            for (String[] contact : contacts) {
+                if (getNameId(contact[0]).equals("-1")) {
+                    addedCounterTemp++;
+                    ;
+
+                    values = new ContentValues();
+                    values.put(CONTACT_NAME, contact[0]);
+                    values.put(CONTACT_CLASS_YEAR, contact[1]);
+                    values.put(CONTACT_STUDY_WORK, contact[2]);
+                    values.put(CONTACT_MOB1, contact[3]);
+                    values.put(CONTACT_MOB2, contact[4]);
+                    values.put(CONTACT_MOB3, contact[5]);
+                    values.put(CONTACT_LPHONE, contact[6]);
+                    values.put(CONTACT_EMAIL, contact[7]);
+                    values.put(CONTACT_SITE, contact[8]);
+                    values.put(CONTACT_ST, contact[9]);
+                    values.put(CONTACT_HOME, contact[10]);
+                    values.put(CONTACT_ADDR, contact[11]);
+                    values.put(CONTACT_NOTES, contact[12]);
+                    values.put(CONTACT_SUPERVISOR, contact[13]);
+
+                    values.put(CONTACT_BDAY, contact[14]);
+
+                    values.put(CONTACT_MAPLAT, contact[15]);
+                    values.put(CONTACT_MAPLNG, contact[16]);
+                    values.put(CONTACT_MAPZOM, contact[17]);
+
+                    addContact(values, null);
+
+                }
 
 
+            }
         }
 
+        addedCounter.setCounter(addedCounterTemp);
+        updatedCounter.setCounter(updatedCounterTemp);
+        totalCounter.setCounter(contacts.size());
     }
 
     public String addContact(ContentValues values, byte[] photo) {
@@ -1376,45 +1422,81 @@ public class DB extends SQLiteOpenHelper {
             int rowCounter = 1;
             Cell[] rowCells;
             String contactName;
-            String id;
-            while (rowCounter < rows) {
-                rowCells = sheet.getRow(rowCounter);
-                contactName = rowCells[0].getContents().trim();
-                id = getNameId(contactName);
-                if (id.equals("-1")) {
-                    values = new ContentValues();
-                    values.put(CONTACT_NAME, contactName);
-                    values.put(CONTACT_CLASS_YEAR, rowCells[1].getContents().trim());
-                    values.put(CONTACT_STUDY_WORK, rowCells[2].getContents().trim());
-                    values.put(CONTACT_MOB1, rowCells[3].getContents().trim());
-                    values.put(CONTACT_MOB2, rowCells[4].getContents().trim());
-                    values.put(CONTACT_MOB3, rowCells[5].getContents().trim());
-                    values.put(CONTACT_LPHONE, rowCells[6].getContents().trim());
-                    values.put(CONTACT_EMAIL, rowCells[7].getContents().trim());
-                    values.put(CONTACT_SITE, rowCells[8].getContents().trim());
-                    values.put(CONTACT_ST, rowCells[9].getContents().trim());
-                    values.put(CONTACT_HOME, rowCells[10].getContents().trim());
-                    values.put(CONTACT_ADDR, rowCells[11].getContents().trim());
-                    values.put(CONTACT_NOTES, rowCells[12].getContents().trim());
-                    values.put(CONTACT_SUPERVISOR, rowCells[13].getContents().trim());
+            if (tags.size() > 0) {
+                String id;
 
-                    values.put(CONTACT_MAPLAT, 0);
-                    values.put(CONTACT_MAPLNG, 0);
-                    values.put(CONTACT_MAPZOM, 0);
-                    values.put(CONTACT_BDAY, "");
+                while (rowCounter < rows) {
+                    rowCells = sheet.getRow(rowCounter);
+                    contactName = rowCells[0].getContents().trim();
+                    id = getNameId(contactName);
+                    if (id.equals("-1")) {
+                        values = new ContentValues();
+                        values.put(CONTACT_NAME, contactName);
+                        values.put(CONTACT_CLASS_YEAR, rowCells[1].getContents().trim());
+                        values.put(CONTACT_STUDY_WORK, rowCells[2].getContents().trim());
+                        values.put(CONTACT_MOB1, rowCells[3].getContents().trim());
+                        values.put(CONTACT_MOB2, rowCells[4].getContents().trim());
+                        values.put(CONTACT_MOB3, rowCells[5].getContents().trim());
+                        values.put(CONTACT_LPHONE, rowCells[6].getContents().trim());
+                        values.put(CONTACT_EMAIL, rowCells[7].getContents().trim());
+                        values.put(CONTACT_SITE, rowCells[8].getContents().trim());
+                        values.put(CONTACT_ST, rowCells[9].getContents().trim());
+                        values.put(CONTACT_HOME, rowCells[10].getContents().trim());
+                        values.put(CONTACT_ADDR, rowCells[11].getContents().trim());
+                        values.put(CONTACT_NOTES, rowCells[12].getContents().trim());
+                        values.put(CONTACT_SUPERVISOR, rowCells[13].getContents().trim());
 
-                    addContact(values, null);
+                        values.put(CONTACT_MAPLAT, 0);
+                        values.put(CONTACT_MAPLNG, 0);
+                        values.put(CONTACT_MAPZOM, 0);
+                        values.put(CONTACT_BDAY, "");
 
-                } else if (tags.size() > 0) {
-                    values = new ContentValues();
-                    itr = 0;
-                    for (Integer index : tags)
-                        values.put(tagged[itr++], rowCells[index].getContents().trim());
-                    updateContact(values, id);
+                        addContact(values, null);
+
+                    } else {
+                        values = new ContentValues();
+                        itr = 0;
+                        for (Integer index : tags)
+                            values.put(tagged[itr++], rowCells[index].getContents().trim());
+                        updateContact(values, id);
+                    }
+
+                    rowCounter++;
                 }
+            } else {
+                while (rowCounter < rows) {
+                    rowCells = sheet.getRow(rowCounter);
+                    contactName = rowCells[0].getContents().trim();
+                    if (getNameId(contactName).equals("-1")) {
+                        values = new ContentValues();
+                        values.put(CONTACT_NAME, contactName);
+                        values.put(CONTACT_CLASS_YEAR, rowCells[1].getContents().trim());
+                        values.put(CONTACT_STUDY_WORK, rowCells[2].getContents().trim());
+                        values.put(CONTACT_MOB1, rowCells[3].getContents().trim());
+                        values.put(CONTACT_MOB2, rowCells[4].getContents().trim());
+                        values.put(CONTACT_MOB3, rowCells[5].getContents().trim());
+                        values.put(CONTACT_LPHONE, rowCells[6].getContents().trim());
+                        values.put(CONTACT_EMAIL, rowCells[7].getContents().trim());
+                        values.put(CONTACT_SITE, rowCells[8].getContents().trim());
+                        values.put(CONTACT_ST, rowCells[9].getContents().trim());
+                        values.put(CONTACT_HOME, rowCells[10].getContents().trim());
+                        values.put(CONTACT_ADDR, rowCells[11].getContents().trim());
+                        values.put(CONTACT_NOTES, rowCells[12].getContents().trim());
+                        values.put(CONTACT_SUPERVISOR, rowCells[13].getContents().trim());
 
-                rowCounter++;
+                        values.put(CONTACT_MAPLAT, 0);
+                        values.put(CONTACT_MAPLNG, 0);
+                        values.put(CONTACT_MAPZOM, 0);
+                        values.put(CONTACT_BDAY, "");
+
+                        addContact(values, null);
+
+                    }
+
+                    rowCounter++;
+                }
             }
+
             workbook.close();
             return true;
         } catch (Exception e) {

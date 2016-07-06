@@ -76,9 +76,8 @@
     <string name="subhead.divide">Divid current dayra</string>
     <string name="label.divide.express">Create dayra(s) by dividing the current dayra,\nThe current dayra is kept unchanged.\n\ndivide current dayra by:</string>
     <string name="msg.dayra.divided">dayra divided</string>
-    <string name="label.add.express">Read carefully before using this feature\n( always store a backup of dayra by using export dayra file )\n\nAdding data to the current dayra using dayra xls or dayra file,\nData is added as following:\n\n — If a new contact ( name ) is found,\nit will be added directly to the current dayra\n\n — If an existing contact ( name ) is found,\nthe chosen date fields will be add to this contact\nNOTE This will replace the chosen data fields of this contact by the new values.</string>
-    <string name="label.add.express.fields">Choose data fields to be replaced in case of contact name matching</string>
-    <string name="btn.browse.dayra">browse dayra to replace data with</string>
+    <string name="label.add.express">Read carefully before using this feature\n( always store a backup of dayra by using export dayra file )\n\nAdding data to the current dayra using dayra xls or dayra file,\nData is added as following:\n\n — If a new contact ( name ) is found,\nit will be added directly to the current dayra\n\n — If an existing contact ( name ) is found,\nthe chosen date fields will be updated\nNOTE This will replace the chosen data fields of this contact by the new values.</string>
+    <string name="label.add.express.fields">Choose data fields to be updated in case of contact name matching</string>
     <string name="label.choose.site">Choose site</string>
     <string name="label.choose.street">Choose street</string>
     <string name="label.choose.home">Choose home</string>
@@ -124,6 +123,7 @@
     <string name="select.day">Select day</string>
 
     <string name="btn.yes">Yes</string>
+    <string name="btn.ok">OK</string>
     <string name="btn.confirm">Confirm</string>
 
     <string name="dialogue.create">Write dayra\'s name,\nYou can use English/Arabic alphabet, numbers or spaces </string>
@@ -132,6 +132,10 @@
     <string name="dialogue.reset">Are you sure you want to reset ?\nNo modifications will be saved, orgional data will be restored</string>
     <string name="dialogue.delete.dayra">Are you sure you want to delete this dayra ?\nThis action can not de undone, always keep a backup of dayra</string>
 
+    <string name="dialogue.total.contacts">Total number of contacts in the chosen dayra</string>
+    <string name="dialogue.added.contacts">Number of added contacts (new contacts)</string>
+    <string name="dialogue.updated.contacts">Number of updated contacts (non-new contacts)</string>
+
     <string name="label.attend.max">last attendance date</string>
     <string name="label.attend.min">first attendance date</string>
     <string name="label.attend.count">attendance times</string>
@@ -139,7 +143,7 @@
 
     <string name="label.dayra.xls">dayra xls</string>
     <string name="label.dayra.file">dayra file</string>
-    <string name="msg.dayra.no.divider">No entries found for the chosen divider (divide by)</string>
+    <string name="msg.dayra.no.divider">No enough entries found for the chosen divider (divide by)</string>
 
     <string-array name="attendace_report_header">
         <item>Attendance type</item>

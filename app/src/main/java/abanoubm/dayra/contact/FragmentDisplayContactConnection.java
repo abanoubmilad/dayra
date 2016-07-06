@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,11 +98,19 @@ public class FragmentDisplayContactConnection extends Fragment {
 
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        new GetAllConnectionsTask().execute();
 
+    }
     @Override
     public void onResume() {
         super.onResume();
-        new GetAllConnectionsTask().execute();
+        if (DB.getInstant(getActivity()).isDirty()) {
+            new GetAllConnectionsTask().execute();
+            DB.getInstant(getActivity()).clearDirty();
+        }
     }
 
 }

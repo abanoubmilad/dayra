@@ -2,7 +2,7 @@ package abanoubm.dayra.model;
 
 public class IntWrapper {
 
-    private int counter;
+    private int counter = 0;
 
     public int getCounter() {
         return counter;
@@ -12,8 +12,5 @@ public class IntWrapper {
         this.counter = counter;
     }
 
-    public IntWrapper() {
-        this.counter = 0;
-    }
 
 }

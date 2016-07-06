@@ -5,29 +5,27 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 public class DBAdder extends SQLiteOpenHelper {
-    private static String DB_PATH = "";
-    private SQLiteDatabase sdb;
+    private SQLiteDatabase readableDatabase;
 
-    public DBAdder(Context context, String dbName, String path) {
-        super(context, dbName, null, DB.DB_VERSION);
-        DB_PATH = path;
+    public DBAdder(Context context, String path) {
+        super(context, path, null, DB.DB_VERSION);
     }
 
     public boolean checkDB() {
         try {
-            sdb = SQLiteDatabase.openDatabase(DB_PATH, null,
-                    SQLiteDatabase.OPEN_READONLY);
+            readableDatabase = getWritableDatabase();
 
 //            sdb.query(TB_ATTEND,
 //                    new String[]{ATTEND_ID, ATTEND_DAY, ATTEND_TYPE}, null, null, null, null, null, "1").close();
 //            sdb.query(TB_CONNECTION,
 //                    new String[]{CONN_A, CONN_B}, null, null, null, null, null, "1").close();
 
-            sdb.query(DB.TB_CONTACT, new String[]{
+            readableDatabase.query(DB.TB_CONTACT, new String[]{
                     DB.CONTACT_ADDR,
                     DB.CONTACT_BDAY,
                     DB.CONTACT_CLASS_YEAR,
@@ -59,10 +57,12 @@ public class DBAdder extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
+
         String sql;
         if (arg1 < 2) {
             sql = "create table " + DB.TB_CONNECTION + " ( " + DB.CONN_A + " integer, "
@@ -72,7 +72,7 @@ public class DBAdder extends SQLiteOpenHelper {
         }
         if (arg1 < 3) {
 
-            sql = "alter table " + DB.TB_CONTACT + " add column " + DB.CONTACT_HOME + " text";
+            sql = "alter table " + DB.TB_CONTACT + " add column " + DB.CONTACT_HOME + " text default ''";
             db.execSQL(sql);
 
             sql = "create table " + DB.TB_ATTEND + " ( " + DB.ATTEND_ID + " integer, "
@@ -85,53 +85,63 @@ public class DBAdder extends SQLiteOpenHelper {
                     + DB.PHOTO_BLOB + " blob)";
             db.execSQL(sql);
 
-
             // modifications over data
-            final String CONTACT_PHOTO = "pdir",
-                    CONTACT_ATTEND_DATES = "dates",
-                    CONTACT_LAST_VISIT = "lvisit",
-                    CONTACT_LAST_ATTEND = "lattend";
+            //    final String CONTACT_PHOTO = "pdir",
+            ///          CONTACT_ATTEND_DATES = "dates",
+            //       CONTACT_LAST_VISIT = "lvisit",
+            //     CONTACT_LAST_ATTEND = "lattend";
 
             Cursor c = db.query(DB.TB_CONTACT,
                     new String[]{
                             DB.CONTACT_ID,
-                            CONTACT_PHOTO,
-                            CONTACT_ATTEND_DATES,
-                            CONTACT_LAST_VISIT,
+                            "pdir",
+                            "dates",
+                            "lvisit",
                     }, null, null, null, null, null);
             if (c.moveToFirst()) {
                 ContentValues values;
                 db.beginTransaction();
+                String id;
+                String date;
                 do {
+                    id = c.getString(0);
 
                     values = new ContentValues();
-                    values.put(DB.PHOTO_ID, c.getString(0));
+                    values.put(DB.PHOTO_ID, id);
                     values.put(DB.PHOTO_BLOB, Utility.getBytes(Utility.getBitmap(c.getString(1))));
                     db.insert(DB.TB_PHOTO, null, values);
-                    if (c.getString(3).length() != 0) {
+
+                    date = Utility.migirateDate(c.getString(3));
+                    if (date.length() != 0) {
+
                         values = new ContentValues();
-                        values.put(DB.ATTEND_ID, c.getString(0));
+                        values.put(DB.ATTEND_ID, id);
                         values.put(DB.ATTEND_TYPE, "0");
-                        values.put(DB.ATTEND_DAY, Utility.migirateDate(c.getString(3)));
+                        values.put(DB.ATTEND_DAY, date);
                         db.insert(DB.TB_ATTEND, null, values);
                     }
                     String[] arr = c.getString(2).split(",");
-                    values = new ContentValues();
+
                     for (int i = 0; i < arr.length; i++) {
-                        if (arr[i].length() != 0) {
-                            values.put(DB.ATTEND_ID, c.getString(0));
+                        date = Utility.migirateDate(arr[i]);
+                        if (date.length() != 0) {
+                            values = new ContentValues();
+                            values.put(DB.ATTEND_ID, id);
                             values.put(DB.ATTEND_TYPE, "1");
-                            values.put(DB.ATTEND_DAY, Utility.migirateDate(arr[i]));
+                            values.put(DB.ATTEND_DAY, date);
+                            db.insert(DB.TB_ATTEND, null, values);
                         }
                     }
-                } while (c.moveToFirst());
+                } while (c.moveToNext());
                 c.close();
+                db.setTransactionSuccessful();
                 db.endTransaction();
 
             }
 
 
         }
+
     }
 
 
@@ -162,7 +172,7 @@ public class DBAdder extends SQLiteOpenHelper {
         String selectQuery = "SELECT " + sel +
                 " FROM " + DB.TB_CONTACT;
 
-        Cursor c = sdb.rawQuery(selectQuery, null);
+        Cursor c = readableDatabase.rawQuery(selectQuery, null);
 
         ArrayList<String[]> result = new ArrayList<>(
                 c.getCount());
@@ -199,7 +209,7 @@ public class DBAdder extends SQLiteOpenHelper {
     }
 
     public void close() {
-        sdb.close();
+        readableDatabase.close();
     }
 
 }

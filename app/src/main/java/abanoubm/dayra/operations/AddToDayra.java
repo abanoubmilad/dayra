@@ -1,11 +1,13 @@
 package abanoubm.dayra.operations;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -21,6 +23,7 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.DBAdder;
 import abanoubm.dayra.main.Utility;
+import abanoubm.dayra.model.IntWrapper;
 
 public class AddToDayra extends Activity {
     private static final int IMPORT_FILE = 1;
@@ -31,6 +34,9 @@ public class AddToDayra extends Activity {
 
     private class AddFromDayraFileTask extends AsyncTask<Void, Void, Integer> {
         private ProgressDialog pBar;
+        private IntWrapper addedCounter = new IntWrapper(),
+                updatedCounter = new IntWrapper(),
+                totalCounter = new IntWrapper();
 
         @Override
         protected void onPreExecute() {
@@ -44,6 +50,23 @@ public class AddToDayra extends Activity {
         @Override
         protected void onPostExecute(Integer result) {
             pBar.dismiss();
+            LayoutInflater li = LayoutInflater.from(getApplicationContext());
+            View View = li.inflate(R.layout.dialogue_add_data, null, false);
+            final AlertDialog ad = new AlertDialog.Builder(AddToDayra.this)
+                    .setCancelable(true).create();
+            ad.setView(View, 0, 0, 0, 0);
+            ad.show();
+
+            ((TextView) View.findViewById(R.id.total)).setText(totalCounter.getCounter() + "");
+            ((TextView) View.findViewById(R.id.added)).setText(addedCounter.getCounter() + "");
+            ((TextView) View.findViewById(R.id.updated)).setText(updatedCounter.getCounter() + "");
+
+            View.findViewById(R.id.yesBtn).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ad.dismiss();
+                }
+            });
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT)
                     .show();
         }
@@ -52,10 +75,10 @@ public class AddToDayra extends Activity {
         protected Integer doInBackground(Void... params) {
 
             DBAdder adder = new DBAdder(getApplicationContext(),
-                    extr_dbname, extr_path);
+                    extr_path);
             if (adder.checkDB()) {
                 DB.getInstant(getApplicationContext()).AddFromDayraFile(
-                        adder.getContactsData(), tags);
+                        adder.getContactsData(), tags, totalCounter, addedCounter, updatedCounter);
                 adder.close();
                 return R.string.msg_dayra_replaced;
             } else
@@ -105,7 +128,7 @@ public class AddToDayra extends Activity {
         final CheckBox selectall, mobile1, mobile2, mobile3,
                 lphone, addr, supervisor, comm,
                 email, study_work, class_year, site,
-                street,home;
+                street, home;
 
         selectall = (CheckBox) findViewById(R.id.selectall);
 
