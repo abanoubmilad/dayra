@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/grey"
+    android:layout_margin="10dp"
     android:orientation="horizontal">
 
     <ImageView
@@ -9,7 +9,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_weight="1"
+        android:background="@color/grey"
         android:padding="5dp"
         android:src="@mipmap/ic_delete2" />
 
@@ -18,7 +21,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_weight="1"
+        android:background="@color/grey"
         android:padding="5dp"
         android:src="@mipmap/ic_save" />
 
