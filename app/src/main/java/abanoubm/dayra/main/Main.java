@@ -124,9 +124,8 @@ public class Main extends Activity {
         @Override
         protected Integer doInBackground(String... params) {
             // create empty db with that name
-            DB db =
                     DB.getInstant(getApplicationContext(),
-                            params[0]);
+                            params[0]).closeDB();
             try {
 
                 FileInputStream inStream = new FileInputStream(
@@ -139,7 +138,6 @@ public class Main extends Activity {
                 inStream.close();
                 outStream.close();
             } catch (IOException e) {
-                e.printStackTrace();
                 return R.string.err_msg_import;
 
             }

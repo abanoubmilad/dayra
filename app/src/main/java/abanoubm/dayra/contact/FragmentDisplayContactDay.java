@@ -216,10 +216,14 @@ public class FragmentDisplayContactDay extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                mAdapterMonths.clear();
-                mAdapterDays.clear();
-                chosenYear = mAdapterYears.getItem(position);
-                new GetMonthsTask().execute();
+                String temp = mAdapterYears.getItem(position);
+                if (!temp.equals(chosenYear)) {
+                    mAdapterMonths.clear();
+                    mAdapterDays.clear();
+                    chosenYear = temp;
+                    mAdapterYears.setSelectedIndex(position);
+                    new GetMonthsTask().execute();
+                }
 
             }
         });
@@ -227,9 +231,13 @@ public class FragmentDisplayContactDay extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
-                mAdapterDays.clear();
-                chosenMonth = mAdapterMonths.getItem(position);
-                new GetDaysTask().execute();
+                String temp = mAdapterMonths.getItem(position);
+                if (!temp.equals(chosenMonth)) {
+                    mAdapterDays.clear();
+                    chosenMonth = temp;
+                    mAdapterMonths.setSelectedIndex(position);
+                    new GetDaysTask().execute();
+                }
             }
         });
 

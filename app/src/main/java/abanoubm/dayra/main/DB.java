@@ -171,7 +171,6 @@ public class DB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
-        Log.i("ana v", arg1 + "");
 
         String sql;
         if (arg1 < 2) {
@@ -184,45 +183,16 @@ public class DB extends SQLiteOpenHelper {
 
             sql = "alter table " + TB_CONTACT + " add column " + CONTACT_HOME + " text default ''";
             db.execSQL(sql);
-            Log.i("ana v", sql);
 
             sql = "create table " + TB_ATTEND + " ( " + ATTEND_ID + " integer, "
                     + ATTEND_TYPE + " integer, "
                     + ATTEND_DAY + " integer, " +
                     "primary key (" + ATTEND_ID + "," + ATTEND_TYPE + "," + ATTEND_DAY + "))";
             db.execSQL(sql);
-            Log.i("ana v", sql);
 
             sql = "create table " + TB_PHOTO + " ( " + PHOTO_ID + " integer primary key, "
                     + PHOTO_BLOB + " blob)";
             db.execSQL(sql);
-            Log.i("ana v", sql);
-
-            db.query(TB_ATTEND,
-                    new String[]{ATTEND_ID, ATTEND_DAY, ATTEND_TYPE}, null, null, null, null, null, "1").close();
-            db.query(TB_CONTACT, new String[]{
-                    CONTACT_ADDR,
-                    CONTACT_BDAY,
-                    CONTACT_CLASS_YEAR,
-                    CONTACT_EMAIL,
-                    CONTACT_ID,
-                    CONTACT_LPHONE,
-                    CONTACT_MAPLAT,
-                    CONTACT_MAPLNG,
-                    CONTACT_MAPZOM,
-                    CONTACT_MOB1,
-                    CONTACT_MOB2,
-                    CONTACT_MOB3,
-                    CONTACT_SUPERVISOR,
-                    CONTACT_STUDY_WORK,
-                    CONTACT_SITE,
-                    CONTACT_NAME,
-                    CONTACT_NOTES,
-                    CONTACT_ST,
-                    CONTACT_HOME}, null, null, null, null, null, "1").close();
-            db.query(TB_PHOTO,
-                    new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null, "1").close();
-
 
             // modifications over data
             //    final String CONTACT_PHOTO = "pdir",
@@ -230,52 +200,52 @@ public class DB extends SQLiteOpenHelper {
             //       CONTACT_LAST_VISIT = "lvisit",
             //     CONTACT_LAST_ATTEND = "lattend";
 
-            Cursor c = db.query(TB_CONTACT,
-                    new String[]{
-                            CONTACT_ID,
-                            "pdir",
-                            "dates",
-                            "lvisit",
-                    }, null, null, null, null, null);
-            if (c.moveToFirst()) {
-                ContentValues values;
-                db.beginTransaction();
-                String id;
-                String date;
-                do {
-                    id = c.getString(0);
-
-                    values = new ContentValues();
-                    values.put(PHOTO_ID, id);
-                    values.put(PHOTO_BLOB, Utility.getBytes(Utility.getBitmap(c.getString(1))));
-                    db.insert(TB_PHOTO, null, values);
-
-                    date = Utility.migirateDate(c.getString(3));
-                    if (date.length() != 0) {
-
-                        values = new ContentValues();
-                        values.put(ATTEND_ID, id);
-                        values.put(ATTEND_TYPE, "0");
-                        values.put(ATTEND_DAY, date);
-                        db.insert(TB_ATTEND, null, values);
-                    }
-                    String[] arr = c.getString(2).split(",");
-
-                    for (int i = 0; i < arr.length; i++) {
-                        date = Utility.migirateDate(arr[i]);
-                        if (date.length() != 0) {
-                            values = new ContentValues();
-                            values.put(ATTEND_ID, id);
-                            values.put(ATTEND_TYPE, "1");
-                            values.put(ATTEND_DAY, date);
-                            db.insert(TB_ATTEND, null, values);
-                        }
-                    }
-                } while (c.moveToNext());
-                c.close();
-                db.endTransaction();
-
-            }
+//            Cursor c = db.query(TB_CONTACT,
+//                    new String[]{
+//                            CONTACT_ID,
+//                            "pdir",
+//                            "dates",
+//                            "lvisit",
+//                    }, null, null, null, null, null);
+//            if (c.moveToFirst()) {
+//                ContentValues values;
+//                db.beginTransaction();
+//                String id;
+//                String date;
+//                do {
+//                    id = c.getString(0);
+//
+//                    values = new ContentValues();
+//                    values.put(PHOTO_ID, id);
+//                    values.put(PHOTO_BLOB, Utility.getBytes(Utility.getBitmap(c.getString(1))));
+//                    db.insert(TB_PHOTO, null, values);
+//
+//                    date = Utility.migirateDate(c.getString(3));
+//                    if (date.length() != 0) {
+//
+//                        values = new ContentValues();
+//                        values.put(ATTEND_ID, id);
+//                        values.put(ATTEND_TYPE, "0");
+//                        values.put(ATTEND_DAY, date);
+//                        db.insert(TB_ATTEND, null, values);
+//                    }
+//                    String[] arr = c.getString(2).split(",");
+//
+//                    for (int i = 0; i < arr.length; i++) {
+//                        date = Utility.migirateDate(arr[i]);
+//                        if (date.length() != 0) {
+//                            values = new ContentValues();
+//                            values.put(ATTEND_ID, id);
+//                            values.put(ATTEND_TYPE, "1");
+//                            values.put(ATTEND_DAY, date);
+//                            db.insert(TB_ATTEND, null, values);
+//                        }
+//                    }
+//                } while (c.moveToNext());
+//                c.close();
+//                db.endTransaction();
+//
+//            }
 
 
         }

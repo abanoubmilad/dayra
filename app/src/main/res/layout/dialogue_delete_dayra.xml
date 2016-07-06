@@ -12,13 +12,13 @@
         android:padding="5dp"
         android:text="@string/dialogue.delete.dayra"
         android:textColor="@color/black"
-        android:textColorHint="@color/hint"
         android:textSize="@dimen/font_larger" />
 
     <EditText
         android:id="@+id/input"
         style="@style/field_input"
         android:gravity="center"
+        android:textColorHint="@color/hint"
         android:hint="@string/label.confirm.dayra"
         android:textColor="@color/black"/>
 
