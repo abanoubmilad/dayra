@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:imeOptions="actionDone"
+            android:hint="@string/label.name"
             android:maxLength="60"
             android:textSize="26sp" />
         <Spinner

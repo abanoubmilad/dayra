@@ -19,6 +19,7 @@
         style="@style/field_input"
         android:gravity="center"
         android:hint="@string/label.dayra.name"
+        android:textColorHint="@color/hint"
         android:textColor="@color/black" />
 
 
@@ -27,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:background="@color/red"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/btn.create"
