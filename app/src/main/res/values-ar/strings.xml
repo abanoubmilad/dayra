@@ -131,6 +131,8 @@
     <string name="label.attend.count">عدد مرات الحضور</string>
     <string name="label.absent.count">عدد مرات الغياب بداية من اول حضور</string>
 
+    <string name="label.xls.express">دايره xls يجب ان تكون بالترتيب التالى:\n\nاسم, دفعة/سنة, دراسة/عمل, موبايل ١, موبايل ٢, موبايل ٣, تليفون, ايميل, منطقة, شارع, منزل, عنوان, ملاحظات, المُشرف, صورة\n ١٥ خانة \n\nاول صف يحتوى على اسماء الخانات فقط</string>
+
     <string-array name="attendace_report_header">
         <item>نوع الحضور</item>
         <item>اول تاريخ حضور</item>

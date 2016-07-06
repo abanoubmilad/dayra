@@ -19,14 +19,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="50dp"
                 android:text="@string/label.add.express"
                 android:textSize="@dimen/font_larger" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:text="@string/label.add.express.fields"
@@ -151,26 +151,26 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/btn_file"
+                style="@style/bottom_button"
+                android:layout_margin="20dp"
+                android:text="@string/label.dayra.file" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:orientation="horizontal">
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/label.xls.express"
+                android:textSize="@dimen/font_larger" />
 
-                <TextView
-                    android:id="@+id/btn_file"
-                    style="@style/bottom_button"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/label.dayra.file" />
-
-                <TextView
-                    android:id="@+id/btn_xls"
-                    style="@style/bottom_button"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/label.dayra.xls" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/btn_xls"
+                style="@style/bottom_button"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/label.dayra.xls" />
 
         </LinearLayout>
     </ScrollView>

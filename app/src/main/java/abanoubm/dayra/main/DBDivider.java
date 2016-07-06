@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBDivider extends SQLiteOpenHelper {
     private SQLiteDatabase writableDB;
 
-    public DBDivider(Context context, String dbName) {
-        super(context, dbName, null, DB.DB_VERSION);
+    public DBDivider(Context context, String path) {
+        super(context, path, null, DB.DB_VERSION);
         writableDB = getWritableDatabase();
         writableDB.delete(DB.TB_PHOTO, null, null);
         writableDB.delete(DB.TB_CONTACT, null, null);

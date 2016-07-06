@@ -141,6 +141,8 @@
     <string name="label.attend.count">attendance times</string>
     <string name="label.absent.count">absence times since first attendance</string>
 
+    <string name="label.xls.express">dayra xls format must be as following:\n\nName, Class/year, Study/work, Mobile 1, Mobile 2, Mobile 3, Landphone, Email, Site, Street, Home, Address, Notes, Supervisor, Photo.\n15 columns.\n\nFirst row contains column titles only.</string>
+
     <string name="label.dayra.xls">dayra xls</string>
     <string name="label.dayra.file">dayra file</string>
     <string name="msg.dayra.no.divider">No enough entries found for the chosen divider (divide by)</string>
