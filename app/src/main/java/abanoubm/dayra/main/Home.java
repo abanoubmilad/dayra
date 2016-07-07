@@ -1,72 +1,59 @@
 package abanoubm.dayra.main;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.nio.channels.FileChannel;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.Locale;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.adapters.MenuItemAdapter;
-import abanoubm.dayra.contact.AddContact;
-import abanoubm.dayra.contacts.DisplayContacts;
-import abanoubm.dayra.contacts.DisplayContactsMap;
-import abanoubm.dayra.contacts.DisplayContactsStatistics;
-import abanoubm.dayra.operations.AddToDayra;
-import abanoubm.dayra.operations.CopyDayraPhone;
-import abanoubm.dayra.operations.CopyPhoneDayra;
-import abanoubm.dayra.operations.CreateAttendanceReport;
-import abanoubm.dayra.operations.CreateInformationTable;
-import abanoubm.dayra.operations.DivideDayra;
-import abanoubm.dayra.operations.RegisterAttendance;
-import abanoubm.dayra.operations.SendSMS;
-import abanoubm.dayra.search.Search;
 
-public class Home extends Activity {
-    private ProgressDialog pBar;
-    private MenuItemAdapter mMenuItemAdapter;
-    private ListView lv;
-    private int tagCursor;
+public class Home extends FragmentActivity {
+    private static final int NUM_PAGES = 3;
+    private ViewPager mPager;
+
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position == 0)
+                return new FragmentHomeMain();
+            else if (position == 1)
+                return new FragmentHomeIO();
+            else
+                return new FragmentHomeSettings();
+
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_PAGES;
+        }
+    }
+
+
+    private int tagCursor = 1;
     private TextView subHead2;
     private ImageView[] buttons;
-
-    private void fireHome1Menu() {
-        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
-        tagCursor = 0;
-        buttons[0].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-        Utility.clearLogin(getApplicationContext());
-        Intent intent = new Intent(getApplicationContext(), Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-    }
+    private final int[] subHeads2 = new int[]{
+            R.string.label_home_main,
+            R.string.label_home_out,
+            R.string.label_home_settings};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +73,12 @@ public class Home extends Activity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_home);
-        ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this)+" - dayra 4.0 ");
+
+
+        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager()));
+
+        ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this) + " - dayra 4.0 ");
         buttons = new ImageView[]{
                 (ImageView) findViewById(R.id.img1),
                 (ImageView) findViewById(R.id.img2),
@@ -94,22 +86,28 @@ public class Home extends Activity {
                 (ImageView) findViewById(R.id.img4)
         };
         subHead2 = (TextView) findViewById(R.id.subhead2);
+        subHead2.setText(subHeads2[0]);
 
         buttons[0].setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (tagCursor != 0)
-                    fireHome1Menu();
-
+                buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
+                buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+                Utility.clearLogin(getApplicationContext());
+                Intent intent = new Intent(getApplicationContext(), Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
             }
         });
         buttons[1].setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (tagCursor != 1)
-                    fireHome2Menu();
+                if (tagCursor != 1) {
+                    mPager.setCurrentItem(0);
+                    fireTab(1);
+                }
 
             }
         });
@@ -117,8 +115,10 @@ public class Home extends Activity {
 
             @Override
             public void onClick(View v) {
-                if (tagCursor != 2)
-                    fireOutMenu();
+                if (tagCursor != 2) {
+                    mPager.setCurrentItem(1);
+                    fireTab(2);
+                }
 
             }
         });
@@ -126,502 +126,46 @@ public class Home extends Activity {
 
             @Override
             public void onClick(View v) {
-                if (tagCursor != 3)
-                    fireSettingsMenu();
+                if (tagCursor != 3) {
+                    mPager.setCurrentItem(2);
+                    fireTab(3);
+                }
 
             }
         });
 
-        lv = (ListView) findViewById(R.id.home_list);
-        fireHome2Menu();
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                fireTab(position + 1);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
-    private void fireHome2Menu() {
+    private void fireTab(int changedTagCursor) {
 
         buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
-        tagCursor = 1;
-        buttons[1].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        tagCursor = changedTagCursor;
+        buttons[changedTagCursor].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
-        subHead2.setText(R.string.label_home_main);
+        subHead2.setText(subHeads2[changedTagCursor]);
 
-        if (mMenuItemAdapter != null)
-            mMenuItemAdapter.recycleIcons();
-        mMenuItemAdapter = new MenuItemAdapter(getApplicationContext(),
-                new ArrayList<>(Arrays.asList(getResources()
-                        .getStringArray(R.array.home_menu))), 2);
-        lv.setAdapter(mMenuItemAdapter);
 
-        lv.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                switch (position) {
-                    case 0:
-                        startActivity(new Intent(
-                                getApplicationContext(),
-                                Search.class));
-
-                        break;
-                    case 1:
-                        startActivity(new Intent(getApplicationContext(),
-                                AddContact.class));
-                        break;
-                    case 2:
-                        startActivity(new Intent(getApplicationContext(),
-                                DisplayContacts.class));
-                        break;
-                    case 3:
-                        startActivity(new Intent(getApplicationContext(),
-                                DisplayContactsMap.class));
-                        break;
-                    case 4:
-                        startActivity(new Intent(getApplicationContext(),
-                                RegisterAttendance.class));
-                        break;
-                    case 5:
-                        startActivity(new Intent(getApplicationContext(),
-                                DisplayContactsStatistics.class));
-                        break;
-                    case 6:
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(
-                                Home.this);
-                        builder.setTitle(R.string.label_choose_language);
-                        builder.setItems(getResources()
-                                        .getStringArray(R.array.language_menu),
-                                new DialogInterface.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
-                                        String temp;
-                                        if (which == 1) {
-                                            temp = "en";
-                                            Utility.setArabicLang(getApplicationContext(), 0);
-                                        } else {
-                                            temp = "ar";
-                                            Utility.setArabicLang(getApplicationContext(), 2);
-                                        }
-                                        Locale myLocale = new Locale(temp);
-                                        Resources res = getResources();
-                                        DisplayMetrics dm = res.getDisplayMetrics();
-                                        Configuration conf = res.getConfiguration();
-                                        conf.locale = myLocale;
-                                        res.updateConfiguration(conf, dm);
-
-                                        finish();
-                                        startActivity(new Intent(getIntent()));
-                                    }
-
-                                });
-                        builder.create().show();
-                        break;
-                    case 7:
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri
-                                .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view"));
-                        startActivity(i);
-                        break;
-                    case 8:
-                        try {
-                            getPackageManager().getPackageInfo(
-                                    "com.facebook.katana", 0);
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                    .parse("fb://page/453595434816965")));
-                        } catch (Exception e) {
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                    .parse("https://www.facebook.com/dayraapp")));
-                        }
-                        break;
-                    case 9:
-                        try {
-                            getPackageManager().getPackageInfo(
-                                    "com.facebook.katana", 0);
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                    .parse("fb://profile/1363784786")));
-                        } catch (Exception e) {
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                    .parse("https://www.facebook.com/EngineeroBono")));
-                        }
-                        break;
-                    case 10:
-                        Uri uri = Uri.parse("market://details?id=" + getPackageName());
-                        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                                Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
-                                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                        try {
-                            startActivity(goToMarket);
-                        } catch (Exception e) {
-                            startActivity(new Intent(Intent.ACTION_VIEW,
-                                    Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
-                        }
-                        break;
-
-                }
-            }
-        });
-    }
-
-    private void fireOutMenu() {
-
-        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
-        tagCursor = 2;
-        buttons[2].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-
-        subHead2.setText(R.string.label_home_out);
-        if (mMenuItemAdapter != null)
-            mMenuItemAdapter.recycleIcons();
-        mMenuItemAdapter = new MenuItemAdapter(getApplicationContext(),
-                new ArrayList<>(Arrays.asList(getResources()
-                        .getStringArray(R.array.out_menu))), 3);
-        lv.setAdapter(mMenuItemAdapter);
-
-        lv.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                switch (position) {
-                    case 0:
-                        startActivity(new Intent(getApplicationContext(),
-                                SendSMS.class));
-                        break;
-                    case 1:
-                        startActivity(new Intent(getApplicationContext(),
-                                CopyPhoneDayra.class));
-                        break;
-                    case 2:
-                        startActivity(new Intent(getApplicationContext(),
-                                CopyDayraPhone.class));
-                        break;
-                    case 3:
-                        startActivity(new Intent(getApplicationContext(),
-                                CreateAttendanceReport.class));
-                        break;
-                    case 4:
-                        new CreateInformationReportTask().execute();
-                        break;
-                    case 5:
-                        startActivity(new Intent(getApplicationContext(),
-                                CreateInformationTable.class));
-                        break;
-                    case 6:
-                        new ExportTask().execute();
-                        break;
-                    case 7:
-                        new ExportDayraExcelTask().execute();
-                        break;
-                    case 8:
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
-                        startActivity(intent);
-                        break;
-                }
-            }
-        });
-    }
-
-    private void fireSettingsMenu() {
-
-        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
-        tagCursor = 3;
-        buttons[3].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-
-        subHead2.setText(R.string.label_home_settings);
-        if (mMenuItemAdapter != null)
-            mMenuItemAdapter.recycleIcons();
-        mMenuItemAdapter = new MenuItemAdapter(getApplicationContext(),
-                new ArrayList<>(Arrays.asList(getResources()
-                        .getStringArray(R.array.settings_menu))), 4);
-        lv.setAdapter(mMenuItemAdapter);
-
-        lv.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                switch (position) {
-                    case 0:
-                        startActivity(new Intent(getApplicationContext(),
-                                Settings.class));
-                        break;
-                    case 1:
-                        renameDB();
-                        break;
-                    case 2:
-                        startActivity(new Intent(getApplicationContext(),
-                                AddToDayra.class));
-                        break;
-                    case 3:
-                        startActivity(new Intent(getApplicationContext(),
-                                DivideDayra.class));
-                        break;
-                    case 4:
-                        deleteDB();
-                        break;
-
-                }
-            }
-        });
-    }
-
-    private void renameDB() {
-        LayoutInflater li = LayoutInflater.from(getApplicationContext());
-        final View view = li.inflate(R.layout.dialogue_rename, null, false);
-        final AlertDialog ad = new AlertDialog.Builder(Home.this)
-                .setCancelable(true).create();
-        ad.setView(view, 0, 0, 0, 0);
-        ad.show();
-
-        ((EditText) view.findViewById(R.id.input)).setText(
-                Utility.getDayraName(getApplicationContext()));
-
-        view.findViewById(R.id.yesBtn).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ad.dismiss();
-                String str = ((EditText) view.findViewById(R.id.input)).getText().toString().trim();
-                if (!Utility.isDBName(str)) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
-                            .show();
-                } else if (DB.isDBExists(getApplicationContext(), str)) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.err_msg_duplicate_dayra,
-                            Toast.LENGTH_SHORT).show();
-                } else {
-
-                    DB db = DB.getInstant(getApplicationContext());
-                    File dbFile = db.getDBFile(getApplicationContext());
-                    db.closeDB();
-
-                    String path = dbFile.getPath().substring(0,
-                            dbFile.getPath().lastIndexOf("/") + 1);
-
-                    File to = new File(path + str);
-
-                    if (dbFile.renameTo(to)) {
-                        Utility.clearLogin(getApplicationContext());
-
-                        Intent intent = new Intent(getApplicationContext(),
-                                Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                        Toast.makeText(getApplicationContext(),
-                                R.string.msg_dayra_renamed, Toast.LENGTH_SHORT)
-                                .show();
-                    }
-
-                }
-
-            }
-
-        });
-    }
-
-    private void deleteDB() {
-        LayoutInflater li = LayoutInflater.from(getApplicationContext());
-        final View view = li.inflate(R.layout.dialogue_delete_dayra, null, false);
-        final AlertDialog ad = new AlertDialog.Builder(Home.this)
-                .setCancelable(true).create();
-        ad.setView(view, 0, 0, 0, 0);
-        ad.show();
-
-        view.findViewById(R.id.yesBtn).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ad.dismiss();
-                String str = ((EditText) view.findViewById(R.id.input)).getText().toString().trim();
-                if (!Utility.isDBName(str)) {
-                    Toast.makeText(getApplicationContext(),
-                            R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
-                            .show();
-                } else {
-                    if (!Utility.getDayraName(getApplicationContext()).equals(str))
-                        Toast.makeText(getApplicationContext(),
-                                R.string.err_msg_dayra_match,
-                                Toast.LENGTH_SHORT).show();
-                    else
-                        new DeleteDBTask().execute();
-
-                }
-
-            }
-        });
-    }
-
-    private class CreateInformationReportTask extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected void onPreExecute() {
-            pBar = new ProgressDialog(Home.this);
-            pBar.setCancelable(false);
-            pBar.setMessage(getResources().getString(R.string.label_loading));
-
-            pBar.show();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            String path = Utility.getDayraFolder() +
-                    "/" + Utility.getDayraName(getApplicationContext()) +
-                    "_dayra_information_report_" +
-                    new SimpleDateFormat("yyyy-MM-dd_hh:mm:ss a", Locale.getDefault())
-                            .format(new Date()) + ".pdf";
-            if (android.os.Build.VERSION.SDK_INT >= 8) {
-                MediaScannerConnection.scanFile(getApplicationContext(),
-                        new String[]{path}, null, null);
-            }
-            return DB.getInstant(getApplicationContext()).exportInformationReport(path,
-                    getResources().getStringArray(R.array.pdf_header),
-                    findViewById(R.id.english_layout) != null, getApplicationContext());
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result)
-                Toast.makeText(getApplicationContext(), R.string.msg_exported,
-                        Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(getApplicationContext(),
-                        R.string.err_msg_export, Toast.LENGTH_SHORT).show();
-            pBar.dismiss();
-
-        }
-    }
-
-    private class DeleteDBTask extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected void onPreExecute() {
-            pBar = new ProgressDialog(Home.this);
-            pBar.setCancelable(false);
-            pBar.setMessage(getResources().getString(R.string.label_loading));
-
-            pBar.show();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            return DB.getInstant(getApplicationContext()).deleteDB(
-                    getApplicationContext());
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                Utility.clearLogin(getApplicationContext());
-
-                Intent intent = new Intent(getApplicationContext(), Main.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-
-                Toast.makeText(getApplicationContext(),
-                        R.string.msg_dayra_deleted, Toast.LENGTH_SHORT).show();
-            } else
-                Toast.makeText(getApplicationContext(),
-                        R.string.err_msg_dayra_delete, Toast.LENGTH_SHORT)
-                        .show();
-            pBar.dismiss();
-
-        }
-    }
-
-    private class ExportTask extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected void onPreExecute() {
-            pBar = new ProgressDialog(Home.this);
-            pBar.setCancelable(false);
-            pBar.setMessage(getResources().getString(R.string.label_loading));
-
-            pBar.show();
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            pBar.dismiss();
-
-            if (result)
-                Toast.makeText(getApplicationContext(),
-                        R.string.msg_dayra_exported, Toast.LENGTH_SHORT).show();
-            else
-
-                Toast.makeText(getApplicationContext(),
-                        R.string.err_msg_export, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            String path = Utility.getDayraFolder() +
-                    "/" + Utility.getDayraName(getApplicationContext());
-
-            if (android.os.Build.VERSION.SDK_INT >= 8) {
-
-                MediaScannerConnection.scanFile(getApplicationContext(),
-                        new String[]{path}, null, null);
-            }
-
-            try {
-                FileInputStream inStream = new FileInputStream(
-                        DB.getInstant(getApplicationContext()).getDBFile(getApplicationContext()));
-                FileOutputStream outStream = new FileOutputStream(path);
-                FileChannel inChannel = inStream.getChannel();
-                FileChannel outChannel = outStream.getChannel();
-                inChannel.transferTo(0, inChannel.size(), outChannel);
-                inStream.close();
-                outStream.close();
-                return true;
-            } catch (Exception e) {
-                return false;
-
-            }
-
-        }
-    }
-
-    private class ExportDayraExcelTask extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        protected void onPreExecute() {
-            pBar = new ProgressDialog(Home.this);
-            pBar.setCancelable(false);
-            pBar.setMessage(getResources().getString(R.string.label_loading));
-
-            pBar.show();
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            pBar.dismiss();
-
-            if (result)
-                Toast.makeText(getApplicationContext(),
-                        R.string.msg_dayra_exported, Toast.LENGTH_SHORT).show();
-            else
-
-                Toast.makeText(getApplicationContext(),
-                        R.string.err_msg_export, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            String path = Utility.getDayraFolder() +
-                    "/" + Utility.getDayraName(getApplicationContext()) + ".xls";
-            if (android.os.Build.VERSION.SDK_INT >= 8) {
-
-                MediaScannerConnection.scanFile(getApplicationContext(),
-                        new String[]{path}, null, null);
-            }
-            return DB.getInstant(getApplicationContext()).exportDayraExcel(
-                    getApplicationContext(), path);
-
-        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mMenuItemAdapter.recycleIcons();
         if (Utility.getArabicLang(getApplicationContext()) != 0)
             Utility.setArabicLang(getApplicationContext(), 1);
     }

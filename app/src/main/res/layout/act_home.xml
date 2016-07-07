@@ -6,12 +6,12 @@
 
     <include layout="@layout/header" />
 
-    <ListView
-        android:id="@+id/home_list"
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="12dp" />
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -35,6 +35,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:padding="10dp"
+            android:background="@color/white"
             android:src="@mipmap/ic_home2" />
 
         <ImageView

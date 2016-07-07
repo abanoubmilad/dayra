@@ -3,10 +3,11 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <include layout="@layout/edit_contact_footer" />
+
     <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -244,7 +245,7 @@
                 <EditText
                     android:id="@+id/edit_address"
                     style="@style/field_input"
-                    android:maxLength="400"/>
+                    android:maxLength="400" />
             </LinearLayout>
 
             <LinearLayout
@@ -344,7 +345,5 @@
 
 
     </ScrollView>
-
-    <include layout="@layout/edit_contact_footer" />
 
 </LinearLayout>

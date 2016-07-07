@@ -38,7 +38,10 @@
                 <EditText
                     android:id="@+id/edit_name"
                     style="@style/field_input"
-                    android:hint="@string/label.required" />
+                    android:hint="@string/label.required">
+
+                    <requestFocus />
+                </EditText>
 
                 <TextView
                     style="@style/label"
@@ -334,7 +337,7 @@
                 <EditText
                     android:id="@+id/edit_address"
                     style="@style/field_input"
-                    android:maxLength="400"/>
+                    android:maxLength="400" />
             </LinearLayout>
 
         </LinearLayout>

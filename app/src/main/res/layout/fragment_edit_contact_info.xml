@@ -31,7 +31,10 @@
             <EditText
                 android:id="@+id/edit_name"
                 style="@style/field_input"
-                android:hint="@string/label.required" />
+                android:hint="@string/label.required">
+
+                <requestFocus />
+            </EditText>
 
             <TextView
                 style="@style/label"

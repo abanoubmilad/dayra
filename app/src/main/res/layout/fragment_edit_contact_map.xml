@@ -20,17 +20,13 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2" />
 
             <LinearLayout
                 android:id="@+id/layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:gravity="right"
+                android:gravity="left"
                 android:orientation="vertical">
 
 
@@ -55,6 +51,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_normal"
                     android:visibility="gone" />
+
                 <TextView
                     android:id="@+id/home"
                     android:layout_width="wrap_content"
@@ -80,6 +77,10 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
         </LinearLayout>
     </RelativeLayout>
 

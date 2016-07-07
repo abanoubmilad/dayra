@@ -1,22 +1,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include layout="@layout/header" />
 
-
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:background="@color/lightgrey"
+            android:layout_height="match_parent"
+            android:background="@color/grey"
             android:orientation="vertical">
 
 
@@ -24,43 +27,42 @@
                 android:id="@+id/img1"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:padding="20dp"
-                android:src="@mipmap/ic_home" />
+                android:background="@color/white"
+                android:padding="10dp"
+                android:src="@mipmap/ic_info" />
+
 
             <ImageView
                 android:id="@+id/img2"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@color/white"
-                android:padding="20dp"
-                android:src="@mipmap/ic_home2" />
+                android:padding="10dp"
+                android:src="@mipmap/ic_days" />
 
             <ImageView
                 android:id="@+id/img3"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:padding="20dp"
-                android:src="@mipmap/ic_out" />
+                android:padding="10dp"
+                android:src="@mipmap/ic_conn" />
 
             <ImageView
                 android:id="@+id/img4"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:padding="20dp"
-                android:src="@mipmap/ic_sett" />
+                android:padding="10dp"
+                android:src="@mipmap/ic_loc" />
 
         </LinearLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:paddingRight="12dp" />
-    </LinearLayout>
 
+    </LinearLayout>
 </LinearLayout>
