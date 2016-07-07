@@ -142,7 +142,7 @@ public class Home extends FragmentActivity {
 
             @Override
             public void onPageSelected(int position) {
-                fireTab(position + 1);
+                fireTab(position);
             }
 
             @Override

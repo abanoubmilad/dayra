@@ -63,7 +63,7 @@ public class EditContact extends FragmentActivity {
     private String id;
     private int current = 0;
     private ImageView[] buttons;
-    ContactLocation mLocation;
+    private ContactLocation mLocation;
     private TextView subHead2;
     private final int[] subHeads2 = new int[]{
             R.string.subhead_edit_info,

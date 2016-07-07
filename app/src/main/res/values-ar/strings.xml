@@ -65,11 +65,10 @@
     <string name="label.class.year">دفعة/سنة</string>
     <string name="label.study.work">دراسة/عمل</string>
     <string name="label.address">عنوان</string>
-    <string name="label.progress">المتابعة</string>
     <string name="label.contact">التواصل</string>
     <string name="label.personal">شخصى</string>
     <string name="msg.choose.field">قم باختيار خانة واحدة على الاقل</string>
-    <string name="label.attendance.absence">ايام الحضور والغياب</string>
+    <string name="label.attendance.absence">الحضور/الغياب</string>
     <string name="btn.divide">تقسيم دايره</string>
     <string name="subhead.divide">تقسيم الدايره الحالية</string>
     <string name="label.divide.express">تقسيم الدايره الحالية الى اكثر من دايره\nمع الاحتفاظ بالدايره الحالية كما هى\n\nتقسيم الدايره الحالية بواسطة</string>
@@ -108,7 +107,7 @@
     <string name="msg.no.mobiles">لم يتم اختيار ارقام موبايل</string>
     <string name="subhead.edit.info">تعديل التفاصيل</string>
     <string name="subhead.edit.map">تعديل عنوان الخريطة</string>
-    <string name="subhead.edit.day">تعديل الحضور</string>
+    <string name="subhead.edit.day">تعديل المتابعة</string>
     <string name="flag.contact.exist">الاسم مُسجل</string>
     <string name="flag.contact.attend">حاضر</string>
     <string name="flag.contact.con">صلة/معرفة</string>
@@ -320,7 +319,7 @@
     <string name="copyright">dayra 4.0 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
     <string name="label.dayra.file">دايره file</string>
     <string name="label.dayra.xls">دايره xls</string>
-    <string name="subhead.display.day">الحضور</string>
+    <string name="subhead.display.day">المتابعة</string>
     <string name="subhead.display.map">عنوان الخريطة</string>
     <string name="select.day">اختر اليوم</string>
     <string name="select.month">اختر الشهر</string>

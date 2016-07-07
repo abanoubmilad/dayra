@@ -1,9 +1,14 @@
 package abanoubm.dayra.contact;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +16,70 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.main.DB;
+import abanoubm.dayra.model.ContactLocation;
 
 public class FragmentDisplayContact extends Fragment {
+    private static final int NUM_PAGES = 4;
+    private ViewPager mPager;
+
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Bundle arguments = new Bundle();
+            arguments.putString(ARG_ID, id);
+            if (position == 0) {
+                FragmentDisplayContactInfo fragment = new FragmentDisplayContactInfo();
+                fragment.setArguments(arguments);
+                return fragment;
+            } else if (position == 1) {
+                FragmentDisplayContactDay fragment = new FragmentDisplayContactDay();
+                fragment.setArguments(arguments);
+                return fragment;
+            } else if (position == 2) {
+                FragmentDisplayContactConnection fragment = new FragmentDisplayContactConnection();
+                fragment.setArguments(arguments);
+                return fragment;
+            } else {
+                arguments.putDouble(ARG_LAT, mLocation.getMapLat());
+                arguments.putDouble(ARG_LNG, mLocation.getMapLng());
+                arguments.putFloat(ARG_ZOM, mLocation.getZoom());
+                FragmentDisplayContactMap fragment = new FragmentDisplayContactMap();
+                fragment.setArguments(arguments);
+                return fragment;
+            }
+
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_PAGES;
+        }
+    }
+
     private String id;
     private int current = 0;
     private boolean dualMode;
+    private static final String ARG_LAT = "lat";
+    private static final String ARG_LNG = "lon";
+    private static final String ARG_ZOM = "zoom";
     private static final String ARG_ID = "id";
     private static final String ARG_DUAL_MODE = "dual";
+
+    private ContactLocation mLocation;
+
+    private TextView subHead2;
+    private final int[] subHeads2 = new int[]{
+            R.string.subhead_display_info,
+            R.string.subhead_display_day,
+            R.string.subhead_display_connections,
+            R.string.subhead_display_map};
+    private ImageView[] buttons;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,6 +89,8 @@ public class FragmentDisplayContact extends Fragment {
             id = arguments.getString(ARG_ID);
             dualMode = arguments.getBoolean(ARG_DUAL_MODE);
         }
+        new GetLocationTask().execute();
+
     }
 
     @Override
@@ -34,10 +98,14 @@ public class FragmentDisplayContact extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_display_contact, container, false);
 
-        root.findViewById(R.id.subhead1).setVisibility(View.GONE);
-        final TextView subhead2 = ((TextView) root.findViewById(R.id.subhead2));
+        mPager = (ViewPager) root.findViewById(R.id.pager);
+        mPager.setAdapter(new ScreenSlidePagerAdapter(getChildFragmentManager()));
 
-        final ImageView[] buttons = new ImageView[]{
+        root.findViewById(R.id.subhead1).setVisibility(View.GONE);
+        subHead2 = ((TextView) root.findViewById(R.id.subhead2));
+        subHead2.setText(R.string.subhead_display_info);
+
+        buttons = new ImageView[]{
                 (ImageView) root.findViewById(R.id.img1),
                 (ImageView) root.findViewById(R.id.img2),
                 (ImageView) root.findViewById(R.id.img3),
@@ -46,41 +114,13 @@ public class FragmentDisplayContact extends Fragment {
         };
 
 
-        if (savedInstanceState == null) {
-            Bundle arguments = new Bundle();
-            arguments.putString(ARG_ID, id);
-
-            FragmentDisplayContactInfo fragment = new FragmentDisplayContactInfo();
-            fragment.setArguments(arguments);
-
-            subhead2.setText(R.string.subhead_display_info);
-
-            getChildFragmentManager().beginTransaction()
-                    .replace(R.id.display_contact_fragment, fragment)
-                    .commit();
-
-        }
-
         buttons[0].setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 if (current != 0) {
-                    buttons[current].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.grey));
-                    current = 0;
-                    buttons[0].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
-
-                    Bundle arguments = new Bundle();
-                    arguments.putString(ARG_ID, id);
-
-                    subhead2.setText(R.string.subhead_display_info);
-
-                    FragmentDisplayContactInfo fragment = new FragmentDisplayContactInfo();
-                    fragment.setArguments(arguments);
-
-                    getChildFragmentManager().beginTransaction()
-                            .replace(R.id.display_contact_fragment, fragment)
-                            .commit();
+                    mPager.setCurrentItem(0);
+                    fireTab(0);
                 }
 
             }
@@ -90,21 +130,8 @@ public class FragmentDisplayContact extends Fragment {
             @Override
             public void onClick(View v) {
                 if (current != 1) {
-                    buttons[current].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.grey));
-                    current = 1;
-                    buttons[1].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
-
-                    subhead2.setText(R.string.subhead_display_day);
-
-                    Bundle arguments = new Bundle();
-                    arguments.putString(ARG_ID, id);
-
-                    FragmentDisplayContactDay fragment = new FragmentDisplayContactDay();
-                    fragment.setArguments(arguments);
-
-                    getChildFragmentManager().beginTransaction()
-                            .replace(R.id.display_contact_fragment, fragment)
-                            .commit();
+                    mPager.setCurrentItem(1);
+                    fireTab(1);
                 }
             }
         });
@@ -113,22 +140,8 @@ public class FragmentDisplayContact extends Fragment {
             @Override
             public void onClick(View v) {
                 if (current != 2) {
-                    buttons[current].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.grey));
-                    current = 2;
-                    buttons[2].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
-
-
-                    subhead2.setText(R.string.subhead_display_connections);
-
-                    Bundle arguments = new Bundle();
-                    arguments.putString(ARG_ID, id);
-
-                    FragmentDisplayContactConnection fragment = new FragmentDisplayContactConnection();
-                    fragment.setArguments(arguments);
-
-                    getChildFragmentManager().beginTransaction()
-                            .replace(R.id.display_contact_fragment, fragment)
-                            .commit();
+                    mPager.setCurrentItem(2);
+                    fireTab(2);
                 }
 
             }
@@ -139,22 +152,9 @@ public class FragmentDisplayContact extends Fragment {
             @Override
             public void onClick(View v) {
                 if (current != 3) {
-                    buttons[current].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.grey));
-                    current = 3;
-                    buttons[3].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
+                    mPager.setCurrentItem(3);
+                    fireTab(3);
 
-
-                    subhead2.setText(R.string.subhead_display_map);
-
-                    Bundle arguments = new Bundle();
-                    arguments.putString(ARG_ID, id);
-
-                    FragmentDisplayContactMap fragment = new FragmentDisplayContactMap();
-                    fragment.setArguments(arguments);
-
-                    getChildFragmentManager().beginTransaction()
-                            .replace(R.id.display_contact_fragment, fragment)
-                            .commit();
                 }
 
             }
@@ -169,9 +169,9 @@ public class FragmentDisplayContact extends Fragment {
                     current = 4;
                     buttons[4].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
                     startActivity(new Intent(getActivity(), EditContact.class).putExtra(ARG_ID, id));
-                    if(dualMode){
+                    if (dualMode) {
                         buttons[0].performClick();
-                    }else {
+                    } else {
                         getActivity().finish();
                     }
                 }
@@ -179,7 +179,52 @@ public class FragmentDisplayContact extends Fragment {
             }
         });
 
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                fireTab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         return root;
+    }
+
+    private void fireTab(int changedCurrent) {
+        buttons[current].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.grey));
+        current = changedCurrent;
+        buttons[changedCurrent].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
+        subHead2.setText(subHeads2[changedCurrent]);
+    }
+
+    private class GetLocationTask extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog pBar;
+
+        @Override
+        protected void onPreExecute() {
+            pBar = new ProgressDialog(getActivity());
+            pBar.setCancelable(false);
+            pBar.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            pBar.dismiss();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            mLocation = DB.getInstant(getActivity()).getContactLocation(id);
+            return null;
+        }
     }
 }

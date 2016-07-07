@@ -67,10 +67,9 @@
     <string name="label.class.year">class/year</string>
     <string name="label.study.work">study/work</string>
     <string name="label.address">address</string>
-    <string name="label.progress">progress</string>
     <string name="label.contact">contact</string>
     <string name="label.personal">personal</string>
-    <string name="label.attendance.absence">Attendance and absence days</string>
+    <string name="label.attendance.absence">Attendance/absence</string>
     <string name="msg.choose.field">Choose at least one field to export</string>
     <string name="btn.divide">divide dayra</string>
     <string name="subhead.divide">Divid current dayra</string>
@@ -111,7 +110,7 @@
     <string name="msg.no.mobiles">No mobiles were selected</string>
     <string name="subhead.edit.info">Edit info</string>
     <string name="subhead.edit.map">Edit map address</string>
-    <string name="subhead.edit.day">Edit attendance</string>
+    <string name="subhead.edit.day">Edit progress</string>
     <string name="flag.contact.exist">name exists</string>
     <string name="flag.contact.attend">attended</string>
     <string name="flag.contact.con">conn</string>
@@ -374,7 +373,7 @@
         <item>@mipmap/ic_delete</item>
     </string-array>
     <string name="subhead.display.connections">Connections</string>
-    <string name="subhead.display.day">Attendance</string>
+    <string name="subhead.display.day">Progress</string>
     <string name="subhead.display.map">Map address</string>
     <string name="subhead.add.data">Add data to current dayra</string>
 
