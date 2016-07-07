@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +56,9 @@ public class FragmentDisplayContactConnection extends Fragment {
                 startActivity(intent);
             }
         });
+
+        new GetAllConnectionsTask().execute();
+
         return root;
 
     }
@@ -64,14 +66,9 @@ public class FragmentDisplayContactConnection extends Fragment {
 
     private class GetAllConnectionsTask extends
             AsyncTask<Void, Void, ArrayList<ContactID>> {
-        private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
-
-            pBar.show();
         }
 
         @Override
@@ -84,8 +81,6 @@ public class FragmentDisplayContactConnection extends Fragment {
         protected void onPostExecute(ArrayList<ContactID> result) {
             mAdapter.clearThenAddAll(result);
 
-            pBar.dismiss();
-
             if (result.size() > 0) {
                 if (previousPosition < result.size())
                     lv.setSelection(previousPosition);
@@ -94,16 +89,11 @@ public class FragmentDisplayContactConnection extends Fragment {
                 Toast.makeText(getActivity(),
                         R.string.msg_no_connections, Toast.LENGTH_SHORT).show();
             }
+
         }
 
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        new GetAllConnectionsTask().execute();
-
-    }
     @Override
     public void onResume() {
         super.onResume();

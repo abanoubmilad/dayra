@@ -1,7 +1,6 @@
 package abanoubm.dayra.contact;
 
 
-import android.app.ProgressDialog;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,7 +34,7 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
     private static final String ARG_ID = "id";
     private String id;
 
-    private TextView site, st, addr,home;
+    private TextView site, st, addr, home;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,13 +107,9 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
     }
 
     private class GetTask extends AsyncTask<Void, Void, String[]> {
-        private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
-            pBar.show();
         }
 
         @Override
@@ -137,7 +132,6 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
                     addr.setText(result[3]);
                 }
             }
-            pBar.dismiss();
         }
 
         @Override

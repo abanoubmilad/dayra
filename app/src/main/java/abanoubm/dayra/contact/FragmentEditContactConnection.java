@@ -28,9 +28,10 @@ public class FragmentEditContactConnection extends Fragment {
     private String id;
     private EditText sname;
     private ListView lv;
-    private DB dbm;
+    private DB mDB;
     private int previousPosition = 0;
     private ContactCheck contact;
+    private ProgressDialog pBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,51 +84,42 @@ public class FragmentEditContactConnection extends Fragment {
             }
 
         });
-        dbm = DB.getInstant(getActivity());
+        pBar = new ProgressDialog(getActivity());
+        pBar.setCancelable(false);
         return root;
     }
 
 
     private class ConnectTask extends AsyncTask<Void, Void, Void> {
-        private ProgressDialog pBar;
 
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
-            pBar.show();
         }
 
         @Override
         protected void onPostExecute(Void result) {
             contact.setChecked(true);
             mAdapter.notifyDataSetChanged();
-            pBar.dismiss();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.addConnection(id, contact.getId());
+            mDB.addConnection(id, contact.getId());
             return null;
         }
 
     }
 
     private class DeConnectTask extends AsyncTask<Void, Void, Void> {
-        private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
-
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
-            pBar.show();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.removeConnection(id, contact.getId());
+            mDB.removeConnection(id, contact.getId());
             return null;
         }
 
@@ -135,31 +127,29 @@ public class FragmentEditContactConnection extends Fragment {
         protected void onPostExecute(Void result) {
             contact.setChecked(false);
             mAdapter.notifyDataSetChanged();
-            pBar.dismiss();
         }
     }
 
     private class GetAllConnectionsTask extends
             AsyncTask<String, Void, ArrayList<ContactCheck>> {
-        private ProgressDialog pBar;
         private String name;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
             pBar.show();
         }
 
         @Override
         protected ArrayList<ContactCheck> doInBackground(String... params) {
+            if (mDB == null)
+                mDB = DB.getInstant(getActivity());
+
             name = params[0];
-            return dbm.getAttendantConnections(id, name);
+            return mDB.getAttendantConnections(id, name);
         }
 
         @Override
         protected void onPostExecute(ArrayList<ContactCheck> result) {
-            pBar.dismiss();
             if (result.size() == 0) {
                 Toast.makeText(getActivity(),
                         R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
@@ -171,6 +161,8 @@ public class FragmentEditContactConnection extends Fragment {
                     previousPosition = 0;
                 }
             }
+            pBar.dismiss();
+
         }
 
     }

@@ -55,6 +55,7 @@ public class FragmentEditContactInfo extends Fragment {
     private TextView date;
 
     private static EditText[] optionsInput;
+    private ProgressDialog pBar;
 
     private static final String[] optionsTags = {
             DB.CONTACT_CLASS_YEAR,
@@ -111,6 +112,8 @@ public class FragmentEditContactInfo extends Fragment {
 
         img = (ImageView) root.findViewById(R.id.pic_view);
 
+        pBar = new ProgressDialog(getActivity());
+        pBar.setCancelable(false);
         new GetTask().execute();
 
         final DatePickerDialog picker_bday;
@@ -245,18 +248,16 @@ public class FragmentEditContactInfo extends Fragment {
 
                     }
                 });
+
         return root;
     }
 
 
     private class EditTask extends AsyncTask<String, Void, Boolean> {
-        private ProgressDialog pBar;
         private int msgSource;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
             pBar.show();
         }
 
@@ -277,7 +278,7 @@ public class FragmentEditContactInfo extends Fragment {
         protected Boolean doInBackground(String... params) {
             DB dbm = DB.getInstant(getActivity());
             String check = dbm.getNameId(params[0]);
-            if (params[0].length()==0) {
+            if (params[0].length() == 0) {
                 msgSource = R.string.err_msg_empty_name;
             } else if (!check.equals("-1") && !check.equals(contactData.getId())) {
                 msgSource = R.string.err_msg_duplicate_name;
@@ -313,12 +314,9 @@ public class FragmentEditContactInfo extends Fragment {
     }
 
     private class DeleteTask extends AsyncTask<Void, Void, Void> {
-        private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
             pBar.show();
         }
 
@@ -341,13 +339,10 @@ public class FragmentEditContactInfo extends Fragment {
 
     private class GetOptionsListTask extends
             AsyncTask<Integer, Void, ArrayList<String>> {
-        private ProgressDialog pBar;
         private int position;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
             pBar.show();
         }
 
@@ -387,12 +382,9 @@ public class FragmentEditContactInfo extends Fragment {
 
 
     private class GetTask extends AsyncTask<Void, Void, Void> {
-        private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
             pBar.show();
         }
 

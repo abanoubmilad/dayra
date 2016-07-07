@@ -36,7 +36,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
     private static final String ARG_ZOM = "zoom";
     private static final String ARG_ID = "id";
     private String id;
-    private TextView site, st, addr,home;
+    private TextView site, st, addr, home;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-              root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
+        root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
 
         root.findViewById(R.id.saveImage).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,13 +195,9 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
     }
 
     private class GetTask extends AsyncTask<Void, Void, String[]> {
-        private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
-            pBar.show();
         }
 
         @Override
@@ -224,7 +220,6 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
                     addr.setText(result[3]);
                 }
             }
-            pBar.dismiss();
         }
 
         @Override

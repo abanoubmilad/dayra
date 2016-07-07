@@ -1,7 +1,6 @@
 package abanoubm.dayra.contact;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -22,7 +21,7 @@ public class FragmentDisplayContactInfo extends Fragment {
 
     private TextView dis_name, dis_address, dis_bday, dis_comm, dis_email,
             dis_lphone, dis_mobile1, dis_mobile2, dis_mobile3, dis_priest,
-            dis_class_year, dis_study_work, dis_street, dis_site,dis_home;
+            dis_class_year, dis_study_work, dis_street, dis_site, dis_home;
 
     private ImageView img;
     private ContactData contactData;
@@ -30,19 +29,14 @@ public class FragmentDisplayContactInfo extends Fragment {
     private ImageView call1, call2, call3, call4, msg1, msg2, msg3;
 
     private class GetTask extends AsyncTask<Void, Void, Void> {
-        private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
-            pBar.show();
         }
 
         @Override
         protected void onPostExecute(Void result) {
             setFields();
-            pBar.dismiss();
         }
 
         @Override
@@ -89,7 +83,6 @@ public class FragmentDisplayContactInfo extends Fragment {
         dis_site = (TextView) root.findViewById(R.id.dis_site);
         dis_home = (TextView) root.findViewById(R.id.dis_home);
 
-        new GetTask().execute();
 
         call1 = (ImageView) root.findViewById(R.id.call_btn1);
         call2 = (ImageView) root.findViewById(R.id.call_btn2);
@@ -99,6 +92,8 @@ public class FragmentDisplayContactInfo extends Fragment {
         msg1 = (ImageView) root.findViewById(R.id.msg_btn1);
         msg2 = (ImageView) root.findViewById(R.id.msg_btn2);
         msg3 = (ImageView) root.findViewById(R.id.msg_btn3);
+
+        new GetTask().execute();
 
         call1
                 .setOnClickListener(new View.OnClickListener() {

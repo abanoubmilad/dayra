@@ -27,7 +27,7 @@ public class FragmentEditContactDay extends Fragment {
     private static final String ARG_ID = "id";
     private String id;
     private ProgressDialog pBar;
-    private DB dbm;
+    private DB mDB;
     private int dayType = 0;
     private TextView date1, date2, flag;
     private String targetDay;
@@ -50,7 +50,7 @@ public class FragmentEditContactDay extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.addDay(id, dayType + "", targetDay);
+            mDB.addDay(id, dayType + "", targetDay);
             return null;
         }
 
@@ -66,7 +66,7 @@ public class FragmentEditContactDay extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            dbm.removeDay(id, dayType + "", targetDay);
+            mDB.removeDay(id, dayType + "", targetDay);
             return null;
         }
 
@@ -90,7 +90,10 @@ public class FragmentEditContactDay extends Fragment {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            return dbm.isContactDayAttendance(id, targetDay, dayType + "");
+            if (mDB == null)
+                mDB = DB.getInstant(getActivity());
+
+            return mDB.isContactDayAttendance(id, targetDay, dayType + "");
         }
 
         @Override
@@ -167,8 +170,6 @@ public class FragmentEditContactDay extends Fragment {
 
         pBar = new ProgressDialog(getActivity());
         pBar.setCancelable(false);
-
-        dbm = DB.getInstant(getActivity());
 
 
         Spinner spin = (Spinner) root.findViewById(R.id.spin);

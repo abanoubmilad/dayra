@@ -31,14 +31,13 @@ public class FragmentDisplayContactDay extends Fragment {
     private DayCheckAdapter mAdapterDays;
     private static final String ARG_ID = "id";
     private ArrayList<DayCheck> days;
-    private DB db;
     private int dayType = 0;
     private String chosenMonth, chosenYear;
     private TextView max, min, attend_count, absent_count;
     private ListView yearList, monthList;
+    private ProgressDialog pBar;
 
     private class GetAttendanceAbsenceTask extends AsyncTask<Void, Void, ArrayList<String>> {
-        private ProgressDialog pBar;
         private ArrayList<String> yearsStr;
 
         @Override
@@ -48,8 +47,6 @@ public class FragmentDisplayContactDay extends Fragment {
             mAdapterMonths.clear();
             mAdapterYears.clear();
 
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
             pBar.show();
         }
 
@@ -73,9 +70,8 @@ public class FragmentDisplayContactDay extends Fragment {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
-
+            DB db = DB.getInstant(getActivity());
             ArrayList<String> result = db.getContactAttendanceStatistics(id, dayType + "");
-
             days = db.getAttendanceAbsence(id, dayType + "", result.get(0) == null ? "9999-99-99" : result.get(0));
 
             Collections.sort(days, new Comparator<DayCheck>() {
@@ -102,12 +98,9 @@ public class FragmentDisplayContactDay extends Fragment {
     }
 
     private class GetMonthsTask extends AsyncTask<Void, Void, ArrayList<String>> {
-        private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
             pBar.show();
         }
 
@@ -141,12 +134,9 @@ public class FragmentDisplayContactDay extends Fragment {
     }
 
     private class GetDaysTask extends AsyncTask<String, Void, ArrayList<DayCheck>> {
-        private ProgressDialog pBar;
 
         @Override
         protected void onPreExecute() {
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
             pBar.show();
         }
 
@@ -200,8 +190,6 @@ public class FragmentDisplayContactDay extends Fragment {
         dayList = (ListView) root.findViewById(R.id.dayList);
         monthList = (ListView) root.findViewById(R.id.monthList);
         yearList = (ListView) root.findViewById(R.id.yearList);
-
-        db = DB.getInstant(getContext());
 
         mAdapterDays = new DayCheckAdapter(getActivity(), new ArrayList<DayCheck>(0));
 
@@ -260,6 +248,8 @@ public class FragmentDisplayContactDay extends Fragment {
 
             }
         });
+        pBar = new ProgressDialog(getActivity());
+        pBar.setCancelable(false);
         new GetAttendanceAbsenceTask().execute();
         return root;
 

@@ -13,7 +13,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
-        android:background="@color/grey"
+        android:background="@drawable/action_bg"
         android:padding="5dp"
         android:src="@mipmap/ic_save" />
 
@@ -25,7 +25,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
-        android:background="@color/grey"
+        android:background="@drawable/action_bg"
         android:padding="5dp"
         android:src="@mipmap/ic_delete2" />
 

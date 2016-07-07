@@ -142,7 +142,7 @@ public class Home extends FragmentActivity {
 
             @Override
             public void onPageSelected(int position) {
-                fireTab(position);
+                fireTab(position+1);
             }
 
             @Override
@@ -158,7 +158,7 @@ public class Home extends FragmentActivity {
         tagCursor = changedTagCursor;
         buttons[changedTagCursor].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
-        subHead2.setText(subHeads2[changedTagCursor]);
+        subHead2.setText(subHeads2[changedTagCursor-1]);
 
 
     }

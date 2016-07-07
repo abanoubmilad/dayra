@@ -105,10 +105,9 @@ public class EditContact extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                if (current != 0) {
+                if (current != 0)
                     mPager.setCurrentItem(0);
-                    fireTab(0);
-                }
+
 
             }
         });
@@ -116,20 +115,18 @@ public class EditContact extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                if (current != 1) {
+                if (current != 1)
                     mPager.setCurrentItem(1);
-                    fireTab(1);
-                }
+
             }
         });
         buttons[2].setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (current != 2) {
+                if (current != 2)
                     mPager.setCurrentItem(2);
-                    fireTab(2);
-                }
+
 
             }
         });
@@ -138,10 +135,9 @@ public class EditContact extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                if (current != 3) {
+                if (current != 3)
                     mPager.setCurrentItem(3);
-                    fireTab(3);
-                }
+
             }
         });
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
