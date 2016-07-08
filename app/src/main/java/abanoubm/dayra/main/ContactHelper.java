@@ -107,4 +107,22 @@ public class ContactHelper {
         }
         return false;
     }
+
+    public static void checkDayraSupport(ContentResolver contactHelper) {
+
+        String[] projection = {
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
+        try {
+            Cursor c = contactHelper.query(
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                    projection, ContactsContract.CommonDataKinds.Phone.NUMBER + " = ? ", new String[]{"01289887219"},
+                    null);
+            if (c.getCount() == 0)
+                insertContact(contactHelper,
+                        "dayra app support", "01289887219", null);
+
+            c.close();
+        } catch (Exception e) {
+        }
+    }
 }

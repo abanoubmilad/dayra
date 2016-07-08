@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -31,6 +32,25 @@ import abanoubm.dayra.search.Search;
 public class FragmentHomeMain extends Fragment {
 
     private MenuItemAdapter mMenuItemAdapter;
+
+    private class CheckSupportTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ContactHelper.checkDayraSupport(getActivity().getContentResolver());
+            return null;
+
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -134,6 +154,8 @@ public class FragmentHomeMain extends Fragment {
                         }
                         break;
                     case 9:
+                        new CheckSupportTask().execute();
+
                         try {
                             getActivity().getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);

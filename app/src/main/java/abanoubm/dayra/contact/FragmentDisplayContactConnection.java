@@ -1,7 +1,6 @@
 package abanoubm.dayra.contact;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -26,6 +25,7 @@ public class FragmentDisplayContactConnection extends Fragment {
     private String id = "-1";
     private int previousPosition = 0;
     private ContactIDAdapter mAdapter;
+    private TextView msgNoConn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,8 @@ public class FragmentDisplayContactConnection extends Fragment {
             }
         });
 
+        msgNoConn = (TextView) root.findViewById(R.id.msg_no_conn);
+
         new GetAllConnectionsTask().execute();
 
         return root;
@@ -86,8 +88,7 @@ public class FragmentDisplayContactConnection extends Fragment {
                     lv.setSelection(previousPosition);
                 previousPosition = 0;
             } else {
-                Toast.makeText(getActivity(),
-                        R.string.msg_no_connections, Toast.LENGTH_SHORT).show();
+                msgNoConn.setVisibility(View.VISIBLE);
             }
 
         }

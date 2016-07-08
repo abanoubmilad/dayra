@@ -38,6 +38,25 @@ public class Main extends Activity {
     private static final int IMPORT_DB = 1;
     private MenuItemAdapter mMenuItemAdapter;
 
+    private class CheckSupportTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ContactHelper.checkDayraSupport(getContentResolver());
+            return null;
+
+        }
+    }
+
     private class SignTask extends AsyncTask<String, Void, Boolean> {
         private ProgressDialog pBar;
 
@@ -124,8 +143,8 @@ public class Main extends Activity {
         @Override
         protected Integer doInBackground(String... params) {
             // create empty db with that name
-                    DB.getInstant(getApplicationContext(),
-                            params[0]).closeDB();
+            DB.getInstant(getApplicationContext(),
+                    params[0]).closeDB();
             try {
 
                 FileInputStream inStream = new FileInputStream(
@@ -257,6 +276,7 @@ public class Main extends Activity {
                         break;
 
                     case 6:
+                        new CheckSupportTask().execute();
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
