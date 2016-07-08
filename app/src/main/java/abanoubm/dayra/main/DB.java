@@ -404,7 +404,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public void AddFromDayraFile(ArrayList<String[]> contacts,
-                                 ArrayList<Integer> tags,IntWrapper totalCounter, IntWrapper addedCounter, IntWrapper updatedCounter) {
+                                 ArrayList<Integer> tags,
+                                 IntWrapper totalCounter, IntWrapper addedCounter, IntWrapper updatedCounter) {
         int addedCounterTemp = 0;
         int updatedCounterTemp = 0;
 
@@ -429,7 +430,7 @@ public class DB extends SQLiteOpenHelper {
 
                 if (id.equals("-1")) {
                     addedCounterTemp++;
-                    ;
+
                     values = new ContentValues();
                     values.put(CONTACT_NAME, contact[0]);
                     values.put(CONTACT_CLASS_YEAR, contact[1]);
@@ -456,7 +457,7 @@ public class DB extends SQLiteOpenHelper {
 
                 } else {
                     updatedCounterTemp++;
-                    ;
+
 
                     values = new ContentValues();
                     itr = 0;
@@ -472,7 +473,6 @@ public class DB extends SQLiteOpenHelper {
             for (String[] contact : contacts) {
                 if (getNameId(contact[0]).equals("-1")) {
                     addedCounterTemp++;
-                    ;
 
                     values = new ContentValues();
                     values.put(CONTACT_NAME, contact[0]);
@@ -1396,7 +1396,10 @@ public class DB extends SQLiteOpenHelper {
         return temp;
     }
 
-    public boolean AddFromDayraExcel(ArrayList<Integer> tags, String path) {
+    public boolean AddFromDayraExcel(ArrayList<Integer> tags, String path,
+                                     IntWrapper totalCounter, IntWrapper addedCounter, IntWrapper updatedCounter) {
+        int addedCounterTemp = 0;
+        int updatedCounterTemp = 0;
         String[] colNames = {
                 CONTACT_NAME, CONTACT_CLASS_YEAR,
                 CONTACT_STUDY_WORK, CONTACT_MOB1, CONTACT_MOB2,
@@ -1430,6 +1433,7 @@ public class DB extends SQLiteOpenHelper {
                     contactName = rowCells[0].getContents().trim();
                     id = getNameId(contactName);
                     if (id.equals("-1")) {
+                        addedCounterTemp++;
                         values = new ContentValues();
                         values.put(CONTACT_NAME, contactName);
                         values.put(CONTACT_CLASS_YEAR, rowCells[1].getContents().trim());
@@ -1454,6 +1458,7 @@ public class DB extends SQLiteOpenHelper {
                         addContact(values, null);
 
                     } else {
+                        updatedCounterTemp++;
                         values = new ContentValues();
                         itr = 0;
                         for (Integer index : tags)
@@ -1468,6 +1473,7 @@ public class DB extends SQLiteOpenHelper {
                     rowCells = sheet.getRow(rowCounter);
                     contactName = rowCells[0].getContents().trim();
                     if (getNameId(contactName).equals("-1")) {
+                        addedCounterTemp++;
                         values = new ContentValues();
                         values.put(CONTACT_NAME, contactName);
                         values.put(CONTACT_CLASS_YEAR, rowCells[1].getContents().trim());
@@ -1498,11 +1504,14 @@ public class DB extends SQLiteOpenHelper {
             }
 
             workbook.close();
+            totalCounter.setCounter(Math.max(rows - 1, 0));
+            addedCounter.setCounter(addedCounterTemp);
+            updatedCounter.setCounter(updatedCounterTemp);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
+
     }
 
     public void divideDayra(String tag, ArrayList<String> dividerList, Context context, String path) {

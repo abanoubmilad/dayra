@@ -11,10 +11,8 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:background="@drawable/action_bg"
-        android:padding="5dp"
         android:src="@mipmap/ic_save" />
 
     <ImageView
@@ -22,11 +20,9 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:background="@drawable/action_bg"
-        android:padding="5dp"
         android:src="@mipmap/ic_delete2" />
 
 </LinearLayout>

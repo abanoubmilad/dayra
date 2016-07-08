@@ -50,6 +50,8 @@ public class AddToDayra extends Activity {
         @Override
         protected void onPostExecute(Integer result) {
             pBar.dismiss();
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT)
+                    .show();
             LayoutInflater li = LayoutInflater.from(getApplicationContext());
             View View = li.inflate(R.layout.dialogue_add_data, null, false);
             final AlertDialog ad = new AlertDialog.Builder(AddToDayra.this)
@@ -67,8 +69,7 @@ public class AddToDayra extends Activity {
                     ad.dismiss();
                 }
             });
-            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT)
-                    .show();
+
         }
 
         @Override
@@ -89,6 +90,9 @@ public class AddToDayra extends Activity {
 
     private class AddFromDayraExcelTask extends AsyncTask<Void, Void, Integer> {
         private ProgressDialog pBar;
+        private IntWrapper addedCounter = new IntWrapper(),
+                updatedCounter = new IntWrapper(),
+                totalCounter = new IntWrapper();
 
         @Override
         protected void onPreExecute() {
@@ -103,12 +107,31 @@ public class AddToDayra extends Activity {
             pBar.dismiss();
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT)
                     .show();
+            LayoutInflater li = LayoutInflater.from(getApplicationContext());
+            View View = li.inflate(R.layout.dialogue_add_data, null, false);
+            final AlertDialog ad = new AlertDialog.Builder(AddToDayra.this)
+                    .setCancelable(true).create();
+            ad.setView(View, 0, 0, 0, 0);
+            ad.show();
+
+            ((TextView) View.findViewById(R.id.total)).setText(totalCounter.getCounter() + "");
+            ((TextView) View.findViewById(R.id.added)).setText(addedCounter.getCounter() + "");
+            ((TextView) View.findViewById(R.id.updated)).setText(updatedCounter.getCounter() + "");
+
+            View.findViewById(R.id.yesBtn).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ad.dismiss();
+                }
+            });
+
         }
 
         @Override
         protected Integer doInBackground(Void... params) {
 
-            if (DB.getInstant(getApplicationContext()).AddFromDayraExcel(tags, extr_path))
+            if ((DB.getInstant(getApplicationContext())).AddFromDayraExcel(
+                    tags, extr_path, totalCounter, addedCounter, updatedCounter))
                 return R.string.msg_dayra_imported;
             return R.string.err_msg_invalid_file;
 
