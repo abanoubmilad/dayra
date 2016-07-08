@@ -271,6 +271,7 @@ public class FragmentAddContactInfo extends Fragment {
                 values.put(DB.CONTACT_ST, params[11]);
                 values.put(DB.CONTACT_HOME, params[12]);
                 values.put(DB.CONTACT_SITE, params[13]);
+                values.put(DB.CONTACT_SUPERVISOR, params[14]);
 
                 values.put(DB.CONTACT_MAPLNG, 0);
                 values.put(DB.CONTACT_MAPLAT, 0);
