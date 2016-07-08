@@ -89,8 +89,7 @@ public class EditContact extends FragmentActivity {
         mPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager()));
 
 
-        findViewById(R.id.subhead1).setVisibility(View.GONE);
-        subHead2 = ((TextView) findViewById(R.id.subhead2));
+        subHead2 = ((TextView) findViewById(R.id.header));
         subHead2.setText(subHeads2[0]);
 
 

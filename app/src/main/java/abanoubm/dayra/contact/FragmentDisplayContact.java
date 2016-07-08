@@ -101,8 +101,7 @@ public class FragmentDisplayContact extends Fragment {
         mPager = (ViewPager) root.findViewById(R.id.pager);
         mPager.setAdapter(new ScreenSlidePagerAdapter(getChildFragmentManager()));
 
-        root.findViewById(R.id.subhead1).setVisibility(View.GONE);
-        subHead2 = ((TextView) root.findViewById(R.id.subhead2));
+        subHead2 = ((TextView) root.findViewById(R.id.header));
         subHead2.setText(R.string.subhead_display_info);
 
         buttons = new ImageView[]{
