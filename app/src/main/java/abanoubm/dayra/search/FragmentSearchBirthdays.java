@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactFieldAdapter;
@@ -28,7 +29,7 @@ import abanoubm.dayra.model.ContactField;
 public class FragmentSearchBirthdays extends Fragment {
     private ContactFieldAdapter adapter;
     private String month = "0", day = "0";
-    private  DB mDB;
+    private DB mDB;
 
     private class SearchBDayTask extends
             AsyncTask<Void, Void, ArrayList<ContactField>> {
@@ -43,8 +44,8 @@ public class FragmentSearchBirthdays extends Fragment {
 
         @Override
         protected ArrayList<ContactField> doInBackground(Void... params) {
-            if(mDB==null)
-                mDB =DB.getInstant(getActivity());
+            if (mDB == null)
+                mDB = DB.getInstant(getActivity());
             return mDB.searchBirthdays(Utility.produceDateRegex(day, month));
         }
 
@@ -138,6 +139,11 @@ public class FragmentSearchBirthdays extends Fragment {
 
             }
         });
+
+        Calendar cal = Calendar.getInstance();
+        spin_day.setSelection(cal.get(Calendar.DAY_OF_MONTH), true);
+        spin_month.setSelection(cal.get(Calendar.MONTH) + 1, true);
+
         return root;
     }
 

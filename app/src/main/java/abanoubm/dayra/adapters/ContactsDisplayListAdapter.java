@@ -67,7 +67,7 @@ public class ContactsDisplayListAdapter extends Adapter<ContactSort> {
 
         if (selected == position)
             holder.root.setBackgroundColor(
-                    ContextCompat.getColor(getContext(), R.color.red));
+                    ContextCompat.getColor(getContext(), R.color.hotgreen));
         else
             holder.root.setBackgroundResource(R.drawable.dynamic_bg);
 
