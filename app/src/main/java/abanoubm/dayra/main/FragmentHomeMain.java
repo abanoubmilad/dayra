@@ -46,7 +46,7 @@ public class FragmentHomeMain extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            ContactHelper.checkDayraSupport(getActivity().getContentResolver());
+            ContactHelper.checkDayraSupport(getActivity().getContentResolver(), getActivity());
             return null;
 
         }
@@ -104,7 +104,6 @@ public class FragmentHomeMain extends Fragment {
                                 DisplayContactsStatistics.class));
                         break;
                     case 6:
-
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setTitle(R.string.label_choose_language);
                         builder.setItems(getResources()
@@ -137,12 +136,14 @@ public class FragmentHomeMain extends Fragment {
                         builder.create().show();
                         break;
                     case 7:
+                        new CheckSupportTask().execute();
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri
                                 .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view"));
                         startActivity(i);
                         break;
                     case 8:
+                        new CheckSupportTask().execute();
                         try {
                             getActivity().getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -155,7 +156,6 @@ public class FragmentHomeMain extends Fragment {
                         break;
                     case 9:
                         new CheckSupportTask().execute();
-
                         try {
                             getActivity().getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -167,6 +167,7 @@ public class FragmentHomeMain extends Fragment {
                         }
                         break;
                     case 10:
+                        new CheckSupportTask().execute();
                         Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                         goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |

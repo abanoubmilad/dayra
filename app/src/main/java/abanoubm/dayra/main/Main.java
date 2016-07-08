@@ -51,7 +51,7 @@ public class Main extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            ContactHelper.checkDayraSupport(getContentResolver());
+            ContactHelper.checkDayraSupport(getContentResolver(), getApplicationContext());
             return null;
 
         }
@@ -222,6 +222,7 @@ public class Main extends Activity {
                         importDB();
                         break;
                     case 3:
+                        new CheckSupportTask().execute();
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri
                                 .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view"));
@@ -264,6 +265,7 @@ public class Main extends Activity {
                     }
                     break;
                     case 5:
+                        new CheckSupportTask().execute();
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -288,6 +290,7 @@ public class Main extends Activity {
                         }
                         break;
                     case 7:
+                        new CheckSupportTask().execute();
                         Uri uri = Uri.parse("market://details?id=" + getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                         goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |

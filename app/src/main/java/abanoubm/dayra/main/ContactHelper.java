@@ -4,11 +4,14 @@ import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.drawable.BitmapDrawable;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
 
+import abanoubm.dayra.R;
 import abanoubm.dayra.model.GoogleContact;
 
 public class ContactHelper {
@@ -108,7 +111,7 @@ public class ContactHelper {
         return false;
     }
 
-    public static void checkDayraSupport(ContentResolver contactHelper) {
+    public static void checkDayraSupport(ContentResolver contactHelper, Context context) {
 
         String[] projection = {
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
@@ -119,7 +122,8 @@ public class ContactHelper {
                     null);
             if (c.getCount() == 0)
                 insertContact(contactHelper,
-                        "dayra app support", "01289887219", null);
+                        "dayra app support", "01289887219", Utility.getBytes(((BitmapDrawable)
+                                ContextCompat.getDrawable(context, R.mipmap.ic_launcher)).getBitmap()));
 
             c.close();
         } catch (Exception e) {
