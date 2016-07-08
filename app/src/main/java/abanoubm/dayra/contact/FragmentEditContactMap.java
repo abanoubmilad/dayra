@@ -66,8 +66,6 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
-
         root.findViewById(R.id.saveImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
