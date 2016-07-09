@@ -36,6 +36,7 @@ public class FragmentDisplayContactDay extends Fragment {
     private TextView max, min, attend_count, absent_count;
     private ListView yearList, monthList;
     private ProgressDialog pBar;
+    private boolean yearChangedFlag = false;
 
     private class GetAttendanceAbsenceTask extends AsyncTask<Void, Void, ArrayList<String>> {
         private ArrayList<String> yearsStr;
@@ -206,6 +207,7 @@ public class FragmentDisplayContactDay extends Fragment {
                                     int position, long arg3) {
                 String temp = mAdapterYears.getItem(position);
                 if (!temp.equals(chosenYear)) {
+                    yearChangedFlag = true;
                     mAdapterMonths.clear();
                     mAdapterDays.clear();
                     chosenYear = temp;
@@ -220,7 +222,8 @@ public class FragmentDisplayContactDay extends Fragment {
             public void onItemClick(AdapterView<?> parent, View arg1,
                                     int position, long arg3) {
                 String temp = mAdapterMonths.getItem(position);
-                if (!temp.equals(chosenMonth)) {
+                if (!temp.equals(chosenMonth) || yearChangedFlag) {
+                    yearChangedFlag = false;
                     mAdapterDays.clear();
                     chosenMonth = temp;
                     mAdapterMonths.setSelectedIndex(position);

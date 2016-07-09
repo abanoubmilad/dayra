@@ -167,9 +167,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/label.year"
+            android:text="@string/label.day"
             android:textSize="@dimen/font_larger" />
-
 
         <TextView
             android:layout_width="0dp"
@@ -184,7 +183,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/label.day"
+            android:text="@string/label.year"
             android:textSize="@dimen/font_larger" />
     </LinearLayout>
 
