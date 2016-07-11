@@ -46,9 +46,6 @@ public class FragmentDisplayContact extends Fragment {
                 fragment.setArguments(arguments);
                 return fragment;
             } else {
-                arguments.putDouble(ARG_LAT, mLocation.getMapLat());
-                arguments.putDouble(ARG_LNG, mLocation.getMapLng());
-                arguments.putFloat(ARG_ZOM, mLocation.getZoom());
                 FragmentDisplayContactMap fragment = new FragmentDisplayContactMap();
                 fragment.setArguments(arguments);
                 return fragment;
@@ -65,9 +62,6 @@ public class FragmentDisplayContact extends Fragment {
     private String id;
     private int current = 0;
     private boolean dualMode;
-    private static final String ARG_LAT = "lat";
-    private static final String ARG_LNG = "lon";
-    private static final String ARG_ZOM = "zoom";
     private static final String ARG_ID = "id";
     private static final String ARG_DUAL_MODE = "dual";
 
@@ -89,7 +83,6 @@ public class FragmentDisplayContact extends Fragment {
             id = arguments.getString(ARG_ID);
             dualMode = arguments.getBoolean(ARG_DUAL_MODE);
         }
-        new GetLocationTask().execute();
 
     }
 
@@ -190,26 +183,4 @@ public class FragmentDisplayContact extends Fragment {
         subHead2.setText(subHeads2[changedCurrent]);
     }
 
-    private class GetLocationTask extends AsyncTask<Void, Void, Void> {
-        private ProgressDialog pBar;
-
-        @Override
-        protected void onPreExecute() {
-            pBar = new ProgressDialog(getActivity());
-            pBar.setCancelable(false);
-            pBar.show();
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            pBar.dismiss();
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            mLocation = DB.getInstant(getActivity()).getContactLocation(id);
-            return null;
-        }
-    }
 }

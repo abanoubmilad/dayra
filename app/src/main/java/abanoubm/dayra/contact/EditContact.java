@@ -82,11 +82,9 @@ public class EditContact extends FragmentActivity {
         setContentView(R.layout.act_edit_contact);
 
         id = getIntent().getStringExtra(ARG_ID);
+        mPager = (ViewPager) findViewById(R.id.pager);
 
         new GetLocationTask().execute();
-
-        mPager = (ViewPager) findViewById(R.id.pager);
-        mPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager()));
 
 
         subHead2 = ((TextView) findViewById(R.id.header));
@@ -179,6 +177,7 @@ public class EditContact extends FragmentActivity {
 
         @Override
         protected void onPostExecute(Void result) {
+            mPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager()));
             pBar.dismiss();
 
         }

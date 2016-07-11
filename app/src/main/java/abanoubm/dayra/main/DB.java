@@ -848,12 +848,6 @@ public class DB extends SQLiteOpenHelper {
                 final int TEXT_DIRECTION = isEnglishMode ? PdfWriter.RUN_DIRECTION_LTR : PdfWriter.RUN_DIRECTION_RTL;
                 do {
                     if (previousName.equals(c.getString(0))) {
-
-                        table.addCell(new Paragraph(header[0], font));
-                        table.addCell(new Paragraph(header[1], font));
-                        table.addCell(new Paragraph(header[2], font));
-                        table.addCell(new Paragraph(header[3], font));
-
                         table.addCell(new Paragraph(c.getString(2), font));
                         table.addCell(new Paragraph(c.getString(3), font));
                         table.addCell(new Paragraph(c.getString(4), font));

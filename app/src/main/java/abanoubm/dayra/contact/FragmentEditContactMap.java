@@ -26,25 +26,21 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
+import abanoubm.dayra.model.ContactLocation;
 
 public class FragmentEditContactMap extends Fragment implements OnMapReadyCallback {
     private double lon, lat;
     private float zoom;
     private Marker addressMarker, dayraMarker;
-    private static final String ARG_LAT = "lat";
-    private static final String ARG_LNG = "lon";
-    private static final String ARG_ZOM = "zoom";
     private static final String ARG_ID = "id";
     private String id;
     private TextView site, st, addr, home;
+    private GoogleMap dmap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            lon = getArguments().getDouble(ARG_LNG, 0);
-            lat = getArguments().getDouble(ARG_LAT, 0);
-            zoom = getArguments().getFloat(ARG_ZOM, 0);
             id = getArguments().getString(ARG_ID);
         }
     }
@@ -59,8 +55,6 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
         addr = (TextView) root.findViewById(R.id.addr);
         st = (TextView) root.findViewById(R.id.st);
         home = (TextView) root.findViewById(R.id.home);
-
-        new GetTask().execute();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
@@ -79,8 +73,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
 
     @Override
     public void onMapReady(final GoogleMap map) {
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(lat, lon), zoom));
+        dmap = map;
         map.setMyLocationEnabled(true);
 
         Location myLocation = map.getMyLocation();
@@ -112,14 +105,6 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
             }
         });
 
-
-        addressMarker = map.addMarker(new MarkerOptions()
-                .position(new LatLng(lat, lon))
-                .title("current location, tap or drag me to reposition")
-                .draggable(true));
-
-        addressMarker.showInfoWindow();
-
         map.setOnMarkerDragListener(new OnMarkerDragListener() {
 
             @Override
@@ -149,7 +134,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
                                 .position(
                                         new LatLng(point.latitude,
                                                 point.longitude))
-                                .title("current location, tap or drag me to reposition")
+                                .title("contact location, tap or drag me to reposition")
                                 .draggable(true));
                 addressMarker.showInfoWindow();
 
@@ -158,6 +143,9 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
                 zoom = map.getCameraPosition().zoom;
             }
         });
+
+        new GetTask().execute();
+        new DisplayTask().execute();
 
     }
 
@@ -224,5 +212,29 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
         protected String[] doInBackground(Void... params) {
             return DB.getInstant(getActivity()).getContactFullAddress(id);
         }
+    }
+
+    private class DisplayTask extends
+            AsyncTask<Void, Void, ContactLocation> {
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onPostExecute(ContactLocation contact) {
+            dmap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(contact.getMapLat(), contact.getMapLng()), contact.getZoom()));
+            addressMarker = dmap.addMarker(new MarkerOptions()
+                    .position(new LatLng(contact.getMapLat(), contact.getMapLng())).title("contact location, tap or drag me to reposition")
+                    .draggable(false));
+            addressMarker.showInfoWindow();
+        }
+
+        @Override
+        protected ContactLocation doInBackground(Void... params) {
+            return DB.getInstant(getActivity()).getContactLocation(id);
+        }
+
     }
 }

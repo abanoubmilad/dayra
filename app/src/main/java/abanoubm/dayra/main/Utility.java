@@ -210,7 +210,7 @@ public class Utility {
             manager.setInexactRepeating(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
-                    1000 * 60 * 60 * 24 * 8, PendingIntent.getBroadcast(context, 100,
+                    1000 * 60 * 60 * 24 * 30, PendingIntent.getBroadcast(context, 100,
                             new Intent(context, AttendanceReceiver.class), 0));
         }
 
