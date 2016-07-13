@@ -23,11 +23,11 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactsDisplayListAdapter;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.model.ContactID;
-import abanoubm.dayra.model.ContactSort;
+import abanoubm.dayra.model.ContactDisplayList;
 
 public class FragmentDisplayContacts extends Fragment {
     private ListView lv;
-    private ArrayList<ContactSort> list;
+    private ArrayList<ContactDisplayList> list;
     private int previousPosition = 0;
     private boolean isDualMode = false;
     private ContactsDisplayListAdapter mAdapter;
@@ -87,63 +87,63 @@ public class FragmentDisplayContacts extends Fragment {
             switch (sortType) {
                 // name
                 case 0:
-                    Collections.sort(list, new Comparator<ContactSort>() {
+                    Collections.sort(list, new Comparator<ContactDisplayList>() {
                         @Override
-                        public int compare(ContactSort lhs, ContactSort rhs) {
+                        public int compare(ContactDisplayList lhs, ContactDisplayList rhs) {
                             return lhs.getName().compareTo(rhs.getName());
                         }
                     });
                     break;
                 // class/year
                 case 1:
-                    Collections.sort(list, new Comparator<ContactSort>() {
+                    Collections.sort(list, new Comparator<ContactDisplayList>() {
                         @Override
-                        public int compare(ContactSort lhs, ContactSort rhs) {
+                        public int compare(ContactDisplayList lhs, ContactDisplayList rhs) {
                             return lhs.getClassYear().compareTo(rhs.getClassYear());
                         }
                     });
                     break;
                 // study/work
                 case 2:
-                    Collections.sort(list, new Comparator<ContactSort>() {
+                    Collections.sort(list, new Comparator<ContactDisplayList>() {
                         @Override
-                        public int compare(ContactSort lhs, ContactSort rhs) {
+                        public int compare(ContactDisplayList lhs, ContactDisplayList rhs) {
                             return lhs.getStudyWork().compareTo(rhs.getStudyWork());
                         }
                     });
                     break;
                 // site
                 case 3:
-                    Collections.sort(list, new Comparator<ContactSort>() {
+                    Collections.sort(list, new Comparator<ContactDisplayList>() {
                         @Override
-                        public int compare(ContactSort lhs, ContactSort rhs) {
+                        public int compare(ContactDisplayList lhs, ContactDisplayList rhs) {
                             return lhs.getSite().compareTo(rhs.getSite());
                         }
                     });
                     break;
                 // street
                 case 4:
-                    Collections.sort(list, new Comparator<ContactSort>() {
+                    Collections.sort(list, new Comparator<ContactDisplayList>() {
                         @Override
-                        public int compare(ContactSort lhs, ContactSort rhs) {
+                        public int compare(ContactDisplayList lhs, ContactDisplayList rhs) {
                             return lhs.getStreet().compareTo(rhs.getStreet());
                         }
                     });
                     break;
                 // home
                 case 5:
-                    Collections.sort(list, new Comparator<ContactSort>() {
+                    Collections.sort(list, new Comparator<ContactDisplayList>() {
                         @Override
-                        public int compare(ContactSort lhs, ContactSort rhs) {
+                        public int compare(ContactDisplayList lhs, ContactDisplayList rhs) {
                             return lhs.getHome().compareTo(rhs.getHome());
                         }
                     });
                     break;
                 // confession father
                 case 6:
-                    Collections.sort(list, new Comparator<ContactSort>() {
+                    Collections.sort(list, new Comparator<ContactDisplayList>() {
                         @Override
-                        public int compare(ContactSort lhs, ContactSort rhs) {
+                        public int compare(ContactDisplayList lhs, ContactDisplayList rhs) {
                             return lhs.getPriest().compareTo(rhs.getPriest());
                         }
                     });
@@ -219,7 +219,7 @@ public class FragmentDisplayContacts extends Fragment {
             }
         });
         lv = (ListView) root.findViewById(R.id.list);
-        mAdapter = new ContactsDisplayListAdapter(getActivity(), new ArrayList<ContactSort>(0));
+        mAdapter = new ContactsDisplayListAdapter(getActivity(), new ArrayList<ContactDisplayList>(0));
         lv.setAdapter(mAdapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

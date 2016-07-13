@@ -206,7 +206,7 @@ public class Utility {
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, 19);
+            calendar.set(Calendar.HOUR_OF_DAY, 18);
             manager.setInexactRepeating(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),

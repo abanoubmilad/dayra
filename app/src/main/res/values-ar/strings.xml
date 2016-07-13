@@ -68,7 +68,6 @@
     <string name="label.contact">التواصل</string>
     <string name="label.personal">شخصى</string>
     <string name="msg.choose.field">قم باختيار خانة واحدة على الاقل</string>
-    <string name="label.attendance.absence">الحضور/الغياب</string>
     <string name="btn.divide">تقسيم دايره</string>
     <string name="subhead.divide">تقسيم الدايره الحالية</string>
     <string name="label.divide.express">تقسيم الدايره الحالية الى اكثر من دايره\nمع الاحتفاظ بالدايره الحالية كما هى\n\nتقسيم الدايره الحالية بواسطة</string>
@@ -131,6 +130,11 @@
     <string name="label.absent.count">عدد مرات الغياب بداية من اول حضور</string>
 
     <string name="label.xls.express">دايره xls يجب ان تكون بالترتيب التالى:\n\nاسم, دفعة/سنة, دراسة/عمل, موبايل ١, موبايل ٢, موبايل ٣, تليفون, ايميل, منطقة, شارع, منزل, عنوان, ملاحظات, المُشرف, صورة\n ١٥ خانة \n\nاول صف يحتوى على اسماء الخانات فقط</string>
+
+    <string-array name="days_type">
+        <item>عرض ايام الحضور</item>
+        <item>عرض ايام الحضور والغياب</item>
+    </string-array>
 
     <string-array name="attendace_report_header">
         <item>نوع الحضور</item>
@@ -336,6 +340,8 @@
     <string name="dialogue.total.contacts">عدد الاسماء الموجودة فى الدايره المُختارة</string>
     <string name="dialogue.updated.contacts">عدد الاسماء التى تم تحديث بياناتها</string>
     <string name="dialogue.added.contacts">عدد الاسماء التى تم اضافتها</string>
+    <string name="select.days.type">اختر نوع الايام</string>
+    <string name="msg.no.days">لا توجد ايام مُسجلة</string>
 
 
 </resources>

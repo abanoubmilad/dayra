@@ -100,7 +100,7 @@ public class FragmentDisplayContactInfo extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(Intent.ACTION_DIAL, Uri
+                        startActivity(new Intent(Intent.ACTION_CALL, Uri
                                 .fromParts("tel", dis_mobile1.getText()
                                         .toString(), null)));
                     }
@@ -121,7 +121,7 @@ public class FragmentDisplayContactInfo extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(Intent.ACTION_DIAL, Uri
+                        startActivity(new Intent(Intent.ACTION_CALL, Uri
                                 .fromParts("tel", dis_mobile2.getText()
                                         .toString(), null)));
                     }
@@ -142,7 +142,7 @@ public class FragmentDisplayContactInfo extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(Intent.ACTION_DIAL, Uri
+                        startActivity(new Intent(Intent.ACTION_CALL, Uri
                                 .fromParts("tel", dis_mobile3.getText()
                                         .toString(), null)));
                     }
@@ -163,7 +163,7 @@ public class FragmentDisplayContactInfo extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(Intent.ACTION_DIAL, Uri
+                        startActivity(new Intent(Intent.ACTION_CALL, Uri
                                 .fromParts("tel", dis_lphone.getText()
                                         .toString(), null)));
                     }
@@ -181,35 +181,24 @@ public class FragmentDisplayContactInfo extends Fragment {
         dis_email.setText(contactData.getEmail());
 
         dis_lphone.setText(contactData.getLandPhone());
-        if (contactData.getLandPhone().length() == 0) {
-            call4.setVisibility(View.GONE);
-        } else {
+        if (contactData.getLandPhone().length() != 0) {
             call4.setVisibility(View.VISIBLE);
         }
 
         dis_mobile1.setText(contactData.getMobile1());
-        if (contactData.getMobile1().length() == 0) {
-            call1.setVisibility(View.GONE);
-            msg1.setVisibility(View.GONE);
-        } else {
+        if (contactData.getMobile1().length() != 0) {
             call1.setVisibility(View.VISIBLE);
             msg1.setVisibility(View.VISIBLE);
         }
 
         dis_mobile2.setText(contactData.getMobile2());
-        if (contactData.getMobile2().length() == 0) {
-            call2.setVisibility(View.GONE);
-            msg2.setVisibility(View.GONE);
-        } else {
+        if (contactData.getMobile2().length() != 0) {
             call2.setVisibility(View.VISIBLE);
             msg2.setVisibility(View.VISIBLE);
         }
 
         dis_mobile3.setText(contactData.getMobile3());
-        if (contactData.getMobile3().length() == 0) {
-            call3.setVisibility(View.GONE);
-            msg3.setVisibility(View.GONE);
-        } else {
+        if (contactData.getMobile3().length() != 0) {
             call3.setVisibility(View.VISIBLE);
             msg3.setVisibility(View.VISIBLE);
         }

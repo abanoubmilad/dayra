@@ -8,6 +8,7 @@
     <string name="msg.no.contacts">No contacts</string>
     <string name="msg.no.locations">No locations</string>
     <string name="msg.no.connections">No connections</string>
+    <string name="msg.no.days">No registered days</string>
     <string name="btn.export">export</string>
     <string name="label.choose.data">Choose data</string>
     <string name="btn.search">Search</string>
@@ -69,7 +70,6 @@
     <string name="label.address">address</string>
     <string name="label.contact">contact</string>
     <string name="label.personal">personal</string>
-    <string name="label.attendance.absence">Attendance/absence</string>
     <string name="msg.choose.field">Choose at least one field to export</string>
     <string name="btn.divide">divide dayra</string>
     <string name="subhead.divide">Divid current dayra</string>
@@ -115,6 +115,7 @@
     <string name="flag.contact.attend">attended</string>
     <string name="flag.contact.con">conn</string>
     <string name="select.attendance.type">Attendance type</string>
+    <string name="select.days.type">Select days type</string>
     <string name="search.by">Search by</string>
 
     <string name="select.year">Select year</string>
@@ -145,6 +146,12 @@
     <string name="label.dayra.xls">dayra xls</string>
     <string name="label.dayra.file">dayra file</string>
     <string name="msg.dayra.no.divider">No enough entries found for the chosen divider (divide by)</string>
+
+
+    <string-array name="days_type">
+        <item>Display attendance days</item>
+        <item>Display attendance/absence days</item>
+    </string-array>
 
     <string-array name="attendace_report_header">
         <item>Attendance type</item>

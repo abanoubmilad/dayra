@@ -1,10 +1,10 @@
 package abanoubm.dayra.model;
 
-public class ContactLoc {
+public class ContactLocationList {
     private double mapLat, mapLng;
     private String name;
 
-    public ContactLoc(String name, double mapLat, double mapLng) {
+    public ContactLocationList(String name, double mapLat, double mapLng) {
         this.mapLat = mapLat;
         this.mapLng = mapLng;
         this.name = name;

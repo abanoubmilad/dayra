@@ -1,11 +1,13 @@
 package abanoubm.dayra.alarm;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
@@ -15,7 +17,8 @@ import java.util.Calendar;
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.model.ContactField;
+import abanoubm.dayra.model.Field;
+import abanoubm.dayra.model.IntWrapper;
 
 public class BirthDayReceiver extends BroadcastReceiver {
 
@@ -33,15 +36,18 @@ public class BirthDayReceiver extends BroadcastReceiver {
                 (Calendar.getInstance().get(Calendar.MONTH) + 1) + "");
 
 
-        int start = 7;
+        int start = 1;
         Bitmap defPhoto = ((BitmapDrawable)
                 ContextCompat.getDrawable(context, R.mipmap.def)).getBitmap();
+        IntWrapper total = new IntWrapper();
+        StringBuilder builder;
 
         for (String dayraName : array) {
+            builder = new StringBuilder("");
 
-            ArrayList<ContactField> result = DB.getInstant(context, dayraName).searchBirthdays(date);
+            ArrayList<Field> result = DB.getInstant(context, dayraName).alarmBirthdays(date, builder, total);
 
-            if (result.size() > 5) {
+            if (total.getCounter() > 5) {
                 NotificationCompat.Builder n = new NotificationCompat.Builder(
                         context)
                         .setSmallIcon(R.mipmap.ic_launcher)
@@ -53,16 +59,23 @@ public class BirthDayReceiver extends BroadcastReceiver {
                         .setContentText(
                                 context.getResources().getString(
                                         R.string.label_noti_more)
-                                        + " " + result.size())
+                                        + " " + total.getCounter())
                         .setAutoCancel(true);
+                if (builder.length() != 0) {
+                    n.addAction(R.mipmap.ic_msg, "Message All",
+                            PendingIntent.getActivity(context,
+                                    (int) System.currentTimeMillis(), new Intent(Intent.ACTION_SENDTO, Uri
+                                            .parse("smsto:"
+                                                    + builder.toString())), 0));
+                }
                 NotificationManager nm = (NotificationManager) context
                         .getSystemService(Context.NOTIFICATION_SERVICE);
                 nm.notify(start++, n.build());
             } else {
-                for (ContactField contactDay : result) {
+                for (Field field : result) {
                     NotificationCompat.Builder n = new NotificationCompat.Builder(
                             context)
-                            .setLargeIcon(contactDay.getPhoto() != null ? contactDay.getPhoto() : defPhoto)
+                            .setLargeIcon(field.getPhoto() != null ? field.getPhoto() : defPhoto)
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setContentTitle(
                                     dayraName
@@ -71,7 +84,18 @@ public class BirthDayReceiver extends BroadcastReceiver {
                                             .getResources()
                                             .getString(
                                                     R.string.label_noti_bday))
-                            .setContentText(contactDay.getName() + " - " + contactDay.getField()).setAutoCancel(true);
+                            .setContentText(field.getName() + " " + field.getDay()).setAutoCancel(true);
+                    if (field.getPhone().length() > 0) {
+                        n.addAction(R.mipmap.ic_call, "Call",
+                                PendingIntent.getActivity(context,
+                                        (int) System.currentTimeMillis(), new Intent(Intent.ACTION_CALL, Uri
+                                                .fromParts("tel", field.getPhone(), null)), 0))
+                                .addAction(R.mipmap.ic_msg, "Message",
+                                        PendingIntent.getActivity(context,
+                                                (int) System.currentTimeMillis(), new Intent(Intent.ACTION_SENDTO, Uri
+                                                        .parse("smsto:"
+                                                                + field.getPhone())), 0));
+                    }
                     NotificationManager nm = (NotificationManager) context
                             .getSystemService(Context.NOTIFICATION_SERVICE);
                     nm.notify(start++, n.build());

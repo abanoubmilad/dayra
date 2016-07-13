@@ -11,13 +11,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.model.ContactSort;
+import abanoubm.dayra.model.ContactDisplayList;
 
-public class ContactsDisplayListAdapter extends Adapter<ContactSort> {
+public class ContactsDisplayListAdapter extends Adapter<ContactDisplayList> {
 
     private int selected = -1;
 
-    public ContactsDisplayListAdapter(Context context, ArrayList<ContactSort> contacts) {
+    public ContactsDisplayListAdapter(Context context, ArrayList<ContactDisplayList> contacts) {
         super(context, 0, contacts);
     }
 
@@ -25,7 +25,7 @@ public class ContactsDisplayListAdapter extends Adapter<ContactSort> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
-        ContactSort contact = getItem(position);
+        ContactDisplayList contact = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.item_display_contact_list, parent, false);

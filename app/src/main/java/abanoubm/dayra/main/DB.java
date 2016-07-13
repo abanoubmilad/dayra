@@ -31,14 +31,15 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.alarm.DBAlarm;
 import abanoubm.dayra.model.ContactCheck;
 import abanoubm.dayra.model.ContactData;
+import abanoubm.dayra.model.ContactDisplayList;
 import abanoubm.dayra.model.ContactField;
 import abanoubm.dayra.model.ContactID;
-import abanoubm.dayra.model.ContactLoc;
 import abanoubm.dayra.model.ContactLocation;
+import abanoubm.dayra.model.ContactLocationList;
 import abanoubm.dayra.model.ContactMobile;
-import abanoubm.dayra.model.ContactSort;
 import abanoubm.dayra.model.ContactStatistics;
 import abanoubm.dayra.model.DayCheck;
+import abanoubm.dayra.model.Field;
 import abanoubm.dayra.model.IntWrapper;
 import jxl.Cell;
 import jxl.Sheet;
@@ -619,7 +620,7 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList<ContactSort> getContactsDisplayList() {
+    public ArrayList<ContactDisplayList> getContactsDisplayList() {
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + PHOTO_BLOB +
                 "," + CONTACT_SUPERVISOR + "," + CONTACT_CLASS_YEAR +
                 "," + CONTACT_STUDY_WORK +
@@ -632,12 +633,12 @@ public class DB extends SQLiteOpenHelper {
 
 
         Cursor c = readableDB.rawQuery(selectQuery, null);
-        ArrayList<ContactSort> result = new ArrayList<>(c.getCount());
+        ArrayList<ContactDisplayList> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {
 
             do {
-                result.add(new ContactSort(c.getString(0), c
+                result.add(new ContactDisplayList(c.getString(0), c
                         .getString(1), Utility.getBitmap(c.getBlob(2)), c
                         .getString(3), c.getString(4), c.getString(5), c
                         .getString(6), c.getString(7), c.getString(8)));
@@ -650,15 +651,15 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<ContactLoc> getContactsLocations() {
+    public ArrayList<ContactLocationList> getContactsLocations() {
         Cursor c = readableDB.query(TB_CONTACT, new String[]{CONTACT_NAME, CONTACT_MAPLAT,
                         CONTACT_MAPLNG},
                 CONTACT_MAPLAT + "!=0 OR " + CONTACT_MAPLNG + "!=0", null, null, null, null);
-        ArrayList<ContactLoc> result = new ArrayList<>(c.getCount());
+        ArrayList<ContactLocationList> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {
             do {
-                result.add(new ContactLoc(c.getString(0), c
+                result.add(new ContactLocationList(c.getString(0), c
                         .getDouble(1), c.getDouble(2)));
             } while (c.moveToNext());
         }
@@ -1209,7 +1210,7 @@ public class DB extends SQLiteOpenHelper {
                 " WHERE " + ATTEND_TYPE + " = ? AND " +
                 ATTEND_DAY + " > ? AND " + ATTEND_DAY +
                 " NOT IN ( SELECT " + ATTEND_DAY + " FROM " + TB_ATTEND +
-                " WHERE " + ATTEND_ID + " = ? AND " + ATTEND_TYPE + " = ? )";
+                " WHERE " + ATTEND_ID + " = ? AND " + ATTEND_TYPE + " = ? ) ORDER BY " + ATTEND_DAY;
 
         Cursor c = readableDB.rawQuery(absenceQuery, new String[]{type, minDate, id, type});
         ArrayList<DayCheck> result = new ArrayList<>(
@@ -1284,6 +1285,43 @@ public class DB extends SQLiteOpenHelper {
             do {
                 result.add(new ContactField(c.getString(0), c.getString(1),
                         c.getString(3), Utility.getBitmap(c.getBlob(2))));
+            } while (c.moveToNext());
+        }
+        c.close();
+        return result;
+
+    }
+
+    public ArrayList<Field> alarmBirthdays(String dateRegex, StringBuilder builder, IntWrapper total) {
+
+        String selectQuery = "SELECT " + CONTACT_NAME + "," + PHOTO_BLOB + "," +
+                CONTACT_MOB1 + "," + CONTACT_BDAY +
+                " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                " WHERE " + CONTACT_BDAY + " LIKE ? ORDER BY " + CONTACT_BDAY + " LIMIT 6";
+
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{dateRegex});
+        total.setCounter(c.getCount());
+        if (c.getCount() > 5) {
+            String sep = "; ";
+            if (android.os.Build.MANUFACTURER.equalsIgnoreCase("samsung"))
+                sep = ", ";
+            if (c.moveToFirst()) {
+                do {
+                    if (c.getString(2).length() > 0) {
+                        builder.append(c.getString(2));
+                        builder.append(sep);
+                    }
+                } while (c.moveToNext());
+            }
+            c.close();
+            return null;
+        }
+        ArrayList<Field> result = new ArrayList<>(c.getCount());
+
+        if (c.moveToFirst()) {
+            do {
+                result.add(new Field(c.getString(0), Utility.getBitmap(c.getBlob(1)), c.getString(2), c.getString(3)));
             } while (c.moveToNext());
         }
         c.close();
@@ -1574,21 +1612,38 @@ public class DB extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<ContactField> getContactsAttendanceAbsence(String previousWeekRegex) {
-        String selectQuery = "SELECT " + CONTACT_NAME + "," + PHOTO_BLOB +
+    public ArrayList<Field> alarmAttendance(String regex, StringBuilder builder, IntWrapper total) {
+        String selectQuery = "SELECT " + CONTACT_NAME + "," + PHOTO_BLOB + "," + CONTACT_MOB1 +
                 ", MAX(" + ATTEND_DAY + ")" +
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
-                CONTACT_ID + "=" + ATTEND_ID + " WHERE " + ATTEND_DAY + " < ? GROUP BY " + ATTEND_ID + " ORDER BY " + CONTACT_NAME;
-        Cursor c = readableDB.rawQuery(selectQuery, new String[]{previousWeekRegex});
-        ArrayList<ContactField> result = new ArrayList<>(
+                CONTACT_ID + "=" + ATTEND_ID + " WHERE " + ATTEND_DAY +
+                " < ? GROUP BY " + ATTEND_ID + " ORDER BY " + CONTACT_NAME + " LIMIT 6";
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{regex});
+        total.setCounter(c.getCount());
+        if (c.getCount() > 5) {
+            String sep = "; ";
+            if (android.os.Build.MANUFACTURER.equalsIgnoreCase("samsung"))
+                sep = ", ";
+            if (c.moveToFirst()) {
+                do {
+                    if (c.getString(2).length() > 0) {
+                        builder.append(c.getString(2));
+                        builder.append(sep);
+                    }
+                } while (c.moveToNext());
+            }
+            c.close();
+            return null;
+        }
+        ArrayList<Field> result = new ArrayList<>(
                 c.getCount());
 
         if (c.moveToFirst()) {
             do {
-                result.add(new ContactField(null, c.getString(0), c.getString(2),
-                        Utility.getBitmap(c.getBlob(1))));
+                result.add(new Field(c.getString(0),
+                        Utility.getBitmap(c.getBlob(1)), c.getString(2), c.getString(3)));
             } while (c.moveToNext());
         }
         c.close();

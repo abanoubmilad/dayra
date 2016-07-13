@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
-import abanoubm.dayra.model.ContactLoc;
+import abanoubm.dayra.model.ContactLocationList;
 
 public class DisplayContactsMap extends FragmentActivity implements
         OnMapReadyCallback {
@@ -30,7 +30,7 @@ public class DisplayContactsMap extends FragmentActivity implements
     private GoogleMap dmap;
 
     private class DisplayTask extends
-            AsyncTask<Void, Void, ArrayList<ContactLoc>> {
+            AsyncTask<Void, Void, ArrayList<ContactLocationList>> {
         private ProgressDialog pBar;
 
         @Override
@@ -41,14 +41,14 @@ public class DisplayContactsMap extends FragmentActivity implements
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ContactLoc> result) {
+        protected void onPostExecute(ArrayList<ContactLocationList> result) {
             pBar.dismiss();
             if (result.size() == 0) {
                 finish();
                 Toast.makeText(getApplicationContext(),
                         R.string.msg_no_locations, Toast.LENGTH_SHORT).show();
             } else {
-                for (ContactLoc attLoc : result) {
+                for (ContactLocationList attLoc : result) {
                     dmap.addMarker(new MarkerOptions()
                             .position(
                                     new LatLng(attLoc.getMapLat(), attLoc
@@ -60,7 +60,7 @@ public class DisplayContactsMap extends FragmentActivity implements
         }
 
         @Override
-        protected ArrayList<ContactLoc> doInBackground(Void... params) {
+        protected ArrayList<ContactLocationList> doInBackground(Void... params) {
             return DB.getInstant(getApplicationContext()).getContactsLocations();
         }
 

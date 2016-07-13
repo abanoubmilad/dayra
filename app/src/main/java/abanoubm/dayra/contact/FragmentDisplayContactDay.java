@@ -15,8 +15,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.DayCheckAdapter;
@@ -32,39 +30,34 @@ public class FragmentDisplayContactDay extends Fragment {
     private static final String ARG_ID = "id";
     private ArrayList<DayCheck> days;
     private int dayType = 0;
+    private int attendanceAbsenceType = 0;
     private String chosenMonth, chosenYear;
-    private TextView max, min, attend_count, absent_count;
+    private TextView max, min, attend_count, absent_count, MsgNoDays;
     private ListView yearList, monthList;
     private ProgressDialog pBar;
     private boolean yearChangedFlag = false;
 
     private class GetAttendanceAbsenceTask extends AsyncTask<Void, Void, ArrayList<String>> {
-        private ArrayList<String> yearsStr;
-
         @Override
         protected void onPreExecute() {
-
-            mAdapterDays.clear();
-            mAdapterMonths.clear();
-            mAdapterYears.clear();
-
             pBar.show();
         }
 
         @Override
         protected void onPostExecute(ArrayList<String> result) {
-            min.setText(result.get(0));
-            max.setText(result.get(1));
-            attend_count.setText(result.get(2));
-            absent_count.setText(result.get(3));
 
+            if (days.size() == 0) {
+                MsgNoDays.setVisibility(View.VISIBLE);
+            } else {
+                MsgNoDays.setVisibility(View.GONE);
 
-            mAdapterYears.addAll(yearsStr);
+                min.setText(result.get(0));
+                max.setText(result.get(1));
+                attend_count.setText(result.get(2));
+                absent_count.setText(result.get(3));
 
-            if (yearsStr.size() != 0)
-                yearList.performItemClick(yearList.findViewWithTag(mAdapterYears.getItem(0)),
-                        0, mAdapterYears.getItemId(0));
-
+                new GetYearsTask().execute();
+            }
             pBar.dismiss();
 
         }
@@ -75,26 +68,57 @@ public class FragmentDisplayContactDay extends Fragment {
             ArrayList<String> result = db.getContactAttendanceStatistics(id, dayType + "");
             days = db.getAttendanceAbsence(id, dayType + "", result.get(0) == null ? "9999-99-99" : result.get(0));
 
-            Collections.sort(days, new Comparator<DayCheck>() {
-                @Override
-                public int compare(DayCheck lhs, DayCheck rhs) {
-                    return rhs.getDay().compareTo(lhs.getDay());
-                }
-            });
-
             result.add(3, days.size() - Integer.parseInt(result.get(2)) + "");
+            return result;
+        }
+    }
 
+    private class GetYearsTask extends AsyncTask<Void, Void, ArrayList<String>> {
+
+        @Override
+        protected void onPreExecute() {
+
+            mAdapterDays.clear();
+            mAdapterMonths.clear();
+            mAdapterYears.clear();
+            chosenYear = null;
+
+            pBar.show();
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> yearsStr) {
+            mAdapterYears.addAll(yearsStr);
+            if (yearsStr.size() != 0)
+                yearList.performItemClick(yearList.findViewWithTag(mAdapterYears.getItem(0)),
+                        0, mAdapterYears.getItemId(0));
+            pBar.dismiss();
+        }
+
+        @Override
+        protected ArrayList<String> doInBackground(Void... params) {
+
+            ArrayList<String> yearsStr;
 
             yearsStr = new ArrayList<>(days.size());
             String last = null, check;
-            for (DayCheck day : days) {
-                check = day.getDay().substring(0, 4);
-                if (!check.equals(last)) {
-                    last = check;
-                    yearsStr.add(last);
+            if (attendanceAbsenceType == 0) {
+                for (DayCheck day : days) {
+                    if (day.isChecked() && !(check = day.getDay().substring(0, 4)).equals(last)) {
+                        last = check;
+                        yearsStr.add(last);
+                    }
+                }
+            } else {
+                for (DayCheck day : days) {
+                    if (!(check = day.getDay().substring(0, 4)).equals(last)) {
+                        last = check;
+                        yearsStr.add(last);
+                    }
                 }
             }
-            return result;
+            pBar.dismiss();
+            return yearsStr;
         }
     }
 
@@ -119,12 +143,24 @@ public class FragmentDisplayContactDay extends Fragment {
             ArrayList<String> temp = new ArrayList<>(days.size());
 
             String last = null, check;
-            for (DayCheck day : days) {
-                if (day.getDay().startsWith(chosenYear)) {
-                    check = day.getDay().substring(5, 7);
-                    if (!check.equals(last)) {
-                        last = check;
-                        temp.add(last);
+            if (attendanceAbsenceType == 0) {
+                for (DayCheck day : days) {
+                    if (day.isChecked() && day.getDay().startsWith(chosenYear)) {
+                        check = day.getDay().substring(5, 7);
+                        if (!check.equals(last)) {
+                            last = check;
+                            temp.add(last);
+                        }
+                    }
+                }
+            } else {
+                for (DayCheck day : days) {
+                    if (day.getDay().startsWith(chosenYear)) {
+                        check = day.getDay().substring(5, 7);
+                        if (!check.equals(last)) {
+                            last = check;
+                            temp.add(last);
+                        }
                     }
                 }
             }
@@ -152,16 +188,28 @@ public class FragmentDisplayContactDay extends Fragment {
             ArrayList<DayCheck> temp = new ArrayList<>(days.size());
 
             String last = null, check;
-            for (DayCheck day : days) {
-                if (day.getDay().startsWith(chosenYear + "-" + chosenMonth)) {
-                    check = day.getDay().substring(8, 10);
-                    if (!check.equals(last)) {
-                        last = check;
-                        temp.add(day);
+            if (attendanceAbsenceType == 0) {
+                for (DayCheck day : days) {
+                    if (day.isChecked() && day.getDay().startsWith(chosenYear + "-" + chosenMonth)) {
+                        check = day.getDay().substring(8, 10);
+                        if (!check.equals(last)) {
+                            last = check;
+                            temp.add(day);
+                        }
                     }
                 }
-            }
+            } else {
+                for (DayCheck day : days) {
+                    if (day.getDay().startsWith(chosenYear + "-" + chosenMonth)) {
+                        check = day.getDay().substring(8, 10);
+                        if (!check.equals(last)) {
+                            last = check;
+                            temp.add(day);
+                        }
+                    }
+                }
 
+            }
             return temp;
         }
     }
@@ -187,6 +235,8 @@ public class FragmentDisplayContactDay extends Fragment {
         min = (TextView) root.findViewById(R.id.min);
         attend_count = (TextView) root.findViewById(R.id.attend_count);
         absent_count = (TextView) root.findViewById(R.id.absent_count);
+
+        MsgNoDays = (TextView) root.findViewById(R.id.msg_no_days);
 
         dayList = (ListView) root.findViewById(R.id.dayList);
         monthList = (ListView) root.findViewById(R.id.monthList);
@@ -243,6 +293,26 @@ public class FragmentDisplayContactDay extends Fragment {
                 if (dayType != position) {
                     dayType = position;
                     new GetAttendanceAbsenceTask().execute();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        Spinner spinAttendanceAbsence = (Spinner) root.findViewById(R.id.spin_days_type);
+        spinAttendanceAbsence.setAdapter(new ArrayAdapter<>(getActivity(),
+                R.layout.item_string, getResources().getTextArray(R.array.days_type)));
+        spinAttendanceAbsence.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                if (attendanceAbsenceType != position) {
+                    attendanceAbsenceType = position;
+                    new GetYearsTask().execute();
                 }
             }
 
