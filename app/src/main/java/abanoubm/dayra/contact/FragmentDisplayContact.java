@@ -16,10 +16,10 @@ import android.widget.TextView;
 import abanoubm.dayra.R;
 
 public class FragmentDisplayContact extends Fragment {
-    private static final int NUM_PAGES = 4;
     private ViewPager mPager;
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        private static final int NUM_PAGES = 4;
 
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
@@ -56,7 +56,7 @@ public class FragmentDisplayContact extends Fragment {
     }
 
     private String id;
-    private int current = 0;
+    private int mCurrentTab = 0;
     private boolean dualMode;
     private static final String ARG_ID = "id";
     private static final String ARG_DUAL_MODE = "dual";
@@ -120,7 +120,7 @@ public class FragmentDisplayContact extends Fragment {
 
             @Override
             public void onClick(View v) {
-                if (current != 2)
+                if (mCurrentTab != 2)
                     mPager.setCurrentItem(2);
 
 
@@ -131,7 +131,7 @@ public class FragmentDisplayContact extends Fragment {
 
             @Override
             public void onClick(View v) {
-                if (current != 3)
+                if (mCurrentTab != 3)
                     mPager.setCurrentItem(3);
 
             }
@@ -141,7 +141,7 @@ public class FragmentDisplayContact extends Fragment {
 
             @Override
             public void onClick(View v) {
-                if (current != 4) {
+                if (mCurrentTab != 4) {
                     startActivity(new Intent(getActivity(), EditContact.class).putExtra(ARG_ID, id));
                     if (!dualMode)
                         getActivity().finish();
@@ -171,8 +171,8 @@ public class FragmentDisplayContact extends Fragment {
     }
 
     private void fireTab(int changedCurrent) {
-        buttons[current].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.grey));
-        current = changedCurrent;
+        buttons[mCurrentTab].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.grey));
+        mCurrentTab = changedCurrent;
         buttons[changedCurrent].setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
         subHead2.setText(subHeads2[changedCurrent]);
     }

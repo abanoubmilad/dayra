@@ -1,7 +1,5 @@
 package abanoubm.dayra.contact;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,14 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.main.DB;
-import abanoubm.dayra.model.ContactLocation;
 
 public class EditContact extends FragmentActivity {
-    private static final int NUM_PAGES = 4;
     private ViewPager mPager;
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        private static final int NUM_PAGES = 4;
 
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
@@ -44,9 +40,6 @@ public class EditContact extends FragmentActivity {
                 fragment.setArguments(arguments);
                 return fragment;
             } else {
-                arguments.putDouble(ARG_LAT, mLocation.getMapLat());
-                arguments.putDouble(ARG_LNG, mLocation.getMapLng());
-                arguments.putFloat(ARG_ZOM, mLocation.getZoom());
                 FragmentEditContactMap fragment = new FragmentEditContactMap();
                 fragment.setArguments(arguments);
                 return fragment;
@@ -61,9 +54,8 @@ public class EditContact extends FragmentActivity {
     }
 
     private String id;
-    private int current = 0;
+    private int mCurrentTab = 0;
     private ImageView[] buttons;
-    private ContactLocation mLocation;
     private TextView subHead2;
     private final int[] subHeads2 = new int[]{
             R.string.subhead_edit_info,
@@ -71,9 +63,6 @@ public class EditContact extends FragmentActivity {
             R.string.subhead_edit_connections,
             R.string.subhead_edit_map};
 
-    private static final String ARG_LAT = "lat";
-    private static final String ARG_LNG = "lon";
-    private static final String ARG_ZOM = "zoom";
     private static final String ARG_ID = "id";
 
     @Override
@@ -83,9 +72,7 @@ public class EditContact extends FragmentActivity {
 
         id = getIntent().getStringExtra(ARG_ID);
         mPager = (ViewPager) findViewById(R.id.pager);
-
-        new GetLocationTask().execute();
-
+        mPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager()));
 
         subHead2 = ((TextView) findViewById(R.id.header));
         subHead2.setText(subHeads2[0]);
@@ -102,7 +89,7 @@ public class EditContact extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                if (current != 0)
+                if (mCurrentTab != 0)
                     mPager.setCurrentItem(0);
 
 
@@ -112,7 +99,7 @@ public class EditContact extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                if (current != 1)
+                if (mCurrentTab != 1)
                     mPager.setCurrentItem(1);
 
             }
@@ -121,7 +108,7 @@ public class EditContact extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                if (current != 2)
+                if (mCurrentTab != 2)
                     mPager.setCurrentItem(2);
 
 
@@ -132,7 +119,7 @@ public class EditContact extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                if (current != 3)
+                if (mCurrentTab != 3)
                     mPager.setCurrentItem(3);
 
             }
@@ -158,34 +145,10 @@ public class EditContact extends FragmentActivity {
     }
 
     private void fireTab(int changedCurrent) {
-        buttons[current].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.grey));
-        current = changedCurrent;
+        buttons[mCurrentTab].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.grey));
+        mCurrentTab = changedCurrent;
         buttons[changedCurrent].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
         subHead2.setText(subHeads2[changedCurrent]);
     }
 
-
-    private class GetLocationTask extends AsyncTask<Void, Void, Void> {
-        private ProgressDialog pBar;
-
-        @Override
-        protected void onPreExecute() {
-            pBar = new ProgressDialog(EditContact.this);
-            pBar.setCancelable(false);
-            pBar.show();
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            mPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager()));
-            pBar.dismiss();
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            mLocation = DB.getInstant(getApplicationContext()).getContactLocation(id);
-            return null;
-        }
-    }
 }

@@ -21,10 +21,11 @@ import java.util.Locale;
 import abanoubm.dayra.R;
 
 public class Home extends FragmentActivity {
-    private static final int NUM_PAGES = 3;
     private ViewPager mPager;
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        private static final int NUM_PAGES = 3;
+
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -47,7 +48,7 @@ public class Home extends FragmentActivity {
     }
 
 
-    private int tagCursor = 1;
+    private int mCurrentTab = 1;
     private TextView subHead2;
     private ImageView[] buttons;
     private final int[] subHeads2 = new int[]{
@@ -92,7 +93,7 @@ public class Home extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
+                buttons[mCurrentTab].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
                 buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                 Utility.clearLogin(getApplicationContext());
                 Intent intent = new Intent(getApplicationContext(), Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -104,10 +105,9 @@ public class Home extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                if (tagCursor != 1) {
+                if (mCurrentTab != 1)
                     mPager.setCurrentItem(0);
-                    fireTab(1);
-                }
+
 
             }
         });
@@ -115,10 +115,9 @@ public class Home extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                if (tagCursor != 2) {
+                if (mCurrentTab != 2)
                     mPager.setCurrentItem(1);
-                    fireTab(2);
-                }
+
 
             }
         });
@@ -126,10 +125,8 @@ public class Home extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                if (tagCursor != 3) {
+                if (mCurrentTab != 3)
                     mPager.setCurrentItem(2);
-                    fireTab(3);
-                }
 
             }
         });
@@ -154,8 +151,8 @@ public class Home extends FragmentActivity {
 
     private void fireTab(int changedTagCursor) {
 
-        buttons[tagCursor].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
-        tagCursor = changedTagCursor;
+        buttons[mCurrentTab].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
+        mCurrentTab = changedTagCursor;
         buttons[changedTagCursor].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
         subHead2.setText(subHeads2[changedTagCursor-1]);
