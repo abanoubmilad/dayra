@@ -123,7 +123,7 @@ public class ContactHelper {
             if (c.getCount() == 0)
                 insertContact(contactHelper,
                         "dayra app support", "01289887219", Utility.getBytes(((BitmapDrawable)
-                                ContextCompat.getDrawable(context, R.mipmap.ic_launcher)).getBitmap()));
+                                ContextCompat.getDrawable(context, R.drawable.splash)).getBitmap()));
 
             c.close();
         } catch (Exception e) {

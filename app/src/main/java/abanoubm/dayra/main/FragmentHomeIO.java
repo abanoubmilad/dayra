@@ -35,14 +35,7 @@ import abanoubm.dayra.operations.SendSMS;
 public class FragmentHomeIO extends Fragment {
 
     private MenuItemAdapter mMenuItemAdapter;
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -90,7 +83,7 @@ public class FragmentHomeIO extends Fragment {
                         new ExportDayraExcelTask().execute();
                         break;
                     case 8:
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        Intent intent = new Intent(Intent.ACTION_VIEW).addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                         intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
                         startActivity(intent);
                         break;
@@ -236,4 +229,9 @@ public class FragmentHomeIO extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMenuItemAdapter.recycleIcons();
+    }
 }

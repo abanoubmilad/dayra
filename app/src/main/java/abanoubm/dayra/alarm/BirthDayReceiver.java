@@ -30,6 +30,8 @@ public class BirthDayReceiver extends BroadcastReceiver {
             Utility.removeAlarming(context, Utility.BDAY_ALARM_TYPE);
             return;
         }
+        String msgLabel = context.getResources().getString(R.string.label_msg);
+        String callLabel = context.getResources().getString(R.string.label_call);
 
         String date = Utility.produceDateRegex(
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "",
@@ -62,7 +64,7 @@ public class BirthDayReceiver extends BroadcastReceiver {
                                         + " " + total.getCounter())
                         .setAutoCancel(true);
                 if (builder.length() != 0) {
-                    n.addAction(R.mipmap.ic_msg, "Message All",
+                    n.addAction(R.mipmap.ic_msg, msgLabel,
                             PendingIntent.getActivity(context,
                                     (int) System.currentTimeMillis(), new Intent(Intent.ACTION_SENDTO, Uri
                                             .parse("smsto:"
@@ -86,11 +88,11 @@ public class BirthDayReceiver extends BroadcastReceiver {
                                                     R.string.label_noti_bday))
                             .setContentText(field.getName() + " " + field.getDay()).setAutoCancel(true);
                     if (field.getPhone().length() > 0) {
-                        n.addAction(R.mipmap.ic_call, "Call",
+                        n.addAction(R.mipmap.ic_call, callLabel,
                                 PendingIntent.getActivity(context,
                                         (int) System.currentTimeMillis(), new Intent(Intent.ACTION_CALL, Uri
                                                 .fromParts("tel", field.getPhone(), null)), 0))
-                                .addAction(R.mipmap.ic_msg, "Message",
+                                .addAction(R.mipmap.ic_msg, msgLabel,
                                         PendingIntent.getActivity(context,
                                                 (int) System.currentTimeMillis(), new Intent(Intent.ACTION_SENDTO, Uri
                                                         .parse("smsto:"

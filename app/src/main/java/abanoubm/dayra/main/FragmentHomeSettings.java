@@ -28,12 +28,6 @@ public class FragmentHomeSettings extends Fragment {
     private MenuItemAdapter mMenuItemAdapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -92,7 +86,7 @@ public class FragmentHomeSettings extends Fragment {
             public void onClick(View v) {
                 ad.dismiss();
                 String str = ((EditText) view.findViewById(R.id.input)).getText().toString().trim();
-                if (!Utility.isDBName(str)) {
+                if (Utility.isInvlaidDBName(str)) {
                     Toast.makeText(getActivity(),
                             R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
                             .show();
@@ -143,7 +137,7 @@ public class FragmentHomeSettings extends Fragment {
             public void onClick(View v) {
                 ad.dismiss();
                 String str = ((EditText) view.findViewById(R.id.input)).getText().toString().trim();
-                if (!Utility.isDBName(str)) {
+                if (Utility.isInvlaidDBName(str)) {
                     Toast.makeText(getActivity(),
                             R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
                             .show();
@@ -198,5 +192,12 @@ public class FragmentHomeSettings extends Fragment {
             pBar.dismiss();
 
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMenuItemAdapter.recycleIcons();
+
     }
 }

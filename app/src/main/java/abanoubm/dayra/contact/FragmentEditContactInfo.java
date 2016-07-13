@@ -282,8 +282,6 @@ public class FragmentEditContactInfo extends Fragment {
                 msgSource = R.string.err_msg_empty_name;
             } else if (!check.equals("-1") && !check.equals(contactData.getId())) {
                 msgSource = R.string.err_msg_duplicate_name;
-            } else if (params[12].length() != 0 && !Utility.isSiteName(params[12])) {
-                msgSource = R.string.err_msg_site;
             } else {
 
 
@@ -484,7 +482,7 @@ public class FragmentEditContactInfo extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == getActivity().RESULT_OK) {
+        if (resultCode == android.support.v4.app.FragmentActivity.RESULT_OK) {
             if (requestCode == TAKE_IMG) {
 
                 photo = Utility.getBitmap(fileUri.getPath());

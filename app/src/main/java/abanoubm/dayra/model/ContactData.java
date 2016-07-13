@@ -37,20 +37,6 @@ public class ContactData extends ContactID {
         this.home = home;
     }
 
-    public double getMapLat() {
-        return mapLat;
-    }
-
-
-    public double getMapLng() {
-        return mapLng;
-    }
-
-
-    public float getMapZoom() {
-        return mapZoom;
-    }
-
 
     public String getPriest() {
         return priest;
@@ -71,32 +57,16 @@ public class ContactData extends ContactID {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getMobile1() {
         return mobile1;
-    }
-
-    public void setMobile1(String mobile1) {
-        this.mobile1 = mobile1;
     }
 
     public String getMobile2() {
         return mobile2;
     }
 
-    public void setMobile2(String mobile2) {
-        this.mobile2 = mobile2;
-    }
-
     public String getMobile3() {
         return mobile3;
-    }
-
-    public void setMobile3(String mobile3) {
-        this.mobile3 = mobile3;
     }
 
     public String getLandPhone() {
@@ -106,10 +76,6 @@ public class ContactData extends ContactID {
 
     public String getAddress() {
         return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
 
@@ -127,16 +93,8 @@ public class ContactData extends ContactID {
         return street;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
     public String getSite() {
         return site;
-    }
-
-    public void setSite(String site) {
-        this.site = site;
     }
 
 
@@ -144,7 +102,4 @@ public class ContactData extends ContactID {
         return home;
     }
 
-    public void setHome(String home) {
-        this.home = home;
-    }
 }

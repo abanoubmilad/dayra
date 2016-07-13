@@ -293,9 +293,6 @@ public class Main extends Activity {
                         new CheckSupportTask().execute();
                         Uri uri = Uri.parse("market://details?id=" + getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                                Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
-                                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                         try {
                             startActivity(goToMarket);
                         } catch (Exception e) {
@@ -304,7 +301,7 @@ public class Main extends Activity {
                         }
                         break;
                     case 8:
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        Intent intent = new Intent(Intent.ACTION_VIEW).addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                         intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
                         startActivity(intent);
                         break;
@@ -334,7 +331,7 @@ public class Main extends Activity {
             if (requestCode == IMPORT_DB) {
                 String path = Utility.getRealPath(data.getData(), getApplicationContext());
                 String dbname = path.substring(path.lastIndexOf("/") + 1);
-                if (!Utility.isDBName(dbname))
+                if (Utility.isInvlaidDBName(dbname))
                     Toast.makeText(getApplicationContext(),
                             R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
                             .show();
@@ -367,7 +364,7 @@ public class Main extends Activity {
                 String str = ((EditText)
                         view.findViewById(R.id.input)).getText().toString().trim();
 
-                if (!Utility.isDBName(str)) {
+                if (Utility.isInvlaidDBName(str)) {
                     Toast.makeText(getApplicationContext(),
                             R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
                             .show();
@@ -439,8 +436,8 @@ public class Main extends Activity {
 
     @Override
     protected void onDestroy() {
-        mMenuItemAdapter.recycleIcons();
         super.onDestroy();
+        mMenuItemAdapter.recycleIcons();
         if (Utility.getArabicLang(getApplicationContext()) != 0)
             Utility.setArabicLang(getApplicationContext(), 1);
     }

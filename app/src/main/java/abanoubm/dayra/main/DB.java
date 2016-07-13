@@ -84,8 +84,8 @@ public class DB extends SQLiteOpenHelper {
         return this.dirtyFlag;
     }
 
-    public boolean clearDirty() {
-        return this.dirtyFlag = false;
+    public void clearDirty() {
+        this.dirtyFlag = false;
     }
 
     public static DB getInstant(Context context) {
@@ -231,8 +231,8 @@ public class DB extends SQLiteOpenHelper {
                     }
                     String[] arr = c.getString(2).split(",");
 
-                    for (int i = 0; i < arr.length; i++) {
-                        date = Utility.migirateDate(arr[i]);
+                    for (String anArr : arr) {
+                        date = Utility.migirateDate(anArr);
                         if (date.length() != 0) {
                             values = new ContentValues();
                             values.put(ATTEND_ID, id);
@@ -255,7 +255,13 @@ public class DB extends SQLiteOpenHelper {
 
     public void deleteContact(String id) {
         this.dirtyFlag = true;
-        removeAttendantConnections(id);
+
+        writableDB
+                .delete(TB_CONNECTION,
+                        CONN_A + " = ? or " + CONN_B + " = ?",
+                        new String[]{id,
+                                id});
+
         writableDB.delete(TB_ATTEND, ATTEND_ID + " = ?",
                 new String[]{id});
         writableDB.delete(TB_PHOTO, PHOTO_ID + " = ?",
@@ -333,13 +339,6 @@ public class DB extends SQLiteOpenHelper {
                         conB, conA});
     }
 
-    public void removeAttendantConnections(String hostID) {
-        writableDB
-                .delete(TB_CONNECTION,
-                        CONN_A + " = ? or " + CONN_B + " = ?",
-                        new String[]{hostID,
-                                hostID});
-    }
 
     public ArrayList<ContactID> getAttendantConnections(String hostID) {
 

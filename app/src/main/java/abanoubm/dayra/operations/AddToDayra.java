@@ -29,8 +29,8 @@ public class AddToDayra extends Activity {
     private static final int IMPORT_FILE = 1;
     private static final int IMPORT_EXCEL = 2;
 
-    private String extr_path, extr_dbname;
-    ArrayList<Integer> tags;
+    private String extr_path;
+   private  ArrayList<Integer> tags;
 
     private class AddFromDayraFileTask extends AsyncTask<Void, Void, Integer> {
         private ProgressDialog pBar;
@@ -59,6 +59,7 @@ public class AddToDayra extends Activity {
             ad.setView(View, 0, 0, 0, 0);
             ad.show();
 
+            ((TextView) View.findViewById(R.id.path)).setText(extr_path);
             ((TextView) View.findViewById(R.id.total)).setText(totalCounter.getCounter() + "");
             ((TextView) View.findViewById(R.id.added)).setText(addedCounter.getCounter() + "");
             ((TextView) View.findViewById(R.id.updated)).setText(updatedCounter.getCounter() + "");
@@ -114,6 +115,7 @@ public class AddToDayra extends Activity {
             ad.setView(View, 0, 0, 0, 0);
             ad.show();
 
+            ((TextView) View.findViewById(R.id.path)).setText(extr_path);
             ((TextView) View.findViewById(R.id.total)).setText(totalCounter.getCounter() + "");
             ((TextView) View.findViewById(R.id.added)).setText(addedCounter.getCounter() + "");
             ((TextView) View.findViewById(R.id.updated)).setText(updatedCounter.getCounter() + "");
@@ -292,12 +294,11 @@ public class AddToDayra extends Activity {
                 String path = Utility.getRealPath(data.getData(), getApplicationContext());
                 String dbname = path.substring(path.lastIndexOf("/") + 1);
 
-                if (!Utility.isDBName(dbname)) {
+                if (Utility.isInvlaidDBName(dbname)) {
                     Toast.makeText(getApplicationContext(),
                             R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
                             .show();
                 } else {
-                    extr_dbname = dbname;
                     extr_path = path;
                     new AddFromDayraFileTask().execute();
 
@@ -307,12 +308,11 @@ public class AddToDayra extends Activity {
                 String path = Utility.getRealPath(data.getData(), getApplicationContext());
                 String dbname = path.substring(path.lastIndexOf("/") + 1)
                         .replace(".xls", "");
-                if (!Utility.isDBName(dbname)) {
+                if (Utility.isInvlaidDBName(dbname)) {
                     Toast.makeText(getApplicationContext(),
                             R.string.err_msg_dayra_name, Toast.LENGTH_SHORT)
                             .show();
                 } else {
-                    extr_dbname = dbname;
                     extr_path = path;
                     new AddFromDayraExcelTask().execute();
 

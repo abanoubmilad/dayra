@@ -22,8 +22,8 @@ import java.util.Comparator;
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.ContactsDisplayListAdapter;
 import abanoubm.dayra.main.DB;
-import abanoubm.dayra.model.ContactID;
 import abanoubm.dayra.model.ContactDisplayList;
+import abanoubm.dayra.model.ContactID;
 
 public class FragmentDisplayContacts extends Fragment {
     private ListView lv;

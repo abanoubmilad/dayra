@@ -36,23 +36,12 @@ public class ContactDisplayList extends ContactID {
         return street;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
     public String getSite() {
         return site;
-    }
-
-    public void setSite(String site) {
-        this.site = site;
     }
 
     public String getHome() {
         return home;
     }
 
-    public void setHome(String home) {
-        this.home = home;
-    }
 }

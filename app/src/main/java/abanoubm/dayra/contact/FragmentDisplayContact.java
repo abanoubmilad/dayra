@@ -1,8 +1,6 @@
 package abanoubm.dayra.contact;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import abanoubm.dayra.R;
-import abanoubm.dayra.main.DB;
-import abanoubm.dayra.model.ContactLocation;
 
 public class FragmentDisplayContact extends Fragment {
     private static final int NUM_PAGES = 4;
@@ -64,8 +60,6 @@ public class FragmentDisplayContact extends Fragment {
     private boolean dualMode;
     private static final String ARG_ID = "id";
     private static final String ARG_DUAL_MODE = "dual";
-
-    private ContactLocation mLocation;
 
     private TextView subHead2;
     private final int[] subHeads2 = new int[]{

@@ -23,10 +23,6 @@ public class ContactMobile extends ContactID {
         return mobile;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
     public boolean isSelected() {
         return isSelected;
     }

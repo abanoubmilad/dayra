@@ -31,7 +31,6 @@
     <string name="label.year">year</string>
     <string name="err.msg.duplicate.name">Name is already used</string>
     <string name="err.msg.dayra.name">Invalid dayra name</string>
-    <string name="err.msg.site">Invalid site</string>
     <string name="err.msg.dayra.match">Name does not match current dayra name</string>
     <string name="msg.dayra.created">dayra created</string>
     <string name="msg.dayra.deleted">dayra deleted</string>
@@ -129,7 +128,6 @@
     <string name="dialogue.create">Write dayra\'s name,\nYou can use English/Arabic alphabet, numbers or spaces </string>
     <string name="dialogue.rename">Confirm renaming the current dayra</string>
     <string name="dialogue.delete">Are you sure you want to delete contact ?</string>
-    <string name="dialogue.reset">Are you sure you want to reset ?\nNo modifications will be saved, orgional data will be restored</string>
     <string name="dialogue.delete.dayra">Are you sure you want to delete this dayra ?\nThis action can not de undone, always keep a backup of dayra</string>
 
     <string name="dialogue.total.contacts">Total number of contacts in the chosen dayra</string>
@@ -387,5 +385,11 @@
     <string name="subhead.attendance.report">Create attendance report</string>
     <string name="subhead.information.table">Create information table</string>
     <string name="any.year">Any year</string>
+
+    <string name="label.call">Call</string>
+    <string name="label.msg">Send SMS</string>
+    <string name="label.map.here">You are here</string>
+    <string name="label.map.location">Contact location</string>
+    <string name="label.map.location.edit">Contact location, tap or drag to reposition</string>
 
 </resources>

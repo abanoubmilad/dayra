@@ -70,7 +70,7 @@
                 android:layout_weight="1"
                 android:padding="5dp"
                 android:textColor="@color/dynamic_text"
-                android:textSize="40dp" />
+                android:textSize="40sp" />
 
             <TextView
                 android:id="@+id/flag"

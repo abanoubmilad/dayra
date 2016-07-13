@@ -92,16 +92,9 @@ public class Utility {
         }
     }
 
-
-    public static boolean isDBName(String str) {
-
-        return str.length() != 0 && !str.equals("dbname") &&
-                str.matches("[أؤءةابتثجحخدذرزسشصضطظعغفقكلمنهوىيa-z0-9A-Z\\s]+") &&
-                !str.contains("journal");
-    }
-
-    public static boolean isSiteName(String str) {
-        return str.matches("[أؤءةابتثجحخدذرزسشصضطظعغفقكلمنهوىيa-z0-9A-Z\\s]+");
+    public static boolean isInvlaidDBName(String str) {
+        return str.length() == 0 || !str.matches("[أؤءةابتثجحخدذرزسشصضطظعغفقكلمنهوىيa-z0-9A-Z\\s]+") ||
+                str.contains("journal");
     }
 
     // convert from bitmap to byte array
@@ -199,7 +192,7 @@ public class Utility {
             manager.setInexactRepeating(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
-                    1000 * 60 * 60 * 24, PendingIntent.getBroadcast(context, 200,
+                    AlarmManager.INTERVAL_DAY, PendingIntent.getBroadcast(context, 200,
                             new Intent(context, BirthDayReceiver.class), 0));
 
         } else if (alarm_type == ATTEND_ALARM_TYPE) {
@@ -210,7 +203,7 @@ public class Utility {
             manager.setInexactRepeating(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
-                    1000 * 60 * 60 * 24 * 30, PendingIntent.getBroadcast(context, 100,
+                    AlarmManager.INTERVAL_DAY * 30, PendingIntent.getBroadcast(context, 100,
                             new Intent(context, AttendanceReceiver.class), 0));
         }
 

@@ -53,12 +53,6 @@ public class FragmentHomeMain extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -170,9 +164,6 @@ public class FragmentHomeMain extends Fragment {
                         new CheckSupportTask().execute();
                         Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                                Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
-                                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                         try {
                             startActivity(goToMarket);
                         } catch (Exception e) {

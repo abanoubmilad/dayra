@@ -57,7 +57,7 @@ public class DivideDayra extends Activity {
             if (result == null)
                 Toast.makeText(getApplicationContext(),
                         R.string.err_dayra_divide, Toast.LENGTH_SHORT).show();
-            if (result)
+            else if (result)
                 Toast.makeText(getApplicationContext(), R.string.msg_dayra_divided,
                         Toast.LENGTH_SHORT).show();
             else

@@ -17,15 +17,8 @@ public class DayCheck {
         return day;
     }
 
-    public void setDay(String dayNumber) {
-        this.day = dayNumber;
-    }
-
     public boolean isChecked() {
         return checked;
     }
 
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
 }

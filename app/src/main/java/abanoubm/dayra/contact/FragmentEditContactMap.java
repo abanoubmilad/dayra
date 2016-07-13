@@ -2,7 +2,10 @@ package abanoubm.dayra.contact;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,11 +15,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
-import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -28,14 +31,14 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.model.ContactLocation;
 
-public class FragmentEditContactMap extends Fragment implements OnMapReadyCallback {
+public class FragmentEditContactMap extends Fragment implements OnMapReadyCallback, LocationListener {
     private double lon, lat;
     private float zoom;
-    private Marker addressMarker, dayraMarker;
+    private Marker mLocationMarker, mDayraMarker;
     private static final String ARG_ID = "id";
     private String id;
     private TextView site, st, addr, home;
-    private GoogleMap dmap;
+    private GoogleMap mMap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,37 +76,29 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
 
     @Override
     public void onMapReady(final GoogleMap map) {
-        dmap = map;
-        map.setMyLocationEnabled(true);
+        mMap = map;
 
-        Location myLocation = map.getMyLocation();
+        new GetTask().execute();
+        new DisplayTask().execute();
+
+        map.setMyLocationEnabled(true);
+        LocationManager locationManager = (LocationManager)
+                getActivity().getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        Location myLocation = locationManager.getLastKnownLocation(locationManager
+                .getBestProvider(criteria, false));
+
         if (myLocation != null) {
-            dayraMarker = map.addMarker(new MarkerOptions()
+            mDayraMarker = map.addMarker(new MarkerOptions()
                     .position(
                             new LatLng(myLocation.getLatitude(), myLocation
                                     .getLongitude()))
                     .draggable(false)
-                    .title("you are here")
+                    .title(getResources().getString(R.string.label_map_here))
                     .icon(BitmapDescriptorFactory
                             .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
 
         }
-        map.setOnMyLocationChangeListener(new OnMyLocationChangeListener() {
-            @Override
-            public void onMyLocationChange(Location location) {
-                if (dayraMarker != null)
-                    dayraMarker.remove();
-                dayraMarker = map.addMarker(new MarkerOptions()
-                        .position(
-                                new LatLng(location.getLatitude(), location
-                                        .getLongitude()))
-                        .draggable(false)
-                        .title("you are here")
-                        .icon(BitmapDescriptorFactory
-                                .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
-
-            }
-        });
 
         map.setOnMarkerDragListener(new OnMarkerDragListener() {
 
@@ -127,16 +122,16 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
 
             @Override
             public void onMapClick(LatLng point) {
-                if (addressMarker != null)
-                    addressMarker.remove();
-                addressMarker = map
+                if (mLocationMarker != null)
+                    mLocationMarker.remove();
+                mLocationMarker = map
                         .addMarker(new MarkerOptions()
                                 .position(
                                         new LatLng(point.latitude,
                                                 point.longitude))
-                                .title("contact location, tap or drag me to reposition")
+                                .title(getResources().getString(R.string.label_map_location_edit))
                                 .draggable(true));
-                addressMarker.showInfoWindow();
+                mLocationMarker.showInfoWindow();
 
                 lat = point.latitude;
                 lon = point.longitude;
@@ -144,9 +139,24 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
             }
         });
 
-        new GetTask().execute();
-        new DisplayTask().execute();
 
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        if (mMap == null)
+            return;
+
+        if (mDayraMarker != null)
+            mDayraMarker.remove();
+        mDayraMarker = mMap.addMarker(new MarkerOptions()
+                .position(
+                        new LatLng(location.getLatitude(), location
+                                .getLongitude()))
+                .draggable(false)
+                .title(getResources().getString(R.string.label_map_here))
+                .icon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
     }
 
     private class UpdateTask extends AsyncTask<Void, Void, Void> {
@@ -223,12 +233,12 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
 
         @Override
         protected void onPostExecute(ContactLocation contact) {
-            dmap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                     new LatLng(contact.getMapLat(), contact.getMapLng()), contact.getZoom()));
-            addressMarker = dmap.addMarker(new MarkerOptions()
-                    .position(new LatLng(contact.getMapLat(), contact.getMapLng())).title("contact location, tap or drag me to reposition")
+            mLocationMarker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(contact.getMapLat(), contact.getMapLng())).title(getResources().getString(R.string.label_map_location_edit))
                     .draggable(false));
-            addressMarker.showInfoWindow();
+            mLocationMarker.showInfoWindow();
         }
 
         @Override

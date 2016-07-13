@@ -16,7 +16,7 @@ import java.util.Locale;
 import abanoubm.dayra.R;
 
 public class Splash extends Activity {
-    MediaPlayer mMedia;
+    private MediaPlayer mMedia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -31,6 +31,9 @@ public class AttendanceReceiver extends BroadcastReceiver {
             return;
         }
 
+        String msgLabel = context.getResources().getString(R.string.label_msg);
+        String callLabel = context.getResources().getString(R.string.label_call);
+
         Calendar cal = Calendar.getInstance();
         cal.roll(Calendar.MONTH, false);
         cal.roll(Calendar.MONTH, false);
@@ -41,7 +44,7 @@ public class AttendanceReceiver extends BroadcastReceiver {
         Bitmap defPhoto = ((BitmapDrawable)
                 ContextCompat.getDrawable(context, R.mipmap.def)).getBitmap();
 
-        int start = 10;
+        int start = 70000;
         IntWrapper total = new IntWrapper();
         StringBuilder builder;
         for (String dayraName : array) {
@@ -62,7 +65,7 @@ public class AttendanceReceiver extends BroadcastReceiver {
                                         + " " + total.getCounter())
                         .setAutoCancel(true);
                 if (builder.length() != 0) {
-                    n.addAction(R.mipmap.ic_msg, "Message All",
+                    n.addAction(R.mipmap.ic_msg, msgLabel,
                             PendingIntent.getActivity(context,
                                     (int) System.currentTimeMillis(), new Intent(Intent.ACTION_SENDTO, Uri
                                             .parse("smsto:"
@@ -86,11 +89,11 @@ public class AttendanceReceiver extends BroadcastReceiver {
                                                     R.string.label_noti_attend))
                             .setContentText(field.getName() + " " + field.getDay()).setAutoCancel(true);
                     if (field.getPhone().length() > 0) {
-                        n.addAction(R.mipmap.ic_call, "Call",
+                        n.addAction(R.mipmap.ic_call, callLabel,
                                 PendingIntent.getActivity(context,
                                         (int) System.currentTimeMillis(), new Intent(Intent.ACTION_CALL, Uri
                                                 .fromParts("tel", field.getPhone(), null)), 0))
-                                .addAction(R.mipmap.ic_msg, "Message",
+                                .addAction(R.mipmap.ic_msg, msgLabel,
                                         PendingIntent.getActivity(context,
                                                 (int) System.currentTimeMillis(), new Intent(Intent.ACTION_SENDTO, Uri
                                                         .parse("smsto:"
