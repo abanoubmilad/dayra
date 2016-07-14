@@ -122,6 +122,11 @@ public class Utility {
                 BitmapFactory.decodeFile(path), 175, 175);
     }
 
+    // convert to bitmap thumbnail
+    public static Bitmap getThumbnail(Bitmap bitmap) {
+        return ThumbnailUtils.extractThumbnail(bitmap, 175, 175);
+    }
+
 
     public static String migirateDate(String oldDate) {
         if (!oldDate.matches("[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}"))

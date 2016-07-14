@@ -47,7 +47,6 @@ public class FragmentEditContactInfo extends Fragment {
     private static final int TAKE_IMG = 2;
     private static final int BROWSE_IMG = 1;
 
-    private Uri fileUri;
     private Bitmap photo = null;
 
     private EditText name, address, comm, email,
@@ -444,8 +443,7 @@ public class FragmentEditContactInfo extends Fragment {
                                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(galleryIntent, BROWSE_IMG);
                         } else if (which == 1) {
-                            captureImage();
-
+                            startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), TAKE_IMG);
                         } else {
                             photo = null;
                             img.setImageResource(R.mipmap.def);
@@ -458,34 +456,12 @@ public class FragmentEditContactInfo extends Fragment {
 
     }
 
-    private void captureImage() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        String path;
-        if (android.os.Environment.getExternalStorageState().equals(
-                android.os.Environment.MEDIA_MOUNTED)) {
-            path = Environment.getExternalStorageDirectory().getAbsolutePath()
-                    + "/";
-        } else {
-            path = android.os.Environment.getDataDirectory().getAbsolutePath()
-                    + "/";
-        }
-
-        path += "temp_"
-                + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())
-                .format(new Date()) + ".jpg";
-        fileUri = Uri.fromFile(new File(path));
-
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-
-        startActivityForResult(intent, TAKE_IMG);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == android.support.v4.app.FragmentActivity.RESULT_OK) {
             if (requestCode == TAKE_IMG) {
 
-                photo = Utility.getBitmap(fileUri.getPath());
+                photo = Utility.getThumbnail((Bitmap) data.getExtras().get("data"));
                 if (photo != null)
                     img.setImageBitmap(photo);
 

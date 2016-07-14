@@ -12,7 +12,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,12 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.contacts.CallBack;
@@ -40,7 +35,6 @@ public class FragmentAddContactInfo extends Fragment {
     private ImageView img;
     private static final int TAKE_IMG = 2;
     private static final int BROWSE_IMG = 1;
-    private Uri fileUri;
     private Bitmap photo = null;
 
     private static final String ARG_NAME = "name";
@@ -139,7 +133,7 @@ public class FragmentAddContactInfo extends Fragment {
             }
         });
 
-              root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
+        root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
 
         root.findViewById(R.id.saveImage).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,7 +242,7 @@ public class FragmentAddContactInfo extends Fragment {
             DB dbm = DB.getInstant(getActivity());
             String check = dbm.getNameId(params[0]);
             int msgSource;
-            if (params[0].length()==0) {
+            if (params[0].length() == 0) {
                 msgSource = R.string.err_msg_empty_name;
             } else if (!check.equals("-1")) {
                 msgSource = R.string.err_msg_duplicate_name;
@@ -344,8 +338,7 @@ public class FragmentAddContactInfo extends Fragment {
                                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(galleryIntent, BROWSE_IMG);
                         } else if (which == 1) {
-                            captureImage();
-
+                            startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), TAKE_IMG);
                         } else {
                             photo = null;
                             img.setImageResource(R.mipmap.def);
@@ -358,34 +351,12 @@ public class FragmentAddContactInfo extends Fragment {
 
     }
 
-    private void captureImage() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        String path;
-        if (Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED)) {
-            path = Environment.getExternalStorageDirectory().getAbsolutePath()
-                    + "/";
-        } else {
-            path = Environment.getDataDirectory().getAbsolutePath()
-                    + "/";
-        }
-
-        path += "temp_"
-                + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())
-                .format(new Date()) + ".jpg";
-        fileUri = Uri.fromFile(new File(path));
-
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-
-        startActivityForResult(intent, TAKE_IMG);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == android.support.v4.app.FragmentActivity.RESULT_OK) {
             if (requestCode == TAKE_IMG) {
 
-                photo = Utility.getBitmap(fileUri.getPath());
+                photo = Utility.getThumbnail((Bitmap) data.getExtras().get("data"));
                 if (photo != null)
                     img.setImageBitmap(photo);
 
