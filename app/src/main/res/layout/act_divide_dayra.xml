@@ -32,33 +32,33 @@
 
                 <RadioButton
                     android:id="@+id/class_year"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/label.class.year" />
 
                 <RadioButton
                     android:id="@+id/study_work"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/label.study.work" />
 
                 <RadioButton
                     android:id="@+id/site"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="@string/label.site" />
 
                 <RadioButton
                     android:id="@+id/street"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/label.street" />
 
 
                 <RadioButton
                     android:id="@+id/supervisor"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/label.supervisor" />
 

@@ -27,7 +27,7 @@ public class DBDivider extends SQLiteOpenHelper {
                 + DB.CONTACT_EMAIL + " text, " + DB.CONTACT_MOB1 + " text, " + DB.CONTACT_MOB2 + " text, "
                 + DB.CONTACT_MOB3 + " text, " + DB.CONTACT_LPHONE + " text, " + DB.CONTACT_ST
                 + " text, " + DB.CONTACT_SITE + " text, " + DB.CONTACT_CLASS_YEAR + " integer, "
-                + DB.CONTACT_STUDY_WORK + " text, " + DB.CONTACT_ADDR + " text)";
+                + DB.CONTACT_STUDY_WORK + " text, " + DB.CONTACT_ADDR + " text, " + DB.CONTACT_HOME + " text default '')";
         db.execSQL(sql);
 
         sql = "create table " + DB.TB_CONNECTION + " ( " + DB.CONN_A + " integer, "

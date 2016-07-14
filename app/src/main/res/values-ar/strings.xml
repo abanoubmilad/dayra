@@ -46,7 +46,6 @@
     <string name="err.msg.duplicate.dayra">التطبيق يحتوى على دايره بنفس الاسم قم بمسحها اولا</string>
     <string name="subhead.register.attendance">تسجيل حضور</string>
     <string name="msg.dayra.imported">تم استيراد الدايره</string>
-    <string name="msg.dayra.replaced">تم استبدال بيانات الدايره</string>
     <string name="err.msg.import">خطأ أثناء محاولة استيراد الدايره</string>
     <string name="err.msg.invalid_file">الملف غير صالح</string>
     <string name="msg.no.dayra">ﻻ توجد دايره متاحة قم بتكوين واحدة</string>
@@ -346,5 +345,8 @@
     <string name="label.map.here">انت هنا</string>
     <string name="label.map.location">العنوان</string>
     <string name="label.map.location.edit">العنوان انقر أو اسحب للتغيير</string>
+    <string name="msg.dayra.added">تم اضافة البيانات</string>
+    <string name="label.location">عنوان الخريطة</string>
+    <string name="label.photo">صورة</string>
 
 </resources>

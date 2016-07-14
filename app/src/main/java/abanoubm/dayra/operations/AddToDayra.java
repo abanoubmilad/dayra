@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +31,14 @@ public class AddToDayra extends Activity {
     private static final int IMPORT_EXCEL = 2;
 
     private String extr_path;
-   private  ArrayList<Integer> tags;
+    private ArrayList<Integer> tags;
+
+
+    private CheckBox photo, bday, map_location;
+    private TextView expressXls;
+    private boolean dayraTypeFile = true;
+
+    private boolean photoSelected = false;
 
     private class AddFromDayraFileTask extends AsyncTask<Void, Void, Integer> {
         private ProgressDialog pBar;
@@ -79,10 +87,10 @@ public class AddToDayra extends Activity {
             DBAdder adder = new DBAdder(getApplicationContext(),
                     extr_path);
             if (adder.checkDB()) {
-                DB.getInstant(getApplicationContext()).AddFromDayraFile(
-                        adder.getContactsData(), tags, totalCounter, addedCounter, updatedCounter);
+                DB.getInstant(getApplicationContext()).AddFromDayraFile(adder
+                        , tags, photoSelected, totalCounter, addedCounter, updatedCounter);
                 adder.close();
-                return R.string.msg_dayra_replaced;
+                return R.string.msg_dayra_added;
             } else
                 return R.string.err_msg_invalid_file;
 
@@ -134,7 +142,7 @@ public class AddToDayra extends Activity {
 
             if ((DB.getInstant(getApplicationContext())).AddFromDayraExcel(
                     tags, extr_path, totalCounter, addedCounter, updatedCounter))
-                return R.string.msg_dayra_imported;
+                return R.string.msg_dayra_added;
             return R.string.err_msg_invalid_file;
 
 
@@ -148,7 +156,6 @@ public class AddToDayra extends Activity {
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2))
                 .setText(R.string.subhead_add_data);
-
 
         final CheckBox selectall, mobile1, mobile2, mobile3,
                 lphone, addr, supervisor, comm,
@@ -171,6 +178,11 @@ public class AddToDayra extends Activity {
         site = (CheckBox) findViewById(R.id.site);
         home = (CheckBox) findViewById(R.id.home);
 
+        photo = (CheckBox) findViewById(R.id.photo);
+        map_location = (CheckBox) findViewById(R.id.map_location);
+        bday = (CheckBox) findViewById(R.id.bday);
+        expressXls = (TextView) findViewById(R.id.xls_express);
+
         selectall.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             @Override
@@ -189,10 +201,34 @@ public class AddToDayra extends Activity {
                 street.setChecked(isChecked);
                 site.setChecked(isChecked);
                 home.setChecked(isChecked);
+                photo.setChecked(isChecked);
+                map_location.setChecked(isChecked);
+                bday.setChecked(isChecked);
+            }
+        });
+        final RadioGroup radio = (RadioGroup) findViewById(R.id.radio);
+        radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                selectall.setChecked(false);
+                if (checkedId == R.id.dayra_file) {
+                    dayraTypeFile = true;
+                    photo.setVisibility(View.VISIBLE);
+                    map_location.setVisibility(View.VISIBLE);
+                    bday.setVisibility(View.VISIBLE);
+                    expressXls.setVisibility(View.GONE);
+                } else if (checkedId == R.id.dayra_xls) {
+                    dayraTypeFile = false;
+                    photo.setVisibility(View.GONE);
+                    map_location.setVisibility(View.GONE);
+                    bday.setVisibility(View.GONE);
+                    expressXls.setVisibility(View.VISIBLE);
+                }
+
             }
         });
 
-        findViewById(R.id.btn_file).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 tags = new ArrayList<>();
@@ -224,66 +260,44 @@ public class AddToDayra extends Activity {
                 if (supervisor.isChecked())
                     tags.add(13);
 
-                Intent intentImport = new Intent(Intent.ACTION_GET_CONTENT);
-                intentImport.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())),
-                        "application/octet-stream");
+                if (dayraTypeFile) {
+                    if (bday.isChecked())
+                        tags.add(14);
+                    if (map_location.isChecked()) {
+                        tags.add(15);
+                        tags.add(16);
+                        tags.add(17);
+                    }
+                    photoSelected = photo.isChecked();
 
-                if (getApplicationContext().getPackageManager()
-                        .queryIntentActivities(intentImport, 0).size() > 0) {
-                    startActivityForResult(intentImport, IMPORT_FILE);
+                    Intent intentImport = new Intent(Intent.ACTION_GET_CONTENT);
+                    intentImport.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())),
+                            "application/octet-stream");
+
+                    if (getApplicationContext().getPackageManager()
+                            .queryIntentActivities(intentImport, 0).size() > 0) {
+                        startActivityForResult(intentImport, IMPORT_FILE);
+                    } else {
+                        Toast.makeText(getApplicationContext(), R.string.err_msg_explorer,
+                                Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(getApplicationContext(), R.string.err_msg_explorer,
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        findViewById(R.id.btn_xls).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tags = new ArrayList<>();
+                    Intent intentImport = new Intent(Intent.ACTION_GET_CONTENT);
+                    intentImport.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())),
+                            "application/vnd.ms-excel");
 
-                if (class_year.isChecked())
-                    tags.add(1);
-                if (study_work.isChecked())
-                    tags.add(2);
-                if (mobile1.isChecked())
-                    tags.add(3);
-                if (mobile2.isChecked())
-                    tags.add(4);
-                if (mobile3.isChecked())
-                    tags.add(5);
-                if (lphone.isChecked())
-                    tags.add(6);
-                if (email.isChecked())
-                    tags.add(7);
-                if (site.isChecked())
-                    tags.add(8);
-                if (street.isChecked())
-                    tags.add(9);
-                if (home.isChecked())
-                    tags.add(10);
-                if (addr.isChecked())
-                    tags.add(11);
-                if (comm.isChecked())
-                    tags.add(12);
-                if (supervisor.isChecked())
-                    tags.add(13);
-
-
-                Intent intentImport = new Intent(Intent.ACTION_GET_CONTENT);
-                intentImport.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())),
-                        "application/vnd.ms-excel");
-
-                if (getApplicationContext().getPackageManager()
-                        .queryIntentActivities(intentImport, 0).size() > 0) {
-                    startActivityForResult(intentImport, IMPORT_EXCEL);
-                } else {
-                    Toast.makeText(getApplicationContext(), R.string.err_msg_explorer,
-                            Toast.LENGTH_SHORT).show();
+                    if (getApplicationContext().getPackageManager()
+                            .queryIntentActivities(intentImport, 0).size() > 0) {
+                        startActivityForResult(intentImport, IMPORT_EXCEL);
+                    } else {
+                        Toast.makeText(getApplicationContext(), R.string.err_msg_explorer,
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
         });
+
 
     }
 

@@ -9,7 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="20dp">
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,14 +21,38 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
                 android:text="@string/label.add.express"
                 android:textSize="@dimen/font_larger" />
+
+            <RadioGroup
+                android:id="@+id/radio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/dayra_file"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/label.dayra.file" />
+
+                <RadioButton
+                    android:id="@+id/dayra_xls"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label.dayra.xls" />
+
+            </RadioGroup>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/label.add.express.fields"
                 android:textSize="@dimen/font_larger" />
 
@@ -145,28 +171,44 @@
                     style="@style/check_box"
                     android:text="@string/label.home" />
 
+                <CheckBox
+                    android:id="@+id/photo"
+                    style="@style/check_box"
+                    android:text="@string/label.photo" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/bday"
+                    style="@style/check_box"
+                    android:text="@string/label.bday" />
+
+                <CheckBox
+                    android:id="@+id/map_location"
+                    style="@style/check_box"
+                    android:text="@string/label.location" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/btn_file"
-                style="@style/bottom_button"
-                android:layout_margin="20dp"
-                android:text="@string/label.dayra.file" />
-
-            <TextView
+                android:id="@+id/xls_express"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="@string/label.xls.express"
-                android:textSize="@dimen/font_larger" />
+                android:textSize="@dimen/font_larger"
+                android:visibility="gone" />
 
             <TextView
-                android:id="@+id/btn_xls"
+                android:id="@+id/btn"
                 style="@style/bottom_button"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="@string/label.dayra.xls" />
+                android:layout_margin="20dp"
+                android:text="@string/label.select.dayra" />
+
 
         </LinearLayout>
     </ScrollView>

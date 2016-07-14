@@ -403,11 +403,15 @@ public class DB extends SQLiteOpenHelper {
                 new String[]{id});
     }
 
-    public void AddFromDayraFile(ArrayList<String[]> contacts,
-                                 ArrayList<Integer> tags,
+    public void AddFromDayraFile(DBAdder adderDB,
+                                 ArrayList<Integer> tags, boolean photoSelected,
                                  IntWrapper totalCounter, IntWrapper addedCounter, IntWrapper updatedCounter) {
+
+        Cursor contactsCursor = adderDB.getContactsCursor();
+
         int addedCounterTemp = 0;
         int updatedCounterTemp = 0;
+        totalCounter.setCounter(contactsCursor.getCount());
 
         String[] colNames = {
                 CONTACT_NAME, CONTACT_CLASS_YEAR,
@@ -416,7 +420,11 @@ public class DB extends SQLiteOpenHelper {
                 CONTACT_SITE, CONTACT_ST, CONTACT_HOME, CONTACT_ADDR,
                 CONTACT_NOTES,
                 CONTACT_SUPERVISOR,
-                PHOTO_BLOB};
+                CONTACT_BDAY,
+                CONTACT_MAPLNG,
+                CONTACT_MAPLAT,
+                CONTACT_MAPZOM};
+
         ContentValues values;
         String[] tagged = new String[tags.size()];
         int itr = 0;
@@ -424,89 +432,93 @@ public class DB extends SQLiteOpenHelper {
             tagged[itr++] = colNames[index];
         }
 
-        if (tags.size() > 0) {
-            for (String[] contact : contacts) {
-                String id = getNameId(contact[0]);
+        if (contactsCursor.moveToFirst()) {
+            if (tags.size() > 0 || photoSelected) {
 
-                if (id.equals("-1")) {
-                    addedCounterTemp++;
+                String id;
+                do {
+                    id = getNameId(contactsCursor.getString(0));
 
-                    values = new ContentValues();
-                    values.put(CONTACT_NAME, contact[0]);
-                    values.put(CONTACT_CLASS_YEAR, contact[1]);
-                    values.put(CONTACT_STUDY_WORK, contact[2]);
-                    values.put(CONTACT_MOB1, contact[3]);
-                    values.put(CONTACT_MOB2, contact[4]);
-                    values.put(CONTACT_MOB3, contact[5]);
-                    values.put(CONTACT_LPHONE, contact[6]);
-                    values.put(CONTACT_EMAIL, contact[7]);
-                    values.put(CONTACT_SITE, contact[8]);
-                    values.put(CONTACT_ST, contact[9]);
-                    values.put(CONTACT_HOME, contact[10]);
-                    values.put(CONTACT_ADDR, contact[11]);
-                    values.put(CONTACT_NOTES, contact[12]);
-                    values.put(CONTACT_SUPERVISOR, contact[13]);
+                    if (id.equals("-1")) {
+                        addedCounterTemp++;
 
-                    values.put(CONTACT_BDAY, contact[14]);
+                        values = new ContentValues();
+                        values.put(CONTACT_NAME, contactsCursor.getString(0));
+                        values.put(CONTACT_CLASS_YEAR, contactsCursor.getString(1));
+                        values.put(CONTACT_STUDY_WORK, contactsCursor.getString(2));
+                        values.put(CONTACT_MOB1, contactsCursor.getString(3));
+                        values.put(CONTACT_MOB2, contactsCursor.getString(4));
+                        values.put(CONTACT_MOB3, contactsCursor.getString(5));
+                        values.put(CONTACT_LPHONE, contactsCursor.getString(6));
+                        values.put(CONTACT_EMAIL, contactsCursor.getString(7));
+                        values.put(CONTACT_SITE, contactsCursor.getString(8));
+                        values.put(CONTACT_ST, contactsCursor.getString(9));
+                        values.put(CONTACT_HOME, contactsCursor.getString(10));
+                        values.put(CONTACT_ADDR, contactsCursor.getString(11));
+                        values.put(CONTACT_NOTES, contactsCursor.getString(12));
+                        values.put(CONTACT_SUPERVISOR, contactsCursor.getString(13));
 
-                    values.put(CONTACT_MAPLAT, contact[15]);
-                    values.put(CONTACT_MAPLNG, contact[16]);
-                    values.put(CONTACT_MAPZOM, contact[17]);
+                        values.put(CONTACT_BDAY, contactsCursor.getString(14));
 
-                    addContact(values, null);
+                        values.put(CONTACT_MAPLAT, contactsCursor.getString(15));
+                        values.put(CONTACT_MAPLNG, contactsCursor.getString(16));
+                        values.put(CONTACT_MAPZOM, contactsCursor.getString(17));
 
-                } else {
-                    updatedCounterTemp++;
+                        addContact(values, contactsCursor.getBlob(18));
+
+                    } else {
+                        updatedCounterTemp++;
+                        values = new ContentValues();
+                        itr = 0;
+                        for (Integer index : tags)
+                            values.put(tagged[itr++], contactsCursor.getString(index));
+
+                        if (photoSelected)
+                            updateContact(values, contactsCursor.getBlob(18), id);
+                        else
+                            updateContact(values, id);
+                    }
+                } while (contactsCursor.moveToNext());
 
 
-                    values = new ContentValues();
-                    itr = 0;
-                    for (Integer index : tags)
-                        values.put(tagged[itr++], contact[index]);
+            } else {
+                do {
 
-                    updateContact(values, id);
-                }
+                    if (getNameId(contactsCursor.getString(0)).equals("-1")) {
+                        addedCounterTemp++;
 
+                        values = new ContentValues();
+                        values.put(CONTACT_NAME, contactsCursor.getString(0));
+                        values.put(CONTACT_CLASS_YEAR, contactsCursor.getString(1));
+                        values.put(CONTACT_STUDY_WORK, contactsCursor.getString(2));
+                        values.put(CONTACT_MOB1, contactsCursor.getString(3));
+                        values.put(CONTACT_MOB2, contactsCursor.getString(4));
+                        values.put(CONTACT_MOB3, contactsCursor.getString(5));
+                        values.put(CONTACT_LPHONE, contactsCursor.getString(6));
+                        values.put(CONTACT_EMAIL, contactsCursor.getString(7));
+                        values.put(CONTACT_SITE, contactsCursor.getString(8));
+                        values.put(CONTACT_ST, contactsCursor.getString(9));
+                        values.put(CONTACT_HOME, contactsCursor.getString(10));
+                        values.put(CONTACT_ADDR, contactsCursor.getString(11));
+                        values.put(CONTACT_NOTES, contactsCursor.getString(12));
+                        values.put(CONTACT_SUPERVISOR, contactsCursor.getString(13));
 
-            }
-        } else {
-            for (String[] contact : contacts) {
-                if (getNameId(contact[0]).equals("-1")) {
-                    addedCounterTemp++;
+                        values.put(CONTACT_BDAY, contactsCursor.getString(14));
 
-                    values = new ContentValues();
-                    values.put(CONTACT_NAME, contact[0]);
-                    values.put(CONTACT_CLASS_YEAR, contact[1]);
-                    values.put(CONTACT_STUDY_WORK, contact[2]);
-                    values.put(CONTACT_MOB1, contact[3]);
-                    values.put(CONTACT_MOB2, contact[4]);
-                    values.put(CONTACT_MOB3, contact[5]);
-                    values.put(CONTACT_LPHONE, contact[6]);
-                    values.put(CONTACT_EMAIL, contact[7]);
-                    values.put(CONTACT_SITE, contact[8]);
-                    values.put(CONTACT_ST, contact[9]);
-                    values.put(CONTACT_HOME, contact[10]);
-                    values.put(CONTACT_ADDR, contact[11]);
-                    values.put(CONTACT_NOTES, contact[12]);
-                    values.put(CONTACT_SUPERVISOR, contact[13]);
+                        values.put(CONTACT_MAPLAT, contactsCursor.getString(15));
+                        values.put(CONTACT_MAPLNG, contactsCursor.getString(16));
+                        values.put(CONTACT_MAPZOM, contactsCursor.getString(17));
 
-                    values.put(CONTACT_BDAY, contact[14]);
-
-                    values.put(CONTACT_MAPLAT, contact[15]);
-                    values.put(CONTACT_MAPLNG, contact[16]);
-                    values.put(CONTACT_MAPZOM, contact[17]);
-
-                    addContact(values, null);
-
-                }
+                        addContact(values, contactsCursor.getBlob(18));
+                    }
+                } while (contactsCursor.moveToNext());
 
 
             }
         }
-
+        contactsCursor.close();
         addedCounter.setCounter(addedCounterTemp);
         updatedCounter.setCounter(updatedCounterTemp);
-        totalCounter.setCounter(contacts.size());
     }
 
     public String addContact(ContentValues values, byte[] photo) {
@@ -1299,7 +1311,7 @@ public class DB extends SQLiteOpenHelper {
                 CONTACT_MOB1 + "," + CONTACT_BDAY +
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
-                " WHERE " + CONTACT_BDAY + " LIKE ? ORDER BY " + CONTACT_BDAY + " LIMIT 6";
+                " WHERE " + CONTACT_BDAY + " LIKE ? ORDER BY " + CONTACT_BDAY;
 
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{dateRegex});
         total.setCounter(c.getCount());
@@ -1620,7 +1632,7 @@ public class DB extends SQLiteOpenHelper {
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
                 CONTACT_ID + "=" + ATTEND_ID + " WHERE " + ATTEND_DAY +
-                " < ? GROUP BY " + ATTEND_ID + " ORDER BY " + CONTACT_NAME + " LIMIT 6";
+                " < ? GROUP BY " + ATTEND_ID + " ORDER BY " + CONTACT_NAME;
         Cursor c = readableDB.rawQuery(selectQuery, new String[]{regex});
         total.setCounter(c.getCount());
         if (c.getCount() > 5) {

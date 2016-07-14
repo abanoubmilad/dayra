@@ -9,15 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:gravity="right"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:gravity="right">
+        android:paddingRight="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="right">
+            android:gravity="right"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -34,34 +34,44 @@
 
                 <RadioButton
                     android:id="@+id/class_year"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableRight="@android:drawable/btn_radio"
                     android:text="@string/label.class.year" />
 
                 <RadioButton
                     android:id="@+id/study_work"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableRight="@android:drawable/btn_radio"
                     android:text="@string/label.study.work" />
 
                 <RadioButton
                     android:id="@+id/site"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:button="@null"
                     android:checked="true"
+                    android:drawableRight="@android:drawable/btn_radio"
                     android:text="@string/label.site" />
 
                 <RadioButton
                     android:id="@+id/street"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableRight="@android:drawable/btn_radio"
                     android:text="@string/label.street" />
 
 
                 <RadioButton
                     android:id="@+id/supervisor"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableRight="@android:drawable/btn_radio"
                     android:text="@string/label.supervisor" />
 
             </RadioGroup>

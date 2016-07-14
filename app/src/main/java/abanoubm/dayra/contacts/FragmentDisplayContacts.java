@@ -33,6 +33,7 @@ public class FragmentDisplayContacts extends Fragment {
     private ContactsDisplayListAdapter mAdapter;
     private int sortType = 0;
     private  DB mDB;
+    private static final String ARG_DUAL_MODE = "dual";
 
     private class GetAllTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pBar;
@@ -189,7 +190,7 @@ public class FragmentDisplayContacts extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         if (arguments != null) {
-            isDualMode = arguments.getBoolean("isdualmode");
+            isDualMode = arguments.getBoolean(ARG_DUAL_MODE);
         }
     }
 

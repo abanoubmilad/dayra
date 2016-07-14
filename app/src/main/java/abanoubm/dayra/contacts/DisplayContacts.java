@@ -26,7 +26,7 @@ public class DisplayContacts extends AppCompatActivity implements CallBack {
 
         if (savedInstanceState == null) {
             Bundle args = new Bundle();
-            args.putBoolean("isdualmode", dualMode);
+            args.putBoolean(ARG_DUAL_MODE, dualMode);
             FragmentDisplayContacts fragment = new FragmentDisplayContacts();
             fragment.setArguments(args);
             getSupportFragmentManager().beginTransaction()

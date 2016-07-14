@@ -35,7 +35,17 @@ public class DivideDayra extends Activity {
         protected Boolean doInBackground(Boolean... params) {
             String path = Utility.getDayraFolder() + "/"
                     + Utility.getDayraName(getApplicationContext()) + "_divided/";
-            new File(path).mkdirs();
+            File file = new File(path);
+            if (file.exists()) {
+                File[] contents = file.listFiles();
+                if (contents != null) {
+                    for (File f : contents)
+                        f.delete();
+
+                }
+            } else {
+                file.mkdirs();
+            }
             DB db = DB.getInstant(getApplicationContext());
 
             ArrayList<String> dividerList = db.getDividerList(chosenTag);

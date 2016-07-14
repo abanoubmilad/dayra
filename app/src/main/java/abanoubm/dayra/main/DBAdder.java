@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.ArrayList;
-
 public class DBAdder extends SQLiteOpenHelper {
     private SQLiteDatabase readableDatabase;
 
@@ -19,10 +17,10 @@ public class DBAdder extends SQLiteOpenHelper {
         try {
             readableDatabase = getWritableDatabase();
 
-//            sdb.query(TB_ATTEND,
-//                    new String[]{ATTEND_ID, ATTEND_DAY, ATTEND_TYPE}, null, null, null, null, null, "1").close();
-//            sdb.query(TB_CONNECTION,
-//                    new String[]{CONN_A, CONN_B}, null, null, null, null, null, "1").close();
+            readableDatabase.query(DB.TB_ATTEND,
+                    new String[]{DB.ATTEND_ID, DB.ATTEND_DAY, DB.ATTEND_TYPE}, null, null, null, null, null, "1").close();
+            readableDatabase.query(DB.TB_CONNECTION,
+                    new String[]{DB.CONN_A, DB.CONN_B}, null, null, null, null, null, "1").close();
 
             readableDatabase.query(DB.TB_CONTACT, new String[]{
                     DB.CONTACT_ADDR,
@@ -44,12 +42,11 @@ public class DBAdder extends SQLiteOpenHelper {
                     DB.CONTACT_NOTES,
                     DB.CONTACT_ST,
                     DB.CONTACT_HOME}, null, null, null, null, null, "1").close();
-//            sdb.query(TB_PHOTO,
-//                    new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null, "1").close();
+            readableDatabase.query(DB.TB_PHOTO,
+                    new String[]{DB.PHOTO_ID, DB.PHOTO_BLOB}, null, null, null, null, null, "1").close();
 
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -144,7 +141,7 @@ public class DBAdder extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<String[]> getContactsData() {
+    public Cursor getContactsCursor() {
         String sel =
                 DB.CONTACT_NAME + "," +
                         DB.CONTACT_CLASS_YEAR + "," +
@@ -167,45 +164,16 @@ public class DBAdder extends SQLiteOpenHelper {
                         DB.CONTACT_BDAY + "," +
                         DB.CONTACT_MAPLAT + "," +
                         DB.CONTACT_MAPLNG + "," +
-                        DB.CONTACT_MAPZOM;
+                        DB.CONTACT_MAPZOM + "," +
+                        DB.PHOTO_BLOB;
+
         String selectQuery = "SELECT " + sel +
-                " FROM " + DB.TB_CONTACT;
+                " FROM " + DB.TB_CONTACT + " LEFT OUTER JOIN " + DB.TB_PHOTO +
+                " ON " + DB.CONTACT_ID + "=" + DB.PHOTO_ID;
 
-        Cursor c = readableDatabase.rawQuery(selectQuery, null);
-
-        ArrayList<String[]> result = new ArrayList<>(
-                c.getCount());
-
-        if (c.moveToFirst()) {
-
-            do {
-                result.add(new String[]{
-                        c.getString(0),
-                        c.getString(1),
-                        c.getString(2),
-                        c.getString(3),
-                        c.getString(4),
-                        c.getString(5),
-                        c.getString(6),
-                        c.getString(7),
-                        c.getString(8),
-                        c.getString(9),
-                        c.getString(10),
-                        c.getString(11),
-                        c.getString(12),
-                        c.getString(13),
-                        c.getString(14),
-                        c.getString(15),
-                        c.getString(16),
-                        c.getString(17)
-                });
-
-            } while (c.moveToNext());
-        }
-        c.close();
-        return result;
-
+        return readableDatabase.rawQuery(selectQuery, null);
     }
+
 
     public void close() {
         readableDatabase.close();

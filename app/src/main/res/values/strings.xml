@@ -50,7 +50,7 @@
     <string name="err.msg.duplicate.dayra">App contains dayra with same name, delete it first</string>
     <string name="subhead.register.attendance">Register attendance</string>
     <string name="msg.dayra.imported">dayra imported</string>
-    <string name="msg.dayra.replaced">dayra data replaced</string>
+    <string name="msg.dayra.added">added dayra data</string>
     <string name="err.msg.import">dayra import error</string>
     <string name="err.msg.invalid_file">Invalid file</string>
     <string name="msg.no.dayra">no available dayra, create one</string>
@@ -71,7 +71,7 @@
     <string name="label.personal">personal</string>
     <string name="msg.choose.field">Choose at least one field to export</string>
     <string name="btn.divide">divide dayra</string>
-    <string name="subhead.divide">Divid current dayra</string>
+    <string name="subhead.divide">Divide current dayra</string>
     <string name="label.divide.express">Create dayra(s) by dividing the current dayra,\nThe current dayra is kept unchanged.\n\ndivide current dayra by:</string>
     <string name="msg.dayra.divided">dayra divided</string>
     <string name="label.add.express">Read carefully before using this feature\n( always store a backup of dayra by using export dayra file )\n\nAdding data to the current dayra using dayra xls or dayra file,\nData is added as following:\n\n — If a new contact ( name ) is found,\nit will be added directly to the current dayra\n\n — If an existing contact ( name ) is found,\nthe chosen date fields will be updated\nNOTE This will replace the chosen data fields of this contact by the new values.</string>
@@ -138,6 +138,9 @@
     <string name="label.attend.min">first attendance date</string>
     <string name="label.attend.count">attendance times</string>
     <string name="label.absent.count">absence times since first attendance</string>
+
+    <string name="label.photo">photo</string>
+    <string name="label.location">map location</string>
 
     <string name="label.xls.express">dayra xls format must be as following:\n\nName, Class/year, Study/work, Mobile 1, Mobile 2, Mobile 3, Landphone, Email, Site, Street, Home, Address, Notes, Supervisor, Photo.\n15 columns.\n\nFirst row contains column titles only.</string>
 
