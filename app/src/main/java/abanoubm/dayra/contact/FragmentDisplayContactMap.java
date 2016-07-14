@@ -149,11 +149,11 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
 
         @Override
         protected void onPostExecute(ContactLocation contact) {
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(contact.getMapLat(), contact.getMapLng()), contact.getZoom()));
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(contact.getMapLat(), contact.getMapLng())).title(getResources().getString(R.string.label_map_location))
                     .draggable(false)).showInfoWindow();
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(contact.getMapLat(), contact.getMapLng()), contact.getZoom()));
         }
 
         @Override

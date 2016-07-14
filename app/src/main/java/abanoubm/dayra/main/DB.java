@@ -672,13 +672,15 @@ public class DB extends SQLiteOpenHelper {
         Cursor c = readableDB.query(TB_CONTACT, new String[]{CONTACT_MAPLAT,
                 CONTACT_MAPLNG, CONTACT_MAPZOM}, CONTACT_ID + " = ?", new String[]{id}, null, null, null);
 
-        if (c.moveToFirst()) {
-            new ContactLocation(c.getDouble(0), c
+        ContactLocation loc;
+        if (c.moveToFirst())
+            loc = new ContactLocation(c.getDouble(0), c
                     .getDouble(1), c.getFloat(2));
-        }
+        else
+            loc = new ContactLocation(0, 0, 0);
         c.close();
 
-        return new ContactLocation(0, 0, 0);
+        return loc;
 
     }
 
