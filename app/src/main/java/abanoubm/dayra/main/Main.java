@@ -27,8 +27,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Locale;
 
 import abanoubm.dayra.R;
@@ -191,7 +193,11 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
         ((TextView) findViewById(R.id.subhead1)).setText(R.string.app_name);
-        ((TextView) findViewById(R.id.subhead2)).setText(" dayra 4.0 ");
+        ((TextView) findViewById(R.id.subhead2)).setText("4.0");
+
+        ((TextView) findViewById(R.id.footer)).setText("dayra 4.0 @" + new SimpleDateFormat(
+                "yyyy", Locale.getDefault())
+                .format(new Date()) + " Abanoub M.");
 
         if (!Utility.getDayraName(getApplicationContext()).equals("")) {
             startActivity(new Intent(getApplicationContext(), Home.class));

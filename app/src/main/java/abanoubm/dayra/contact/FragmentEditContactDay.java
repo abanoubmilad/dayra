@@ -174,7 +174,7 @@ public class FragmentEditContactDay extends Fragment {
 
         Spinner spin = (Spinner) root.findViewById(R.id.spin);
         spin.setAdapter(new ArrayAdapter<>(getActivity(),
-                R.layout.item_string, getResources().getTextArray(R.array.attendance_type)));
+                R.layout.item_string, Utility.getAttendanceTypes(getContext())));
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override

@@ -16,6 +16,8 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import abanoubm.dayra.R;
@@ -75,11 +77,14 @@ public class Home extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_home);
 
+        ((TextView) findViewById(R.id.footer)).setText("dayra 4.0 @"+new SimpleDateFormat(
+                "yyyy", Locale.getDefault())
+                .format(new Date())+" Abanoub M.");
 
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager()));
 
-        ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this) + " - dayra 4.0 ");
+        ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         buttons = new ImageView[]{
                 (ImageView) findViewById(R.id.img1),
                 (ImageView) findViewById(R.id.img2),

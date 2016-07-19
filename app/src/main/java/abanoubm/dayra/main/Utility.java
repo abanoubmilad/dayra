@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Calendar;
 
+import abanoubm.dayra.R;
 import abanoubm.dayra.alarm.AttendanceReceiver;
 import abanoubm.dayra.alarm.BirthDayReceiver;
 
@@ -193,7 +195,7 @@ public class Utility {
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, 1);
+            calendar.set(Calendar.HOUR_OF_DAY, 14);
             manager.setInexactRepeating(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
@@ -211,6 +213,48 @@ public class Utility {
                     AlarmManager.INTERVAL_DAY * 30, PendingIntent.getBroadcast(context, 100,
                             new Intent(context, AttendanceReceiver.class), 0));
         }
+
+
+    }
+
+    public static CharSequence[] getAttendanceTypes(Context context) {
+        CharSequence[] types = context.getResources().getTextArray(R.array.attendance_type);
+        SharedPreferences sf = context.getSharedPreferences("attend",
+                Context.MODE_PRIVATE);
+        if (sf.getBoolean("active", false)) {
+            for (int i = 0; i < types.length; i++)
+                types[i] = sf.getString(i + "", types[i].toString());
+        }
+        return types;
+
+    }
+
+    public static String[] getModifiedAttendanceTypes(Context context) {
+        String[] types = new String[5];
+        SharedPreferences sf = context.getSharedPreferences("attend",
+                Context.MODE_PRIVATE);
+        for (int i = 0; i < types.length; i++)
+            types[i] = sf.getString(i + "", null);
+        return types;
+
+    }
+
+    public static void setAttendanceTypes(Context context, String[] newTypes) {
+        SharedPreferences.Editor editor = context.getSharedPreferences("attend",
+                Context.MODE_PRIVATE).edit();
+        editor.clear().apply();
+
+        boolean active = false;
+        for (int i = 0; i < newTypes.length; i++) {
+            if (newTypes[i] != null) {
+                active = true;
+                editor.putString(i + "", newTypes[i]);
+
+            }
+
+        }
+        editor.putBoolean("active", active);
+        editor.apply();
 
 
     }

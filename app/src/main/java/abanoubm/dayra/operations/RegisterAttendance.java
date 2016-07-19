@@ -238,7 +238,7 @@ public class RegisterAttendance extends Activity {
 
         Spinner spin = (Spinner) findViewById(R.id.spin);
         spin.setAdapter(new ArrayAdapter<>(getApplicationContext(),
-                R.layout.item_string, getResources().getTextArray(R.array.attendance_type)));
+                R.layout.item_string, Utility.getAttendanceTypes(getApplicationContext())));
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override

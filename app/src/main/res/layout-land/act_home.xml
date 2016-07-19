@@ -62,5 +62,6 @@
             android:layout_marginLeft="20dp"
             android:paddingRight="12dp" />
     </LinearLayout>
+    <include layout="@layout/footer" />
 
 </LinearLayout>

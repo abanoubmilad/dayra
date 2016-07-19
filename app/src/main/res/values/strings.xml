@@ -30,6 +30,7 @@
     <string name="label.month">month</string>
     <string name="label.year">year</string>
     <string name="err.msg.duplicate.name">Name is already used</string>
+    <string name="err.msg.duplicate.entry">Duplicate entries are not allowed</string>
     <string name="err.msg.dayra.name">Invalid dayra name</string>
     <string name="err.msg.dayra.match">Name does not match current dayra name</string>
     <string name="msg.dayra.created">dayra created</string>
@@ -62,6 +63,7 @@
     <string name="subhead.percentage">Attendance statistics</string>
     <string name="label.numbering">Numbering</string>
     <string name="msg.dayra.renamed">dayra renamed</string>
+    <string name="msg.fields.renamed">data fields renamed</string>
     <string name="label.site">site</string>
     <string name="label.street">street</string>
     <string name="label.class.year">class/year</string>
@@ -70,7 +72,7 @@
     <string name="label.contact">contact</string>
     <string name="label.personal">personal</string>
     <string name="msg.choose.field">Choose at least one field to export</string>
-    <string name="btn.divide">divide dayra</string>
+    <string name="btn.divide">divide</string>
     <string name="subhead.divide">Divide current dayra</string>
     <string name="label.divide.express">Create dayra(s) by dividing the current dayra,\nThe current dayra is kept unchanged.\n\ndivide current dayra by:</string>
     <string name="msg.dayra.divided">dayra divided</string>
@@ -146,7 +148,7 @@
     <string name="label.xls.express">dayra xls format must be as following:\n\nName, Class/year, Study/work, Mobile 1, Mobile 2, Mobile 3, Landphone, Email, Site, Street, Home, Address, Notes, Supervisor, Photo.\n15 columns.\n\nFirst row contains column titles only.</string>
 
     <string name="label.dayra.xls">dayra xls</string>
-    <string name="label.dayra.file">dayra file</string>
+    <string name="label.dayra.file">dayra file / backup</string>
     <string name="msg.dayra.no.divider">No enough entries found for the chosen divider (divide by)</string>
 
 
@@ -157,8 +159,8 @@
 
     <string-array name="attendace_report_header">
         <item>Attendance type</item>
-        <item>first attendance date</item>
-        <item>last attendance date</item>
+        <item>First attendance date</item>
+        <item>Last attendance date</item>
         <item>Attendance times</item>
     </string-array>
     <string-array name="sort_statistics_menu">
@@ -270,7 +272,7 @@
     <string-array name="sign_menu">
         <item>Enter</item>
         <item>Create dayra</item>
-        <item>Import dayra file</item>
+        <item>Import dayra file / backup</item>
         <item>User\'s manual</item>
         <item>Language / اللغة</item>
         <item>Like us</item>
@@ -285,12 +287,13 @@
         <item>Create Attendance report</item>
         <item>Create Information report</item>
         <item>Create Information table</item>
-        <item>Export dayra file</item>
+        <item>Export dayra file / backup</item>
         <item>Export dayra xls</item>
         <item>Open dayra folder</item>
     </string-array>
     <string-array name="settings_menu">
         <item>Alarm settings</item>
+        <item>Rename data fields</item>
         <item>Rename dayra</item>
         <item>Add data to dayra</item>
         <item>Divide dayra</item>
@@ -376,6 +379,7 @@
     </string-array>
     <string-array name="settings_icons" translatable="false">
         <item>@mipmap/ic_alarm</item>
+        <item>@mipmap/ic_modifi</item>
         <item>@mipmap/ic_rename</item>
         <item>@mipmap/ic_replace</item>
         <item>@mipmap/ic_divide</item>

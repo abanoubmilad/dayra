@@ -96,7 +96,6 @@ public class DBAdder extends SQLiteOpenHelper {
                     }, null, null, null, null, null);
             if (c.moveToFirst()) {
                 ContentValues values;
-                db.beginTransaction();
                 String id;
                 String date;
                 do {
@@ -130,8 +129,6 @@ public class DBAdder extends SQLiteOpenHelper {
                     }
                 } while (c.moveToNext());
                 c.close();
-                db.setTransactionSuccessful();
-                db.endTransaction();
 
             }
 

@@ -12,11 +12,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.MenuItemAdapter;
@@ -50,17 +53,20 @@ public class FragmentHomeSettings extends Fragment {
                                 Settings.class));
                         break;
                     case 1:
-                        renameDB();
+                        renameFields();
                         break;
                     case 2:
-                        startActivity(new Intent(getActivity(),
-                                AddToDayra.class));
+                        renameDB();
                         break;
                     case 3:
                         startActivity(new Intent(getActivity(),
-                                DivideDayra.class));
+                                AddToDayra.class));
                         break;
                     case 4:
+                        startActivity(new Intent(getActivity(),
+                                DivideDayra.class));
+                        break;
+                    case 5:
                         deleteDB();
                         break;
 
@@ -68,6 +74,77 @@ public class FragmentHomeSettings extends Fragment {
             }
         });
         return root;
+    }
+
+    private void renameFields() {
+        LayoutInflater li = LayoutInflater.from(getActivity());
+        final View view = li.inflate(R.layout.dialogue_modify_fields, null, false);
+        final AlertDialog ad = new AlertDialog.Builder(getActivity())
+                .setCancelable(true).create();
+        ad.setView(view, 0, 0, 0, 0);
+        ad.show();
+
+        final CharSequence[] originalTypes = getResources().getTextArray(R.array.attendance_type);
+        final String[] modifiedTypes = Utility.getModifiedAttendanceTypes(getContext());
+
+        final EditText[] tList = {(EditText) view.findViewById(R.id.t0),
+                (EditText) view.findViewById(R.id.t1),
+                (EditText) view.findViewById(R.id.t2),
+                (EditText) view.findViewById(R.id.t3),
+                (EditText) view.findViewById(R.id.t4)
+        };
+        final TextView[] tvList = {(TextView) view.findViewById(R.id.tv0),
+                (TextView) view.findViewById(R.id.tv1),
+                (TextView) view.findViewById(R.id.tv2),
+                (TextView) view.findViewById(R.id.tv3),
+                (TextView) view.findViewById(R.id.tv4)
+        };
+        for (int i = 0; i < originalTypes.length; i++) {
+            tList[i].setText(modifiedTypes[i]);
+
+            tList[i].setHint(originalTypes[i]);
+            tvList[i].setText(originalTypes[i]);
+        }
+
+        view.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                String[] newTypes = new String[5];
+                String temp;
+
+                Set<String> setChecker = new HashSet<>();
+                for (int i = 0; i < originalTypes.length; i++)
+                    setChecker.add(originalTypes[i].toString());
+
+                boolean modifiedCheck = false;
+                for (int i = 0; i < originalTypes.length; i++) {
+                    temp = tList[i].getText().toString().trim();
+                    if (temp.equals("")) {
+                        newTypes[i] = null;
+                        modifiedCheck=true;
+                    }else if (setChecker.contains(temp)) {
+                        modifiedCheck = false;
+                        Toast.makeText(getActivity(),
+                                R.string.err_msg_duplicate_entry, Toast.LENGTH_SHORT)
+                                .show();
+                        break;
+                    } else {
+                        setChecker.add(temp);
+                        newTypes[i] = temp;
+                        modifiedCheck = true;
+
+                    }
+                }
+                if (modifiedCheck) {
+                    Utility.setAttendanceTypes(getContext(), newTypes);
+                    Toast.makeText(getActivity(),
+                            R.string.msg_fields_renamed, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+
+        });
     }
 
     private void renameDB() {

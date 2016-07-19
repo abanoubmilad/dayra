@@ -151,7 +151,7 @@ public class FragmentSearchDates extends Fragment {
         });
         Spinner spin_type = (Spinner) root.findViewById(R.id.spin_type);
         spin_type.setAdapter(new ArrayAdapter<>(getActivity(),
-                R.layout.item_string, getResources().getTextArray(R.array.attendance_type)));
+                R.layout.item_string, Utility.getAttendanceTypes(getContext())));
         spin_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override

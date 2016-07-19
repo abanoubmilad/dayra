@@ -31,6 +31,8 @@ public class AttendanceReceiver extends BroadcastReceiver {
             return;
         }
 
+        int globalUniqueTag = (int) System.currentTimeMillis();
+
         String msgLabel = context.getResources().getString(R.string.label_msg);
         String callLabel = context.getResources().getString(R.string.label_call);
 
@@ -44,7 +46,6 @@ public class AttendanceReceiver extends BroadcastReceiver {
         Bitmap defPhoto = ((BitmapDrawable)
                 ContextCompat.getDrawable(context, R.mipmap.def)).getBitmap();
 
-        int start = 70000;
         IntWrapper total = new IntWrapper();
         StringBuilder builder;
         for (String dayraName : array) {
@@ -68,13 +69,13 @@ public class AttendanceReceiver extends BroadcastReceiver {
                 if (builder.length() != 0) {
                     n.addAction(R.mipmap.ic_msg, msgLabel,
                             PendingIntent.getActivity(context,
-                                    (int) System.currentTimeMillis(), new Intent(Intent.ACTION_SENDTO, Uri
+                                    globalUniqueTag++, new Intent(Intent.ACTION_SENDTO, Uri
                                             .parse("smsto:"
                                                     + builder.toString())), 0));
                 }
                 NotificationManager nm = (NotificationManager) context
                         .getSystemService(Context.NOTIFICATION_SERVICE);
-                nm.notify(start++, n.build());
+                nm.notify(globalUniqueTag++, n.build());
             } else {
                 for (Field field : result) {
                     NotificationCompat.Builder n = new NotificationCompat.Builder(
@@ -93,17 +94,17 @@ public class AttendanceReceiver extends BroadcastReceiver {
                     if (field.getPhone().length() > 0) {
                         n.addAction(R.mipmap.ic_call, callLabel,
                                 PendingIntent.getActivity(context,
-                                        (int) System.currentTimeMillis(), new Intent(Intent.ACTION_CALL, Uri
+                                        globalUniqueTag++, new Intent(Intent.ACTION_CALL, Uri
                                                 .fromParts("tel", field.getPhone(), null)), 0))
                                 .addAction(R.mipmap.ic_msg, msgLabel,
                                         PendingIntent.getActivity(context,
-                                                (int) System.currentTimeMillis(), new Intent(Intent.ACTION_SENDTO, Uri
+                                                globalUniqueTag++, new Intent(Intent.ACTION_SENDTO, Uri
                                                         .parse("smsto:"
                                                                 + field.getPhone())), 0));
                     }
                     NotificationManager nm = (NotificationManager) context
                             .getSystemService(Context.NOTIFICATION_SERVICE);
-                    nm.notify(start++, n.build());
+                    nm.notify(globalUniqueTag++, n.build());
                 }
 
 

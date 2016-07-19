@@ -56,5 +56,6 @@
             android:padding="10dp"
             android:src="@mipmap/ic_sett" />
     </LinearLayout>
+    <include layout="@layout/footer" />
 
 </LinearLayout>

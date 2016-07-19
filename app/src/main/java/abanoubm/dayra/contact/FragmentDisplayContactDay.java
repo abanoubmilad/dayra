@@ -20,6 +20,7 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.DayCheckAdapter;
 import abanoubm.dayra.adapters.StringAdapter;
 import abanoubm.dayra.main.DB;
+import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.DayCheck;
 
 public class FragmentDisplayContactDay extends Fragment {
@@ -284,7 +285,7 @@ public class FragmentDisplayContactDay extends Fragment {
 
         Spinner spin = (Spinner) root.findViewById(R.id.spin);
         spin.setAdapter(new ArrayAdapter<>(getActivity(),
-                R.layout.item_string, getResources().getTextArray(R.array.attendance_type)));
+                R.layout.item_string, Utility.getAttendanceTypes(getContext())));
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override

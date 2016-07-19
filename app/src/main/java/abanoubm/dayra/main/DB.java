@@ -26,7 +26,9 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.alarm.DBAlarm;
@@ -210,7 +212,6 @@ public class DB extends SQLiteOpenHelper {
                     }, null, null, null, null, null);
             if (c.moveToFirst()) {
                 ContentValues values;
-                db.beginTransaction();
                 String id;
                 String date;
                 do {
@@ -244,9 +245,6 @@ public class DB extends SQLiteOpenHelper {
                     }
                 } while (c.moveToNext());
                 c.close();
-                db.setTransactionSuccessful();
-                db.endTransaction();
-
             }
 
 
@@ -397,6 +395,15 @@ public class DB extends SQLiteOpenHelper {
                 new String[]{id});
     }
 
+    public void updateContact(byte[] photo, String id) {
+        this.dirtyFlag = true;
+
+        ContentValues values = new ContentValues();
+        values.put(PHOTO_BLOB, photo);
+        writableDB.update(TB_PHOTO, values, PHOTO_ID + " = ?",
+                new String[]{id});
+    }
+
     public void updateContact(ContentValues values, String id) {
         this.dirtyFlag = true;
 
@@ -429,93 +436,61 @@ public class DB extends SQLiteOpenHelper {
         ContentValues values;
         String[] tagged = new String[tags.size()];
         int itr = 0;
-        for (Integer index : tags) {
+        for (Integer index : tags)
             tagged[itr++] = colNames[index];
-        }
 
         if (contactsCursor.moveToFirst()) {
-            if (tags.size() > 0 || photoSelected) {
+            boolean updateFlag = tags.size() > 0;
+            String id;
+            do {
+                id = getNameId(contactsCursor.getString(0));
 
-                String id;
-                do {
-                    id = getNameId(contactsCursor.getString(0));
+                if (id.equals("-1")) {
+                    addedCounterTemp++;
 
-                    if (id.equals("-1")) {
-                        addedCounterTemp++;
+                    values = new ContentValues();
+                    values.put(CONTACT_NAME, contactsCursor.getString(0));
+                    values.put(CONTACT_CLASS_YEAR, contactsCursor.getString(1));
+                    values.put(CONTACT_STUDY_WORK, contactsCursor.getString(2));
+                    values.put(CONTACT_MOB1, contactsCursor.getString(3));
+                    values.put(CONTACT_MOB2, contactsCursor.getString(4));
+                    values.put(CONTACT_MOB3, contactsCursor.getString(5));
+                    values.put(CONTACT_LPHONE, contactsCursor.getString(6));
+                    values.put(CONTACT_EMAIL, contactsCursor.getString(7));
+                    values.put(CONTACT_SITE, contactsCursor.getString(8));
+                    values.put(CONTACT_ST, contactsCursor.getString(9));
+                    values.put(CONTACT_HOME, contactsCursor.getString(10));
+                    values.put(CONTACT_ADDR, contactsCursor.getString(11));
+                    values.put(CONTACT_NOTES, contactsCursor.getString(12));
+                    values.put(CONTACT_SUPERVISOR, contactsCursor.getString(13));
 
-                        values = new ContentValues();
-                        values.put(CONTACT_NAME, contactsCursor.getString(0));
-                        values.put(CONTACT_CLASS_YEAR, contactsCursor.getString(1));
-                        values.put(CONTACT_STUDY_WORK, contactsCursor.getString(2));
-                        values.put(CONTACT_MOB1, contactsCursor.getString(3));
-                        values.put(CONTACT_MOB2, contactsCursor.getString(4));
-                        values.put(CONTACT_MOB3, contactsCursor.getString(5));
-                        values.put(CONTACT_LPHONE, contactsCursor.getString(6));
-                        values.put(CONTACT_EMAIL, contactsCursor.getString(7));
-                        values.put(CONTACT_SITE, contactsCursor.getString(8));
-                        values.put(CONTACT_ST, contactsCursor.getString(9));
-                        values.put(CONTACT_HOME, contactsCursor.getString(10));
-                        values.put(CONTACT_ADDR, contactsCursor.getString(11));
-                        values.put(CONTACT_NOTES, contactsCursor.getString(12));
-                        values.put(CONTACT_SUPERVISOR, contactsCursor.getString(13));
+                    values.put(CONTACT_BDAY, contactsCursor.getString(14));
 
-                        values.put(CONTACT_BDAY, contactsCursor.getString(14));
+                    values.put(CONTACT_MAPLAT, contactsCursor.getString(15));
+                    values.put(CONTACT_MAPLNG, contactsCursor.getString(16));
+                    values.put(CONTACT_MAPZOM, contactsCursor.getString(17));
 
-                        values.put(CONTACT_MAPLAT, contactsCursor.getString(15));
-                        values.put(CONTACT_MAPLNG, contactsCursor.getString(16));
-                        values.put(CONTACT_MAPZOM, contactsCursor.getString(17));
+                    addContact(values, contactsCursor.getBlob(18));
 
-                        addContact(values, contactsCursor.getBlob(18));
+                } else if (updateFlag) {
+                    updatedCounterTemp++;
+                    values = new ContentValues();
+                    itr = 0;
+                    for (Integer index : tags)
+                        values.put(tagged[itr++], contactsCursor.getString(index));
 
-                    } else {
-                        updatedCounterTemp++;
-                        values = new ContentValues();
-                        itr = 0;
-                        for (Integer index : tags)
-                            values.put(tagged[itr++], contactsCursor.getString(index));
+                    if (photoSelected)
+                        updateContact(values, contactsCursor.getBlob(18), id);
+                    else
+                        updateContact(values, id);
+                } else if (photoSelected) {
+                    updatedCounterTemp++;
+                    updateContact(contactsCursor.getBlob(18), id);
 
-                        if (photoSelected)
-                            updateContact(values, contactsCursor.getBlob(18), id);
-                        else
-                            updateContact(values, id);
-                    }
-                } while (contactsCursor.moveToNext());
-
-
-            } else {
-                do {
-
-                    if (getNameId(contactsCursor.getString(0)).equals("-1")) {
-                        addedCounterTemp++;
-
-                        values = new ContentValues();
-                        values.put(CONTACT_NAME, contactsCursor.getString(0));
-                        values.put(CONTACT_CLASS_YEAR, contactsCursor.getString(1));
-                        values.put(CONTACT_STUDY_WORK, contactsCursor.getString(2));
-                        values.put(CONTACT_MOB1, contactsCursor.getString(3));
-                        values.put(CONTACT_MOB2, contactsCursor.getString(4));
-                        values.put(CONTACT_MOB3, contactsCursor.getString(5));
-                        values.put(CONTACT_LPHONE, contactsCursor.getString(6));
-                        values.put(CONTACT_EMAIL, contactsCursor.getString(7));
-                        values.put(CONTACT_SITE, contactsCursor.getString(8));
-                        values.put(CONTACT_ST, contactsCursor.getString(9));
-                        values.put(CONTACT_HOME, contactsCursor.getString(10));
-                        values.put(CONTACT_ADDR, contactsCursor.getString(11));
-                        values.put(CONTACT_NOTES, contactsCursor.getString(12));
-                        values.put(CONTACT_SUPERVISOR, contactsCursor.getString(13));
-
-                        values.put(CONTACT_BDAY, contactsCursor.getString(14));
-
-                        values.put(CONTACT_MAPLAT, contactsCursor.getString(15));
-                        values.put(CONTACT_MAPLNG, contactsCursor.getString(16));
-                        values.put(CONTACT_MAPZOM, contactsCursor.getString(17));
-
-                        addContact(values, contactsCursor.getBlob(18));
-                    }
-                } while (contactsCursor.moveToNext());
+                }
+            } while (contactsCursor.moveToNext());
 
 
-            }
         }
         contactsCursor.close();
         addedCounter.setCounter(addedCounterTemp);
@@ -828,7 +803,15 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public boolean exportAttendanceReport(String path, String dateRegex, String[] header, boolean isEnglishMode, Context context) {
+    public boolean exportAttendanceReport(String path, String dateRegex,
+                                          String[] header, CharSequence[] attendanceTypes,
+                                          boolean isEnglishMode, Context context) {
+
+        Map<String, String> attendanceMap = new HashMap<>();
+        for (int i = 0; i < attendanceTypes.length; i++)
+            attendanceMap.put(i + "", attendanceTypes[i].toString());
+
+
         String selectQuery = "SELECT " + CONTACT_NAME + "," + PHOTO_BLOB + "," + ATTEND_TYPE +
                 ", MIN(" + ATTEND_DAY + "), " +
                 "MAX(" + ATTEND_DAY + "), " + "COUNT(" + ATTEND_DAY + ")" +
@@ -877,7 +860,7 @@ public class DB extends SQLiteOpenHelper {
                 final int TEXT_DIRECTION = isEnglishMode ? PdfWriter.RUN_DIRECTION_LTR : PdfWriter.RUN_DIRECTION_RTL;
                 do {
                     if (previousName.equals(c.getString(0))) {
-                        table.addCell(new Paragraph(c.getString(2), font));
+                        table.addCell(new Paragraph(attendanceMap.get(c.getString(2)), font));
                         table.addCell(new Paragraph(c.getString(3), font));
                         table.addCell(new Paragraph(c.getString(4), font));
                         table.addCell(new Paragraph(c.getString(5), font));
@@ -914,7 +897,7 @@ public class DB extends SQLiteOpenHelper {
                         table.addCell(new Paragraph(header[2], font));
                         table.addCell(new Paragraph(header[3], font));
 
-                        table.addCell(new Paragraph(c.getString(2), font));
+                        table.addCell(new Paragraph(attendanceMap.get(c.getString(2)), font));
                         table.addCell(new Paragraph(c.getString(3), font));
                         table.addCell(new Paragraph(c.getString(4), font));
                         table.addCell(new Paragraph(c.getString(5), font));

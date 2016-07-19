@@ -160,7 +160,7 @@ public class DisplayContactsStatistics extends Activity {
         });
         Spinner spin_type = (Spinner) findViewById(R.id.spin_type);
         spin_type.setAdapter(new ArrayAdapter<>(getApplicationContext(),
-                R.layout.item_string, getResources().getTextArray(R.array.attendance_type)));
+                R.layout.item_string, Utility.getAttendanceTypes(getApplicationContext())));
         spin_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override

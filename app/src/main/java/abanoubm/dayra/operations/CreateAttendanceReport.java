@@ -78,7 +78,9 @@ public class CreateAttendanceReport extends Activity {
                         new String[]{path}, null, null);
             }
             return DB.getInstant(getApplicationContext()).exportAttendanceReport(path,
-                    Utility.produceDateRegex(day, month, year), getResources().getStringArray(R.array.attendace_report_header),
+                    Utility.produceDateRegex(day, month, year),
+                    getResources().getStringArray(R.array.attendace_report_header),
+                   Utility.getAttendanceTypes(getApplicationContext()),
                     findViewById(R.id.english_layout) != null, getApplicationContext());
 
         }

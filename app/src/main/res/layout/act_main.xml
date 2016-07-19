@@ -13,4 +13,6 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp" />
 
+    <include layout="@layout/footer" />
+
 </LinearLayout>
