@@ -229,12 +229,15 @@ public class Main extends Activity {
                         break;
                     case 3:
                         new CheckSupportTask().execute();
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri
-                                .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view"));
-                        startActivity(i);
+                        startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri
+                                .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view")));
                         break;
-                    case 4: {
+                    case 4:
+                        new CheckSupportTask().execute();
+                        startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri
+                                .parse("https://drive.google.com/open?id=1flSRdoiIT_hNd96Kxz3Ww3EhXDLZ45FhwFJ2hF9vl7g")));
+                        break;
+                    case 5: {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(
                                 Main.this);
@@ -270,7 +273,7 @@ public class Main extends Activity {
 
                     }
                     break;
-                    case 5:
+                    case 6:
                         new CheckSupportTask().execute();
                         try {
                             getPackageManager().getPackageInfo(
@@ -285,7 +288,7 @@ public class Main extends Activity {
                         }
                         break;
 
-                    case 6:
+                    case 7:
                         new CheckSupportTask().execute();
                         try {
                             getPackageManager().getPackageInfo(
@@ -299,7 +302,7 @@ public class Main extends Activity {
                                     | Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         break;
-                    case 7:
+                    case 8:
                         new CheckSupportTask().execute();
                         Uri uri = Uri.parse("market://details?id=" + getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
@@ -310,7 +313,7 @@ public class Main extends Activity {
                                     Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
                         }
                         break;
-                    case 8:
+                    case 9:
                         Intent intent = new Intent(Intent.ACTION_VIEW).addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                         intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
                         startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP

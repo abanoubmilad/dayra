@@ -131,12 +131,15 @@ public class FragmentHomeMain extends Fragment {
                         break;
                     case 7:
                         new CheckSupportTask().execute();
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri
-                                .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view"));
-                        startActivity(i);
+                        startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri
+                                .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view")));
                         break;
                     case 8:
+                        new CheckSupportTask().execute();
+                        startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri
+                                .parse("https://drive.google.com/open?id=1flSRdoiIT_hNd96Kxz3Ww3EhXDLZ45FhwFJ2hF9vl7g")));
+                        break;
+                    case 9:
                         new CheckSupportTask().execute();
                         try {
                             getActivity().getPackageManager().getPackageInfo(
@@ -150,7 +153,7 @@ public class FragmentHomeMain extends Fragment {
                                     | Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         break;
-                    case 9:
+                    case 10:
                         new CheckSupportTask().execute();
                         try {
                             getActivity().getPackageManager().getPackageInfo(
@@ -164,7 +167,7 @@ public class FragmentHomeMain extends Fragment {
                                     | Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         break;
-                    case 10:
+                    case 11:
                         new CheckSupportTask().execute();
                         Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
