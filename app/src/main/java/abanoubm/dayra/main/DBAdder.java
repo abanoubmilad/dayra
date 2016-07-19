@@ -131,6 +131,7 @@ public class DBAdder extends SQLiteOpenHelper {
                 c.close();
 
             }
+            db.execSQL("update " + DB.TB_CONTACT + " set pdir='',lattend='',lvisit='',dates=''");
 
 
         }

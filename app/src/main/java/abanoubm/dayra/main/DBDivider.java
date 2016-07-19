@@ -11,10 +11,6 @@ public class DBDivider extends SQLiteOpenHelper {
     public DBDivider(Context context, String path) {
         super(context, path, null, DB.DB_VERSION);
         writableDB = getWritableDatabase();
-        writableDB.delete(DB.TB_PHOTO, null, null);
-        writableDB.delete(DB.TB_CONTACT, null, null);
-        writableDB.delete(DB.TB_CONNECTION, null, null);
-        writableDB.delete(DB.TB_ATTEND, null, null);
     }
 
     @Override
@@ -49,28 +45,6 @@ public class DBDivider extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
-        String sql;
-        if (arg1 < 2) {
-            sql = "create table " + DB.TB_CONNECTION + " ( " + DB.CONN_A + " integer, "
-                    + DB.CONN_B + " integer, " +
-                    "primary key (" + DB.CONN_A + "," + DB.CONN_B + "))";
-            db.execSQL(sql);
-        }
-        if (arg1 < 3) {
-
-            sql = "alter table " + DB.TB_CONTACT + " add column " + DB.CONTACT_HOME + " text default ''";
-            db.execSQL(sql);
-
-            sql = "create table " + DB.TB_ATTEND + " ( " + DB.ATTEND_ID + " integer, "
-                    + DB.ATTEND_TYPE + " integer, "
-                    + DB.ATTEND_DAY + " integer, " +
-                    "primary key (" + DB.ATTEND_ID + "," + DB.ATTEND_TYPE + "," + DB.ATTEND_DAY + "))";
-            db.execSQL(sql);
-
-            sql = "create table " + DB.TB_PHOTO + " ( " + DB.PHOTO_ID + " integer primary key, "
-                    + DB.PHOTO_BLOB + " blob)";
-            db.execSQL(sql);
-        }
     }
 
 

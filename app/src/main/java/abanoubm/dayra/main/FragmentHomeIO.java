@@ -85,7 +85,8 @@ public class FragmentHomeIO extends Fragment {
                     case 8:
                         Intent intent = new Intent(Intent.ACTION_VIEW).addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                         intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
-                        startActivity(intent);
+                        startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                | Intent.FLAG_ACTIVITY_NEW_TASK));
                         break;
                 }
             }

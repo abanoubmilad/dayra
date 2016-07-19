@@ -276,10 +276,12 @@ public class Main extends Activity {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                    .parse("fb://page/453595434816965")));
+                                    .parse("fb://page/453595434816965")).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    | Intent.FLAG_ACTIVITY_NEW_TASK));
                         } catch (Exception e) {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                    .parse("https://www.facebook.com/dayraapp")));
+                                    .parse("https://www.facebook.com/dayraapp")).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    | Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         break;
 
@@ -289,10 +291,12 @@ public class Main extends Activity {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                    .parse("fb://profile/1363784786")));
+                                    .parse("fb://profile/1363784786")).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    | Intent.FLAG_ACTIVITY_NEW_TASK));
                         } catch (Exception e) {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                    .parse("https://www.facebook.com/EngineeroBono")));
+                                    .parse("https://www.facebook.com/EngineeroBono")).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    | Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         break;
                     case 7:
@@ -309,7 +313,8 @@ public class Main extends Activity {
                     case 8:
                         Intent intent = new Intent(Intent.ACTION_VIEW).addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                         intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
-                        startActivity(intent);
+                        startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                | Intent.FLAG_ACTIVITY_NEW_TASK));
                         break;
                 }
             }

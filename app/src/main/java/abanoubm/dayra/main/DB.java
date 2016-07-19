@@ -246,8 +246,7 @@ public class DB extends SQLiteOpenHelper {
                 } while (c.moveToNext());
                 c.close();
             }
-
-
+            db.execSQL("update " + TB_CONTACT + " set pdir='',lattend='',lvisit='',dates=''");
         }
 
     }

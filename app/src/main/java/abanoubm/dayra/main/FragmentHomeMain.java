@@ -142,10 +142,12 @@ public class FragmentHomeMain extends Fragment {
                             getActivity().getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                    .parse("fb://page/453595434816965")));
+                                    .parse("fb://page/453595434816965")).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    | Intent.FLAG_ACTIVITY_NEW_TASK));
                         } catch (Exception e) {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                    .parse("https://www.facebook.com/dayraapp")));
+                                    .parse("https://www.facebook.com/dayraapp")).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    | Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         break;
                     case 9:
@@ -154,10 +156,12 @@ public class FragmentHomeMain extends Fragment {
                             getActivity().getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                    .parse("fb://profile/1363784786")));
+                                    .parse("fb://profile/1363784786")).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    | Intent.FLAG_ACTIVITY_NEW_TASK));
                         } catch (Exception e) {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri
-                                    .parse("https://www.facebook.com/EngineeroBono")));
+                                    .parse("https://www.facebook.com/EngineeroBono")).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    | Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         break;
                     case 10:
