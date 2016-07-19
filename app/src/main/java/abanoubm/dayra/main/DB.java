@@ -198,10 +198,6 @@ public class DB extends SQLiteOpenHelper {
             db.execSQL(sql);
 
             // modifications over data
-            //    final String CONTACT_PHOTO = "pdir",
-            ///          CONTACT_ATTEND_DATES = "dates",
-            //       CONTACT_LAST_VISIT = "lvisit",
-            //     CONTACT_LAST_ATTEND = "lattend";
 
             Cursor c = db.query(TB_CONTACT,
                     new String[]{
@@ -209,6 +205,7 @@ public class DB extends SQLiteOpenHelper {
                             "pdir",
                             "dates",
                             "lvisit",
+                            CONTACT_BDAY
                     }, null, null, null, null, null);
             if (c.moveToFirst()) {
                 ContentValues values;
@@ -231,6 +228,11 @@ public class DB extends SQLiteOpenHelper {
                         values.put(ATTEND_DAY, date);
                         db.insert(TB_ATTEND, null, values);
                     }
+                    date = Utility.migirateDate(c.getString(4));
+                    values = new ContentValues();
+                    values.put(CONTACT_BDAY, date);
+                    db.update(TB_CONTACT, values, CONTACT_ID + "=?", new String[]{id});
+
                     String[] arr = c.getString(2).split(";");
 
                     for (String anArr : arr) {

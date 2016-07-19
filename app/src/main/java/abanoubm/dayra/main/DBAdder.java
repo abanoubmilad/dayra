@@ -82,10 +82,6 @@ public class DBAdder extends SQLiteOpenHelper {
             db.execSQL(sql);
 
             // modifications over data
-            //    final String CONTACT_PHOTO = "pdir",
-            ///          CONTACT_ATTEND_DATES = "dates",
-            //       CONTACT_LAST_VISIT = "lvisit",
-            //     CONTACT_LAST_ATTEND = "lattend";
 
             Cursor c = db.query(DB.TB_CONTACT,
                     new String[]{
@@ -93,6 +89,7 @@ public class DBAdder extends SQLiteOpenHelper {
                             "pdir",
                             "dates",
                             "lvisit",
+                            DB.CONTACT_BDAY
                     }, null, null, null, null, null);
             if (c.moveToFirst()) {
                 ContentValues values;
@@ -115,6 +112,11 @@ public class DBAdder extends SQLiteOpenHelper {
                         values.put(DB.ATTEND_DAY, date);
                         db.insert(DB.TB_ATTEND, null, values);
                     }
+                    date = Utility.migirateDate(c.getString(4));
+                    values = new ContentValues();
+                    values.put(DB.CONTACT_BDAY, date);
+                    db.update(DB.TB_CONTACT, values, DB.CONTACT_ID + "=?", new String[]{id});
+
                     String[] arr = c.getString(2).split(";");
 
                     for (String anArr : arr) {
@@ -129,11 +131,8 @@ public class DBAdder extends SQLiteOpenHelper {
                     }
                 } while (c.moveToNext());
                 c.close();
-
             }
             db.execSQL("update " + DB.TB_CONTACT + " set pdir='',lattend='',lvisit='',dates=''");
-
-
         }
 
     }
