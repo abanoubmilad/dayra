@@ -15,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.DayCheckAdapter;
@@ -68,7 +70,12 @@ public class FragmentDisplayContactDay extends Fragment {
             DB db = DB.getInstant(getActivity());
             ArrayList<String> result = db.getContactAttendanceStatistics(id, dayType + "");
             days = db.getAttendanceAbsence(id, dayType + "", result.get(0) == null ? "9999-99-99" : result.get(0));
-
+            Collections.sort(days, new Comparator<DayCheck>() {
+                @Override
+                public int compare(DayCheck lhs, DayCheck rhs) {
+                    return rhs.getDay().compareTo(lhs.getDay());
+                }
+            });
             result.add(3, days.size() - Integer.parseInt(result.get(2)) + "");
             return result;
         }

@@ -231,7 +231,7 @@ public class DB extends SQLiteOpenHelper {
                         values.put(ATTEND_DAY, date);
                         db.insert(TB_ATTEND, null, values);
                     }
-                    String[] arr = c.getString(2).split(",");
+                    String[] arr = c.getString(2).split(";");
 
                     for (String anArr : arr) {
                         date = Utility.migirateDate(anArr);
@@ -428,8 +428,8 @@ public class DB extends SQLiteOpenHelper {
                 CONTACT_NOTES,
                 CONTACT_SUPERVISOR,
                 CONTACT_BDAY,
-                CONTACT_MAPLNG,
                 CONTACT_MAPLAT,
+                CONTACT_MAPLNG,
                 CONTACT_MAPZOM};
 
         ContentValues values;

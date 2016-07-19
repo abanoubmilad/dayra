@@ -115,7 +115,7 @@ public class DBAdder extends SQLiteOpenHelper {
                         values.put(DB.ATTEND_DAY, date);
                         db.insert(DB.TB_ATTEND, null, values);
                     }
-                    String[] arr = c.getString(2).split(",");
+                    String[] arr = c.getString(2).split(";");
 
                     for (String anArr : arr) {
                         date = Utility.migirateDate(anArr);
