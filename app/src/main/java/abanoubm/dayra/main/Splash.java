@@ -16,7 +16,6 @@ import java.util.Locale;
 import abanoubm.dayra.R;
 
 public class Splash extends Activity {
-    private MediaPlayer mMedia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +28,7 @@ public class Splash extends Activity {
 
         findViewById(R.id.layout).setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.fade));
-
-        mMedia =
+        final MediaPlayer mMedia =
                 MediaPlayer.create(getApplicationContext(), R.raw.bing);
         mMedia.start();
 
@@ -46,15 +44,16 @@ public class Splash extends Activity {
         Thread timerThread = new Thread() {
             public void run() {
                 try {
-                    sleep(2500);
+                    sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    finish();
                     if (!Utility.getDayraName(getApplicationContext()).equals(""))
                         startActivity(new Intent(Splash.this, Home.class));
                     else
                         startActivity(new Intent(Splash.this, Main.class));
+                    mMedia.release();
+                    finish();
                 }
             }
         };
@@ -66,7 +65,6 @@ public class Splash extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        mMedia.release();
 
     }
 }

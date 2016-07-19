@@ -74,7 +74,7 @@ public class FragmentEditContactDay extends Fragment {
         protected void onPostExecute(Void result) {
             isAttendant = false;
             flag.setText("");
-            flag.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+            flag.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.darkred));
             pBar.dismiss();
 
         }
@@ -106,7 +106,7 @@ public class FragmentEditContactDay extends Fragment {
                 flag.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.hotgreen));
             } else {
                 flag.setText("");
-                flag.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+                flag.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.darkred));
             }
             pBar.dismiss();
         }

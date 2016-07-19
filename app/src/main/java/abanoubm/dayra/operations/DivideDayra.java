@@ -57,6 +57,15 @@ public class DivideDayra extends Activity {
                         getApplicationContext(), path);
                 return true;
             } catch (Exception e) {
+                if (file.exists()) {
+                    File[] contents = file.listFiles();
+                    if (contents != null) {
+                        for (File f : contents)
+                            f.delete();
+
+                    }
+                    file.delete();
+                }
                 return null;
             }
         }

@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.itextpdf.text.Document;
@@ -631,6 +632,20 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
+    public Bitmap getContactPhoto(String id) {
+        Bitmap photo = null;
+        Cursor c = readableDB.query(TB_PHOTO,
+                new String[]{
+                        PHOTO_BLOB
+                }, PHOTO_ID
+                        + " = ?", new String[]{id}, null, null, null);
+        if (c.moveToFirst())
+            photo = Utility.getBitmap(c.getBlob(0));
+        c.close();
+        return photo;
+
+    }
+
     public ArrayList<ContactDisplayList> getContactsDisplayList() {
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + PHOTO_BLOB +
                 "," + CONTACT_SUPERVISOR + "," + CONTACT_CLASS_YEAR +
@@ -663,15 +678,15 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public ArrayList<ContactLocationList> getContactsLocations() {
-        Cursor c = readableDB.query(TB_CONTACT, new String[]{CONTACT_NAME, CONTACT_MAPLAT,
+        Cursor c = readableDB.query(TB_CONTACT, new String[]{CONTACT_ID, CONTACT_NAME, CONTACT_MAPLAT,
                         CONTACT_MAPLNG},
                 CONTACT_MAPLAT + "!=0 OR " + CONTACT_MAPLNG + "!=0", null, null, null, null);
         ArrayList<ContactLocationList> result = new ArrayList<>(c.getCount());
 
         if (c.moveToFirst()) {
             do {
-                result.add(new ContactLocationList(c.getString(0), c
-                        .getDouble(1), c.getDouble(2)));
+                result.add(new ContactLocationList(c.getString(0), c.getString(1), c
+                        .getDouble(2), c.getDouble(3)));
             } while (c.moveToNext());
         }
         c.close();

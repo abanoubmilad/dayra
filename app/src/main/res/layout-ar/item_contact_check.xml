@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
-        android:background="@color/colorAccent"
+        android:background="@color/darkred"
         android:padding="10dp"
         android:textColor="@color/white"
         android:textSize="@dimen/font_normal"

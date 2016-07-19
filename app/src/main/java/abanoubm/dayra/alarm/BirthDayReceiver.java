@@ -53,6 +53,7 @@ public class BirthDayReceiver extends BroadcastReceiver {
                 NotificationCompat.Builder n = new NotificationCompat.Builder(
                         context)
                         .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.bing))
                         .setContentTitle(
                                 dayraName
                                         + " - "
@@ -79,6 +80,7 @@ public class BirthDayReceiver extends BroadcastReceiver {
                             context)
                             .setLargeIcon(field.getPhoto() != null ? field.getPhoto() : defPhoto)
                             .setSmallIcon(R.mipmap.ic_launcher)
+                            .setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.bing))
                             .setContentTitle(
                                     dayraName
                                             + " - "

@@ -46,7 +46,7 @@ public class AddContact extends AppCompatActivity implements CallBack {
 
     @Override
     public void notify(String id) {
-        buttons[0].setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.lightgrey));
+        buttons[0].setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.grey));
         buttons[1].setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.white));
         Bundle arguments = new Bundle();
         arguments.putString(ARG_ID, id);

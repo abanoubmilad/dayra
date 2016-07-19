@@ -48,7 +48,7 @@ public class ContactCheckAdapter extends Adapter<ContactCheck> {
             holder.flag.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.hotgreen));
         } else {
             holder.flag.setText("");
-            holder.flag.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+            holder.flag.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.darkred));
         }
 
 

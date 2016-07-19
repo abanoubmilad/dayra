@@ -1,12 +1,15 @@
 package abanoubm.dayra.contacts;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
@@ -31,8 +36,12 @@ public class DisplayContactsMap extends FragmentActivity implements
 
     private Marker mDayraMarker;
     private GoogleMap mMap;
+    private Map<String, String> mMarkerInfoList = new HashMap<>();
+    private TextView site, st, addr, home;
+    private ImageView photo;
+    private String chosenContactId = null;
 
-    private class DisplayTask extends
+    private class DisplayContactsTask extends
             AsyncTask<Void, Void, ArrayList<ContactLocationList>> {
 
         @Override
@@ -47,12 +56,12 @@ public class DisplayContactsMap extends FragmentActivity implements
                         R.string.msg_no_locations, Toast.LENGTH_SHORT).show();
             } else {
                 for (ContactLocationList attLoc : result) {
-                    mMap.addMarker(new MarkerOptions()
+                    mMarkerInfoList.put(mMap.addMarker(new MarkerOptions()
                             .position(
                                     new LatLng(attLoc.getMapLat(), attLoc
                                             .getMapLng()))
                             .title("\u200e" + attLoc.getName())
-                            .draggable(false));
+                            .draggable(false)).getId(), attLoc.getId());
                 }
             }
         }
@@ -64,12 +73,63 @@ public class DisplayContactsMap extends FragmentActivity implements
 
     }
 
+    private class GetContactInfoTask extends AsyncTask<Void, Void, String[]> {
+        Bitmap bitmap = null;
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onPostExecute(String[] result) {
+            if (result != null) {
+                if (!result[0].equals("")) {
+                    site.setVisibility(View.VISIBLE);
+                    site.setText(result[0]);
+                } else
+                    site.setVisibility(View.GONE);
+                if (!result[1].equals("")) {
+                    st.setVisibility(View.VISIBLE);
+                    st.setText(result[1]);
+                } else
+                    st.setVisibility(View.GONE);
+                if (!result[2].equals("")) {
+                    home.setVisibility(View.VISIBLE);
+                    home.setText(result[2]);
+                } else
+                    home.setVisibility(View.GONE);
+                if (!result[3].equals("")) {
+                    addr.setVisibility(View.VISIBLE);
+                    addr.setText(result[3]);
+                } else
+                    addr.setVisibility(View.GONE);
+            }
+            if (bitmap != null) {
+                photo.setVisibility(View.VISIBLE);
+                photo.setImageBitmap(bitmap);
+            } else
+                photo.setVisibility(View.GONE);
+        }
+
+        @Override
+        protected String[] doInBackground(Void... params) {
+            bitmap = DB.getInstant(getApplicationContext()).getContactPhoto(chosenContactId);
+            return DB.getInstant(getApplicationContext()).getContactFullAddress(chosenContactId);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_map);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_display_locs);
+
+        site = (TextView) findViewById(R.id.site);
+        addr = (TextView) findViewById(R.id.addr);
+        st = (TextView) findViewById(R.id.st);
+        home = (TextView) findViewById(R.id.home);
+        photo = (ImageView) findViewById(R.id.photo);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -92,12 +152,13 @@ public class DisplayContactsMap extends FragmentActivity implements
                 .title(getResources().getString(R.string.label_map_here))
                 .icon(BitmapDescriptorFactory
                         .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
-        new DisplayTask().execute();
+        new DisplayContactsTask().execute();
 
         map.setMyLocationEnabled(true);
         LocationManager locationManager = (LocationManager)
@@ -117,6 +178,18 @@ public class DisplayContactsMap extends FragmentActivity implements
                             .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
 
         }
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String id = mMarkerInfoList.get(marker.getId());
+                if (id != null && !id.equals(chosenContactId)) {
+                    chosenContactId = id;
+                    new GetContactInfoTask().execute();
+                }
+                return false;
+
+            }
+        });
 
     }
 }

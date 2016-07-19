@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="20dp"
-        android:background="@color/colorAccent"
+        android:background="@color/darkred"
         android:padding="10dp"
         android:text="@string/flag.contact.exist"
         android:textColor="@color/white"

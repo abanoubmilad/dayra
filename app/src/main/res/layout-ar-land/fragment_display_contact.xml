@@ -75,7 +75,7 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@drawable/action_bg"
+                android:background="@drawable/danger_action_bg"
                 android:padding="10dp"
                 android:src="@mipmap/ic_edit" />
         </LinearLayout>

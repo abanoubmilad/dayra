@@ -118,7 +118,7 @@ public class Search extends AppCompatActivity {
 
     private void fireTab(int changedTagCursor) {
 
-        buttons[mCurrentTab].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
+        buttons[mCurrentTab].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.grey));
         mCurrentTab = changedTagCursor;
         buttons[changedTagCursor].setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
