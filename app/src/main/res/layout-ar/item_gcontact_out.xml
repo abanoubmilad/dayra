@@ -22,7 +22,7 @@
         android:layout_marginLeft="20dp"
         android:background="@color/darkred"
         android:padding="10dp"
-        android:text="@string/flag.contact.exist"
+        android:text="@string/flag.mobile.exist"
         android:textColor="@color/white"
         android:textSize="@dimen/font_normal"
         android:textStyle="bold" />

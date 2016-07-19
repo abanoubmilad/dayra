@@ -348,5 +348,6 @@
     <string name="msg.dayra.added">تم اضافة البيانات</string>
     <string name="label.location">عنوان الخريطة</string>
     <string name="label.photo">صورة</string>
+    <string name="flag.mobile.exist">الموبايل مُسجل</string>
 
 </resources>

@@ -1179,8 +1179,9 @@ public class DB extends SQLiteOpenHelper {
             do {
                 result.add(new ContactMobile(c.getString(0), c
                         .getString(1), Utility.getBitmap(c.getBlob(2)), c
-                        .getString(3), ContactHelper.doesContactExist(resolver, c
-                        .getString(1))));
+                        .getString(3),
+                        !c.getString(3).equals("") && ContactHelper.doesGContactMobileExist(resolver, c
+                                .getString(3))));
             } while (c.moveToNext());
         }
         c.close();

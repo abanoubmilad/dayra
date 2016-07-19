@@ -93,16 +93,16 @@ public class ContactHelper {
         return result;
     }
 
-    public static boolean doesContactExist(
-            ContentResolver contactHelper, String name) {
+    public static boolean doesGContactMobileExist(
+            ContentResolver contactHelper, String mobile) {
 
         String[] projection = {
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
+                ContactsContract.CommonDataKinds.Phone.NUMBER};
         boolean check = false;
         try {
             Cursor c = contactHelper.query(
                     ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                    projection, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " = ? ", new String[]{name},
+                    projection, ContactsContract.CommonDataKinds.Phone.NUMBER + " = ? ", new String[]{mobile},
                     null);
             check = c.moveToFirst();
             c.close();
