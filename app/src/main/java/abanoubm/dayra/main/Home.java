@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import abanoubm.dayra.BuildConfig;
 import abanoubm.dayra.R;
 
 public class Home extends FragmentActivity {
@@ -77,7 +78,7 @@ public class Home extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_home);
 
-        ((TextView) findViewById(R.id.footer)).setText("dayra 4.0 @"+new SimpleDateFormat(
+        ((TextView) findViewById(R.id.footer)).setText("dayra "+ BuildConfig.VERSION_NAME+" @"+new SimpleDateFormat(
                 "yyyy", Locale.getDefault())
                 .format(new Date())+" Abanoub M.");
 

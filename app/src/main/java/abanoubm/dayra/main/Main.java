@@ -1,15 +1,20 @@
 package abanoubm.dayra.main;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +38,15 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
+import abanoubm.dayra.BuildConfig;
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.MenuItemAdapter;
 
 public class Main extends Activity {
     private static final int IMPORT_DB = 1;
     private MenuItemAdapter mMenuItemAdapter;
+
+    private final int IMPORT_REQUEST = 700, SUPPORT_REQUEST = 800, FOLDER_REQUEST = 900;
 
     private class CheckSupportTask extends AsyncTask<Void, Void, Void> {
 
@@ -193,9 +201,9 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
         ((TextView) findViewById(R.id.subhead1)).setText(R.string.app_name);
-        ((TextView) findViewById(R.id.subhead2)).setText("4.0");
+        ((TextView) findViewById(R.id.subhead2)).setText("4.0.1");
 
-        ((TextView) findViewById(R.id.footer)).setText("dayra 4.0 @" + new SimpleDateFormat(
+        ((TextView) findViewById(R.id.footer)).setText("dayra " + BuildConfig.VERSION_NAME + " @" + new SimpleDateFormat(
                 "yyyy", Locale.getDefault())
                 .format(new Date()) + " Abanoub M.");
 
@@ -225,15 +233,22 @@ public class Main extends Activity {
                         register();
                         break;
                     case 2:
-                        importDB();
+                        if (Build.VERSION.SDK_INT < 23 ||
+                                ContextCompat.checkSelfPermission(Main.this,
+                                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                            importDB();
+                        } else {
+                            ActivityCompat.requestPermissions(Main.this,
+                                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    IMPORT_REQUEST);
+                        }
                         break;
                     case 3:
-                        new CheckSupportTask().execute();
                         startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri
                                 .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view")));
                         break;
                     case 4:
-                        new CheckSupportTask().execute();
                         startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri
                                 .parse("https://drive.google.com/open?id=1flSRdoiIT_hNd96Kxz3Ww3EhXDLZ45FhwFJ2hF9vl7g")));
                         break;
@@ -274,7 +289,6 @@ public class Main extends Activity {
                     }
                     break;
                     case 6:
-                        new CheckSupportTask().execute();
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -289,7 +303,17 @@ public class Main extends Activity {
                         break;
 
                     case 7:
-                        new CheckSupportTask().execute();
+                        if (Build.VERSION.SDK_INT < 23 ||
+                                ContextCompat.checkSelfPermission(Main.this,
+                                        Manifest.permission.WRITE_CONTACTS)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                            new CheckSupportTask().execute();
+
+                        } else {
+                            ActivityCompat.requestPermissions(Main.this,
+                                    new String[]{android.Manifest.permission.WRITE_CONTACTS},
+                                    SUPPORT_REQUEST);
+                        }
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -303,7 +327,6 @@ public class Main extends Activity {
                         }
                         break;
                     case 8:
-                        new CheckSupportTask().execute();
                         Uri uri = Uri.parse("market://details?id=" + getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                         try {
@@ -314,10 +337,19 @@ public class Main extends Activity {
                         }
                         break;
                     case 9:
-                        Intent intent = new Intent(Intent.ACTION_VIEW).addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
-                        startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                | Intent.FLAG_ACTIVITY_NEW_TASK));
+                        if (Build.VERSION.SDK_INT < 23 ||
+                                ContextCompat.checkSelfPermission(Main.this,
+                                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW).addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
+                            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    | Intent.FLAG_ACTIVITY_NEW_TASK));
+                        } else {
+                            ActivityCompat.requestPermissions(Main.this,
+                                    new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    FOLDER_REQUEST);
+                        }
                         break;
                 }
             }
@@ -454,6 +486,28 @@ public class Main extends Activity {
         mMenuItemAdapter.recycleIcons();
         if (Utility.getArabicLang(getApplicationContext()) != 0)
             Utility.setArabicLang(getApplicationContext(), 1);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == FOLDER_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(Intent.ACTION_VIEW).addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent.setDataAndType(Uri.fromFile(new File(Utility.getDayraFolder())), "*/*");
+                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_NEW_TASK));
+            }
+
+        } else if (requestCode == IMPORT_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                importDB();
+
+        } else if (requestCode == SUPPORT_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                new CheckSupportTask().execute();
+
+        }
     }
 
 }

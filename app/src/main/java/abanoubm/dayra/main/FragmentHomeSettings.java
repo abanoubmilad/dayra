@@ -1,11 +1,16 @@
 package abanoubm.dayra.main;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +34,8 @@ import abanoubm.dayra.operations.DivideDayra;
 public class FragmentHomeSettings extends Fragment {
 
     private MenuItemAdapter mMenuItemAdapter;
+    private final int DIVIDE_REQUEST = 1100, ADD_DAYRA_REQUEST = 1200;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,12 +66,32 @@ public class FragmentHomeSettings extends Fragment {
                         renameDB();
                         break;
                     case 3:
-                        startActivity(new Intent(getActivity(),
-                                AddToDayra.class));
+                        if (Build.VERSION.SDK_INT < 23 ||
+                                ContextCompat.checkSelfPermission(getContext(),
+                                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                            startActivity(new Intent(getActivity(),
+                                    AddToDayra.class));
+                        } else {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    ADD_DAYRA_REQUEST);
+                        }
+
                         break;
                     case 4:
-                        startActivity(new Intent(getActivity(),
-                                DivideDayra.class));
+                        if (Build.VERSION.SDK_INT < 23 ||
+                                ContextCompat.checkSelfPermission(getContext(),
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                            startActivity(new Intent(getActivity(),
+                                    DivideDayra.class));
+                        } else {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    DIVIDE_REQUEST);
+                        }
+
                         break;
                     case 5:
                         deleteDB();
@@ -122,8 +149,8 @@ public class FragmentHomeSettings extends Fragment {
                     temp = tList[i].getText().toString().trim();
                     if (temp.equals("")) {
                         newTypes[i] = null;
-                        modifiedCheck=true;
-                    }else if (setChecker.contains(temp)) {
+                        modifiedCheck = true;
+                    } else if (setChecker.contains(temp)) {
                         modifiedCheck = false;
                         Toast.makeText(getActivity(),
                                 R.string.err_msg_duplicate_entry, Toast.LENGTH_SHORT)
@@ -276,5 +303,20 @@ public class FragmentHomeSettings extends Fragment {
         super.onDestroy();
         mMenuItemAdapter.recycleIcons();
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == DIVIDE_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                startActivity(new Intent(getActivity(),
+                        DivideDayra.class));
+
+        } else if (requestCode == ADD_DAYRA_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                startActivity(new Intent(getActivity(),
+                        AddToDayra.class));
+        }
     }
 }

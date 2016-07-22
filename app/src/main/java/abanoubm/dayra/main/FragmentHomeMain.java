@@ -1,14 +1,19 @@
 package abanoubm.dayra.main;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +37,7 @@ import abanoubm.dayra.search.Search;
 public class FragmentHomeMain extends Fragment {
 
     private MenuItemAdapter mMenuItemAdapter;
+    private final int SUPPORT_REQUEST = 1300;
 
     private class CheckSupportTask extends AsyncTask<Void, Void, Void> {
 
@@ -130,17 +136,14 @@ public class FragmentHomeMain extends Fragment {
                         builder.create().show();
                         break;
                     case 7:
-                        new CheckSupportTask().execute();
                         startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri
                                 .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view")));
                         break;
                     case 8:
-                        new CheckSupportTask().execute();
                         startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri
                                 .parse("https://drive.google.com/open?id=1flSRdoiIT_hNd96Kxz3Ww3EhXDLZ45FhwFJ2hF9vl7g")));
                         break;
                     case 9:
-                        new CheckSupportTask().execute();
                         try {
                             getActivity().getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -154,7 +157,17 @@ public class FragmentHomeMain extends Fragment {
                         }
                         break;
                     case 10:
-                        new CheckSupportTask().execute();
+                        if (Build.VERSION.SDK_INT < 23 ||
+                                ContextCompat.checkSelfPermission(getContext(),
+                                        Manifest.permission.WRITE_CONTACTS)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                            new CheckSupportTask().execute();
+
+                        } else {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{android.Manifest.permission.WRITE_CONTACTS},
+                                    SUPPORT_REQUEST);
+                        }
                         try {
                             getActivity().getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -168,7 +181,6 @@ public class FragmentHomeMain extends Fragment {
                         }
                         break;
                     case 11:
-                        new CheckSupportTask().execute();
                         Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                         try {
@@ -189,5 +201,16 @@ public class FragmentHomeMain extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         mMenuItemAdapter.recycleIcons();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == SUPPORT_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                new CheckSupportTask().execute();
+
+
+        }
     }
 }

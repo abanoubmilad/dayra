@@ -1,13 +1,18 @@
 package abanoubm.dayra.contacts;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +45,7 @@ public class DisplayContactsMap extends FragmentActivity implements
     private TextView site, st, addr, home;
     private ImageView photo;
     private String chosenContactId = null;
+    private final int MAP_REQUEST_CODE = 600;
 
     private class DisplayContactsTask extends
             AsyncTask<Void, Void, ArrayList<ContactLocationList>> {
@@ -160,24 +166,23 @@ public class DisplayContactsMap extends FragmentActivity implements
         mMap = map;
         new DisplayContactsTask().execute();
 
-        map.setMyLocationEnabled(true);
-        LocationManager locationManager = (LocationManager)
-                getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        Location myLocation = locationManager.getLastKnownLocation(locationManager
-                .getBestProvider(criteria, false));
+        if (Build.VERSION.SDK_INT < 23 ||
+                ContextCompat.checkSelfPermission(DisplayContactsMap.this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED &&
+                        ContextCompat.checkSelfPermission(DisplayContactsMap.this,
+                                Manifest.permission.ACCESS_FINE_LOCATION)
+                                == PackageManager.PERMISSION_GRANTED) {
 
-        if (myLocation != null) {
-            mDayraMarker = map.addMarker(new MarkerOptions()
-                    .position(
-                            new LatLng(myLocation.getLatitude(), myLocation
-                                    .getLongitude()))
-                    .draggable(false)
-                    .title(getResources().getString(R.string.label_map_here))
-                    .icon(BitmapDescriptorFactory
-                            .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
-
+            setDayralocation();
+        } else {
+            ActivityCompat.requestPermissions(DisplayContactsMap.this,
+                    new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                            android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    MAP_REQUEST_CODE);
         }
+
+
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -191,5 +196,35 @@ public class DisplayContactsMap extends FragmentActivity implements
             }
         });
 
+    }
+
+    private void setDayralocation() {
+
+        mMap.setMyLocationEnabled(true);
+
+        LocationManager locationManager = (LocationManager)
+                getSystemService(Context.LOCATION_SERVICE);
+        Location myLocation = locationManager.getLastKnownLocation(locationManager
+                .getBestProvider(new Criteria(), false));
+        if (myLocation != null) {
+            mDayraMarker = mMap.addMarker(new MarkerOptions()
+                    .position(
+                            new LatLng(myLocation.getLatitude(), myLocation
+                                    .getLongitude()))
+                    .draggable(false)
+                    .title(getResources().getString(R.string.label_map_here))
+                    .icon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MAP_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                setDayralocation();
+        }
     }
 }
