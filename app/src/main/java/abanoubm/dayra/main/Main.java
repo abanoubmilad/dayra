@@ -30,7 +30,6 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -152,30 +151,37 @@ public class Main extends Activity {
 
         @Override
         protected Integer doInBackground(String... params) {
-            // create empty db with that name
-            DB.getInstant(getApplicationContext(),
-                    params[0]).closeDB();
-            try {
+            DBAdder db = new DBAdder(getApplicationContext(), params[1]);
+            if (db.checkDB()) {
+                db.close();
+                // create empty db with that name
+                DB.getInstant(getApplicationContext(),
+                        params[0]).closeDB();
+                try {
 
-                FileInputStream inStream = new FileInputStream(
-                        params[1]);
-                FileOutputStream outStream = new FileOutputStream(getDatabasePath(params[0]));
+                    FileInputStream inStream = new FileInputStream(
+                            params[1]);
+                    FileOutputStream outStream = new FileOutputStream(getDatabasePath(params[0]));
 
-                FileChannel inChannel = inStream.getChannel();
-                FileChannel outChannel = outStream.getChannel();
-                inChannel.transferTo(0, inChannel.size(), outChannel);
-                inStream.close();
-                outStream.close();
-            } catch (IOException e) {
-                return R.string.err_msg_import;
+                    FileChannel inChannel = inStream.getChannel();
+                    FileChannel outChannel = outStream.getChannel();
+                    inChannel.transferTo(0, inChannel.size(), outChannel);
+                    inStream.close();
+                    outStream.close();
+                    return R.string.msg_dayra_imported;
+                } catch (Exception e) {
+                    File file = getDatabasePath(params[0]);
+                    if (file != null && file.exists()) {
+                        file.delete();
+                    }
+                    return R.string.err_msg_import;
 
-            }
+                }
 
-            if (DB.getInstant(getApplicationContext(),
-                    params[0]).isValidDB(getApplicationContext()))
-                return R.string.msg_dayra_imported;
-            else
+            } else {
+                db.close();
                 return R.string.err_msg_invalid_file;
+            }
 
 
         }
@@ -201,7 +207,7 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
         ((TextView) findViewById(R.id.subhead1)).setText(R.string.app_name);
-        ((TextView) findViewById(R.id.subhead2)).setText("4.0.1");
+        ((TextView) findViewById(R.id.subhead2)).setText(BuildConfig.VERSION_NAME);
 
         ((TextView) findViewById(R.id.footer)).setText("dayra " + BuildConfig.VERSION_NAME + " @" + new SimpleDateFormat(
                 "yyyy", Locale.getDefault())
@@ -375,7 +381,7 @@ public class Main extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == IMPORT_DB) {
-                String path = Utility.getRealPath(data.getData(), getApplicationContext());
+                String path = Utility.getRealPath(data.getData());
                 String dbname = path.substring(path.lastIndexOf("/") + 1);
                 if (Utility.isInvlaidDBName(dbname))
                     Toast.makeText(getApplicationContext(),

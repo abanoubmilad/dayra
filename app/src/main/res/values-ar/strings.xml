@@ -47,7 +47,7 @@
     <string name="subhead.register.attendance">تسجيل حضور</string>
     <string name="msg.dayra.imported">تم استيراد الدايره</string>
     <string name="err.msg.import">خطأ أثناء محاولة استيراد الدايره</string>
-    <string name="err.msg.invalid_file">الملف غير صالح</string>
+    <string name="err.msg.invalid_file">الملف غير صالح أو لا يمكن الوصول الى مكانه</string>
     <string name="msg.no.dayra">ﻻ توجد دايره متاحة قم بتكوين واحدة</string>
     <string name="label.select.dayra">اختيار دايره</string>
     <string name="err.msg.open">خطأ أثناء محاولة الاتصال بقاعدة البيانات</string>
@@ -320,7 +320,7 @@
         <item>منزل</item>
         <item>المُشرف</item>
     </string-array>
-    <string name="copyright">dayra 4.0.1 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="copyright">dayra 4.0.2 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
     <string name="label.dayra.file">دايره file / backup</string>
     <string name="label.dayra.xls">دايره xls</string>
     <string name="subhead.display.day">المتابعة</string>

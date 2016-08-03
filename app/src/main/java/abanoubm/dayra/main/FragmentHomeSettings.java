@@ -69,12 +69,16 @@ public class FragmentHomeSettings extends Fragment {
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         Manifest.permission.READ_EXTERNAL_STORAGE)
-                                        == PackageManager.PERMISSION_GRANTED) {
+                                        == PackageManager.PERMISSION_GRANTED &&
+                                        ContextCompat.checkSelfPermission(getContext(),
+                                                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                                == PackageManager.PERMISSION_GRANTED) {
                             startActivity(new Intent(getActivity(),
                                     AddToDayra.class));
                         } else {
                             ActivityCompat.requestPermissions(getActivity(),
-                                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                     ADD_DAYRA_REQUEST);
                         }
 
@@ -314,7 +318,7 @@ public class FragmentHomeSettings extends Fragment {
                         DivideDayra.class));
 
         } else if (requestCode == ADD_DAYRA_REQUEST) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED)
                 startActivity(new Intent(getActivity(),
                         AddToDayra.class));
         }

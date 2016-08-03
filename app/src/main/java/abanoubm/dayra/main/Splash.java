@@ -44,17 +44,16 @@ public class Splash extends Activity {
         Thread timerThread = new Thread() {
             public void run() {
                 try {
-                    sleep(2000);
+                    sleep(3000);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (!Utility.getDayraName(getApplicationContext()).equals(""))
-                        startActivity(new Intent(Splash.this, Home.class));
-                    else
-                        startActivity(new Intent(Splash.this, Main.class));
-                    mMedia.release();
-                    finish();
                 }
+                if (!Utility.getDayraName(getApplicationContext()).equals(""))
+                    startActivity(new Intent(Splash.this, Home.class));
+                else
+                    startActivity(new Intent(Splash.this, Main.class));
+                mMedia.release();
+                finish();
+
             }
         };
         timerThread.start();
@@ -62,9 +61,4 @@ public class Splash extends Activity {
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-    }
 }

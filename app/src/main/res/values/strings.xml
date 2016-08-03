@@ -14,7 +14,7 @@
     <string name="btn.search">Search</string>
     <string name="label.dayra.name">dayra name</string>
     <string name="btn.create">create</string>
-    <string name="copyright">dayra 4.0.1 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="copyright">dayra 4.0.2 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
     <string name="label.required">required</string>
     <string name="label.name">name</string>
     <string name="label.supervisor">supervisor</string>
@@ -53,7 +53,7 @@
     <string name="msg.dayra.imported">dayra imported</string>
     <string name="msg.dayra.added">added dayra data</string>
     <string name="err.msg.import">dayra import error</string>
-    <string name="err.msg.invalid_file">Invalid file</string>
+    <string name="err.msg.invalid_file">Invalid file format or can\'t open file location</string>
     <string name="msg.no.dayra">no available dayra, create one</string>
     <string name="label.select.dayra">Select dayra</string>
     <string name="err.msg.open">Error while connecting to database</string>

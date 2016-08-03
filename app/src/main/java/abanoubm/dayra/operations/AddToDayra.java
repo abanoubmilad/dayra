@@ -58,8 +58,11 @@ public class AddToDayra extends Activity {
         @Override
         protected void onPostExecute(Integer result) {
             pBar.dismiss();
-            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT)
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                     .show();
+            if (result != R.string.msg_dayra_added)
+                return;
+
             LayoutInflater li = LayoutInflater.from(getApplicationContext());
             View View = li.inflate(R.layout.dialogue_add_data, null, false);
             final AlertDialog ad = new AlertDialog.Builder(AddToDayra.this)
@@ -114,8 +117,10 @@ public class AddToDayra extends Activity {
         @Override
         protected void onPostExecute(Integer result) {
             pBar.dismiss();
-            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT)
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                     .show();
+            if (result != R.string.msg_dayra_added)
+                return;
             LayoutInflater li = LayoutInflater.from(getApplicationContext());
             View View = li.inflate(R.layout.dialogue_add_data, null, false);
             final AlertDialog ad = new AlertDialog.Builder(AddToDayra.this)
@@ -305,7 +310,7 @@ public class AddToDayra extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == IMPORT_FILE) {
-                String path = Utility.getRealPath(data.getData(), getApplicationContext());
+                String path = Utility.getRealPath(data.getData());
                 String dbname = path.substring(path.lastIndexOf("/") + 1);
 
                 if (Utility.isInvlaidDBName(dbname)) {
@@ -319,7 +324,7 @@ public class AddToDayra extends Activity {
                 }
 
             } else if (requestCode == IMPORT_EXCEL) {
-                String path = Utility.getRealPath(data.getData(), getApplicationContext());
+                String path = Utility.getRealPath(data.getData());
                 String dbname = path.substring(path.lastIndexOf("/") + 1)
                         .replace(".xls", "");
                 if (Utility.isInvlaidDBName(dbname)) {

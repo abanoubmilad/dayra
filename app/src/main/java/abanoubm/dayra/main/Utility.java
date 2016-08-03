@@ -5,13 +5,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.MediaStore;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -160,19 +158,11 @@ public class Utility {
         }
         path += "dayra folder";
         new File(path).mkdirs();
-        return path;
+        return path.replace("%20", "_");
     }
 
-    public static String getRealPath(Uri uri, Context context) {
-        String path = null;
-        String[] proj = {MediaStore.MediaColumns.DATA};
-        Cursor cursor = context.getContentResolver().query(uri, proj, null, null, null);
-        if (cursor.moveToFirst()) {
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-            path = cursor.getString(column_index);
-        }
-        cursor.close();
-        return path;
+    public static String getRealPath(Uri uri) {
+        return uri.getPath().toString();
     }
 
     public static void removeAlarming(Context context, int alarm_type) {

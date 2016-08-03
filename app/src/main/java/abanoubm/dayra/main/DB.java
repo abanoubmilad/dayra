@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
@@ -277,47 +276,6 @@ public class DB extends SQLiteOpenHelper {
         DBAlarm.getInstant(context).removeDayraAlarms(DB_NAME);
         return context.deleteDatabase(DB_NAME);
     }
-
-    public boolean isValidDB(Context context) {
-        try {
-            readableDB.query(TB_ATTEND,
-                    new String[]{ATTEND_ID, ATTEND_DAY, ATTEND_TYPE}, null, null, null, null, null, "1").close();
-            readableDB.query(TB_CONNECTION,
-                    new String[]{CONN_A, CONN_B}, null, null, null, null, null, "1").close();
-
-            readableDB.query(TB_CONTACT, new String[]{
-                    CONTACT_ADDR,
-                    CONTACT_BDAY,
-                    CONTACT_CLASS_YEAR,
-                    CONTACT_EMAIL,
-                    CONTACT_ID,
-                    CONTACT_LPHONE,
-                    CONTACT_MAPLAT,
-                    CONTACT_MAPLNG,
-                    CONTACT_MAPZOM,
-                    CONTACT_MOB1,
-                    CONTACT_MOB2,
-                    CONTACT_MOB3,
-                    CONTACT_SUPERVISOR,
-                    CONTACT_STUDY_WORK,
-                    CONTACT_SITE,
-                    CONTACT_NAME,
-                    CONTACT_NOTES,
-                    CONTACT_ST,
-                    CONTACT_HOME}, null, null, null, null, null, "1").close();
-            readableDB.query(TB_PHOTO,
-                    new String[]{PHOTO_ID, PHOTO_BLOB}, null, null, null, null, null, "1").close();
-
-            return true;
-        } catch (SQLException e) {
-            readableDB.close();
-            writableDB.close();
-            dbm = null;
-            context.deleteDatabase(DB_NAME);
-            return false;
-        }
-    }
-
 
     public void addConnection(String conA, String conB) {
         ContentValues values = new ContentValues();
