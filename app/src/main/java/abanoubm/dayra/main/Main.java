@@ -381,7 +381,7 @@ public class Main extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == IMPORT_DB) {
-                String path = Utility.getRealPath(data.getData());
+                String path = Utility.getRealPath(getApplicationContext(), data.getData());
                 String dbname = path.substring(path.lastIndexOf("/") + 1);
                 if (Utility.isInvlaidDBName(dbname))
                     Toast.makeText(getApplicationContext(),
