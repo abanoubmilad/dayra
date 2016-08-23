@@ -121,7 +121,7 @@ public class CopyDayraPhone extends Activity {
                 temp = mAdapter.getItem(i);
                 if (temp.isSelected()) {
                     if (!ContactHelper.insertContact(getContentResolver(),
-                            temp.getName(), temp.getMobile(), Utility.getBytes(temp.getPhoto())))
+                            temp.getName(), temp.getMobile(), temp.getPhoto()))
                         failureCounter++;
                     else
                         copied++;

@@ -80,7 +80,7 @@ public class AttendanceReceiver extends BroadcastReceiver {
                 for (Field field : result) {
                     NotificationCompat.Builder n = new NotificationCompat.Builder(
                             context)
-                            .setLargeIcon(field.getPhoto() != null ? field.getPhoto() : defPhoto)
+                            .setLargeIcon(field.getPhoto() != null ? Utility.getBitmap(field.getPhoto()) : defPhoto)
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.bing))
                             .setContentTitle(
