@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 public class ContactDisplayList extends ContactID {
     private String priest, classYear, studyWork, street, site,home;
 
-    public ContactDisplayList(String id, String name, Bitmap photo,
+    public ContactDisplayList(String id, String name, byte [] photo,
                               String priest, String classYear, String studyWork, String street, String site, String home) {
         super(id, name, photo);
         this.priest = priest;

@@ -1,6 +1,7 @@
 package abanoubm.dayra.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactStatistics;
 
 public class ContactStatisticsAdapter extends Adapter<ContactStatistics> {
@@ -37,16 +39,19 @@ public class ContactStatisticsAdapter extends Adapter<ContactStatistics> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        if (holder.bitmap != null)
+            holder.bitmap.recycle();
+        holder.bitmap = Utility.getBitmap(contact.getPhoto());
+        if (holder.bitmap != null)
+            holder.img.setImageBitmap(holder.bitmap);
+        else
+            holder.img.setImageResource(R.mipmap.def);
+
         holder.name.setText(contact.getName());
         holder.min.setText(contact.getMinDay());
         holder.max.setText(contact.getMaxDay());
         holder.count.setText(contact.getDaysCount() + "");
 
-
-        if (contact.getPhoto() != null)
-            holder.img.setImageBitmap(contact.getPhoto());
-        else
-            holder.img.setImageResource(R.mipmap.def);
 
         return convertView;
     }
@@ -54,5 +59,6 @@ public class ContactStatisticsAdapter extends Adapter<ContactStatistics> {
     private static class ViewHolder {
         TextView name, min, max, count;
         ImageView img;
+        Bitmap bitmap;
     }
 }

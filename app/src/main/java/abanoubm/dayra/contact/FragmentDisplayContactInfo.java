@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
+import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactData;
 
 public class FragmentDisplayContactInfo extends Fragment {
@@ -215,7 +216,7 @@ public class FragmentDisplayContactInfo extends Fragment {
 
 
         if (contactData.getPhoto() != null)
-            img.setImageBitmap(contactData.getPhoto());
+            img.setImageBitmap(Utility.getBitmap(contactData.getPhoto()));
         else
             img.setImageResource(R.mipmap.def);
 

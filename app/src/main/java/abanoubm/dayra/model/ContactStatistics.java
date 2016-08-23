@@ -6,7 +6,7 @@ public class ContactStatistics extends ContactID {
     private String minDay, maxDay;
     private int daysCount;
 
-    public ContactStatistics(String id, String name, Bitmap photo, String minDay, String maxDay, int daysCount) {
+    public ContactStatistics(String id, String name, byte [] photo, String minDay, String maxDay, int daysCount) {
         super(id, name, photo);
         this.minDay = minDay;
         this.maxDay = maxDay;

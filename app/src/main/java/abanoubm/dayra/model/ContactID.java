@@ -5,9 +5,9 @@ import android.graphics.Bitmap;
 public class ContactID {
     private String id;
     private String name;
-    private Bitmap photo;
+    private byte [] photo;
 
-    public ContactID(String id, String name, Bitmap photo) {
+    public ContactID(String id, String name, byte [] photo) {
         this.id = id;
         this.name = name;
         this.photo = photo;
@@ -21,12 +21,12 @@ public class ContactID {
         return name;
     }
 
-    public Bitmap getPhoto() {
+    public byte [] getPhoto() {
         return photo;
     }
 
 
-    public void setPhoto(Bitmap photo) {
+    public void setPhoto(byte [] photo) {
         this.photo = photo;
     }
 }

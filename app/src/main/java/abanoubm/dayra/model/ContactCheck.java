@@ -13,7 +13,7 @@ public class ContactCheck extends ContactID {
         this.checked = checked;
     }
 
-    public ContactCheck(String id, String name, Bitmap photo, boolean checked) {
+    public ContactCheck(String id, String name, byte [] photo, boolean checked) {
         super(id, name, photo);
         this.checked = checked;
     }

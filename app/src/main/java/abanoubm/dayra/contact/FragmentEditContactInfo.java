@@ -12,7 +12,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,12 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
@@ -47,7 +42,7 @@ public class FragmentEditContactInfo extends Fragment {
     private static final int TAKE_IMG = 2;
     private static final int BROWSE_IMG = 1;
 
-    private Bitmap photo = null;
+    private byte[] photo = null;
 
     private EditText name, address, comm, email,
             lphone, mobile1, mobile2, mobile3;
@@ -301,7 +296,7 @@ public class FragmentEditContactInfo extends Fragment {
                 values.put(DB.CONTACT_SITE, params[13]);
                 values.put(DB.CONTACT_SUPERVISOR, params[14]);
 
-                dbm.updateContact(values, Utility.getBytes(photo), contactData.getId());
+                dbm.updateContact(values, photo, contactData.getId());
                 msgSource = R.string.msg_updated;
                 return true;
             }
@@ -421,7 +416,7 @@ public class FragmentEditContactInfo extends Fragment {
 
         photo = contactData.getPhoto();
         if (photo != null)
-            img.setImageBitmap(photo);
+            img.setImageBitmap(Utility.getBitmap(photo));
         else
             img.setImageResource(R.mipmap.def);
 
@@ -461,9 +456,10 @@ public class FragmentEditContactInfo extends Fragment {
         if (resultCode == android.support.v4.app.FragmentActivity.RESULT_OK) {
             if (requestCode == TAKE_IMG) {
 
-                photo = Utility.getThumbnail((Bitmap) data.getExtras().get("data"));
+                Bitmap bitmap = Utility.getThumbnail((Bitmap) data.getExtras().get("data"));
+                photo = Utility.getBytes(bitmap);
                 if (photo != null)
-                    img.setImageBitmap(photo);
+                    img.setImageBitmap(bitmap);
 
             } else if (requestCode == BROWSE_IMG) {
                 Uri selectedImage = data.getData();
@@ -471,10 +467,11 @@ public class FragmentEditContactInfo extends Fragment {
                 Cursor cursor = getActivity().getContentResolver().query(selectedImage,
                         filePathColumn, null, null, null);
                 cursor.moveToFirst();
-                photo = Utility.getBitmap(
+                Bitmap bitmap = Utility.getBitmap(
                         cursor.getString(cursor.getColumnIndex(filePathColumn[0])));
+                photo = Utility.getBytes(bitmap);
                 if (photo != null)
-                    img.setImageBitmap(photo);
+                    img.setImageBitmap(bitmap);
                 cursor.close();
             }
         }

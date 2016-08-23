@@ -9,7 +9,7 @@ public class ContactData extends ContactID {
             mobile1, mobile2, mobile3, landPhone, address,
             classYear, studyWork, street, site,home;
 
-    public ContactData(String id, String name, Bitmap photo, double mapLat,
+    public ContactData(String id, String name, byte [] photo, double mapLat,
                        double mapLng, float mapZoom, String priest,
                        String comm, String birthDay,
                        String email, String mobile1,

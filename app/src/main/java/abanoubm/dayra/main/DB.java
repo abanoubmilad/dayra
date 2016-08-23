@@ -312,7 +312,7 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactID(c.getString(0), c.getString(1),
-                        Utility.getBitmap(c.getBlob(2))));
+                        c.getBlob(2)));
             } while (c.moveToNext());
         }
         c.close();
@@ -335,7 +335,7 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactCheck(c.getString(0), c
-                        .getString(1), Utility.getBitmap(c.getBlob(3)), c.getString(2) != null));
+                        .getString(1), c.getBlob(3), c.getString(2) != null));
             } while (c.moveToNext());
         }
         c.close();
@@ -543,7 +543,7 @@ public class DB extends SQLiteOpenHelper {
             }, PHOTO_ID
                     + " = ?", new String[]{id}, null, null, null);
             if (c.moveToFirst())
-                result.setPhoto(Utility.getBitmap(c.getBlob(0)));
+                result.setPhoto(c.getBlob(0));
         }
         c.close();
         return result;
@@ -566,15 +566,15 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
-    public Bitmap getContactPhoto(String id) {
-        Bitmap photo = null;
+    public byte [] getContactPhoto(String id) {
+        byte [] photo = null;
         Cursor c = readableDB.query(TB_PHOTO,
                 new String[]{
                         PHOTO_BLOB
                 }, PHOTO_ID
                         + " = ?", new String[]{id}, null, null, null);
         if (c.moveToFirst())
-            photo = Utility.getBitmap(c.getBlob(0));
+            photo = c.getBlob(0);
         c.close();
         return photo;
 
@@ -599,7 +599,7 @@ public class DB extends SQLiteOpenHelper {
 
             do {
                 result.add(new ContactDisplayList(c.getString(0), c
-                        .getString(1), Utility.getBitmap(c.getBlob(2)), c
+                        .getString(1), c.getBlob(2), c
                         .getString(3), c.getString(4), c.getString(5), c
                         .getString(6), c.getString(7), c.getString(8)));
 
@@ -1096,7 +1096,7 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactMobile(c.getString(0), c
-                        .getString(1), Utility.getBitmap(c.getBlob(2)), c
+                        .getString(1), c.getBlob(2), c
                         .getString(3), !c.getString(3).equals("")));
             } while (c.moveToNext());
         }
@@ -1120,7 +1120,7 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactMobile(c.getString(0), c
-                        .getString(1), Utility.getBitmap(c.getBlob(2)), c
+                        .getString(1), c.getBlob(2), c
                         .getString(3),
                         !c.getString(3).equals("") && ContactHelper.doesGContactMobileExist(resolver, c
                                 .getString(3))));
@@ -1152,7 +1152,7 @@ public class DB extends SQLiteOpenHelper {
                 if (flag)
                     updated++;
                 result.add(new ContactCheck(c.getString(0), c
-                        .getString(1), Utility.getBitmap(c.getBlob(3)), flag));
+                        .getString(1), c.getBlob(3), flag));
             } while (c.moveToNext());
         }
         c.close();
@@ -1233,7 +1233,7 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactField(c.getString(0), c.getString(1), c.getString(2),
-                        Utility.getBitmap(c.getBlob(3))));
+                        c.getBlob(3)));
             } while (c.moveToNext());
         }
         c.close();
@@ -1255,7 +1255,7 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactField(c.getString(0), c.getString(1),
-                        c.getString(3), Utility.getBitmap(c.getBlob(2))));
+                        c.getString(3), c.getBlob(2)));
             } while (c.moveToNext());
         }
         c.close();
@@ -1292,7 +1292,7 @@ public class DB extends SQLiteOpenHelper {
 
         if (c.moveToFirst()) {
             do {
-                result.add(new Field(c.getString(0), Utility.getBitmap(c.getBlob(1)), c.getString(2), c.getString(3)));
+                result.add(new Field(c.getString(0), c.getBlob(1), c.getString(2), c.getString(3)));
             } while (c.moveToNext());
         }
         c.close();
@@ -1314,7 +1314,7 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactField(c.getString(0), c.getString(1),
-                        c.getString(2), Utility.getBitmap(c.getBlob(3))));
+                        c.getString(2), c.getBlob(3)));
             } while (c.moveToNext());
         }
         c.close();
@@ -1337,7 +1337,7 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new ContactStatistics(c.getString(0), c
-                        .getString(1), Utility.getBitmap(c.getBlob(2)), c.getString(3), c.getString(4), c.getInt(5)));
+                        .getString(1), c.getBlob(2), c.getString(3), c.getString(4), c.getInt(5)));
             } while (c.moveToNext());
         }
         c.close();
@@ -1614,7 +1614,7 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new Field(c.getString(0),
-                        Utility.getBitmap(c.getBlob(1)), c.getString(2), c.getString(3)));
+                        c.getBlob(1), c.getString(2), c.getString(3)));
             } while (c.moveToNext());
         }
         c.close();

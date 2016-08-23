@@ -12,7 +12,7 @@ public class ContactMobile extends ContactID {
     }
 
 
-    public ContactMobile(String id, String name, Bitmap photo, String mobile, boolean isExisted) {
+    public ContactMobile(String id, String name, byte [] photo, String mobile, boolean isExisted) {
         super(id, name, photo);
         this.mobile = mobile;
         this.isSelected = false;

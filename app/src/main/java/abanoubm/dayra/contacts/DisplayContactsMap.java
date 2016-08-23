@@ -80,7 +80,7 @@ public class DisplayContactsMap extends FragmentActivity implements
     }
 
     private class GetContactInfoTask extends AsyncTask<Void, Void, String[]> {
-        Bitmap bitmap = null;
+        byte [] bitmap = null;
 
         @Override
         protected void onPreExecute() {
@@ -112,7 +112,7 @@ public class DisplayContactsMap extends FragmentActivity implements
             }
             if (bitmap != null) {
                 photo.setVisibility(View.VISIBLE);
-                photo.setImageBitmap(bitmap);
+                photo.setImageBitmap(Utility.getBitmap(bitmap));
             } else
                 photo.setVisibility(View.GONE);
         }

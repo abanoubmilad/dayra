@@ -5,11 +5,11 @@ import android.graphics.Bitmap;
 public class Field {
 
     private String name;
-    private Bitmap photo;
+    private byte [] photo;
     private String phone;
     private String day;
 
-    public Field(String name, Bitmap photo, String phone, String day) {
+    public Field(String name, byte [] photo, String phone, String day) {
         this.name = name;
         this.photo = photo;
         this.phone = phone;
@@ -20,7 +20,7 @@ public class Field {
         return name;
     }
 
-    public Bitmap getPhoto() {
+    public byte [] getPhoto() {
         return photo;
     }
 

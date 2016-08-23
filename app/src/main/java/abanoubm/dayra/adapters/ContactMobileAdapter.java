@@ -1,6 +1,7 @@
 package abanoubm.dayra.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactMobile;
 
 public class ContactMobileAdapter extends Adapter<ContactMobile> {
@@ -37,16 +39,19 @@ public class ContactMobileAdapter extends Adapter<ContactMobile> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        if (holder.bitmap != null)
+            holder.bitmap.recycle();
+        holder.bitmap = Utility.getBitmap(contact.getPhoto());
+        if (holder.bitmap != null)
+            holder.img.setImageBitmap(holder.bitmap);
+        else
+            holder.img.setImageResource(R.mipmap.def);
 
         holder.name.setText(contact.getName());
         holder.mobile.setText(contact.getMobile());
 
         holder.flag2.setImageResource(contact.isSelected() ? R.mipmap.ic_check : R.mipmap.ic_uncheck);
 
-        if (contact.getPhoto() != null)
-            holder.img.setImageBitmap(contact.getPhoto());
-        else
-            holder.img.setImageResource(R.mipmap.def);
 
         return convertView;
     }
@@ -55,5 +60,7 @@ public class ContactMobileAdapter extends Adapter<ContactMobile> {
         TextView name, mobile;
         ImageView img;
         ImageView flag2;
+        Bitmap bitmap;
+
     }
 }
