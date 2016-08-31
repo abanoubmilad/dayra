@@ -6,9 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
@@ -44,7 +42,6 @@ import abanoubm.dayra.model.ContactStatistics;
 import abanoubm.dayra.model.DayCheck;
 import abanoubm.dayra.model.Field;
 import abanoubm.dayra.model.IntWrapper;
-import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.write.Label;
@@ -567,8 +564,8 @@ public class DB extends SQLiteOpenHelper {
         return result;
     }
 
-    public byte [] getContactPhoto(String id) {
-        byte [] photo = null;
+    public byte[] getContactPhoto(String id) {
+        byte[] photo = null;
         Cursor c = readableDB.query(TB_PHOTO,
                 new String[]{
                         PHOTO_BLOB
@@ -1426,32 +1423,31 @@ public class DB extends SQLiteOpenHelper {
             if (sheet.getColumns() != 15)
                 return false;
             int rows = sheet.getRows();
-            Log.i("catchme",rows+"");
             int rowCounter = 1;
             String contactName;
             if (tags.size() > 0) {
                 String id;
 
                 while (rowCounter < rows) {
-                    contactName = sheet.getCell(0,rowCounter).getContents().trim();
+                    contactName = sheet.getCell(0, rowCounter).getContents().trim();
                     id = getNameId(contactName);
                     if (id.equals("-1")) {
                         addedCounterTemp++;
                         values = new ContentValues();
                         values.put(CONTACT_NAME, contactName);
-                        values.put(CONTACT_CLASS_YEAR, sheet.getCell(1,rowCounter).getContents().trim());
-                        values.put(CONTACT_STUDY_WORK, sheet.getCell(2,rowCounter).getContents().trim());
-                        values.put(CONTACT_MOB1, sheet.getCell(3,rowCounter).getContents().trim());
-                        values.put(CONTACT_MOB2, sheet.getCell(4,rowCounter).getContents().trim());
-                        values.put(CONTACT_MOB3, sheet.getCell(5,rowCounter).getContents().trim());
-                        values.put(CONTACT_LPHONE, sheet.getCell(6,rowCounter).getContents().trim());
-                        values.put(CONTACT_EMAIL, sheet.getCell(7,rowCounter).getContents().trim());
-                        values.put(CONTACT_SITE,sheet.getCell(8,rowCounter).getContents().trim());
-                        values.put(CONTACT_ST, sheet.getCell(9,rowCounter).getContents().trim());
-                        values.put(CONTACT_HOME, sheet.getCell(10,rowCounter).getContents().trim());
-                        values.put(CONTACT_ADDR, sheet.getCell(11,rowCounter).getContents().trim());
-                        values.put(CONTACT_NOTES, sheet.getCell(12,rowCounter).getContents().trim());
-                        values.put(CONTACT_SUPERVISOR, sheet.getCell(13,rowCounter).getContents().trim());
+                        values.put(CONTACT_CLASS_YEAR, sheet.getCell(1, rowCounter).getContents().trim());
+                        values.put(CONTACT_STUDY_WORK, sheet.getCell(2, rowCounter).getContents().trim());
+                        values.put(CONTACT_MOB1, sheet.getCell(3, rowCounter).getContents().trim());
+                        values.put(CONTACT_MOB2, sheet.getCell(4, rowCounter).getContents().trim());
+                        values.put(CONTACT_MOB3, sheet.getCell(5, rowCounter).getContents().trim());
+                        values.put(CONTACT_LPHONE, sheet.getCell(6, rowCounter).getContents().trim());
+                        values.put(CONTACT_EMAIL, sheet.getCell(7, rowCounter).getContents().trim());
+                        values.put(CONTACT_SITE, sheet.getCell(8, rowCounter).getContents().trim());
+                        values.put(CONTACT_ST, sheet.getCell(9, rowCounter).getContents().trim());
+                        values.put(CONTACT_HOME, sheet.getCell(10, rowCounter).getContents().trim());
+                        values.put(CONTACT_ADDR, sheet.getCell(11, rowCounter).getContents().trim());
+                        values.put(CONTACT_NOTES, sheet.getCell(12, rowCounter).getContents().trim());
+                        values.put(CONTACT_SUPERVISOR, sheet.getCell(13, rowCounter).getContents().trim());
 
                         values.put(CONTACT_MAPLAT, 0);
                         values.put(CONTACT_MAPLNG, 0);
@@ -1465,7 +1461,7 @@ public class DB extends SQLiteOpenHelper {
                         values = new ContentValues();
                         itr = 0;
                         for (Integer index : tags)
-                            values.put(tagged[itr++], sheet.getCell(index,rowCounter).getContents().trim());
+                            values.put(tagged[itr++], sheet.getCell(index, rowCounter).getContents().trim());
                         updateContact(values, id);
                     }
 
@@ -1473,24 +1469,24 @@ public class DB extends SQLiteOpenHelper {
                 }
             } else {
                 while (rowCounter < rows) {
-                    contactName = sheet.getCell(0,rowCounter).getContents().trim();
+                    contactName = sheet.getCell(0, rowCounter).getContents().trim();
                     if (getNameId(contactName).equals("-1")) {
                         addedCounterTemp++;
                         values = new ContentValues();
                         values.put(CONTACT_NAME, contactName);
-                        values.put(CONTACT_CLASS_YEAR, sheet.getCell(1,rowCounter).getContents().trim());
-                        values.put(CONTACT_STUDY_WORK, sheet.getCell(2,rowCounter).getContents().trim());
-                        values.put(CONTACT_MOB1, sheet.getCell(3,rowCounter).getContents().trim());
-                        values.put(CONTACT_MOB2, sheet.getCell(4,rowCounter).getContents().trim());
-                        values.put(CONTACT_MOB3, sheet.getCell(5,rowCounter).getContents().trim());
-                        values.put(CONTACT_LPHONE, sheet.getCell(6,rowCounter).getContents().trim());
-                        values.put(CONTACT_EMAIL, sheet.getCell(7,rowCounter).getContents().trim());
-                        values.put(CONTACT_SITE, sheet.getCell(8,rowCounter).getContents().trim());
-                        values.put(CONTACT_ST, sheet.getCell(9,rowCounter).getContents().trim());
-                        values.put(CONTACT_HOME, sheet.getCell(10,rowCounter).getContents().trim());
-                        values.put(CONTACT_ADDR, sheet.getCell(11,rowCounter).getContents().trim());
-                        values.put(CONTACT_NOTES, sheet.getCell(12,rowCounter).getContents().trim());
-                        values.put(CONTACT_SUPERVISOR, sheet.getCell(13,rowCounter).getContents().trim());
+                        values.put(CONTACT_CLASS_YEAR, sheet.getCell(1, rowCounter).getContents().trim());
+                        values.put(CONTACT_STUDY_WORK, sheet.getCell(2, rowCounter).getContents().trim());
+                        values.put(CONTACT_MOB1, sheet.getCell(3, rowCounter).getContents().trim());
+                        values.put(CONTACT_MOB2, sheet.getCell(4, rowCounter).getContents().trim());
+                        values.put(CONTACT_MOB3, sheet.getCell(5, rowCounter).getContents().trim());
+                        values.put(CONTACT_LPHONE, sheet.getCell(6, rowCounter).getContents().trim());
+                        values.put(CONTACT_EMAIL, sheet.getCell(7, rowCounter).getContents().trim());
+                        values.put(CONTACT_SITE, sheet.getCell(8, rowCounter).getContents().trim());
+                        values.put(CONTACT_ST, sheet.getCell(9, rowCounter).getContents().trim());
+                        values.put(CONTACT_HOME, sheet.getCell(10, rowCounter).getContents().trim());
+                        values.put(CONTACT_ADDR, sheet.getCell(11, rowCounter).getContents().trim());
+                        values.put(CONTACT_NOTES, sheet.getCell(12, rowCounter).getContents().trim());
+                        values.put(CONTACT_SUPERVISOR, sheet.getCell(13, rowCounter).getContents().trim());
 
                         values.put(CONTACT_MAPLAT, 0);
                         values.put(CONTACT_MAPLNG, 0);
