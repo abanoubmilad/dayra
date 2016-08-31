@@ -320,7 +320,7 @@
         <item>منزل</item>
         <item>المُشرف</item>
     </string-array>
-    <string name="copyright">dayra 4.0.3 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="copyright">dayra 4.0.4 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
     <string name="label.dayra.file">دايره file / backup</string>
     <string name="label.dayra.xls">دايره xls</string>
     <string name="subhead.display.day">المتابعة</string>
@@ -337,7 +337,7 @@
     <string name="msg.dayra.no.divider">لم يتم العثور على قيم كافية لتقسيم الدايره بواسطتها</string>
     <string name="label.add.express.fields">اختر نوع البيانات التى سيتم تحديثها فى حالة العثور على اسم موجود فى الدايره الحالية</string>
     <string name="label.noti.attend">اخر حضور</string>
-    <string name="dialogue.total.contacts">عدد الاسماء الموجودة فى الدايره المُختارة</string>
+    <string name="dialogue.total.contacts">عدد السطور الموجودة فى الدايره المُختارة</string>
     <string name="dialogue.updated.contacts">عدد الاسماء التى تم تحديث بياناتها</string>
     <string name="dialogue.added.contacts">عدد الاسماء التى تم اضافتها</string>
     <string name="select.days.type">اختر نوع الايام</string>

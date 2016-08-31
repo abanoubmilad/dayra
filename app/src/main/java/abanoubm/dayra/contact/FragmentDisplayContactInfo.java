@@ -2,10 +2,14 @@ package abanoubm.dayra.contact;
 
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,9 +105,19 @@ public class FragmentDisplayContactInfo extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(Intent.ACTION_CALL, Uri
-                                .fromParts("tel", dis_mobile1.getText()
-                                        .toString(), null)));
+                        if (Build.VERSION.SDK_INT < 23 ||
+                                ContextCompat.checkSelfPermission(getContext(),
+                                        android.Manifest.permission.CALL_PHONE)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                            startActivity(new Intent(Intent.ACTION_CALL, Uri
+                                    .fromParts("tel", dis_mobile1.getText()
+                                            .toString(), null)));
+                        } else {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{android.Manifest.permission.CALL_PHONE},
+                                    1);
+                        }
+
                     }
                 });
         msg1
@@ -122,9 +136,18 @@ public class FragmentDisplayContactInfo extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(Intent.ACTION_CALL, Uri
-                                .fromParts("tel", dis_mobile2.getText()
-                                        .toString(), null)));
+                        if (Build.VERSION.SDK_INT < 23 ||
+                                ContextCompat.checkSelfPermission(getContext(),
+                                        android.Manifest.permission.CALL_PHONE)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                            startActivity(new Intent(Intent.ACTION_CALL, Uri
+                                    .fromParts("tel", dis_mobile2.getText()
+                                            .toString(), null)));
+                        } else {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{android.Manifest.permission.CALL_PHONE},
+                                    2);
+                        }
                     }
                 });
         msg2
@@ -143,9 +166,18 @@ public class FragmentDisplayContactInfo extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(Intent.ACTION_CALL, Uri
-                                .fromParts("tel", dis_mobile3.getText()
-                                        .toString(), null)));
+                        if (Build.VERSION.SDK_INT < 23 ||
+                                ContextCompat.checkSelfPermission(getContext(),
+                                        android.Manifest.permission.CALL_PHONE)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                            startActivity(new Intent(Intent.ACTION_CALL, Uri
+                                    .fromParts("tel", dis_mobile3.getText()
+                                            .toString(), null)));
+                        } else {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{android.Manifest.permission.CALL_PHONE},
+                                    3);
+                        }
                     }
                 });
         msg3
@@ -164,9 +196,18 @@ public class FragmentDisplayContactInfo extends Fragment {
 
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(Intent.ACTION_CALL, Uri
-                                .fromParts("tel", dis_lphone.getText()
-                                        .toString(), null)));
+                        if (Build.VERSION.SDK_INT < 23 ||
+                                ContextCompat.checkSelfPermission(getContext(),
+                                        android.Manifest.permission.CALL_PHONE)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                            startActivity(new Intent(Intent.ACTION_CALL, Uri
+                                    .fromParts("tel", dis_lphone.getText()
+                                            .toString(), null)));
+                        } else {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{android.Manifest.permission.CALL_PHONE},
+                                    4);
+                        }
                     }
                 });
 
