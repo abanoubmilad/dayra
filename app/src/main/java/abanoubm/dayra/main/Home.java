@@ -101,6 +101,7 @@ public class Home extends FragmentActivity {
             public void onClick(View v) {
                 buttons[mCurrentTab].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
                 buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+                DB.getInstant(getApplicationContext()).closeDB();
                 Utility.clearLogin(getApplicationContext());
                 Intent intent = new Intent(getApplicationContext(), Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

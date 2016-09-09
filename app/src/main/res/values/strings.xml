@@ -7,6 +7,7 @@
     <string name="msg.no.results">No search results</string>
     <string name="msg.no.contacts">No contacts</string>
     <string name="msg.no.locations">No locations</string>
+    <string name="msg.no.attendance">No attendance</string>
     <string name="msg.no.connections">No connections</string>
     <string name="msg.no.days">No registered days</string>
     <string name="btn.export">export</string>
@@ -14,7 +15,7 @@
     <string name="btn.search">Search</string>
     <string name="label.dayra.name">dayra name</string>
     <string name="btn.create">create</string>
-    <string name="copyright">dayra 4.0.4 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="copyright">dayra 4.0.5 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
     <string name="label.required">required</string>
     <string name="label.name">name</string>
     <string name="label.supervisor">supervisor</string>
@@ -124,6 +125,9 @@
     <string name="select.month">Select month</string>
     <string name="select.day">Select day</string>
 
+    <string name="select.starting.from">Starting from</string>
+    <string name="select.ending.at">Ending at</string>
+
     <string name="btn.yes">Yes</string>
     <string name="btn.ok">OK</string>
     <string name="btn.confirm">Confirm</string>
@@ -172,6 +176,20 @@
 
     <string-array name="months">
         <item>Any month</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <string-array name="pure_months">
         <item>January</item>
         <item>February</item>
         <item>March</item>

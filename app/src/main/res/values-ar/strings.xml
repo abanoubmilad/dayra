@@ -161,6 +161,20 @@
         <item>ديسمبر</item>
 
     </string-array>
+    <string-array name="pure_months">
+        <item>يناير</item>
+        <item>فبراير</item>
+        <item>مارس</item>
+        <item>ابريل</item>
+        <item>مايو</item>
+        <item>يونيو</item>
+        <item>يوليو</item>
+        <item>اغسطس</item>
+        <item>سبتمر</item>
+        <item>اكتوبر</item>
+        <item>نوفمبر</item>
+        <item>ديسمبر</item>
+    </string-array>
     <string-array name="days">
         <item>اى يوم</item>
         <item>١</item>
@@ -320,7 +334,7 @@
         <item>منزل</item>
         <item>المُشرف</item>
     </string-array>
-    <string name="copyright">dayra 4.0.4 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="copyright">dayra 4.0.5 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
     <string name="label.dayra.file">دايره file / backup</string>
     <string name="label.dayra.xls">دايره xls</string>
     <string name="subhead.display.day">المتابعة</string>
@@ -354,5 +368,8 @@
     <string name="flag.mobile.exist">الموبايل مُسجل</string>
     <string name="msg.fields.renamed">تم اعادة تسمية حقول البيانات</string>
     <string name="err.msg.duplicate.entry">غير مسموح بتكرار التسمية</string>
+    <string name="select.ending.at">حتى</string>
+    <string name="select.starting.from">بداية من</string>
+    <string name="msg.no.attendance">لا يوجد حضور</string>
 
 </resources>

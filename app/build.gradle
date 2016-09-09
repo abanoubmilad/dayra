@@ -7,15 +7,15 @@ android {
         applicationId "abanoubm.dayra"
         minSdkVersion 9
         targetSdkVersion 23
-        versionCode 22
-        versionName '4.0.4'
+        versionCode 23
+        versionName '4.0.5'
         multiDexEnabled true
     }
     buildTypes {
         release {
-            debuggable false
-            shrinkResources true
-            minifyEnabled true
+            debuggable true
+            shrinkResources false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

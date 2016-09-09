@@ -760,7 +760,7 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public boolean exportAttendanceReport(String path, String dateRegex,
+    public boolean exportAttendanceReport(String path, String date1,String date2,
                                           String[] header, CharSequence[] attendanceTypes,
                                           boolean isEnglishMode, Context context) {
 
@@ -775,9 +775,9 @@ public class DB extends SQLiteOpenHelper {
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
-                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " LIKE ? GROUP BY " + CONTACT_ID + "," + ATTEND_TYPE + " ORDER BY " + CONTACT_NAME;
+                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " >= ? AND "+ ATTEND_DAY +" <= ? GROUP BY " + CONTACT_ID + "," + ATTEND_TYPE + " ORDER BY " + CONTACT_NAME;
 
-        Cursor c = readableDB.rawQuery(selectQuery, new String[]{dateRegex});
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{date1,date2});
         Document document = new Document(PageSize.LETTER);
         try {
             PdfWriter.getInstance(document, new FileOutputStream(path));
@@ -1365,14 +1365,12 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<String> getExistingYears(String anyYear) {
+    public ArrayList<String> getExistingYears() {
         String selectQuery = "SELECT DISTINCT SUBSTR (" + ATTEND_DAY + ",1,4) FROM " +
                 TB_ATTEND;
         Cursor c = readableDB.rawQuery(selectQuery, null);
         ArrayList<String> result = new ArrayList<>(
-                c.getCount() + 1);
-        result.add(anyYear);
-
+                c.getCount());
         if (c.moveToFirst()) {
             do {
                 result.add(c.getString(0));
