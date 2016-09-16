@@ -1,19 +1,24 @@
 package abanoubm.dayra.contact;
 
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +37,8 @@ import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 
 public class FragmentAddContactInfo extends Fragment {
+    private final int EXTERNAL_REQUEST = 1400,
+            CAMERA_REQUEST = 1500;
     private ImageView img;
     private static final int TAKE_IMG = 2;
     private static final int BROWSE_IMG = 1;
@@ -333,12 +340,32 @@ public class FragmentAddContactInfo extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == 0) {
-                            Intent galleryIntent = new Intent(
-                                    Intent.ACTION_PICK,
-                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            startActivityForResult(galleryIntent, BROWSE_IMG);
+                            if (Build.VERSION.SDK_INT < 23 ||
+                                    ContextCompat.checkSelfPermission(getContext(),
+                                            Manifest.permission.READ_EXTERNAL_STORAGE)
+                                            == PackageManager.PERMISSION_GRANTED) {
+                                Intent galleryIntent = new Intent(
+                                        Intent.ACTION_PICK,
+                                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                startActivityForResult(galleryIntent, BROWSE_IMG);
+                            } else {
+                                ActivityCompat.requestPermissions(getActivity(),
+                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                        EXTERNAL_REQUEST);
+                            }
+
                         } else if (which == 1) {
-                            startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), TAKE_IMG);
+                            if (Build.VERSION.SDK_INT < 23 ||
+                                    ContextCompat.checkSelfPermission(getContext(),
+                                            Manifest.permission.CAMERA)
+                                            == PackageManager.PERMISSION_GRANTED) {
+                                startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), TAKE_IMG);
+
+                            } else {
+                                ActivityCompat.requestPermissions(getActivity(),
+                                        new String[]{android.Manifest.permission.CAMERA},
+                                        CAMERA_REQUEST);
+                            }
                         } else {
                             photo = null;
                             img.setImageResource(R.mipmap.def);
@@ -373,6 +400,29 @@ public class FragmentAddContactInfo extends Fragment {
                 cursor.close();
             }
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case CAMERA_REQUEST:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), TAKE_IMG);
+
+                break;
+            case EXTERNAL_REQUEST:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent galleryIntent = new Intent(
+                            Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(galleryIntent, BROWSE_IMG);
+                }
+                break;
+
+        }
+
+
     }
 
 }
