@@ -760,7 +760,7 @@ public class DB extends SQLiteOpenHelper {
 
     }
 
-    public boolean exportAttendanceReport(String path, String date1,String date2,
+    public boolean exportAttendanceReport(String path, String date1, String date2,
                                           String[] header, CharSequence[] attendanceTypes,
                                           boolean isEnglishMode, Context context) {
 
@@ -769,15 +769,15 @@ public class DB extends SQLiteOpenHelper {
             attendanceMap.put(i + "", attendanceTypes[i].toString());
 
 
-        String selectQuery = "SELECT " + CONTACT_NAME + "," + PHOTO_BLOB + "," + ATTEND_TYPE +
+        String selectQuery = "SELECT " + CONTACT_NAME + "," + CONTACT_MOB1 + "," + ATTEND_TYPE +
                 ", MIN(" + ATTEND_DAY + "), " +
                 "MAX(" + ATTEND_DAY + "), " + "COUNT(" + ATTEND_DAY + ")" +
                 " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
                 " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
-                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " >= ? AND "+ ATTEND_DAY +" <= ? GROUP BY " + CONTACT_ID + "," + ATTEND_TYPE + " ORDER BY " + CONTACT_NAME;
+                CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " >= ? AND " + ATTEND_DAY + " <= ? GROUP BY " + CONTACT_ID + "," + ATTEND_TYPE + " ORDER BY " + CONTACT_NAME;
 
-        Cursor c = readableDB.rawQuery(selectQuery, new String[]{date1,date2});
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{date1, date2});
         Document document = new Document(PageSize.LETTER);
         try {
             PdfWriter.getInstance(document, new FileOutputStream(path));
@@ -811,12 +811,11 @@ public class DB extends SQLiteOpenHelper {
             document.add(new Paragraph(" "));
 
             if (c.moveToFirst()) {
-                int counter = 0;
                 PdfPTable table = null;
                 String previousName = "";
                 final int TEXT_DIRECTION = isEnglishMode ? PdfWriter.RUN_DIRECTION_LTR : PdfWriter.RUN_DIRECTION_RTL;
                 do {
-                    if (previousName.equals(c.getString(0))) {
+                    if (previousName.equals(c.getString(0)) && table != null) {
                         table.addCell(new Paragraph(attendanceMap.get(c.getString(2)), font));
                         table.addCell(new Paragraph(c.getString(3), font));
                         table.addCell(new Paragraph(c.getString(4), font));
@@ -826,26 +825,23 @@ public class DB extends SQLiteOpenHelper {
                             document.add(table);
                         previousName = c.getString(0);
 
-                        document.newPage();
-                        document.add(new Paragraph(++counter + ""));
+                        document.add(new Paragraph(" "));
+
                         table = new PdfPTable(4);
                         table.setWidthPercentage(100);
                         table.setWidths(new float[]{25f, 25f, 25f, 25f});
                         table.setRunDirection(TEXT_DIRECTION);
 
-                        byte[] photo = c.getBlob(1);
-                        if (photo != null) {
-                            Image image = Image.getInstance(photo);
-                            image.scaleToFit(200f, 200f);
-                            document.add(image);
-                        }
-                        document.add(new Paragraph(" "));
-
-
-                        tb = new PdfPTable(1);
+                        tb = new PdfPTable(2);
+                        tb.setWidths(new float[]{50f, 50f});
                         tb.setWidthPercentage(100);
                         tb.setRunDirection(isEnglishMode ? PdfWriter.RUN_DIRECTION_LTR : PdfWriter.RUN_DIRECTION_RTL);
-                        tb.addCell(new PdfPCell(new Paragraph(c.getString(0), font)));
+                        PdfPCell cell = new PdfPCell(new Paragraph(c.getString(0), font));
+                        cell.setBorder(0);
+                        tb.addCell(cell);
+                        cell = new PdfPCell(new Paragraph(c.getString(1), font));
+                        cell.setBorder(0);
+                        tb.addCell(cell);
                         document.add(tb);
                         document.add(new Paragraph(" "));
 
@@ -998,14 +994,14 @@ public class DB extends SQLiteOpenHelper {
                     table.addCell(new Paragraph(c.getString(COL_ADDRESS),
                             font));
 
-                    table.addCell(new Paragraph(headerArray[14], font));
+                    table.addCell(new Paragraph(headerArray[13], font));
                     table.addCell(new Paragraph(c.getString(COL_SUPERVISOR),
                             font));
 
                     table.addCell(new Paragraph(headerArray[12], font));
                     table.addCell(new Paragraph(c.getString(COL_NOTES), font));
 
-                    table.addCell(new Paragraph(headerArray[13], font));
+                    table.addCell(new Paragraph(headerArray[14], font));
                     table.addCell(new Paragraph(c.getString(COL_BDAY), font));
 
                     document.add(table);
