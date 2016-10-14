@@ -42,6 +42,7 @@ import abanoubm.dayra.model.ContactStatistics;
 import abanoubm.dayra.model.DayCheck;
 import abanoubm.dayra.model.Field;
 import abanoubm.dayra.model.IntWrapper;
+import jxl.CellView;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.write.Label;
@@ -1034,8 +1035,8 @@ public class DB extends SQLiteOpenHelper {
                 R.array.excel_header);
 
         String selectQuery = "SELECT * FROM " + TB_CONTACT +
-                " LEFT OUTER JOIN " + TB_PHOTO +
-                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+//                " LEFT OUTER JOIN " + TB_PHOTO +
+//                " ON " + CONTACT_ID + "=" + PHOTO_ID +
                 " ORDER BY " + CONTACT_NAME;
         Cursor c = readableDB.rawQuery(selectQuery, null);
 
@@ -1043,6 +1044,8 @@ public class DB extends SQLiteOpenHelper {
 
             WritableWorkbook workbook = Workbook.createWorkbook(new File(path));
             WritableSheet sheet = workbook.createSheet("dayra", 0);
+
+//            sheet.setColumnView(14, 2000);
 
             int colCount = colNames.length;
             for (int i = 0; i < colCount; i++)
@@ -1057,11 +1060,14 @@ public class DB extends SQLiteOpenHelper {
                     for (int i = 0; i < colCount - 1; i++)
                         sheet.addCell(new Label(i, rowCounter, c
                                 .getString(colIndex[i])));
-                    byte[] photo = c
-                            .getBlob(colIndex[colCount - 1]);
-                    if (photo != null)
-                        sheet.addImage(new WritableImage(colCount - 1, rowCounter, 1,
-                                1, photo));
+//                    byte[] photo = c
+//                            .getBlob(colIndex[colCount - 1]);
+//                   if (photo != null) {
+//                       sheet.setRowView(rowCounter, 2000);
+//
+//                       sheet.addImage(new WritableImage(colCount - 1, rowCounter, 1,
+//                               1, photo));
+//                   }
                     rowCounter++;
                 } while (c.moveToNext());
 
