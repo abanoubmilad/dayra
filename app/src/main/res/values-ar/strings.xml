@@ -334,7 +334,7 @@
         <item>منزل</item>
         <item>المُشرف</item>
     </string-array>
-    <string name="copyright">dayra 4.0.6 ©%1$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="copyright">dayra 4.0.7 ©%1$s\nabanoubcs@gmail.com</string>
     <string name="label.dayra.file">دايره file / backup</string>
     <string name="label.dayra.xls">دايره xls</string>
     <string name="subhead.display.day">المتابعة</string>

@@ -60,6 +60,10 @@ public class DisplayContactsStatistics extends Activity {
                     Collections.sort(list, new Comparator<ContactStatistics>() {
                         @Override
                         public int compare(ContactStatistics lhs, ContactStatistics rhs) {
+                            if(lhs.getMinDay()==null)
+                                return -1;
+                            if(rhs.getMinDay()==null)
+                                return 1;
                             return lhs.getMinDay().compareTo(rhs.getMinDay());
                         }
                     });
@@ -69,6 +73,10 @@ public class DisplayContactsStatistics extends Activity {
                     Collections.sort(list, new Comparator<ContactStatistics>() {
                         @Override
                         public int compare(ContactStatistics lhs, ContactStatistics rhs) {
+                            if(lhs.getMaxDay()==null)
+                                return -1;
+                            if(rhs.getMaxDay()==null)
+                                return 1;
                             return lhs.getMaxDay().compareTo(rhs.getMaxDay());
                         }
                     });
