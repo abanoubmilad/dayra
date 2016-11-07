@@ -112,10 +112,9 @@ public class Utility {
     }
 
     public static boolean isInvlaidDBName(String str) {
-        return str.length() == 0 || !str.matches("[أؤءةابتثجحخدذرزسشصضطظعغفقكلمنهوىيa-z0-9A-Z\\s]+") ||
+        return str.length() == 0 || str.matches("[:*?\"<>|/\\\\]+") ||
                 str.contains("journal");
     }
-
     // convert from bitmap to byte array
     public static byte[] getBytes(Bitmap bitmap) {
         if (bitmap == null)

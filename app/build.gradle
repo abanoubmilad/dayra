@@ -7,8 +7,8 @@ android {
         applicationId "abanoubm.dayra"
         minSdkVersion 9
         targetSdkVersion 23
-        versionCode 25
-        versionName '4.0.7'
+        versionCode 26
+        versionName '4.0.8'
         multiDexEnabled true
     }
     buildTypes {

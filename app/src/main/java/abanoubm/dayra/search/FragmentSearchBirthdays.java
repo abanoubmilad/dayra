@@ -136,7 +136,7 @@ public class FragmentSearchBirthdays extends Fragment {
         });
 
         Calendar cal = Calendar.getInstance();
-        spin_day.setSelection(cal.get(Calendar.DAY_OF_MONTH), true);
+     //   spin_day.setSelection(cal.get(Calendar.DAY_OF_MONTH), true);
         spin_month.setSelection(cal.get(Calendar.MONTH) + 1, true);
 
         return root;

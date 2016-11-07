@@ -48,6 +48,7 @@
     <string name="msg.dayra.imported">تم استيراد الدايره</string>
     <string name="err.msg.import">خطأ أثناء محاولة استيراد الدايره</string>
     <string name="err.msg.invalid_file">الملف غير صالح أو لا يمكن الوصول الى مكانه</string>
+    <string name="err.msg.invalid.path">خطأ اثناء محاولة الوصول للملف قم بوضع الملف على الذاكرة الداخلية ثم حاول مرة اخرى</string>
     <string name="msg.no.dayra">ﻻ توجد دايره متاحة قم بتكوين واحدة</string>
     <string name="label.select.dayra">اختيار دايره</string>
     <string name="err.msg.open">خطأ أثناء محاولة الاتصال بقاعدة البيانات</string>
@@ -334,7 +335,7 @@
         <item>منزل</item>
         <item>المُشرف</item>
     </string-array>
-    <string name="copyright">dayra 4.0.7 ©%1$s\nabanoubcs@gmail.com</string>
+    <string name="copyright">dayra 4.0.8 ©%1$s\nabanoubcs@gmail.com</string>
     <string name="label.dayra.file">دايره file / backup</string>
     <string name="label.dayra.xls">دايره xls</string>
     <string name="subhead.display.day">المتابعة</string>

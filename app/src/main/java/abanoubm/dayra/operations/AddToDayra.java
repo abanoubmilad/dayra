@@ -311,6 +311,12 @@ public class AddToDayra extends Activity {
         if (resultCode == RESULT_OK) {
             if (requestCode == IMPORT_FILE) {
                 String path = Utility.getRealPath(getApplicationContext(),data.getData());
+                if(path==null) {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.err_msg_invalid_path, Toast.LENGTH_LONG)
+                            .show();
+                    return;
+                }
                 String dbname = path.substring(path.lastIndexOf("/") + 1);
 
                 if (Utility.isInvlaidDBName(dbname)) {
@@ -325,6 +331,12 @@ public class AddToDayra extends Activity {
 
             } else if (requestCode == IMPORT_EXCEL) {
                 String path = Utility.getRealPath(getApplicationContext(),data.getData());
+                if(path==null) {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.err_msg_invalid_path, Toast.LENGTH_LONG)
+                            .show();
+                    return;
+                }
                 String dbname = path.substring(path.lastIndexOf("/") + 1)
                         .replace(".xls", "");
                 if (Utility.isInvlaidDBName(dbname)) {
