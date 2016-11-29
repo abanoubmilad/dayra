@@ -45,26 +45,8 @@ public class Main extends Activity {
     private static final int IMPORT_DB = 1;
     private MenuItemAdapter mMenuItemAdapter;
 
-    private final int IMPORT_REQUEST = 700, SUPPORT_REQUEST = 800, FOLDER_REQUEST = 900;
+    private final int IMPORT_REQUEST = 700, FOLDER_REQUEST = 900;
 
-    private class CheckSupportTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            ContactHelper.checkDayraSupport(getContentResolver(), getApplicationContext());
-            return null;
-
-        }
-    }
 
     private class SignTask extends AsyncTask<String, Void, Boolean> {
         private ProgressDialog pBar;
@@ -309,17 +291,7 @@ public class Main extends Activity {
                         break;
 
                     case 7:
-                        if (Build.VERSION.SDK_INT < 23 ||
-                                ContextCompat.checkSelfPermission(Main.this,
-                                        Manifest.permission.WRITE_CONTACTS)
-                                        == PackageManager.PERMISSION_GRANTED) {
-                            new CheckSupportTask().execute();
 
-                        } else {
-                            ActivityCompat.requestPermissions(Main.this,
-                                    new String[]{android.Manifest.permission.WRITE_CONTACTS},
-                                    SUPPORT_REQUEST);
-                        }
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -383,12 +355,12 @@ public class Main extends Activity {
             if (requestCode == IMPORT_DB) {
                 String path = Utility.getRealPath(getApplicationContext(), data.getData());
 
-               if(path==null) {
-                   Toast.makeText(getApplicationContext(),
-                           R.string.err_msg_invalid_path, Toast.LENGTH_LONG)
-                           .show();
-                   return;
-               }
+                if (path == null) {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.err_msg_invalid_path, Toast.LENGTH_LONG)
+                            .show();
+                    return;
+                }
 
                 String dbname = path.substring(path.lastIndexOf("/") + 1);
                 if (Utility.isInvlaidDBName(dbname))
@@ -516,10 +488,6 @@ public class Main extends Activity {
         } else if (requestCode == IMPORT_REQUEST) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 importDB();
-
-        } else if (requestCode == SUPPORT_REQUEST) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                new CheckSupportTask().execute();
 
         }
     }

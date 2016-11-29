@@ -111,25 +111,5 @@ public class ContactHelper {
         return check;
     }
 
-    public static void checkDayraSupport(ContentResolver contactHelper, Context context) {
 
-        String[] projection = {
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
-        try {
-            Cursor c = contactHelper.query(
-                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                    projection, ContactsContract.CommonDataKinds.Phone.NUMBER + " = ? ", new String[]{"01289887219"},
-                    null);
-            int count = c.getCount();
-            c.close();
-
-            if (count == 0)
-                insertContact(contactHelper,
-                        "dayra app support", "01289887219",
-                        Utility.getBytes(((BitmapDrawable)
-                                ContextCompat.getDrawable(context, R.mipmap.ic_launcher)).getBitmap()));
-
-        } catch (Exception e) {
-        }
-    }
 }

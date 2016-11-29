@@ -1,19 +1,13 @@
 package abanoubm.dayra.main;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,26 +31,7 @@ import abanoubm.dayra.search.Search;
 public class FragmentHomeMain extends Fragment {
 
     private MenuItemAdapter mMenuItemAdapter;
-    private final int SUPPORT_REQUEST = 1300;
 
-    private class CheckSupportTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            ContactHelper.checkDayraSupport(getActivity().getContentResolver(), getActivity());
-            return null;
-
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -157,17 +132,7 @@ public class FragmentHomeMain extends Fragment {
                         }
                         break;
                     case 10:
-                        if (Build.VERSION.SDK_INT < 23 ||
-                                ContextCompat.checkSelfPermission(getContext(),
-                                        Manifest.permission.WRITE_CONTACTS)
-                                        == PackageManager.PERMISSION_GRANTED) {
-                            new CheckSupportTask().execute();
 
-                        } else {
-                            ActivityCompat.requestPermissions(getActivity(),
-                                    new String[]{android.Manifest.permission.WRITE_CONTACTS},
-                                    SUPPORT_REQUEST);
-                        }
                         try {
                             getActivity().getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -203,14 +168,4 @@ public class FragmentHomeMain extends Fragment {
         mMenuItemAdapter.recycleIcons();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == SUPPORT_REQUEST) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                new CheckSupportTask().execute();
-
-
-        }
-    }
 }
