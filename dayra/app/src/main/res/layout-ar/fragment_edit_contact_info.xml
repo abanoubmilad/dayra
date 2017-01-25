@@ -1,20 +1,19 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingBottom="10dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="100dp">
 
             <ImageView
                 android:id="@+id/pic_view"
@@ -146,7 +145,8 @@
 
             <EditText
                 android:id="@+id/edit_comm"
-                style="@style/field_input" />
+                style="@style/field_input"
+                android:maxLength="1500"/>
 
             <TextView
                 style="@style/label"
@@ -324,37 +324,17 @@
                 android:id="@+id/edit_address"
                 style="@style/field_input"
                 android:layout_marginBottom="50dp"
-                android:maxLength="400" />
+                android:maxLength="1500" />
 
         </LinearLayout>
 
 
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
-
-
-        <ImageView
-            android:id="@+id/deleteImage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/danger_action_bg"
-            android:src="@mipmap/ic_delete2" />
-
-        <ImageView
-            android:id="@+id/saveImage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/action_bg"
-            android:src="@mipmap/ic_save" />
-
-    </LinearLayout>
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_save"
+        style="@style/floating_action_btn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="false"
+        android:src="@mipmap/ic_btn_save" />
+</RelativeLayout>

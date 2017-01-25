@@ -130,7 +130,14 @@ public class DisplayContactsMap extends FragmentActivity implements
         setContentView(R.layout.act_map);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_display_locs);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
         site = (TextView) findViewById(R.id.site);
         addr = (TextView) findViewById(R.id.addr);
         st = (TextView) findViewById(R.id.st);

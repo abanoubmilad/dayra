@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -140,9 +141,9 @@ public class FragmentAddContactInfo extends Fragment {
             }
         });
 
-        root.findViewById(R.id.deleteImage).setVisibility(View.GONE);
-
-        root.findViewById(R.id.saveImage).setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton btn =  (FloatingActionButton)root.findViewById(R.id.btn_save);
+        btn.setImageResource(R.mipmap.ic_btn_add);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AddTask().execute(

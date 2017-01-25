@@ -24,7 +24,7 @@ import abanoubm.dayra.main.Utility;
 
 public class CreateAttendanceReport extends Activity {
 
-    private String month1 = "01", year1 = "", month2 = "01", year2 = "";
+    private String month1 = "01", year1 = "", month2 = "01", year2 = "", day1 = "01", day2 = "01";
     private Spinner spin_year1, spin_year2;
     private TextView startingDate, endingDate;
 
@@ -91,8 +91,8 @@ public class CreateAttendanceReport extends Activity {
                         new String[]{path}, null, null);
             }
             return DB.getInstant(getApplicationContext()).exportAttendanceReport(path,
-                    Utility.produceDate("01", month1, year1),
-                    Utility.produceDate("31", month2, year2),
+                    Utility.produceDate(day1, month1, year1),
+                    Utility.produceDate(day2, month2, year2),
                     getResources().getStringArray(R.array.attendace_report_header),
                     Utility.getAttendanceTypes(getApplicationContext()),
                     findViewById(R.id.english_layout) != null, getApplicationContext());
@@ -121,12 +121,19 @@ public class CreateAttendanceReport extends Activity {
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2))
                 .setText(R.string.subhead_attendance_report);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
 
         startingDate = (TextView) findViewById(R.id.starting_date);
         endingDate = (TextView) findViewById(R.id.ending_date);
 
-        final Spinner spin_month1, spin_month2;
+        final Spinner spin_month1, spin_month2, spin_day1, spin_day2;
 
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>(getApplicationContext(),
                 R.layout.item_string, getResources().getTextArray(R.array.pure_months));
@@ -135,6 +142,14 @@ public class CreateAttendanceReport extends Activity {
         spin_month1.setAdapter(adapter);
         spin_month2 = (Spinner) findViewById(R.id.spin_month2);
         spin_month2.setAdapter(adapter);
+
+        ArrayAdapter<CharSequence> adapter_days = new ArrayAdapter<>(getApplicationContext(),
+                R.layout.item_string, getResources().getTextArray(R.array.pure_days));
+
+        spin_day1 = (Spinner) findViewById(R.id.spin_day1);
+        spin_day1.setAdapter(adapter_days);
+        spin_day2 = (Spinner) findViewById(R.id.spin_day2);
+        spin_day2.setAdapter(adapter_days);
 
         spin_year1 = (Spinner) findViewById(R.id.spin_year1);
         spin_year2 = (Spinner) findViewById(R.id.spin_year2);
@@ -145,7 +160,21 @@ public class CreateAttendanceReport extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 month1 = position + 1 + "";
-                startingDate.setText(Utility.produceDate("01", month1, year1));
+                startingDate.setText(Utility.produceDate(day1, month1, year1));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spin_day1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                day1 = position + 1 + "";
+                startingDate.setText(Utility.produceDate(day1, month1, year1));
             }
 
             @Override
@@ -160,8 +189,22 @@ public class CreateAttendanceReport extends Activity {
                                        int position, long id) {
 
                 month2 = position + 1 + "";
-                endingDate.setText(Utility.produceDate("31", month2, year2));
+                endingDate.setText(Utility.produceDate(day2, month2, year2));
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spin_day2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                day2 = position + 1 + "";
+                endingDate.setText(Utility.produceDate(day2, month2, year2));
             }
 
             @Override
@@ -175,7 +218,7 @@ public class CreateAttendanceReport extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 year1 = ((ArrayAdapter<String>) spin_year1.getAdapter()).getItem(position);
-                startingDate.setText(Utility.produceDate("01", month1, year1));
+                startingDate.setText(Utility.produceDate(day1, month1, year1));
 
             }
 
@@ -190,7 +233,7 @@ public class CreateAttendanceReport extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 year2 = ((ArrayAdapter<String>) spin_year2.getAdapter()).getItem(position);
-                endingDate.setText(Utility.produceDate("31", month2, year2));
+                endingDate.setText(Utility.produceDate(day2, month2, year2));
 
             }
 

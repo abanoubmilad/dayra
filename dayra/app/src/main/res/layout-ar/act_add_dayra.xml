@@ -5,223 +5,227 @@
 
     <include layout="@layout/header" />
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="right"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="20dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="right"
-            android:orientation="vertical">
+            android:paddingRight="20dp"
+            android:paddingTop="20dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
-                android:text="@string/label.add.express"
-                android:textSize="@dimen/font_larger" />
+                android:gravity="right"
+                android:paddingBottom="100dp"
+                android:orientation="vertical">
 
-            <RadioGroup
-                android:id="@+id/radio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/dayra_file"
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:checked="true"
-                    android:drawableRight="@android:drawable/btn_radio"
-                    android:text="@string/label.dayra.file" />
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/label.add.express"
+                    android:textSize="@dimen/font_larger" />
 
-                <RadioButton
-                    android:id="@+id/dayra_xls"
-                    android:layout_width="0dp"
+                <RadioGroup
+                    android:id="@+id/radio"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/dayra_file"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableRight="@android:drawable/btn_radio"
+                        android:text="@string/label.dayra.file" />
+
+                    <RadioButton
+                        android:id="@+id/dayra_xls"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:drawableRight="@android:drawable/btn_radio"
+                        android:text="@string/label.dayra.xls" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/label.add.express.fields"
+                    android:textSize="@dimen/font_larger" />
+
+                <CheckBox
+                    android:id="@+id/selectall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:button="@null"
-                    android:drawableRight="@android:drawable/btn_radio"
-                    android:text="@string/label.dayra.xls" />
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="@string/label.selectall" />
 
-            </RadioGroup>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/label.add.express.fields"
-                android:textSize="@dimen/font_larger" />
+                    <CheckBox
+                        android:id="@+id/mobile1"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.mobile1" />
 
-            <CheckBox
-                android:id="@+id/selectall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:button="@null"
-                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                android:text="@string/label.selectall" />
+                    <CheckBox
+                        android:id="@+id/mobile2"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.mobile2" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <CheckBox
-                    android:id="@+id/mobile1"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.mobile1" />
+                    <CheckBox
+                        android:id="@+id/classyear"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.class.year" />
 
-                <CheckBox
-                    android:id="@+id/mobile2"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.mobile2" />
+                    <CheckBox
+                        android:id="@+id/mobile3"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.mobile3" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/study_work"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.study.work" />
+
+                    <CheckBox
+                        android:id="@+id/lphone"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.lphone" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <CheckBox
+                        android:id="@+id/email"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.email" />
+
+                    <CheckBox
+                        android:id="@+id/comm"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.notes" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/site"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.site" />
+
+                    <CheckBox
+                        android:id="@+id/addr"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.address" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/street"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.street" />
+
+                    <CheckBox
+                        android:id="@+id/supervisor"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.supervisor" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/home"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.home" />
+
+                    <CheckBox
+                        android:id="@+id/photo"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.photo" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/bday"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.bday" />
+
+                    <CheckBox
+                        android:id="@+id/map_location"
+                        style="@style/check_box_rtl"
+                        android:text="@string/label.location" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/xls_express"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/label.xls.express"
+                    android:textSize="@dimen/font_larger"
+                    android:visibility="gone" />
+
+
             </LinearLayout>
+        </ScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/classyear"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.class.year" />
-
-                <CheckBox
-                    android:id="@+id/mobile3"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.mobile3" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/study_work"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.study.work" />
-
-                <CheckBox
-                    android:id="@+id/lphone"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.lphone" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-                <CheckBox
-                    android:id="@+id/email"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.email" />
-
-                <CheckBox
-                    android:id="@+id/comm"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.notes" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/site"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.site" />
-
-                <CheckBox
-                    android:id="@+id/addr"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.address" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/street"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.street" />
-
-                <CheckBox
-                    android:id="@+id/supervisor"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.supervisor" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/home"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.home" />
-
-                <CheckBox
-                    android:id="@+id/photo"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.photo" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/bday"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.bday" />
-
-                <CheckBox
-                    android:id="@+id/map_location"
-                    style="@style/check_box_rtl"
-                    android:text="@string/label.location" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/xls_express"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="@string/label.xls.express"
-                android:textSize="@dimen/font_larger"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/btn"
-                style="@style/bottom_button"
-                android:layout_margin="20dp"
-                android:text="@string/label.select.dayra" />
-
-
-        </LinearLayout>
-    </ScrollView>
-
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn"
+            style="@style/floating_action_btn"
+            android:src="@mipmap/ic_btn_upload"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="false"/>
+    </RelativeLayout>
 
 </LinearLayout>

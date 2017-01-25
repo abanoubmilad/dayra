@@ -81,7 +81,20 @@ public class Home extends FragmentActivity {
         ((TextView) findViewById(R.id.footer)).setText("dayra "+ BuildConfig.VERSION_NAME+" @"+new SimpleDateFormat(
                 "yyyy", Locale.getDefault())
                 .format(new Date())+" Abanoub M.");
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                buttons[mCurrentTab].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.lightgrey));
+                buttons[0].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+                DB.getInstant(getApplicationContext()).closeDB();
+                Utility.clearLogin(getApplicationContext());
+                Intent intent = new Intent(getApplicationContext(), Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+
+            }
+        });
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager()));
 

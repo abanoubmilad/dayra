@@ -35,7 +35,6 @@ import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactData;
-import abanoubm.dayra.operations.CopyPhoneDayra;
 
 public class FragmentEditContactInfo extends Fragment {
     private final int EXTERNAL_REQUEST = 1400,
@@ -148,32 +147,7 @@ public class FragmentEditContactInfo extends Fragment {
         });
 
 
-        root.findViewById(R.id.deleteImage).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LayoutInflater li = LayoutInflater.from(getActivity());
-                final View view = li.inflate(R.layout.dialogue_delete, null, false);
-                final AlertDialog ad = new AlertDialog.Builder(getActivity())
-                        .setCancelable(true).create();
-                ad.setView(view, 0, 0, 0, 0);
-                ad.show();
-
-                view.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-
-
-                        new DeleteTask().execute();
-                        ad.dismiss();
-
-                    }
-                });
-
-
-            }
-        });
-        root.findViewById(R.id.saveImage).setOnClickListener(new View.OnClickListener() {
+        root.findViewById(R.id.btn_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new EditTask().execute(
@@ -313,29 +287,6 @@ public class FragmentEditContactInfo extends Fragment {
         }
     }
 
-    private class DeleteTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            pBar.show();
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            getActivity().finish();
-            Toast.makeText(getActivity(),
-                    R.string.msg_deleted, Toast.LENGTH_SHORT)
-                    .show();
-            pBar.dismiss();
-
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            DB.getInstant(getActivity()).deleteContact(id);
-            return null;
-        }
-    }
 
     private class GetOptionsListTask extends
             AsyncTask<Integer, Void, ArrayList<String>> {
@@ -503,6 +454,7 @@ public class FragmentEditContactInfo extends Fragment {
             }
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

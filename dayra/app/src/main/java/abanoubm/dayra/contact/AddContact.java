@@ -3,6 +3,8 @@ package abanoubm.dayra.contact;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +24,14 @@ public class AddContact extends AppCompatActivity implements CallBack {
 
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_add_contact);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
         buttons = new ImageView[]{
                 (ImageView) findViewById(R.id.img1),
                 (ImageView) findViewById(R.id.img2)
@@ -53,6 +62,10 @@ public class AddContact extends AppCompatActivity implements CallBack {
 
         FragmentEditContactMap fragment = new FragmentEditContactMap();
         fragment.setArguments(arguments);
+
+        ((InputMethodManager) getSystemService(
+                INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment, fragment)

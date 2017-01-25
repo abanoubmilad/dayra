@@ -48,7 +48,7 @@
     <string name="msg.dayra.imported">تم استيراد الدايره</string>
     <string name="err.msg.import">خطأ أثناء محاولة استيراد الدايره</string>
     <string name="err.msg.invalid_file">الملف غير صالح أو لا يمكن الوصول الى مكانه</string>
-    <string name="err.msg.invalid.path">خطأ اثناء محاولة الوصول للملف قم بوضع الملف على الذاكرة الداخلية ثم حاول مرة اخرى</string>
+    <string name="err.msg.invalid.path">خطأ اثناء محاولة الوصول للملف تأكد من ان الملف على الذاكرة الداخلية ثم حاول مرة اخرى</string>
     <string name="msg.no.dayra">ﻻ توجد دايره متاحة قم بتكوين واحدة</string>
     <string name="label.select.dayra">اختيار دايره</string>
     <string name="err.msg.open">خطأ أثناء محاولة الاتصال بقاعدة البيانات</string>
@@ -71,7 +71,7 @@
     <string name="subhead.divide">تقسيم الدايره الحالية</string>
     <string name="label.divide.express">تقسيم الدايره الحالية الى اكثر من دايره\nمع الاحتفاظ بالدايره الحالية كما هى\n\nتقسيم الدايره الحالية بواسطة</string>
     <string name="msg.dayra.divided">تم تقسيم الدايره</string>
-    <string name="label.add.express">أقرأ التعليمات بعناية قبل استخدام هذه الخاصية\nاحتفظ دوما بنسخة احتياطية من الدايره عن طريق استخدام تصدير دايره file\n\nاضافة بيانات للدايره الحالية باستخدام دايره file أو دايره xls\nاضافة البيانات تتم كالتالى:\n\n — فى حالة العثور على اسم جديد\nيتم اضافته مباشرة الى الدايره الحالية\n\n — فى حالة العثور على اسم موجود بالفعل فى الدايره الحالية\nيتم تحديث البيانات المُختارة\nتنبيه يتم استبدال البيانات المُختارة لهذا الاسم بالبيانات الجديدة</string>
+    <string name="label.add.express">أقرأ التعليمات بعناية قبل استخدام هذه الخاصية\nاحتفظ دوما بنسخة احتياطية من الدايره عن طريق استخدام تصدير دايره backup\n\nاضافة بيانات للدايره الحالية باستخدام دايره backup أو دايره xls\nاضافة البيانات تتم كالتالى:\n\n — فى حالة العثور على اسم جديد\nيتم اضافته مباشرة الى الدايره الحالية\n\n — فى حالة العثور على اسم موجود بالفعل فى الدايره الحالية\nيتم تحديث البيانات المُختارة\nتنبيه يتم استبدال البيانات المُختارة لهذا الاسم بالبيانات الجديدة</string>
     <string name="label.choose.site">اختر المنطقة</string>
     <string name="label.choose.street">اختر الشارع</string>
     <string name="label.choose.home">اختر المنزل</string>
@@ -129,6 +129,10 @@
 
     <string name="label.xls.express">دايره xls يجب ان تكون بالترتيب التالى:\n\nاسم, دفعة/سنة, دراسة/عمل, موبايل ١, موبايل ٢, موبايل ٣, تليفون, ايميل, منطقة, شارع, منزل, عنوان, ملاحظات, المُشرف, صورة\n ١٥ خانة \n\nاول صف يحتوى على اسماء الخانات فقط</string>
 
+    <string name="select.day">اختر اليوم</string>
+    <string name="select.month">اختر الشهر</string>
+    <string name="select.year">اختر السنة</string>
+
     <string-array name="days_type">
         <item>عرض ايام الحضور</item>
         <item>عرض ايام الحضور والغياب</item>
@@ -156,7 +160,7 @@
         <item>يونيو</item>
         <item>يوليو</item>
         <item>اغسطس</item>
-        <item>سبتمر</item>
+        <item>سبتمبر</item>
         <item>اكتوبر</item>
         <item>نوفمبر</item>
         <item>ديسمبر</item>
@@ -171,10 +175,43 @@
         <item>يونيو</item>
         <item>يوليو</item>
         <item>اغسطس</item>
-        <item>سبتمر</item>
+        <item>سبتمبر</item>
         <item>اكتوبر</item>
         <item>نوفمبر</item>
         <item>ديسمبر</item>
+    </string-array>
+    <string-array name="pure_days">
+        <item>١</item>
+        <item>٢</item>
+        <item>٣</item>
+        <item>٤</item>
+        <item>٥</item>
+        <item>٦</item>
+        <item>٧</item>
+        <item>٨</item>
+        <item>٩</item>
+        <item>١٠</item>
+        <item>١١</item>
+        <item>١٢</item>
+        <item>١٣</item>
+        <item>١٤</item>
+        <item>١٥</item>
+        <item>١٦</item>
+        <item>١٧</item>
+        <item>١٨</item>
+        <item>١٩</item>
+        <item>٢٠</item>
+        <item>٢١</item>
+        <item>٢٢</item>
+        <item>٢٣</item>
+        <item>٢٤</item>
+        <item>٢٥</item>
+        <item>٢٦</item>
+        <item>٢٧</item>
+        <item>٢٨</item>
+        <item>٢٩</item>
+        <item>٣٠</item>
+        <item>٣١</item>
     </string-array>
     <string-array name="days">
         <item>اى يوم</item>
@@ -264,7 +301,7 @@
     <string-array name="sign_menu">
         <item>دخول</item>
         <item>تكوين دايره</item>
-        <item>استيراد دايره file / backup</item>
+        <item>استيراد دايره backup</item>
         <item>دليل المستخدم</item>
         <item>الابلاغ عن مشكلة / اقتراحات</item>
         <item>اللغة / language</item>
@@ -280,7 +317,7 @@
         <item>عمل تقرير حضور</item>
         <item>عمل تقرير بيانات</item>
         <item>عمل جدول بيانات</item>
-        <item>تصدير دايره file / backup</item>
+        <item>تصدير دايره backup</item>
         <item>تصدير دايره xls</item>
         <item>فتح dayra folder</item>
     </string-array>
@@ -335,14 +372,11 @@
         <item>منزل</item>
         <item>المُشرف</item>
     </string-array>
-    <string name="copyright">dayra 4.0.8 ©%1$s\nabanoubcs@gmail.com</string>
-    <string name="label.dayra.file">دايره file / backup</string>
+    <string name="copyright">dayra 4.1 ©%1$s\nabanoubcs@gmail.com</string>
+    <string name="label.dayra.file">دايره backup</string>
     <string name="label.dayra.xls">دايره xls</string>
     <string name="subhead.display.day">المتابعة</string>
     <string name="subhead.display.map">عنوان الخريطة</string>
-    <string name="select.day">اختر اليوم</string>
-    <string name="select.month">اختر الشهر</string>
-    <string name="select.year">اختر السنة</string>
     <string name="subhead.add.data">اضافة بيانات للدايره الحالية</string>
 
     <string name="subhead.attendance.report">عمل تقرير حضور</string>

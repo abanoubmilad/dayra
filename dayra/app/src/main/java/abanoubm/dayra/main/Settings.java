@@ -23,7 +23,14 @@ public class Settings extends Activity {
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2))
                 .setText(R.string.label_settings);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
         attend = (CheckBox) findViewById(R.id.attend);
         bday = (CheckBox) findViewById(R.id.bday);
 

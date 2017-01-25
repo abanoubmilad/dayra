@@ -117,6 +117,8 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
 
         @Override
         protected void onPostExecute(String[] result) {
+            if(getActivity()==null)
+                return;
             if (result != null) {
                 if (!result[0].equals("")) {
                     site.setVisibility(View.VISIBLE);
@@ -152,6 +154,8 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
 
         @Override
         protected void onPostExecute(ContactLocation contact) {
+            if(getActivity()==null)
+                return;
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(contact.getMapLat(), contact.getMapLng())).title(getResources().getString(R.string.label_map_location))
                     .draggable(false)).showInfoWindow();

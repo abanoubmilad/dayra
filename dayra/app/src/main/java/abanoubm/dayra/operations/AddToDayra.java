@@ -161,7 +161,14 @@ public class AddToDayra extends Activity {
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2))
                 .setText(R.string.subhead_add_data);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
         final CheckBox selectall, mobile1, mobile2, mobile3,
                 lphone, addr, supervisor, comm,
                 email, study_work, class_year, site,

@@ -150,7 +150,14 @@ public class DisplayContactsStatistics extends Activity {
         setContentView(R.layout.act_display_contacts_statistics);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_percentage);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
         lv = (ListView) findViewById(R.id.dsr_list);
         mAdapter = new ContactStatisticsAdapter(getApplicationContext(), new ArrayList<ContactStatistics>(0));
         lv.setAdapter(mAdapter);

@@ -1,6 +1,8 @@
 package abanoubm.dayra.contact;
 
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -15,14 +17,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import abanoubm.dayra.R;
+import abanoubm.dayra.contacts.DisplayContacts;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 import abanoubm.dayra.model.ContactData;
 
 public class FragmentDisplayContactInfo extends Fragment {
+    private boolean dualMode;
     private static final String ARG_ID = "id";
+    private static final String ARG_DUAL_MODE = "dual";
 
     private TextView dis_name, dis_address, dis_bday, dis_comm, dis_email,
             dis_lphone, dis_mobile1, dis_mobile2, dis_mobile3, dis_priest,
@@ -58,6 +64,7 @@ public class FragmentDisplayContactInfo extends Fragment {
         Bundle arguments = getArguments();
         if (arguments != null) {
             id = arguments.getString(ARG_ID);
+            dualMode = arguments.getBoolean(ARG_DUAL_MODE);
         }
     }
 
@@ -211,6 +218,31 @@ public class FragmentDisplayContactInfo extends Fragment {
                     }
                 });
 
+        root.findViewById(R.id.btn_delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater li = LayoutInflater.from(getActivity());
+                final View view = li.inflate(R.layout.dialogue_delete, null, false);
+                final AlertDialog ad = new AlertDialog.Builder(getActivity())
+                        .setCancelable(true).create();
+                ad.setView(view, 0, 0, 0, 0);
+                ad.show();
+
+                view.findViewById(R.id.yesBtn).setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+
+                        new DeleteTask().execute();
+                        ad.dismiss();
+
+                    }
+                });
+
+
+            }
+        });
         return root;
 
     }
@@ -264,4 +296,34 @@ public class FragmentDisplayContactInfo extends Fragment {
 
     }
 
+    private class DeleteTask extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog pBar;
+
+        @Override
+        protected void onPreExecute() {
+
+            pBar = new ProgressDialog(getActivity());
+            pBar.setCancelable(false);
+            pBar.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            getActivity().finish();
+            if (dualMode)
+                startActivity(new Intent(getContext(), DisplayContacts.class));
+
+            Toast.makeText(getActivity(),
+                    R.string.msg_deleted, Toast.LENGTH_SHORT)
+                    .show();
+            pBar.dismiss();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            DB.getInstant(getActivity()).deleteContact(id);
+            return null;
+        }
+    }
 }

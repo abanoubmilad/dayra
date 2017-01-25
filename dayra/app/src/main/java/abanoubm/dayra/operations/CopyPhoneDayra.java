@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -150,9 +151,14 @@ public class CopyPhoneDayra extends Activity {
         setContentView(R.layout.act_mobiles);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_select_in);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
-        TextView CopyBtn = (TextView) findViewById(R.id.btn);
-        CopyBtn.setText(R.string.subhead_select_in);
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
 
         check = (CheckBox) findViewById(R.id.check_all);
         check.setOnClickListener(new OnClickListener() {
@@ -176,6 +182,8 @@ public class CopyPhoneDayra extends Activity {
                 mAdapter.notifyDataSetChanged();
             }
         });
+        FloatingActionButton CopyBtn = (FloatingActionButton) findViewById(R.id.btn);
+        CopyBtn.setImageResource(R.mipmap.ic_btn_copy);
         CopyBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

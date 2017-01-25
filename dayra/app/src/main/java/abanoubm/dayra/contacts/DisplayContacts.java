@@ -3,6 +3,7 @@ package abanoubm.dayra.contacts;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import abanoubm.dayra.R;
@@ -22,6 +23,14 @@ public class DisplayContacts extends AppCompatActivity implements CallBack {
         setContentView(R.layout.act_display_contacts);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_display_contacts);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
         dualMode = findViewById(R.id.display_contacts_fragment_dual) != null;
 
         if (savedInstanceState == null) {

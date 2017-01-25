@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -69,7 +70,14 @@ public class EditContact extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_edit_contact);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
         id = getIntent().getStringExtra(ARG_ID);
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager()));
@@ -149,6 +157,9 @@ public class EditContact extends FragmentActivity {
         mCurrentTab = changedCurrent;
         buttons[changedCurrent].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
         subHead2.setText(subHeads2[changedCurrent]);
+        ((InputMethodManager) getSystemService(
+                INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(mPager.getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
 }

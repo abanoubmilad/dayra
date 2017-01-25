@@ -55,7 +55,14 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_search);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+               finish();
+
+            }
+        });
 
         buttons = new ImageView[]{
                 (ImageView) findViewById(R.id.img1),

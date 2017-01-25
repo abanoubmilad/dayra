@@ -94,7 +94,14 @@ public class DivideDayra extends Activity {
         setContentView(R.layout.act_divide_dayra);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_divide);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
         final RadioGroup radio = (RadioGroup) findViewById(R.id.radio);
         radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -112,7 +119,7 @@ public class DivideDayra extends Activity {
             }
         });
 
-        findViewById(R.id.divide_btn).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {

@@ -5,71 +5,77 @@
 
     <include layout="@layout/header" />
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/label.divide.express"
-                android:textSize="@dimen/font_larger" />
-
-            <RadioGroup
-                android:id="@+id/radio"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="100dp">
 
-                <RadioButton
-                    android:id="@+id/class_year"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/label.class.year" />
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/label.divide.express"
+                    android:textSize="@dimen/font_larger" />
 
-                <RadioButton
-                    android:id="@+id/study_work"
+                <RadioGroup
+                    android:id="@+id/radio"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label.study.work" />
+                    android:layout_height="wrap_content">
 
-                <RadioButton
-                    android:id="@+id/site"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="@string/label.site" />
+                    <RadioButton
+                        android:id="@+id/class_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label.class.year" />
 
-                <RadioButton
-                    android:id="@+id/street"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label.street" />
+                    <RadioButton
+                        android:id="@+id/study_work"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label.study.work" />
+
+                    <RadioButton
+                        android:id="@+id/site"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/label.site" />
+
+                    <RadioButton
+                        android:id="@+id/street"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label.street" />
 
 
-                <RadioButton
-                    android:id="@+id/supervisor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label.supervisor" />
+                    <RadioButton
+                        android:id="@+id/supervisor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label.supervisor" />
 
-            </RadioGroup>
+                </RadioGroup>
 
-        </LinearLayout>
-    </ScrollView>
+            </LinearLayout>
+        </ScrollView>
 
-    <TextView
-        android:id="@+id/divide_btn"
-        style="@style/bottom_button"
-        android:text="@string/btn.divide" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn"
+            style="@style/floating_action_btn"
+            android:src="@mipmap/ic_btn_split" />
+    </RelativeLayout>
+
 
 </LinearLayout>

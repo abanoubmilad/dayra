@@ -190,7 +190,14 @@ public class Main extends Activity {
         setContentView(R.layout.act_main);
         ((TextView) findViewById(R.id.subhead1)).setText(R.string.app_name);
         ((TextView) findViewById(R.id.subhead2)).setText(BuildConfig.VERSION_NAME);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
         ((TextView) findViewById(R.id.footer)).setText("dayra " + BuildConfig.VERSION_NAME + " @" + new SimpleDateFormat(
                 "yyyy", Locale.getDefault())
                 .format(new Date()) + " Abanoub M.");

@@ -33,7 +33,7 @@
     </style>
 
     <style name="field_input" parent="label_input">
-        <item name="android:maxLength">60</item>
+        <item name="android:maxLength">100</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:inputType">textMultiLine</item>
     </style>
@@ -54,16 +54,12 @@
         <item name="android:drawableRight">?android:attr/listChoiceIndicatorMultiple</item>
     </style>
 
-    <style name="bottom_button">
-        <item name="android:layout_width">match_parent</item>
+    <style name="floating_action_btn">
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:background">@drawable/action_bg</item>
-        <item name="android:gravity">center</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/font_larger</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_margin">@dimen/fab_margin</item>
     </style>
 
 </resources>

@@ -3,6 +3,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
+    android:gravity="center"
     android:padding="10dp">
 
     <TextView
@@ -24,12 +25,12 @@
 
     <TextView
         android:id="@+id/yesBtn"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="@color/red"
         android:gravity="center"
-        android:padding="5dp"
+        android:padding="20dp"
         android:text="@string/btn.confirm"
         android:textColor="@color/white"
         android:textSize="@dimen/font_largest" />

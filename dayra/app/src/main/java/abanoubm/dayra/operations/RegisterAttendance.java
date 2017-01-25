@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -36,7 +37,7 @@ import abanoubm.dayra.model.IntWrapper;
 public class RegisterAttendance extends Activity {
     private EditText sname;
     private ListView lv;
-    private TextView addBtn, subhead2;
+    private TextView subhead2;
     private ProgressDialog pBar;
     private ContactCheck contact;
     private DB mDB;
@@ -44,7 +45,7 @@ public class RegisterAttendance extends Activity {
     private int dayType = 0;
     private int updatedCount;
     private ContactCheckAdapter mAdapter;
-
+    private FloatingActionButton addBtn;
     private int previousPosition = 0;
     private String targetDay;
 
@@ -63,8 +64,8 @@ public class RegisterAttendance extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            if(mDB==null)
-                mDB =DB.getInstant(getApplicationContext());
+            if (mDB == null)
+                mDB = DB.getInstant(getApplicationContext());
             mDB.addDay(contact.getId(), dayType + "", targetDay);
             return null;
         }
@@ -79,8 +80,8 @@ public class RegisterAttendance extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            if(mDB==null)
-                mDB =DB.getInstant(getApplicationContext());
+            if (mDB == null)
+                mDB = DB.getInstant(getApplicationContext());
             mDB.removeDay(contact.getId(), dayType + "", targetDay);
             return null;
         }
@@ -105,8 +106,8 @@ public class RegisterAttendance extends Activity {
 
         @Override
         protected ArrayList<ContactCheck> doInBackground(String... params) {
-            if(mDB==null)
-                mDB =DB.getInstant(getApplicationContext());
+            if (mDB == null)
+                mDB = DB.getInstant(getApplicationContext());
             name = params[0];
             return mDB.getDayAttendance(dayType + "", targetDay, params[0], temp);
         }
@@ -139,10 +140,17 @@ public class RegisterAttendance extends Activity {
         ((TextView) findViewById(R.id.subhead1))
                 .setText(R.string.subhead_register_attendance);
         subhead2 = (TextView) findViewById(R.id.subhead2);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
         final TextView date = (TextView) findViewById(R.id.date);
         sname = (EditText) findViewById(R.id.sname_edittext);
-        addBtn = (TextView) findViewById(R.id.sname_btn);
+        addBtn = (FloatingActionButton) findViewById(R.id.sname_btn);
         lv = (ListView) findViewById(R.id.sname_list);
 
         Calendar cal = Calendar.getInstance();

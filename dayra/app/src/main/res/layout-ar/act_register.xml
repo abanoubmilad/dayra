@@ -67,17 +67,21 @@
         android:hint="@string/label.name"
         android:imeOptions="actionDone"
         android:textSize="26sp" />
-
-    <ListView
-        android:id="@+id/sname_list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/sname_btn"
-        style="@style/bottom_button"
-        android:text="@string/btn.add"
-        android:visibility="gone" />
+        <ListView
+            android:id="@+id/sname_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/sname_btn"
+            style="@style/floating_action_btn"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/ic_btn_copy" />
+    </RelativeLayout>
 
 </LinearLayout>

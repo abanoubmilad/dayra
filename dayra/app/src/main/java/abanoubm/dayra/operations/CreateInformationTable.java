@@ -77,16 +77,20 @@ public class CreateInformationTable extends Activity {
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2))
                 .setText(R.string.subhead_information_table);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                finish();
 
-        final TextView exportBtn;
+            }
+        });
+
         final CheckBox numbering, name, mobile1, mobile2, mobile3,
                 lphone, addr, bday, notes,
                 email, study_work, class_year, site,
                 street, supervisor,home;
 
-
-        exportBtn = (TextView) findViewById(R.id.export_btn);
 
         name = (CheckBox) findViewById(R.id.name);
         mobile1 = (CheckBox) findViewById(R.id.mobile1);
@@ -105,7 +109,7 @@ public class CreateInformationTable extends Activity {
         supervisor = (CheckBox) findViewById(R.id.supervisor);
         home = (CheckBox) findViewById(R.id.home);
 
-        exportBtn.setOnClickListener(new OnClickListener() {
+        (findViewById(R.id.btn)).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {

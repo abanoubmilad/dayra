@@ -31,6 +31,7 @@ public class FragmentDisplayContact extends Fragment {
             arguments.putString(ARG_ID, id);
             if (position == 0) {
                 FragmentDisplayContactInfo fragment = new FragmentDisplayContactInfo();
+                arguments.putBoolean(ARG_DUAL_MODE, dualMode);
                 fragment.setArguments(arguments);
                 return fragment;
             } else if (position == 1) {
@@ -84,7 +85,18 @@ public class FragmentDisplayContact extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_display_contact, container, false);
+        if (dualMode) {
+            root.findViewById(R.id.nav_back).setVisibility(View.GONE);
+        } else {
+            root.findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+                @Override
+                public void onClick(View v) {
+                    getActivity().finish();
+
+                }
+            });
+        }
         mPager = (ViewPager) root.findViewById(R.id.pager);
         mPager.setAdapter(new ScreenSlidePagerAdapter(getChildFragmentManager()));
 

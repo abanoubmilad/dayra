@@ -12,7 +12,8 @@
     <color name="hint">#808080</color>
     <color name="lightgrey">#EFEFEF</color>
     <color name="lightergrey">#fafafa</color>
-    <color name="hotgreen">#27AB5E</color>
+    <color name="hotgreen">#ff28ce7a</color>
+    <color name="green">#ff27994f</color>
     <color name="midgrey">#f2f2f2</color>
 
 </resources>

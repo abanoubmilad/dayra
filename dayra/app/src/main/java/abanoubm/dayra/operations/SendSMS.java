@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -150,7 +151,14 @@ public class SendSMS extends Activity {
         setContentView(R.layout.act_mobiles);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_sms);
+        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
         check = (CheckBox) findViewById(R.id.check_all);
 
         check.setOnClickListener(new OnClickListener() {
@@ -192,7 +200,9 @@ public class SendSMS extends Activity {
                 return true;
             }
         });
-        findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
+        FloatingActionButton sendBtn = (FloatingActionButton) findViewById(R.id.btn);
+        sendBtn.setImageResource(R.mipmap.ic_btn_sms);
+        sendBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 new SendTask().execute();

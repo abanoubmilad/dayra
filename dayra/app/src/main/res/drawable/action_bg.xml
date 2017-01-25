@@ -1,9 +1,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@color/hotgreen" android:state_focused="true" />
-    <item android:drawable="@color/hotgreen" android:state_pressed="true" />
-    <item android:drawable="@color/hotgreen" android:state_selected="true" />
+    <item android:drawable="@color/green" android:state_focused="true" />
+    <item android:drawable="@color/green" android:state_pressed="true" />
+    <item android:drawable="@color/green" android:state_selected="true" />
     <!-- default -->
-    <item android:drawable="@color/colorAccent" />
+    <item android:drawable="@color/hotgreen" />
 
 </selector>

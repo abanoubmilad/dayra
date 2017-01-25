@@ -34,15 +34,23 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/btn"
-        style="@style/bottom_button"
-        android:text="@string/btn.search" />
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn"
+            style="@style/floating_action_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="false"
+            android:src="@mipmap/ic_btn_search" />
+    </RelativeLayout>
 
 </LinearLayout>

@@ -55,8 +55,12 @@
         <activity android:name=".search.Search" />
         <activity android:name=".operations.CreateInformationTable" />
         <activity android:name=".operations.CreateAttendanceReport" />
-        <activity android:name=".contact.EditContact" />
-        <activity android:name=".contact.AddContact" />
+        <activity
+            android:name=".contact.EditContact"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".contact.AddContact"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".operations.RegisterAttendance">
 
         </activity>

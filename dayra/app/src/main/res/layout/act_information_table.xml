@@ -6,157 +6,165 @@
 
     <include layout="@layout/header" />
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text="@string/label.choose.data"
-                android:textSize="@dimen/font_larger" />
-
-            <CheckBox
-                android:id="@+id/numbering"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:checked="true"
-                android:text="@string/label.numbering" />
-
-            <CheckBox
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/label.name" />
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:paddingBottom="100dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/label.choose.data"
+                    android:textSize="@dimen/font_larger" />
 
                 <CheckBox
-                    android:id="@+id/mobile1"
-                    style="@style/check_box"
-                    android:text="@string/label.mobile1" />
+                    android:id="@+id/numbering"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:checked="true"
+                    android:text="@string/label.numbering" />
 
                 <CheckBox
-                    android:id="@+id/mobile2"
-                    style="@style/check_box"
-                    android:text="@string/label.mobile2" />
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/label.name" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/mobile1"
+                        style="@style/check_box"
+                        android:text="@string/label.mobile1" />
+
+                    <CheckBox
+                        android:id="@+id/mobile2"
+                        style="@style/check_box"
+                        android:text="@string/label.mobile2" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/classyear"
+                        style="@style/check_box"
+                        android:text="@string/label.class.year" />
+
+                    <CheckBox
+                        android:id="@+id/mobile3"
+                        style="@style/check_box"
+                        android:text="@string/label.mobile3" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/study_work"
+                        style="@style/check_box"
+                        android:text="@string/label.study.work" />
+
+                    <CheckBox
+                        android:id="@+id/lphone"
+                        style="@style/check_box"
+                        android:text="@string/label.lphone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/site"
+                        style="@style/check_box"
+                        android:text="@string/label.site" />
+
+                    <CheckBox
+                        android:id="@+id/email"
+                        style="@style/check_box"
+                        android:text="@string/label.email" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <CheckBox
+                        android:id="@+id/street"
+                        style="@style/check_box"
+                        android:text="@string/label.street" />
+
+                    <CheckBox
+                        android:id="@+id/notes"
+                        style="@style/check_box"
+                        android:text="@string/label.notes" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/home"
+                        style="@style/check_box"
+                        android:text="@string/label.home" />
+
+
+                    <CheckBox
+                        android:id="@+id/bday"
+                        style="@style/check_box"
+                        android:text="@string/label.bday" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/addr"
+                        style="@style/check_box"
+                        android:text="@string/label.address" />
+
+                    <CheckBox
+                        android:id="@+id/supervisor"
+                        style="@style/check_box"
+                        android:text="@string/label.supervisor" />
+                </LinearLayout>
             </LinearLayout>
+        </ScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn"
+            style="@style/floating_action_btn"
+            android:src="@mipmap/ic_btn_download" />
+    </RelativeLayout>
 
-                <CheckBox
-                    android:id="@+id/classyear"
-                    style="@style/check_box"
-                    android:text="@string/label.class.year" />
-
-                <CheckBox
-                    android:id="@+id/mobile3"
-                    style="@style/check_box"
-                    android:text="@string/label.mobile3" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/study_work"
-                    style="@style/check_box"
-                    android:text="@string/label.study.work" />
-
-                <CheckBox
-                    android:id="@+id/lphone"
-                    style="@style/check_box"
-                    android:text="@string/label.lphone" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/site"
-                    style="@style/check_box"
-                    android:text="@string/label.site" />
-
-                <CheckBox
-                    android:id="@+id/email"
-                    style="@style/check_box"
-                    android:text="@string/label.email" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-                <CheckBox
-                    android:id="@+id/street"
-                    style="@style/check_box"
-                    android:text="@string/label.street" />
-
-                <CheckBox
-                    android:id="@+id/notes"
-                    style="@style/check_box"
-                    android:text="@string/label.notes" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/home"
-                    style="@style/check_box"
-                    android:text="@string/label.home" />
-
-
-                <CheckBox
-                    android:id="@+id/bday"
-                    style="@style/check_box"
-                    android:text="@string/label.bday" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:id="@+id/addr"
-                    style="@style/check_box"
-                    android:text="@string/label.address" />
-                <CheckBox
-                    android:id="@+id/supervisor"
-                    style="@style/check_box"
-                    android:text="@string/label.supervisor" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/export_btn"
-        style="@style/bottom_button"
-        android:text="@string/btn.export" />
 
 </LinearLayout>
