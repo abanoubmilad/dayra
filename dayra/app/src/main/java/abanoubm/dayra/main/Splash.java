@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.animation.AnimationUtils;
@@ -28,9 +27,6 @@ public class Splash extends Activity {
 
         findViewById(R.id.layout).setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.fade));
-        final MediaPlayer mMedia =
-                MediaPlayer.create(getApplicationContext(), R.raw.bing);
-        mMedia.start();
 
         if (Utility.getArabicLang(getApplicationContext()) == 1) {
             Utility.setArabicLang(getApplicationContext(), 2);
@@ -44,14 +40,13 @@ public class Splash extends Activity {
         Thread timerThread = new Thread() {
             public void run() {
                 try {
-                    sleep(2000);
+                    sleep(1500);
                 } catch (InterruptedException e) {
                 }
                 if (!Utility.getDayraName(getApplicationContext()).equals(""))
                     startActivity(new Intent(Splash.this, Home.class));
                 else
                     startActivity(new Intent(Splash.this, Main.class));
-                mMedia.release();
                 finish();
 
             }

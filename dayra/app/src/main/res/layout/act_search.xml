@@ -21,8 +21,6 @@
             android:background="@color/white"
             android:padding="10dp"
             android:src="@mipmap/ic_search1" />
-
-
         <ImageView
             android:id="@+id/img2"
             android:layout_width="0dp"
@@ -32,8 +30,18 @@
             android:padding="10dp"
             android:src="@mipmap/ic_days" />
 
+
         <ImageView
             android:id="@+id/img3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:src="@mipmap/ic_days" />
+
+        <ImageView
+            android:id="@+id/img4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

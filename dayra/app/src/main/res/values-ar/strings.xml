@@ -37,6 +37,7 @@
     <string name="subhead.search.info">بحث تفاصيل</string>
     <string name="label.confirm.dayra">تأكيد اسم الدايره</string>
     <string name="subhead.search_dates">بحت تواريخ</string>
+    <string name="subhead.search_infodates">بحث تفاصيل وتواريخ</string>
     <string name="subhead.search_bdays">بحث تاريخ الميلاد</string>
     <string name="btn.add">اضافة</string>
     <string name="subhead.add.contact">اضافة</string>
@@ -278,6 +279,10 @@
         <item>اى تاريخ</item>
         <item>اول تاريخ حضور</item>
         <item>اخر تاريخ حضور</item>
+    </string-array>
+    <string-array name="search_dates_type">
+        <item>بحث عن الغياب</item>
+        <item>بحث عن الحضور</item>
     </string-array>
     <string-array name="photo_menu">
         <item>صورة من ملف</item>

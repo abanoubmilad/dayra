@@ -42,6 +42,7 @@
     <string name="err.msg.empty.name">Name can\'t be empty!</string>
     <string name="subhead.search.info">Search info</string>
     <string name="subhead.search_dates">Search dates</string>
+    <string name="subhead.search_infodates">Search info and dates</string>
     <string name="subhead.search_bdays">Search birth dates</string>
     <string name="label.confirm.dayra">confirm dayra name</string>
     <string name="btn.add">add</string>
@@ -301,6 +302,10 @@
         <item>Any date</item>
         <item>First attendance date</item>
         <item>Last attendance date</item>
+    </string-array>
+    <string-array name="search_dates_type">
+        <item>search for absence</item>
+        <item>search for attendance</item>
     </string-array>
     <string-array name="photo_menu">
         <item>Choose</item>

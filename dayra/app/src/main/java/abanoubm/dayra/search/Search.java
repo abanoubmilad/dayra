@@ -18,7 +18,7 @@ public class Search extends AppCompatActivity {
     private ViewPager mPager;
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        private static final int NUM_PAGES = 3;
+        private static final int NUM_PAGES = 4;
 
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
@@ -30,6 +30,8 @@ public class Search extends AppCompatActivity {
                 return new FragmentSearchInfo();
             else if (position == 1)
                 return new FragmentSearchDates();
+            else if (position == 2)
+                return new FragmentSearchInfoDates();
             else
                 return new FragmentSearchBirthdays();
 
@@ -46,6 +48,7 @@ public class Search extends AppCompatActivity {
     private final int[] subHeads2 = new int[]{
             R.string.subhead_search_info,
             R.string.subhead_search_dates,
+            R.string.subhead_search_infodates,
             R.string.subhead_search_bdays
     };
     private ImageView[] buttons;
@@ -68,6 +71,7 @@ public class Search extends AppCompatActivity {
                 (ImageView) findViewById(R.id.img1),
                 (ImageView) findViewById(R.id.img2),
                 (ImageView) findViewById(R.id.img3),
+                (ImageView) findViewById(R.id.img4),
         };
 
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -99,6 +103,15 @@ public class Search extends AppCompatActivity {
             public void onClick(View v) {
                 if (mCurrentTab != 2)
                     mPager.setCurrentItem(2);
+
+            }
+        });
+        buttons[3].setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (mCurrentTab != 3)
+                    mPager.setCurrentItem(3);
 
             }
         });

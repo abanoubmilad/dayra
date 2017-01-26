@@ -42,11 +42,9 @@ import abanoubm.dayra.model.ContactStatistics;
 import abanoubm.dayra.model.DayCheck;
 import abanoubm.dayra.model.Field;
 import abanoubm.dayra.model.IntWrapper;
-import jxl.CellView;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.write.Label;
-import jxl.write.WritableImage;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 
@@ -1293,6 +1291,64 @@ public class DB extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new Field(c.getString(0), c.getBlob(1), c.getString(2), c.getString(3)));
+            } while (c.moveToNext());
+        }
+        c.close();
+        return result;
+
+    }
+
+    public ArrayList<ContactField> searchDates(String date, String type, boolean searchForAbsence) {
+        String selectQuery;
+        if (searchForAbsence)
+            selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," +
+                    PHOTO_BLOB + " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                    " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                    " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
+                    CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " = ?  AND " + ATTEND_TYPE + " = ? WHERE " + ATTEND_DAY + " IS NULL ORDER BY " + CONTACT_NAME;
+        else
+            selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," +
+                    PHOTO_BLOB + " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                    " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                    " INNER JOIN " + TB_ATTEND + " ON " +
+                    CONTACT_ID + "=" + ATTEND_ID + " WHERE " + ATTEND_DAY + " = ?  AND " + ATTEND_TYPE + " = ? ORDER BY " + CONTACT_NAME;
+
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{date, type});
+        ArrayList<ContactField> result = new ArrayList<>(c.getCount());
+
+        if (c.moveToFirst()) {
+            do {
+                result.add(new ContactField(c.getString(0), c.getString(1),
+                        "", c.getBlob(2)));
+            } while (c.moveToNext());
+        }
+        c.close();
+        return result;
+
+    }
+
+    public ArrayList<ContactField> searchInfoDates(String value, String tag, String date, String type, boolean searchForAbsence) {
+        String selectQuery;
+        if (searchForAbsence)
+            selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + tag + "," +
+                    PHOTO_BLOB + " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                    " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                    " LEFT OUTER JOIN " + TB_ATTEND + " ON " +
+                    CONTACT_ID + "=" + ATTEND_ID + " AND " + ATTEND_DAY + " = ?  AND " + ATTEND_TYPE + " = ? WHERE " + ATTEND_DAY + " IS NULL AND " + tag + " LIKE ? ORDER BY " + CONTACT_NAME;
+        else
+            selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + tag + "," +
+                    PHOTO_BLOB + " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                    " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                    " INNER JOIN " + TB_ATTEND + " ON " +
+                    CONTACT_ID + "=" + ATTEND_ID + " WHERE " + ATTEND_DAY + " = ?  AND " + ATTEND_TYPE + " = ? AND " + tag + " LIKE ? ORDER BY " + CONTACT_NAME;
+
+        Cursor c = readableDB.rawQuery(selectQuery, new String[]{date, type, "%" + value + "%"});
+        ArrayList<ContactField> result = new ArrayList<>(c.getCount());
+
+        if (c.moveToFirst()) {
+            do {
+                result.add(new ContactField(c.getString(0), c.getString(1),
+                        c.getString(2), c.getBlob(3)));
             } while (c.moveToNext());
         }
         c.close();

@@ -32,16 +32,12 @@ import abanoubm.dayra.model.ContactField;
 
 public class FragmentSearchDates extends Fragment {
     private ContactFieldAdapter adapter;
-    private int currentTag = 0;
+    private boolean searchForAbsence = true;
     private int dayType = 0;
     private String targetDay;
-    private final String[] searchTags = {
-            DB.ATTEND_DAY,
-            " MIN(" + DB.ATTEND_DAY + ")",
-            " MAX(" + DB.ATTEND_DAY + ")"
-    };
 
     private DB mDB;
+
     private class SearchDatesTask extends
             AsyncTask<Void, Void, ArrayList<ContactField>> {
         private ProgressDialog pBar;
@@ -55,10 +51,10 @@ public class FragmentSearchDates extends Fragment {
 
         @Override
         protected ArrayList<ContactField> doInBackground(Void... params) {
-            if(mDB==null)
-                mDB =DB.getInstant(getActivity());
+            if (mDB == null)
+                mDB = DB.getInstant(getActivity());
             return mDB
-                    .searchDates(targetDay, dayType + "", searchTags[currentTag]);
+                    .searchDates(targetDay, dayType + "", searchForAbsence);
 
 
         }
@@ -133,15 +129,14 @@ public class FragmentSearchDates extends Fragment {
 
         Spinner spin_search = (Spinner) root.findViewById(R.id.spin_search);
         spin_search.setAdapter(new ArrayAdapter<>(getActivity(),
-                R.layout.item_string, getResources().getTextArray(R.array.search_dates_menu)));
+                R.layout.item_string, getResources().getTextArray(R.array.search_dates_type)));
 
         spin_search.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-
-                currentTag = position;
+                searchForAbsence = position == 0;
             }
 
             @Override
