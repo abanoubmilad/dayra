@@ -337,6 +337,7 @@
         <item>Contact developer</item>
         <item>Rate dayra</item>
         <item>Open dayra folder</item>
+        <item>About</item>
     </string-array>
     <string-array name="out_menu">
         <item>Send SMS</item>
@@ -345,6 +346,7 @@
         <item>Create Attendance report</item>
         <item>Create Information report</item>
         <item>Create Information table</item>
+        <item>Export dayra to G-Drive</item>
         <item>Export dayra backup</item>
         <item>Export dayra xls</item>
         <item>Open dayra folder</item>
@@ -425,6 +427,7 @@
         <item>@mipmap/ic_contact</item>
         <item>@mipmap/ic_rate</item>
         <item>@mipmap/ic_folder</item>
+        <item>@mipmap/ic_about</item>
     </string-array>
     <string-array name="out_icons" translatable="false">
         <item>@mipmap/ic_mess</item>
@@ -433,6 +436,7 @@
         <item>@mipmap/ic_pdf</item>
         <item>@mipmap/ic_pdf</item>
         <item>@mipmap/ic_pdf</item>
+        <item>@mipmap/ic_gdrive</item>
         <item>@mipmap/ic_file</item>
         <item>@mipmap/ic_xls</item>
         <item>@mipmap/ic_folder</item>
@@ -451,6 +455,7 @@
     <string name="subhead.add.data">Add data to current dayra</string>
 
     <string name="subhead.attendance.report">Create attendance report</string>
+    <string name="subhead.gdrive">Export dayra to G-Drive</string>
     <string name="subhead.information.table">Create information table</string>
     <string name="any.year">Any year</string>
 

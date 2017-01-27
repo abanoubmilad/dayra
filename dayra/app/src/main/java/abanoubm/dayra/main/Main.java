@@ -27,6 +27,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GoogleApiAvailability;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -34,6 +36,7 @@ import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -335,6 +338,26 @@ public class Main extends Activity {
                                     new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                     FOLDER_REQUEST);
                         }
+                        break;
+                    case 10:
+                        LayoutInflater li = LayoutInflater.from(getApplicationContext());
+                        final View aboutView = li.inflate(R.layout.dialogue_about, null, false);
+                        final AlertDialog ad = new AlertDialog.Builder(Main.this)
+                                .setCancelable(true).create();
+                        ad.setView(aboutView, 0, 0, 0, 0);
+                        ad.show();
+                        ((TextView) aboutView.findViewById(R.id.about)).setText(String.format(
+                                getResources().getString(R.string.copyright),
+                                Calendar.getInstance().get(Calendar.YEAR)));
+
+                        ((TextView) aboutView.findViewById(R.id.notice)).setText(GoogleApiAvailability.getInstance().getOpenSourceSoftwareLicenseInfo(getApplicationContext()));
+                        aboutView.findViewById(R.id.btn).setOnClickListener(new OnClickListener() {
+
+                            @Override
+                            public void onClick(View v) {
+                                ad.cancel();
+                            }
+                        });
                         break;
                 }
             }

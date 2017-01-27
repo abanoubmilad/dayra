@@ -314,6 +314,7 @@
         <item>تواصل مع المُطور</item>
         <item>تقييم دايره</item>
         <item>فتح dayra folder</item>
+        <item>عن التطبيق</item>
     </string-array>
     <string-array name="out_menu">
         <item>ارسال SMS</item>
@@ -322,6 +323,7 @@
         <item>عمل تقرير حضور</item>
         <item>عمل تقرير بيانات</item>
         <item>عمل جدول بيانات</item>
+        <item>تصدير الدايره الى G-Drive</item>
         <item>تصدير دايره backup</item>
         <item>تصدير دايره xls</item>
         <item>فتح dayra folder</item>
@@ -411,5 +413,6 @@
     <string name="select.ending.at">حتى</string>
     <string name="select.starting.from">بداية من</string>
     <string name="msg.no.attendance">لا يوجد حضور</string>
+    <string name="subhead.gdrive">تصدير الدايره الى G-Drive </string>
 
 </resources>

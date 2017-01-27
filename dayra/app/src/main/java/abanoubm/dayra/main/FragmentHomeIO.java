@@ -35,6 +35,7 @@ import abanoubm.dayra.operations.CopyDayraPhone;
 import abanoubm.dayra.operations.CopyPhoneDayra;
 import abanoubm.dayra.operations.CreateAttendanceReport;
 import abanoubm.dayra.operations.CreateInformationTable;
+import abanoubm.dayra.operations.ExportGDrive;
 import abanoubm.dayra.operations.SendSMS;
 
 public class FragmentHomeIO extends Fragment {
@@ -135,6 +136,9 @@ public class FragmentHomeIO extends Fragment {
 
                         break;
                     case 6:
+                        startActivity(new Intent(getActivity(), ExportGDrive.class));
+                        break;
+                    case 7:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -146,7 +150,7 @@ public class FragmentHomeIO extends Fragment {
                                     EXPORT_FILE_REQUEST);
                         }
                         break;
-                    case 7:
+                    case 8:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -158,7 +162,7 @@ public class FragmentHomeIO extends Fragment {
                                     EXPORT_EXCEL_REQUEST);
                         }
                         break;
-                    case 8:
+                    case 9:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
