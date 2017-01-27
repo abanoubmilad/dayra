@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -41,6 +42,7 @@ public class FragmentAddContactInfo extends Fragment {
     private final int EXTERNAL_REQUEST = 1400,
             CAMERA_REQUEST = 1500;
     private ImageView img;
+    private ImageView imgRotater;
     private static final int TAKE_IMG = 2;
     private static final int BROWSE_IMG = 1;
     private Bitmap photo = null;
@@ -141,7 +143,7 @@ public class FragmentAddContactInfo extends Fragment {
             }
         });
 
-        FloatingActionButton btn =  (FloatingActionButton)root.findViewById(R.id.btn_save);
+        FloatingActionButton btn = (FloatingActionButton) root.findViewById(R.id.btn_save);
         btn.setImageResource(R.mipmap.ic_btn_add);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,6 +221,21 @@ public class FragmentAddContactInfo extends Fragment {
 
                     }
                 });
+        imgRotater = (ImageView) root.findViewById(R.id.pic_rotate);
+
+        imgRotater.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (photo != null) {
+                    Matrix matrix = new Matrix();
+                    matrix.setRotate(90);
+                    photo = Bitmap.createBitmap(photo, 0, 0, photo.getWidth(), photo.getHeight(), matrix, false);
+                    img.setImageBitmap(photo);
+                }
+
+            }
+        });
         return root;
     }
 
@@ -400,6 +417,7 @@ public class FragmentAddContactInfo extends Fragment {
                     img.setImageBitmap(photo);
                 cursor.close();
             }
+            imgRotater.setVisibility(photo == null ? View.GONE : View.VISIBLE);
         }
     }
 

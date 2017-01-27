@@ -8,7 +8,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:background="@color/midgrey">
+
         <EditText
             android:id="@+id/input"
             android:layout_width="0dp"
@@ -18,6 +20,7 @@
             android:hint="@string/label.name"
             android:maxLength="60"
             android:textSize="26sp" />
+
         <Spinner
             android:id="@+id/spin"
             android:layout_width="0dp"

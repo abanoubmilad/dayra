@@ -6,7 +6,7 @@
     <include layout="@layout/header" />
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/grey"
         android:orientation="horizontal">
@@ -16,35 +16,33 @@
             android:id="@+id/img1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/white"
             android:padding="10dp"
+            android:background="@color/white"
             android:src="@mipmap/ic_search1" />
+
         <ImageView
             android:id="@+id/img2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="1"
             android:padding="10dp"
+
             android:src="@mipmap/ic_days" />
 
 
         <ImageView
             android:id="@+id/img3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:padding="10dp"
-            android:src="@mipmap/ic_days" />
+            android:layout_weight="1"
+            android:src="@mipmap/ic_search_infodates" />
 
         <ImageView
             android:id="@+id/img4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="1"
             android:padding="10dp"
             android:src="@mipmap/ic_bday" />

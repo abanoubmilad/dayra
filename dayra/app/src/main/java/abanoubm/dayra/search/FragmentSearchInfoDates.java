@@ -90,7 +90,7 @@ public class FragmentSearchInfoDates extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_search_info, container, false);
+        View root = inflater.inflate(R.layout.fragment_search_infodates, container, false);
 
         input = (EditText) root.findViewById(R.id.input);
 

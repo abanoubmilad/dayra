@@ -33,7 +33,7 @@
         android:background="@color/darkred"
         android:padding="10dp"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_normal"
+        android:textSize="@dimen/font_small"
         android:textStyle="bold" />
 
 

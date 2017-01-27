@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -43,13 +44,14 @@ public class FragmentEditContactInfo extends Fragment {
     private String id;
 
     private ImageView img;
+    private ImageView imgRotater;
 
     private ContactData contactData;
 
     private static final int TAKE_IMG = 2;
     private static final int BROWSE_IMG = 1;
 
-    private byte[] photo = null;
+    private Bitmap photo = null;
 
     private EditText name, address, comm, email,
             lphone, mobile1, mobile2, mobile3;
@@ -224,7 +226,21 @@ public class FragmentEditContactInfo extends Fragment {
 
                     }
                 });
+        imgRotater = (ImageView) root.findViewById(R.id.pic_rotate);
 
+        imgRotater.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (photo != null) {
+                    Matrix matrix = new Matrix();
+                    matrix.setRotate(90);
+                    photo = Bitmap.createBitmap(photo, 0, 0, photo.getWidth(), photo.getHeight(), matrix, false);
+                    img.setImageBitmap(photo);
+                }
+
+            }
+        });
         return root;
     }
 
@@ -278,7 +294,7 @@ public class FragmentEditContactInfo extends Fragment {
                 values.put(DB.CONTACT_SITE, params[13]);
                 values.put(DB.CONTACT_SUPERVISOR, params[14]);
 
-                dbm.updateContact(values, photo, contactData.getId());
+                dbm.updateContact(values, Utility.getBytes(photo), contactData.getId());
                 msgSource = R.string.msg_updated;
                 return true;
             }
@@ -373,11 +389,13 @@ public class FragmentEditContactInfo extends Fragment {
 
         date.setText(contactData.getBirthDay());
 
-        photo = contactData.getPhoto();
+        photo = Utility.getBitmap(contactData.getPhoto());
         if (photo != null)
-            img.setImageBitmap(Utility.getBitmap(photo));
+            img.setImageBitmap(photo);
         else
             img.setImageResource(R.mipmap.def);
+
+        imgRotater.setVisibility(photo == null ? View.GONE : View.VISIBLE);
 
     }
 
@@ -434,10 +452,9 @@ public class FragmentEditContactInfo extends Fragment {
         if (resultCode == android.support.v4.app.FragmentActivity.RESULT_OK) {
             if (requestCode == TAKE_IMG) {
 
-                Bitmap bitmap = Utility.getThumbnail((Bitmap) data.getExtras().get("data"));
-                photo = Utility.getBytes(bitmap);
+                photo = Utility.getThumbnail((Bitmap) data.getExtras().get("data"));
                 if (photo != null)
-                    img.setImageBitmap(bitmap);
+                    img.setImageBitmap(photo);
 
             } else if (requestCode == BROWSE_IMG) {
                 Uri selectedImage = data.getData();
@@ -445,13 +462,14 @@ public class FragmentEditContactInfo extends Fragment {
                 Cursor cursor = getActivity().getContentResolver().query(selectedImage,
                         filePathColumn, null, null, null);
                 cursor.moveToFirst();
-                Bitmap bitmap = Utility.getBitmap(
+                photo = Utility.getBitmap(
                         cursor.getString(cursor.getColumnIndex(filePathColumn[0])));
-                photo = Utility.getBytes(bitmap);
                 if (photo != null)
-                    img.setImageBitmap(bitmap);
+                    img.setImageBitmap(photo);
                 cursor.close();
             }
+            imgRotater.setVisibility(photo == null ? View.GONE : View.VISIBLE);
+
         }
     }
 
