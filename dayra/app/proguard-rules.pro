@@ -17,3 +17,4 @@
 #}
 -dontwarn com.itextpdf.**
 -dontwarn org.apache.log4j.**
+

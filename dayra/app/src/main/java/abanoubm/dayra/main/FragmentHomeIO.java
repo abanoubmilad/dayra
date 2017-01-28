@@ -44,7 +44,8 @@ public class FragmentHomeIO extends Fragment {
     private final int COPY_PHONE_REQUEST = 1400,
             COPY_DAYRA_REQUEST = 1500, EXPORT_ATTENDANCE_REQUEST = 1600,
             FOLDER_REQUEST = 1700, EXPORT_INFO_TABLE_REQUEST = 1800,
-            EXPORT_INFO_REPORT_REQUEST = 1900, EXPORT_FILE_REQUEST = 2000, EXPORT_EXCEL_REQUEST = 2100;
+            EXPORT_INFO_REPORT_REQUEST = 1900, EXPORT_FILE_REQUEST = 2000,
+            EXPORT_EXCEL_REQUEST = 2100, GDRIVE_REQUEST = 2200;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -136,8 +137,18 @@ public class FragmentHomeIO extends Fragment {
 
                         break;
                     case 6:
-                        startActivity(new Intent(getActivity(), ExportGDrive.class));
+                        if (Build.VERSION.SDK_INT < 23 ||
+                                ContextCompat.checkSelfPermission(getContext(),
+                                        Manifest.permission.GET_ACCOUNTS)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                            startActivity(new Intent(getActivity(), ExportGDrive.class));
+                        } else {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[]{android.Manifest.permission.GET_ACCOUNTS},
+                                    GDRIVE_REQUEST);
+                        }
                         break;
+
                     case 7:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
@@ -373,6 +384,11 @@ public class FragmentHomeIO extends Fragment {
                     startActivity(new Intent(getActivity(),
                             CopyPhoneDayra.class));
                 break;
+            case GDRIVE_REQUEST:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    startActivity(new Intent(getActivity(), ExportGDrive.class));
+                break;
+
         }
 
 

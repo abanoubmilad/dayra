@@ -8,10 +8,8 @@ import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import abanoubm.dayra.R;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -24,6 +22,7 @@ import com.google.android.gms.drive.MetadataChangeSet;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 
+import abanoubm.dayra.R;
 import abanoubm.dayra.main.DB;
 import abanoubm.dayra.main.Utility;
 
@@ -31,39 +30,13 @@ public class ExportGDrive extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = "BaseDriveActivity";
-
-    /**
-     * DriveId of an existing folder to be used as a parent folder in
-     * folder operations samples.
-     */
-    public static final String EXISTING_FOLDER_ID = "0B2EEtIjPUdX6MERsWlYxN3J6RU0";
     private ProgressDialog pBar;
 
-    /**
-     * DriveId of an existing file to be used in file operation samples..
-     */
-    public static final String EXISTING_FILE_ID = "0ByfSjdPVs9MZTHBmMVdSeWxaNTg";
-
-    /**
-     * Extra for account name.
-     */
-    protected static final String EXTRA_ACCOUNT_NAME = "account_name";
-
-    /**
-     * Request code for auto Google Play Services error resolution.
-     */
     protected static final int REQUEST_CODE_RESOLUTION = 1;
     protected static final int REQUEST_CODE_UPLOAD = 5;
 
-    /**
-     * Next available request code.
-     */
-    protected static final int NEXT_AVAILABLE_REQUEST_CODE = 2;
-
-    /**
-     * Google API client.
-     */
     private GoogleApiClient mGoogleApiClient;
+    private boolean connectionTried=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,53 +52,45 @@ public class ExportGDrive extends Activity implements
 
             }
         });
-    }
+        pBar = new ProgressDialog(ExportGDrive.this);
+        pBar.setMessage(getResources().getString(R.string.label_loading));
+        pBar.setCancelable(false);
 
-    /**
-     * Called when activity gets visible. A connection to Drive services need to
-     * be initiated as soon as the activity is visible. Registers
-     * {@code ConnectionCallbacks} and {@code OnConnectionFailedListener} on the
-     * activities itself.
-     */
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Drive.API)
+                .addScope(Drive.SCOPE_FILE)
+                .addScope(Drive.SCOPE_APPFOLDER) // required for App Folder sample
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        pBar = new ProgressDialog(ExportGDrive.this);
-        pBar.setMessage(getResources().getString(R.string.label_loading));
-        pBar.setCancelable(false);
         pBar.show();
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addApi(Drive.API)
-                    .addScope(Drive.SCOPE_FILE)
-                    .addScope(Drive.SCOPE_APPFOLDER) // required for App Folder sample
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .build();
-        }
+        if (connectionTried)
+            finish();
+
         mGoogleApiClient.connect();
+        connectionTried=true;
     }
 
-    /**
-     * Handles resolution callbacks.
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_RESOLUTION && resultCode == RESULT_OK) {
+            connectionTried=false;
             mGoogleApiClient.connect();
         } else if (requestCode == REQUEST_CODE_UPLOAD && resultCode == RESULT_OK) {
-            showMessage("file uploaded successfully");
+            showMessage(R.string.msg_dayra_exported);
             finish();
         }
     }
 
-    /**
-     * Called when activity gets invisible. Connection to Drive service needs to
-     * be disconnected as soon as an activity is invisible.
-     */
+
     @Override
     protected void onPause() {
         if (mGoogleApiClient != null) {
@@ -134,27 +99,11 @@ public class ExportGDrive extends Activity implements
         super.onPause();
     }
 
-    /**
-     * Called when {@code mGoogleApiClient} is connected.
-     */
-//    @Override
-//    public void onConnected(Bundle connectionHint) {
-//        Log.i(TAG, "GoogleApiClient connected");
-//    }
-
-    /**
-     * Called when {@code mGoogleApiClient} is disconnected.
-     */
     @Override
     public void onConnectionSuspended(int cause) {
         Log.i(TAG, "GoogleApiClient connection suspended");
     }
 
-    /**
-     * Called when {@code mGoogleApiClient} is trying to connect but failed.
-     * Handle {@code result.getResolution()} if there is a resolution is
-     * available.
-     */
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         Log.i(TAG, "GoogleApiClient connection failed: " + result.toString());
@@ -167,21 +116,14 @@ public class ExportGDrive extends Activity implements
             result.startResolutionForResult(this, REQUEST_CODE_RESOLUTION);
         } catch (SendIntentException e) {
             Log.e(TAG, "Exception while starting resolution activity", e);
+            showMessage(R.string.err_msg_export);
+            finish();
+
         }
     }
 
-    /**
-     * Shows a toast message.
-     */
-    public void showMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Getter for the {@code GoogleApiClient}.
-     */
-    public GoogleApiClient getGoogleApiClient() {
-        return mGoogleApiClient;
+    public void showMessage(int resource) {
+        Toast.makeText(this, resource, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -194,6 +136,9 @@ public class ExportGDrive extends Activity implements
                     public void onResult(final DriveContentsResult result) {
                         if (!result.getStatus().isSuccess()) {
                             Log.i(TAG, "Failed to create new contents.");
+                            showMessage(R.string.err_msg_export);
+                            finish();
+
                             return;
                         }
                         Log.i(TAG, "New contents created.");
@@ -214,16 +159,16 @@ public class ExportGDrive extends Activity implements
 
                                     outputStream.close();
                                 } catch (Exception e) {
+                                    showMessage(R.string.err_msg_export);
+                                    finish();
                                     Log.i(TAG, "Unable to write file contents.");
 
-//                            return false;
                                     return;
                                 }
                                 // Create the initial metadata - MIME type and title.
                                 // Note that the user will be able to change the title later.
                                 MetadataChangeSet metadataChangeSet = new MetadataChangeSet.Builder()
                                         .setMimeType("application/octet-stream").setTitle(Utility.getDayraName(getApplicationContext())).build();
-                                pBar.dismiss();
 
                                 // Create an intent for the file chooser, and start it.
                                 IntentSender intentSender = Drive.DriveApi
@@ -234,7 +179,10 @@ public class ExportGDrive extends Activity implements
                                 try {
                                     startIntentSenderForResult(
                                             intentSender, REQUEST_CODE_UPLOAD, null, 0, 0, 0);
+                                    pBar.dismiss();
                                 } catch (SendIntentException e) {
+                                    showMessage(R.string.err_msg_export);
+                                    finish();
                                     Log.i(TAG, "Failed to launch file chooser.");
                                 }
                             }
