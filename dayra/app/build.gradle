@@ -1,0 +1,42 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias ''
+            keyPassword ''
+            storeFile file('')
+            storePassword ''
+        }
+    }
+    compileSdkVersion 23
+    buildToolsVersion "24.0.3"
+    defaultConfig {
+        applicationId "abanoubm.dayra"
+        minSdkVersion 9
+        targetSdkVersion 23
+        versionCode 27
+        versionName '4.1'
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            debuggable false
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.google.android.gms:play-services:9.0.1'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.itextpdf:itextpdf:5.5.6'
+    compile 'net.sourceforge.jexcelapi:jxl:2.6.10'
+    compile 'com.android.support:design:23.4.0'
+}
