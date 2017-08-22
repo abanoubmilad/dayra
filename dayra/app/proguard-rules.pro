@@ -18,3 +18,8 @@
 -dontwarn com.itextpdf.**
 -dontwarn org.apache.log4j.**
 
+## TOGETHER
+-dontobfuscate
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*,!code/allocation/variable
+## TOGETHER
+
