@@ -5,11 +5,14 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +29,7 @@ import abanoubm.dayra.model.GoogleContact;
 public class CopyPhoneDayra extends Activity {
     private CheckBox check;
     private GContactsInAdapter mAdapter;
-
+    private EditText editText;
     private class CheckAllContactsTask extends AsyncTask<Boolean, Void, Void> {
         private ProgressDialog pBar;
 
@@ -60,7 +63,7 @@ public class CopyPhoneDayra extends Activity {
     }
 
     private class GetContactsMobileTask extends
-            AsyncTask<Void, Void, ArrayList<GoogleContact>> {
+            AsyncTask<String, Void, ArrayList<GoogleContact>> {
         private ProgressDialog pBar;
 
         @Override
@@ -71,8 +74,8 @@ public class CopyPhoneDayra extends Activity {
         }
 
         @Override
-        protected ArrayList<GoogleContact> doInBackground(Void... params) {
-            return ContactHelper.getGContacts(getContentResolver(),
+        protected ArrayList<GoogleContact> doInBackground(String... params) {
+            return ContactHelper.getGContacts(params[0],getContentResolver(),
                     getApplicationContext());
         }
 
@@ -80,9 +83,10 @@ public class CopyPhoneDayra extends Activity {
         protected void onPostExecute(ArrayList<GoogleContact> result) {
             pBar.dismiss();
             if (result.size() == 0) {
-                finish();
-                Toast.makeText(getApplicationContext(),
-                        R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
+                mAdapter.clear();
+            //    finish();
+//                Toast.makeText(getApplicationContext(),
+//                        R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
             } else {
                 mAdapter.clearThenAddAll(result);
             }
@@ -125,6 +129,8 @@ public class CopyPhoneDayra extends Activity {
 
         @Override
         protected void onPostExecute(Integer result) {
+            new CheckAllContactsTask().execute(false);
+
             if (result != 0)
                 Toast.makeText(
                         getApplicationContext(),
@@ -148,7 +154,7 @@ public class CopyPhoneDayra extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_mobiles);
+        setContentView(R.layout.act_mobiles_search);
         ((TextView) findViewById(R.id.subhead1)).setText(Utility.getDayraName(this));
         ((TextView) findViewById(R.id.subhead2)).setText(R.string.subhead_select_in);
         findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
@@ -187,7 +193,27 @@ public class CopyPhoneDayra extends Activity {
         CopyBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(mAdapter.getCount()!=0)
                 new CopyContactsMobileTask().execute();
+            }
+        });
+
+    editText = (EditText)findViewById(R.id.sname_edittext);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                new GetContactsMobileTask().execute(s.toString().trim());
+
             }
         });
 
@@ -197,6 +223,6 @@ public class CopyPhoneDayra extends Activity {
     protected void onResume() {
         super.onResume();
         check.setChecked(false);
-        new GetContactsMobileTask().execute();
+        new GetContactsMobileTask().execute(editText.getText().toString().trim());
     }
 }

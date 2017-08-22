@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/header" />
+
+    <EditText
+        android:id="@+id/sname_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="@string/label.name"
+        android:imeOptions="actionDone"
+        android:textSize="26sp" />
+    <CheckBox
+        android:id="@+id/check_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:button="@null"
+        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+        android:text="@string/label.selectall"
+        android:textSize="@dimen/font_large" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/contacts_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn"
+            style="@style/floating_action_btn"
+            android:layout_alignParentRight="false"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/ic_btn_copy" />
+    </RelativeLayout>
+
+</LinearLayout>

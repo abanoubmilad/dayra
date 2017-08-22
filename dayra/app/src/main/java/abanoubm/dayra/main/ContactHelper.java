@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.support.v4.content.ContextCompat;
@@ -63,7 +64,7 @@ public class ContactHelper {
         return true;
     }
 
-    public static ArrayList<GoogleContact> getGContacts(
+    public static ArrayList<GoogleContact> getGContacts(String nameQuery,
             ContentResolver contactHelper, Context context) {
 
         String[] projection = {
@@ -73,7 +74,9 @@ public class ContactHelper {
         try {
             Cursor c = contactHelper.query(
                     ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                    projection, null, null,
+                    projection, Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
+                            ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + " LIKE ?" :
+                            ContactsContract.Contacts.DISPLAY_NAME + " LIKE ?", new String[]{"%"+nameQuery+"%"},
                     ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME
                             + " ASC");
 

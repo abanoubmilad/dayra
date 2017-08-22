@@ -133,6 +133,8 @@ public class CopyDayraPhone extends Activity {
 
         @Override
         protected void onPostExecute(Integer result) {
+            new CheckAllContactsTask().execute(false);
+
             if (result != 0)
                 Toast.makeText(
                         getApplicationContext(),

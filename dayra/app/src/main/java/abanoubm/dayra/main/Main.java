@@ -182,14 +182,7 @@ public class Main extends Activity {
         setContentView(R.layout.act_main);
         ((TextView) findViewById(R.id.subhead1)).setText(R.string.app_name);
         ((TextView) findViewById(R.id.subhead2)).setText(BuildConfig.VERSION_NAME);
-        findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                finish();
-
-            }
-        });
+        findViewById(R.id.nav_back).setVisibility(View.GONE);
 
         ((TextView) findViewById(R.id.footer)).setText(String.format(
                 getResources().getString(R.string.copyright_footer), BuildConfig.VERSION_NAME,
