@@ -15,7 +15,8 @@
     <string name="btn.search">Search</string>
     <string name="label.dayra.name">dayra name</string>
     <string name="btn.create">create</string>
-    <string name="copyright">dayra 4.1 ©%1$s\nabanoubcs@gmail.com</string>
+    <string name="copyright">dayra %1$s ©%2$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="copyright_footer">dayra %1$s ©%2$s Abanoub M.</string>
     <string name="label.required">required</string>
     <string name="label.name">name</string>
     <string name="label.supervisor">supervisor</string>
@@ -315,8 +316,9 @@
     <string-array name="home_menu">
         <item>Search</item>
         <item>Add contact</item>
-        <item>Display contacts</item>
-        <item>Display locations</item>
+        <item>Contacts</item>
+        <item>Pictures</item>
+        <item>Map locations</item>
         <item>Register attendance</item>
         <item>Attendance statistics</item>
         <item>Language / اللغة</item>
@@ -405,6 +407,7 @@
     <string-array name="home_icons" translatable="false">
         <item>@mipmap/ic_search</item>
         <item>@mipmap/ic_add</item>
+        <item>@mipmap/ic_display</item>
         <item>@mipmap/ic_display</item>
         <item>@mipmap/ic_map</item>
         <item>@mipmap/ic_update</item>

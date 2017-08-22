@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Locale;
 
+import abanoubm.dayra.BuildConfig;
 import abanoubm.dayra.R;
 
 public class Splash extends Activity {
@@ -22,11 +23,11 @@ public class Splash extends Activity {
         setContentView(R.layout.splash);
 
         ((TextView) findViewById(R.id.footer)).setText(String.format(
-                getResources().getString(R.string.copyright),
-                Calendar.getInstance().get(Calendar.YEAR)));
+                getResources().getString(R.string.copyright), BuildConfig.VERSION_NAME,
+                Calendar.getInstance().get(Calendar.YEAR)+""));
 
-        findViewById(R.id.layout).setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.fade));
+//        findViewById(R.id.layout).setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+//                R.anim.fade));
 
         if (Utility.getArabicLang(getApplicationContext()) == 1) {
             Utility.setArabicLang(getApplicationContext(), 2);

@@ -576,7 +576,29 @@ public class DB extends SQLiteOpenHelper {
         return photo;
 
     }
+    public ArrayList<ContactID> getPicsContactsDisplayList() {
+        String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + PHOTO_BLOB +
+                " FROM " + TB_CONTACT + " LEFT OUTER JOIN " + TB_PHOTO +
+                " ON " + CONTACT_ID + "=" + PHOTO_ID +
+                " ORDER BY " + CONTACT_NAME;
 
+
+        Cursor c = readableDB.rawQuery(selectQuery, null);
+        ArrayList<ContactID> result = new ArrayList<>(c.getCount());
+
+        if (c.moveToFirst()) {
+
+            do {
+                result.add(new ContactID(c.getString(0), c
+                        .getString(1), c.getBlob(2)));
+
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return result;
+
+    }
     public ArrayList<ContactDisplayList> getContactsDisplayList() {
         String selectQuery = "SELECT " + CONTACT_ID + "," + CONTACT_NAME + "," + PHOTO_BLOB +
                 "," + CONTACT_SUPERVISOR + "," + CONTACT_CLASS_YEAR +

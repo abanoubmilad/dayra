@@ -201,9 +201,10 @@ public class Main extends Activity {
 
             }
         });
-        ((TextView) findViewById(R.id.footer)).setText("dayra " + BuildConfig.VERSION_NAME + " @" + new SimpleDateFormat(
-                "yyyy", Locale.getDefault())
-                .format(new Date()) + " Abanoub M.");
+
+        ((TextView) findViewById(R.id.footer)).setText(String.format(
+                getResources().getString(R.string.copyright_footer), BuildConfig.VERSION_NAME,
+                Calendar.getInstance().get(Calendar.YEAR)+""));
 
         if (!Utility.getDayraName(getApplicationContext()).equals("")) {
             startActivity(new Intent(getApplicationContext(), Home.class));
@@ -347,8 +348,8 @@ public class Main extends Activity {
                         ad.setView(aboutView, 0, 0, 0, 0);
                         ad.show();
                         ((TextView) aboutView.findViewById(R.id.about)).setText(String.format(
-                                getResources().getString(R.string.copyright),
-                                Calendar.getInstance().get(Calendar.YEAR)));
+                                getResources().getString(R.string.copyright),BuildConfig.VERSION_NAME,
+                                Calendar.getInstance().get(Calendar.YEAR)+""));
 
                         ((TextView) aboutView.findViewById(R.id.notice)).setText(GoogleApiAvailability.getInstance().getOpenSourceSoftwareLicenseInfo(getApplicationContext()));
                         aboutView.findViewById(R.id.btn).setOnClickListener(new OnClickListener() {

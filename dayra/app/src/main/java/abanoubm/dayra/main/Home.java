@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -78,9 +79,10 @@ public class Home extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_home);
 
-        ((TextView) findViewById(R.id.footer)).setText("dayra "+ BuildConfig.VERSION_NAME+" @"+new SimpleDateFormat(
-                "yyyy", Locale.getDefault())
-                .format(new Date())+" Abanoub M.");
+        ((TextView) findViewById(R.id.footer)).setText(String.format(
+                getResources().getString(R.string.copyright_footer), BuildConfig.VERSION_NAME,
+                Calendar.getInstance().get(Calendar.YEAR)+""));
+
         findViewById(R.id.nav_back).setOnClickListener(new View.OnClickListener() {
 
             @Override

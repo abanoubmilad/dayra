@@ -110,7 +110,7 @@
     <string name="flag.contact.exist">الاسم مُسجل</string>
     <string name="flag.contact.attend">حاضر</string>
     <string name="flag.contact.con">صلة/معرفة</string>
-    <string name="select.attendance.type">نوع الحضور</string>
+    <string name="select.attendance.type">نوع المتابعة</string>
     <string name="search.by">بحث بواسطة</string>
 
 
@@ -292,8 +292,9 @@
     <string-array name="home_menu">
         <item>بحث</item>
         <item>اضافة</item>
-        <item>عرض بيانات</item>
-        <item>عرض عناوين</item>
+        <item>بيانات</item>
+        <item>صور</item>
+        <item>عناوين</item>
         <item>تسجيل حضور</item>
         <item>احصائيات الحضور</item>
         <item>اللغة / language</item>
@@ -379,7 +380,8 @@
         <item>منزل</item>
         <item>المُشرف</item>
     </string-array>
-    <string name="copyright">dayra 4.1 ©%1$s\nabanoubcs@gmail.com</string>
+    <string name="copyright">dayra %1$s ©%2$s\nAbanoub Milad Hanna\nabanoubcs@gmail.com</string>
+    <string name="copyright_footer">dayra %1$s ©%2$s Abanoub M.</string>
     <string name="label.dayra.file">دايره backup</string>
     <string name="label.dayra.xls">دايره xls</string>
     <string name="subhead.display.day">المتابعة</string>
