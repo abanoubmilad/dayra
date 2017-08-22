@@ -40,6 +40,8 @@ public class FragmentDisplayContacts extends Fragment {
 
         @Override
         protected void onPreExecute() {
+            if(getActivity()==null)
+                return ;
             pBar = new ProgressDialog(getActivity());
             pBar.setCancelable(false);
             pBar.show();
@@ -47,6 +49,8 @@ public class FragmentDisplayContacts extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
+            if(getActivity()==null)
+                return null;
             if(mDB==null)
                 mDB =DB.getInstant(getActivity());
             list = mDB.getContactsDisplayList();
@@ -55,6 +59,8 @@ public class FragmentDisplayContacts extends Fragment {
 
         @Override
         protected void onPostExecute(Void att) {
+            if(getActivity()==null)
+                return;
             mAdapter.clearThenAddAll(list);
             if (list.size() == 0) {
                 getActivity().finish();

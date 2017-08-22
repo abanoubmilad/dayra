@@ -14,6 +14,7 @@ import java.util.Locale;
 
 import abanoubm.dayra.BuildConfig;
 import abanoubm.dayra.R;
+import abanoubm.dayra.contacts.DisplayContacts;
 
 public class Splash extends Activity {
 
@@ -41,11 +42,11 @@ public class Splash extends Activity {
         Thread timerThread = new Thread() {
             public void run() {
                 try {
-                    sleep(1500);
+                    sleep(1000);
                 } catch (InterruptedException e) {
                 }
                 if (!Utility.getDayraName(getApplicationContext()).equals(""))
-                    startActivity(new Intent(Splash.this, Home.class));
+                    startActivity(new Intent(Splash.this, DisplayContacts.class));
                 else
                     startActivity(new Intent(Splash.this, Main.class));
                 finish();

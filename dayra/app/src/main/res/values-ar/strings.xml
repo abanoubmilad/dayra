@@ -111,7 +111,7 @@
     <string name="flag.contact.attend">حاضر</string>
     <string name="flag.contact.con">صلة/معرفة</string>
     <string name="select.attendance.type">نوع المتابعة</string>
-    <string name="search.by">بحث بواسطة</string>
+    <string name="search.by">اختر</string>
 
 
     <string name="btn.yes">نعم</string>
@@ -289,10 +289,9 @@
         <item>تصوير</item>
         <item>صورة افتراضية</item>
     </string-array>
-    <string-array name="home_menu">
+    <string-array name="fragment_menu">
         <item>بحث</item>
         <item>اضافة</item>
-        <item>بيانات</item>
         <item>صور</item>
         <item>عناوين</item>
         <item>تسجيل حضور</item>
@@ -303,6 +302,22 @@
         <item>تابعنا على فيس بوك</item>
         <item>تواصل مع المُطور</item>
         <item>تقييم دايره</item>
+        <item>ارسال SMS</item>
+        <item>نسخ اسماء من الموبايل الى الدايره</item>
+        <item>نسخ اسماء من الدايره الى الموبايل</item>
+        <item>عمل تقرير حضور</item>
+        <item>عمل تقرير بيانات</item>
+        <item>عمل جدول بيانات</item>
+        <item>تصدير الدايره الى G-Drive</item>
+        <item>تصدير دايره backup</item>
+        <item>تصدير دايره xls</item>
+        <item>فتح dayra folder</item>
+        <item>اعدادات التنبيهات</item>
+        <item>اعادة تسمية حقول البيانات</item>
+        <item>اعادة تسمية الدايره</item>
+        <item>اضافة بيانات للدايره</item>
+        <item>تقسيم الدايره</item>
+        <item>مسح الدايره</item>
     </string-array>
     <string-array name="sign_menu">
         <item>دخول</item>
@@ -317,26 +332,7 @@
         <item>فتح dayra folder</item>
         <item>عن التطبيق</item>
     </string-array>
-    <string-array name="out_menu">
-        <item>ارسال SMS</item>
-        <item>نسخ اسماء من الموبايل الى الدايره</item>
-        <item>نسخ اسماء من الدايره الى الموبايل</item>
-        <item>عمل تقرير حضور</item>
-        <item>عمل تقرير بيانات</item>
-        <item>عمل جدول بيانات</item>
-        <item>تصدير الدايره الى G-Drive</item>
-        <item>تصدير دايره backup</item>
-        <item>تصدير دايره xls</item>
-        <item>فتح dayra folder</item>
-    </string-array>
-    <string-array name="settings_menu">
-        <item>اعدادات التنبيهات</item>
-        <item>اعادة تسمية حقول البيانات</item>
-        <item>اعادة تسمية الدايره</item>
-        <item>اضافة بيانات للدايره</item>
-        <item>تقسيم الدايره</item>
-        <item>مسح الدايره</item>
-    </string-array>
+
     <string-array name="excel_header">
         <item>اسم</item>
         <item>دفعة/سنة</item>

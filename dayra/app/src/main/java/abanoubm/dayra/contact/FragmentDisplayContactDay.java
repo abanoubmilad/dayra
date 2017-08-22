@@ -43,12 +43,15 @@ public class FragmentDisplayContactDay extends Fragment {
     private class GetAttendanceAbsenceTask extends AsyncTask<Void, Void, ArrayList<String>> {
         @Override
         protected void onPreExecute() {
+            if(getActivity()==null)
+                return;
             pBar.show();
         }
 
         @Override
         protected void onPostExecute(ArrayList<String> result) {
-
+            if(getActivity()==null)
+                return;
             if (days.size() == 0) {
                 MsgNoDays.setVisibility(View.VISIBLE);
             } else {
@@ -67,6 +70,8 @@ public class FragmentDisplayContactDay extends Fragment {
 
         @Override
         protected ArrayList<String> doInBackground(Void... params) {
+            if(getActivity()==null)
+                return null;
             DB db = DB.getInstant(getActivity());
             ArrayList<String> result = db.getContactAttendanceStatistics(id, dayType + "");
             days = db.getAttendanceAbsence(id, dayType + "", result.get(0) == null ? "9999-99-99" : result.get(0));

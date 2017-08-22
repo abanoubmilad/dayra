@@ -43,6 +43,7 @@ import java.util.Locale;
 import abanoubm.dayra.BuildConfig;
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.MenuItemAdapter;
+import abanoubm.dayra.contacts.DisplayContacts;
 
 public class Main extends Activity {
     private static final int IMPORT_DB = 1;
@@ -67,7 +68,7 @@ public class Main extends Activity {
         protected void onPostExecute(Boolean result) {
             pBar.dismiss();
             if (result) {
-                startActivity(new Intent(getApplicationContext(), Home.class));
+                startActivity(new Intent(getApplicationContext(), DisplayContacts.class));
                 finish();
             } else
                 Toast.makeText(getApplicationContext(), R.string.err_msg_open,
@@ -103,7 +104,7 @@ public class Main extends Activity {
             Toast.makeText(getApplicationContext(),
                     R.string.msg_dayra_created, Toast.LENGTH_SHORT)
                     .show();
-            startActivity(new Intent(getApplicationContext(), Home.class));
+            startActivity(new Intent(getApplicationContext(), DisplayContacts.class));
             finish();
         }
 
@@ -176,19 +177,7 @@ public class Main extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        if (Utility.getArabicLang(getApplicationContext()) == 1) {
-            Utility.setArabicLang(getApplicationContext(), 2);
 
-            Locale myLocale = new Locale("ar");
-            Resources res = getResources();
-            DisplayMetrics dm = res.getDisplayMetrics();
-            Configuration conf = res.getConfiguration();
-            conf.locale = myLocale;
-            res.updateConfiguration(conf, dm);
-
-            finish();
-            startActivity(new Intent(getIntent()));
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
         ((TextView) findViewById(R.id.subhead1)).setText(R.string.app_name);
@@ -207,7 +196,7 @@ public class Main extends Activity {
                 Calendar.getInstance().get(Calendar.YEAR)+""));
 
         if (!Utility.getDayraName(getApplicationContext()).equals("")) {
-            startActivity(new Intent(getApplicationContext(), Home.class));
+            startActivity(new Intent(getApplicationContext(), DisplayContacts.class));
             finish();
         }
 

@@ -122,7 +122,7 @@
     <string name="flag.contact.con">conn</string>
     <string name="select.attendance.type">Attendance type</string>
     <string name="select.days.type">Select days type</string>
-    <string name="search.by">Search by</string>
+    <string name="search.by">Choose</string>
 
     <string name="select.starting.from">Starting from</string>
     <string name="select.ending.at">Ending at</string>
@@ -177,7 +177,7 @@
     </string-array>
 
     <string-array name="months">
-        <item>Any month</item>
+        <item>All</item>
         <item>January</item>
         <item>February</item>
         <item>March</item>
@@ -239,7 +239,7 @@
         <item>31</item>
     </string-array>
     <string-array name="days">
-        <item>Any day</item>
+        <item>All</item>
         <item>01</item>
         <item>02</item>
         <item>03</item>
@@ -313,10 +313,9 @@
         <item>Capture</item>
         <item>Default</item>
     </string-array>
-    <string-array name="home_menu">
+    <string-array name="fragment_menu">
         <item>Search</item>
         <item>Add contact</item>
-        <item>Contacts</item>
         <item>Pictures</item>
         <item>Map locations</item>
         <item>Register attendance</item>
@@ -327,6 +326,22 @@
         <item>Like us</item>
         <item>Contact developer</item>
         <item>Rate dayra</item>
+        <item>Send SMS</item>
+        <item>Copy contacts from phone to dayra</item>
+        <item>Copy contacts from dayra to phone</item>
+        <item>Create Attendance report</item>
+        <item>Create Information report</item>
+        <item>Create Information table</item>
+        <item>Export dayra to G-Drive</item>
+        <item>Export dayra backup</item>
+        <item>Export dayra xls</item>
+        <item>Open dayra folder</item>
+        <item>Alarm settings</item>
+        <item>Rename data fields</item>
+        <item>Rename dayra</item>
+        <item>Add data to dayra</item>
+        <item>Divide dayra</item>
+        <item>Delete dayra</item>
     </string-array>
     <string-array name="sign_menu">
         <item>Enter</item>
@@ -340,26 +355,6 @@
         <item>Rate dayra</item>
         <item>Open dayra folder</item>
         <item>About</item>
-    </string-array>
-    <string-array name="out_menu">
-        <item>Send SMS</item>
-        <item>Copy contacts from phone to dayra</item>
-        <item>Copy contacts from dayra to phone</item>
-        <item>Create Attendance report</item>
-        <item>Create Information report</item>
-        <item>Create Information table</item>
-        <item>Export dayra to G-Drive</item>
-        <item>Export dayra backup</item>
-        <item>Export dayra xls</item>
-        <item>Open dayra folder</item>
-    </string-array>
-    <string-array name="settings_menu">
-        <item>Alarm settings</item>
-        <item>Rename data fields</item>
-        <item>Rename dayra</item>
-        <item>Add data to dayra</item>
-        <item>Divide dayra</item>
-        <item>Delete dayra</item>
     </string-array>
     <string-array name="excel_header">
         <item>Name</item>
@@ -404,10 +399,9 @@
         <item>Home</item>
         <item>Supervisor</item>
     </string-array>
-    <string-array name="home_icons" translatable="false">
+    <string-array name="menu_icons" translatable="false">
         <item>@mipmap/ic_search</item>
         <item>@mipmap/ic_add</item>
-        <item>@mipmap/ic_display</item>
         <item>@mipmap/ic_display</item>
         <item>@mipmap/ic_map</item>
         <item>@mipmap/ic_update</item>
@@ -418,6 +412,22 @@
         <item>@mipmap/ic_like</item>
         <item>@mipmap/ic_contact</item>
         <item>@mipmap/ic_rate</item>
+        <item>@mipmap/ic_mess</item>
+        <item>@mipmap/ic_import</item>
+        <item>@mipmap/ic_copy</item>
+        <item>@mipmap/ic_pdf</item>
+        <item>@mipmap/ic_pdf</item>
+        <item>@mipmap/ic_pdf</item>
+        <item>@mipmap/ic_gdrive</item>
+        <item>@mipmap/ic_file</item>
+        <item>@mipmap/ic_xls</item>
+        <item>@mipmap/ic_folder</item>
+        <item>@mipmap/ic_alarm</item>
+        <item>@mipmap/ic_modifi</item>
+        <item>@mipmap/ic_rename</item>
+        <item>@mipmap/ic_replace</item>
+        <item>@mipmap/ic_divide</item>
+        <item>@mipmap/ic_delete</item>
     </string-array>
     <string-array name="sign_icons" translatable="false">
         <item>@mipmap/ic_enter</item>
@@ -432,26 +442,7 @@
         <item>@mipmap/ic_folder</item>
         <item>@mipmap/ic_about</item>
     </string-array>
-    <string-array name="out_icons" translatable="false">
-        <item>@mipmap/ic_mess</item>
-        <item>@mipmap/ic_import</item>
-        <item>@mipmap/ic_copy</item>
-        <item>@mipmap/ic_pdf</item>
-        <item>@mipmap/ic_pdf</item>
-        <item>@mipmap/ic_pdf</item>
-        <item>@mipmap/ic_gdrive</item>
-        <item>@mipmap/ic_file</item>
-        <item>@mipmap/ic_xls</item>
-        <item>@mipmap/ic_folder</item>
-    </string-array>
-    <string-array name="settings_icons" translatable="false">
-        <item>@mipmap/ic_alarm</item>
-        <item>@mipmap/ic_modifi</item>
-        <item>@mipmap/ic_rename</item>
-        <item>@mipmap/ic_replace</item>
-        <item>@mipmap/ic_divide</item>
-        <item>@mipmap/ic_delete</item>
-    </string-array>
+
     <string name="subhead.display.connections">Connections</string>
     <string name="subhead.display.day">Progress</string>
     <string name="subhead.display.map">Map address</string>

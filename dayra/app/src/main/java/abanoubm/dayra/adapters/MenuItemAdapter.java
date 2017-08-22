@@ -14,18 +14,15 @@ import abanoubm.dayra.R;
 
 public class MenuItemAdapter extends Adapter<String> {
     private final TypedArray icons;
+    private final int menuType;
 
     public MenuItemAdapter(Context context, ArrayList<String> arr, int menuType) {
         super(context, 0, arr);
         if (menuType == 1)
             icons = context.getResources().obtainTypedArray(R.array.sign_icons);
-        else if (menuType == 2)
-            icons = context.getResources().obtainTypedArray(R.array.home_icons);
-        else if (menuType == 3)
-            icons = context.getResources().obtainTypedArray(R.array.out_icons);
         else
-            icons = context.getResources().obtainTypedArray(
-                    R.array.settings_icons);
+            icons = context.getResources().obtainTypedArray(R.array.menu_icons);
+       this. menuType=menuType;
 
     }
 
@@ -38,8 +35,8 @@ public class MenuItemAdapter extends Adapter<String> {
         ViewHolder holder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.item_menu, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(menuType==1?
+                    R.layout.item_menu: R.layout.item_menu_dark, parent, false);
             holder = new ViewHolder();
             holder.item = (TextView) convertView.findViewById(R.id.item);
             holder.img = (ImageView) convertView.findViewById(R.id.img);
