@@ -68,7 +68,7 @@
                 android:textSize="@dimen/font_normal"
                 android:visibility="gone" />
 
-
+           <include layout="@layout/button_map_search"/>
         </LinearLayout>
 
         <LinearLayout

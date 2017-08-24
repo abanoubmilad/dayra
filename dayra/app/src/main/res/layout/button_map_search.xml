@@ -1,0 +1,11 @@
+    <android.support.design.widget.FloatingActionButton
+        style="@style/floating_action_btn"
+        android:layout_alignParentRight="false"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/ic_search1"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/search_address"
+        android:layout_margin="20dp"
+        android:layout_marginTop="50dp"
+        android:visibility="gone"/>
+

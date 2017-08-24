@@ -158,6 +158,10 @@
     <string name="select.month">Select month</string>
     <string name="select.day">Select day</string>
 
+    <string name="map.search.address">Search address</string>
+    <string name="map.search.err">Error while searching address</string>
+    <string name="map.search.noresult">No search results</string>
+
     <string-array name="days_type">
         <item>Display attendance days</item>
         <item>Display attendance/absence days</item>

@@ -134,6 +134,10 @@
     <string name="select.month">اختر الشهر</string>
     <string name="select.year">اختر السنة</string>
 
+    <string name="map.search.address">بحث بالمنطقة والشارع</string>
+    <string name="map.search.err">خطأ اثناء البحث</string>
+    <string name="map.search.noresult">لا توجد نتائج بحث</string>
+
     <string-array name="days_type">
         <item>عرض ايام الحضور</item>
         <item>عرض ايام الحضور والغياب</item>
