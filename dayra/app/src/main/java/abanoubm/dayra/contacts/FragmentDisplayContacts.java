@@ -62,11 +62,11 @@ public class FragmentDisplayContacts extends Fragment {
             if(getActivity()==null)
                 return;
             mAdapter.clearThenAddAll(list);
-            if (list.size() == 0) {
-                getActivity().finish();
-                Toast.makeText(getActivity(),
-                        R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
-            } else {
+            if (list.size() != 0) {
+//                getActivity().finish();
+//                Toast.makeText(getActivity(),
+//                        R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
+//            } else {
                 if (previousPosition < list.size())
                     lv.setSelection(previousPosition);
                 if (isDualMode) {

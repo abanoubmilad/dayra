@@ -67,7 +67,8 @@ public class DisplayContactsMap extends FragmentActivity implements
                                     new LatLng(attLoc.getMapLat(), attLoc
                                             .getMapLng()))
                             .title("\u200e" + attLoc.getName())
-                            .draggable(false)).getId(), attLoc.getId());
+                            .draggable(false).icon(BitmapDescriptorFactory
+                                    .fromResource(R.mipmap.ic_map_user))).getId(), attLoc.getId());
                 }
             }
         }
@@ -164,7 +165,7 @@ public class DisplayContactsMap extends FragmentActivity implements
                 .draggable(false)
                 .title(getResources().getString(R.string.label_map_here))
                 .icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                        .fromResource(R.mipmap.ic_map_current)));
 
     }
 
@@ -221,7 +222,7 @@ public class DisplayContactsMap extends FragmentActivity implements
                     .draggable(false)
                     .title(getResources().getString(R.string.label_map_here))
                     .icon(BitmapDescriptorFactory
-                            .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                            .fromResource(R.mipmap.ic_map_current)));
 
         }
     }

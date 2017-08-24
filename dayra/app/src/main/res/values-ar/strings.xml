@@ -58,7 +58,7 @@
     <string name="msg.copy.success">تم نسخ الاسماء</string>
     <string name="subhead.percentage">احصائيات الحضور</string>
     <string name="label.numbering">ترقيم البيانات</string>
-    <string name="msg.dayra.renamed">تم اعادة تسمية الدايره</string>
+    <string name="msg.dayra.renamed">تم تسمية الدايره</string>
     <string name="label.site">منطقة</string>
     <string name="label.street">شارع</string>
     <string name="label.home">منزل</string>
@@ -101,8 +101,8 @@
     <string name="label.home.settings">اعدادات</string>
     <string name="subhead.edit.connections">تعديل المعارف/الصلة</string>
     <string name="subhead.display.connections">المعارف/الصلة</string>
-    <string name="subhead.select.in">نسخ الاسماء المٌختارة الى الدايره</string>
-    <string name="subhead.select.out">نسخ الاسماء المٌختارة الى الموبايل</string>
+    <string name="subhead.select.in">نسخ الى الدايره</string>
+    <string name="subhead.select.out">نسخ الى الموبايل</string>
     <string name="msg.no.mobiles">لم يتم اختيار ارقام موبايل</string>
     <string name="subhead.edit.info">تعديل التفاصيل</string>
     <string name="subhead.edit.map">تعديل عنوان الخريطة</string>
@@ -119,7 +119,7 @@
     <string name="btn.confirm">تأكيد</string>
 
     <string name="dialogue.create">اكتب اسم الدايره\nبامكانك استخدام حروف عربية انجليزية ارقام مسافات</string>
-    <string name="dialogue.rename">تأكيد اعادة تسمية الدايره الحالية </string>
+    <string name="dialogue.rename">تأكيد تسمية الدايره الحالية </string>
     <string name="dialogue.delete">تأكيد مسح الاسم والبيانات الخاصة به</string>
     <string name="dialogue.delete.dayra">تأكيد مسح الدايره لا يمكن استعادة الدايره مرة اخرى بعد مسحها احتفظ دوما بنسخة احتياطية من الدايره</string>
 
@@ -298,23 +298,23 @@
         <item>احصائيات الحضور</item>
         <item>اللغة / language</item>
         <item>دليل المستخدم</item>
-        <item>الابلاغ عن مشكلة / اقتراحات</item>
+        <item>ابلاغ مشكلة / اقتراحات</item>
         <item>تابعنا على فيس بوك</item>
         <item>تواصل مع المُطور</item>
         <item>تقييم دايره</item>
         <item>ارسال SMS</item>
-        <item>نسخ اسماء من الموبايل الى الدايره</item>
-        <item>نسخ اسماء من الدايره الى الموبايل</item>
+        <item>نسخ اسماء الموبايل للدايره</item>
+        <item>نسخ اسماء الدايره للموبايل</item>
         <item>عمل تقرير حضور</item>
         <item>عمل تقرير بيانات</item>
         <item>عمل جدول بيانات</item>
-        <item>تصدير الدايره الى G-Drive</item>
+        <item>تصدير دايره G-Drive</item>
         <item>تصدير دايره backup</item>
         <item>تصدير دايره xls</item>
         <item>فتح dayra folder</item>
         <item>اعدادات التنبيهات</item>
-        <item>اعادة تسمية حقول البيانات</item>
-        <item>اعادة تسمية الدايره</item>
+        <item> تسمية نوع المتابعة</item>
+        <item>تسمية الدايره</item>
         <item>اضافة بيانات للدايره</item>
         <item>تقسيم الدايره</item>
         <item>مسح الدايره</item>
@@ -324,7 +324,7 @@
         <item>تكوين دايره</item>
         <item>استيراد دايره backup</item>
         <item>دليل المستخدم</item>
-        <item>الابلاغ عن مشكلة / اقتراحات</item>
+        <item>ابلاغ مشكلة / اقتراحات</item>
         <item>اللغة / language</item>
         <item>تابعنا على فيس بوك</item>
         <item>تواصل مع المُطور</item>
@@ -406,11 +406,11 @@
     <string name="label.location">عنوان الخريطة</string>
     <string name="label.photo">صورة</string>
     <string name="flag.mobile.exist">الموبايل مُسجل</string>
-    <string name="msg.fields.renamed">تم اعادة تسمية حقول البيانات</string>
+    <string name="msg.fields.renamed">تم تسمية حقول البيانات</string>
     <string name="err.msg.duplicate.entry">غير مسموح بتكرار التسمية</string>
     <string name="select.ending.at">حتى</string>
     <string name="select.starting.from">بداية من</string>
     <string name="msg.no.attendance">لا يوجد حضور</string>
-    <string name="subhead.gdrive">تصدير الدايره الى G-Drive </string>
+    <string name="subhead.gdrive">تصدير دايره G-Drive </string>
 
 </resources>

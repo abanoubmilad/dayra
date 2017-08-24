@@ -134,7 +134,8 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
                                         new LatLng(point.latitude,
                                                 point.longitude))
                                 .title(getResources().getString(R.string.label_map_location_edit))
-                                .draggable(true));
+                                .draggable(true) .icon(BitmapDescriptorFactory
+                                        .fromResource(R.mipmap.ic_map_user)));
                 mLocationMarker.showInfoWindow();
 
                 lat = point.latitude;
@@ -160,7 +161,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
                 .draggable(false)
                 .title(getResources().getString(R.string.label_map_here))
                 .icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                        .fromResource(R.mipmap.ic_map_current)));
     }
 
     private class UpdateTask extends AsyncTask<Void, Void, Void> {
@@ -241,7 +242,8 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
                     new LatLng(contact.getMapLat(), contact.getMapLng()), contact.getZoom()));
             mLocationMarker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(contact.getMapLat(), contact.getMapLng())).title(getResources().getString(R.string.label_map_location_edit))
-                    .draggable(false));
+                    .draggable(false).icon(BitmapDescriptorFactory
+                    .fromResource(R.mipmap.ic_map_user)));
             mLocationMarker.showInfoWindow();
         }
 
@@ -268,7 +270,7 @@ public class FragmentEditContactMap extends Fragment implements OnMapReadyCallba
                     .draggable(false)
                     .title(getResources().getString(R.string.label_map_here))
                     .icon(BitmapDescriptorFactory
-                            .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                            .fromResource(R.mipmap.ic_map_current)));
 
         }
     }

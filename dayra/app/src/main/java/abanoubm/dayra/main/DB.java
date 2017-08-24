@@ -454,6 +454,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public String addContact(ContentValues values, byte[] photo) {
+        dirtyFlag = true;
+
         String id = String.valueOf(writableDB.insert(TB_CONTACT, null, values));
 
         values = new ContentValues();
@@ -466,6 +468,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public String addContact(String name, String mobile) {
+       dirtyFlag = true;
+
         ContentValues values = new ContentValues();
         values.put(CONTACT_MAPLAT, 0);
         values.put(CONTACT_MAPLNG, 0);

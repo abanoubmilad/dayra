@@ -106,7 +106,7 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
                 .draggable(false)
                 .title(getResources().getString(R.string.label_map_here))
                 .icon(BitmapDescriptorFactory
-                        .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                        .fromResource(R.mipmap.ic_map_current)));
     }
 
     private class GetTask extends AsyncTask<Void, Void, String[]> {
@@ -158,7 +158,8 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
                 return;
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(contact.getMapLat(), contact.getMapLng())).title(getResources().getString(R.string.label_map_location))
-                    .draggable(false)).showInfoWindow();
+                    .draggable(false) .icon(BitmapDescriptorFactory
+                            .fromResource(R.mipmap.ic_map_user))).showInfoWindow();
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                     new LatLng(contact.getMapLat(), contact.getMapLng()), contact.getZoom()));
         }
@@ -186,7 +187,7 @@ public class FragmentDisplayContactMap extends Fragment implements OnMapReadyCal
                     .draggable(false)
                     .title(getResources().getString(R.string.label_map_here))
                     .icon(BitmapDescriptorFactory
-                            .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                            .fromResource(R.mipmap.ic_map_current)));
 
         }
     }

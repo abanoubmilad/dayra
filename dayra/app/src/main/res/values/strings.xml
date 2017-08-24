@@ -110,8 +110,8 @@
     <string name="label.home.out">Export/Copy contacts</string>
     <string name="label.home.settings">Options and Settings</string>
     <string name="subhead.edit.connections">Edit connections</string>
-    <string name="subhead.select.in">Copy selected contacts to dayra</string>
-    <string name="subhead.select.out">Copy selected contacts to phone</string>
+    <string name="subhead.select.in">Copy to dayra</string>
+    <string name="subhead.select.out">Copy to phone</string>
     <string name="msg.no.mobiles">No mobiles were selected</string>
     <string name="subhead.edit.info">Edit info</string>
     <string name="subhead.edit.map">Edit map address</string>
@@ -322,22 +322,22 @@
         <item>Attendance statistics</item>
         <item>Language / اللغة</item>
         <item>User\'s manual</item>
-        <item>Report bugs/ Suggestions</item>
+        <item>Report bugs/Suggestions</item>
         <item>Like us</item>
         <item>Contact developer</item>
         <item>Rate dayra</item>
         <item>Send SMS</item>
-        <item>Copy contacts from phone to dayra</item>
-        <item>Copy contacts from dayra to phone</item>
+        <item>Copy phone contacts to dayra</item>
+        <item>Copy dayra contacts to phone</item>
         <item>Create Attendance report</item>
         <item>Create Information report</item>
         <item>Create Information table</item>
-        <item>Export dayra to G-Drive</item>
+        <item>Export dayra G-Drive</item>
         <item>Export dayra backup</item>
         <item>Export dayra xls</item>
         <item>Open dayra folder</item>
         <item>Alarm settings</item>
-        <item>Rename data fields</item>
+        <item>Rename attendance type</item>
         <item>Rename dayra</item>
         <item>Add data to dayra</item>
         <item>Divide dayra</item>
@@ -348,7 +348,7 @@
         <item>Create dayra</item>
         <item>Import dayra backup</item>
         <item>User\'s manual</item>
-        <item>Report bugs/ Suggestions</item>
+        <item>Report bugs / Suggestions</item>
         <item>Language / اللغة</item>
         <item>Like us</item>
         <item>Contact developer</item>
