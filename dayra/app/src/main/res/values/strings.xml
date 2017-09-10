@@ -158,7 +158,6 @@
     <string name="select.month">Select month</string>
     <string name="select.day">Select day</string>
 
-    <string name="map.search.address">Search address</string>
     <string name="map.search.err">Error while searching address</string>
     <string name="map.search.noresult">No search results</string>
 
@@ -318,6 +317,7 @@
         <item>Default</item>
     </string-array>
     <string-array name="fragment_menu">
+        <item>Main</item>
         <item>Search</item>
         <item>Add contact</item>
         <item>Pictures</item>
@@ -347,10 +347,12 @@
         <item>Divide dayra</item>
         <item>Delete dayra</item>
     </string-array>
+    <string name="label.create.dayra">Create dayra</string>
+    <string name="label.import.backup">Import dayra backup</string>
+
     <string-array name="sign_menu">
-        <item>Enter</item>
-        <item>Create dayra</item>
-        <item>Import dayra backup</item>
+        <item>@string/label.create.dayra</item>
+        <item>@string/label.import.backup</item>
         <item>User\'s manual</item>
         <item>Report bugs / Suggestions</item>
         <item>Language / اللغة</item>
@@ -404,6 +406,7 @@
         <item>Supervisor</item>
     </string-array>
     <string-array name="menu_icons" translatable="false">
+        <item>@mipmap/ic_home</item>
         <item>@mipmap/ic_search</item>
         <item>@mipmap/ic_add</item>
         <item>@mipmap/ic_display</item>
@@ -434,7 +437,6 @@
         <item>@mipmap/ic_delete</item>
     </string-array>
     <string-array name="sign_icons" translatable="false">
-        <item>@mipmap/ic_enter</item>
         <item>@mipmap/ic_create</item>
         <item>@mipmap/ic_file</item>
         <item>@mipmap/ic_manual</item>

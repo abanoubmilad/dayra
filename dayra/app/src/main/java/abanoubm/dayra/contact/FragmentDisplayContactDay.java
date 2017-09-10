@@ -341,5 +341,10 @@ public class FragmentDisplayContactDay extends Fragment {
 
     }
 
-
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        new GetAttendanceAbsenceTask().execute();
+//
+//    }
 }

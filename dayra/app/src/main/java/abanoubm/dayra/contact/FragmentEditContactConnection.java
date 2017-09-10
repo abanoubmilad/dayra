@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class FragmentEditContactConnection extends Fragment {
     private int previousPosition = 0;
     private ContactCheck contact;
     private ProgressDialog pBar;
+    private TextView msgNoConn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class FragmentEditContactConnection extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_edit_contact_connection, container, false);
 
+        msgNoConn = (TextView) root.findViewById(R.id.msg_no_conn);
 
         sname = (EditText) root.findViewById(R.id.input);
 
@@ -152,8 +155,10 @@ public class FragmentEditContactConnection extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<ContactCheck> result) {
             if (result.size() == 0) {
-                Toast.makeText(getActivity(),
-                        R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(),
+//                        R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
+                msgNoConn.setVisibility(View.VISIBLE);
+
             } else {
                 mAdapter.clearThenAddAll(result);
                 if (name.length() == 0) {
@@ -161,6 +166,8 @@ public class FragmentEditContactConnection extends Fragment {
                         lv.setSelection(previousPosition);
                     previousPosition = 0;
                 }
+                msgNoConn.setVisibility(View.GONE);
+
             }
             pBar.dismiss();
 

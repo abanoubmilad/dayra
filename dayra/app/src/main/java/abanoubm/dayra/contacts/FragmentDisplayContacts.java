@@ -166,11 +166,11 @@ public class FragmentDisplayContacts extends Fragment {
             if (previousPosition >= list.size())
                 previousPosition = 0;
 
-            if (list.size() == 0) {
-                getActivity().finish();
-                Toast.makeText(getActivity(),
-                        R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
-            } else {
+            if (list.size() != 0) {
+//                getActivity().finish();
+//                Toast.makeText(getActivity(),
+//                        R.string.msg_no_contacts, Toast.LENGTH_SHORT).show();
+//            } else {
                 if (isDualMode) {
                     lv.performItemClick(lv.findViewWithTag(mAdapter.getItem(previousPosition)),
                             previousPosition, mAdapter.getItemId(previousPosition));
@@ -188,6 +188,8 @@ public class FragmentDisplayContacts extends Fragment {
         if (DB.getInstant(getActivity()).isDirty()) {
             new GetAllTask().execute();
             DB.getInstant(getActivity()).clearDirty();
+        }else if(list==null){
+            new GetAllTask().execute();
         }
     }
 
@@ -245,10 +247,12 @@ public class FragmentDisplayContacts extends Fragment {
         return root;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        new GetAllTask().execute();
+//    @Override
+//    public void onR
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        new GetAllTask().execute();
+//
+//    }
 
-    }
 }

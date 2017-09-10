@@ -134,7 +134,6 @@
     <string name="select.month">اختر الشهر</string>
     <string name="select.year">اختر السنة</string>
 
-    <string name="map.search.address">بحث بالمنطقة والشارع</string>
     <string name="map.search.err">خطأ اثناء البحث</string>
     <string name="map.search.noresult">لا توجد نتائج بحث</string>
 
@@ -294,6 +293,7 @@
         <item>صورة افتراضية</item>
     </string-array>
     <string-array name="fragment_menu">
+        <item>الرئيسية</item>
         <item>بحث</item>
         <item>اضافة</item>
         <item>صور</item>
@@ -323,10 +323,12 @@
         <item>تقسيم الدايره</item>
         <item>مسح الدايره</item>
     </string-array>
+    <string name="label.create.dayra">تكوين دايره</string>
+    <string name="label.import.backup">استيراد دايره backup</string>
+
     <string-array name="sign_menu">
-        <item>دخول</item>
-        <item>تكوين دايره</item>
-        <item>استيراد دايره backup</item>
+    <item>@string/label.create.dayra</item>
+    <item>@string/label.import.backup</item>
         <item>دليل المستخدم</item>
         <item>ابلاغ مشكلة / اقتراحات</item>
         <item>اللغة / language</item>

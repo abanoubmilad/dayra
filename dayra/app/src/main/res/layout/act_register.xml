@@ -79,6 +79,6 @@
             android:id="@+id/sname_btn"
             style="@style/floating_action_btn"
             android:visibility="gone"
-            android:src="@mipmap/ic_btn_copy" />
+            android:src="@mipmap/ic_btn_add" />
     </RelativeLayout>
 </LinearLayout>

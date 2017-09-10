@@ -90,33 +90,41 @@ public class FragmentMenu extends Fragment {
                                     int position, long id) {
                 ( (DisplayContacts)getActivity()).closeNav();
                 switch (position) {
+
                     case 0:
+                        DB.getInstant(getActivity()).closeDB();
+                        Utility.clearLogin(getActivity());
+                        startActivity(new Intent(getActivity(), Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        getActivity().finish();
+
+                        break;
+                    case 1:
                         startActivity(new Intent(
                                 getActivity(),
                                 Search.class));
 
                         break;
-                    case 1:
+                    case 2:
                         startActivity(new Intent(getActivity(),
                                 AddContact.class));
                         break;
-                    case 2:
+                    case 3:
                         startActivity(new Intent(getActivity(),
                                 DisplayPicsContacts.class));
                         break;
-                    case 3:
+                    case 4:
                         startActivity(new Intent(getActivity(),
                                 DisplayContactsMap.class));
                         break;
-                    case 4:
+                    case 5:
                         startActivity(new Intent(getActivity(),
                                 RegisterAttendance.class));
                         break;
-                    case 5:
+                    case 6:
                         startActivity(new Intent(getActivity(),
                                 DisplayContactsStatistics.class));
                         break;
-                    case 6:
+                    case 7:
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setTitle(R.string.label_choose_language);
                         builder.setItems(getResources()
@@ -148,15 +156,15 @@ public class FragmentMenu extends Fragment {
                                 });
                         builder.create().show();
                         break;
-                    case 7:
+                    case 8:
                         startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri
                                 .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view")));
                         break;
-                    case 8:
+                    case 9:
                         startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri
                                 .parse("https://drive.google.com/open?id=1flSRdoiIT_hNd96Kxz3Ww3EhXDLZ45FhwFJ2hF9vl7g")));
                         break;
-                    case 9:
+                    case 10:
                         try {
                             getActivity().getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -169,7 +177,7 @@ public class FragmentMenu extends Fragment {
                                     | Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         break;
-                    case 10:
+                    case 11:
 
                         try {
                             getActivity().getPackageManager().getPackageInfo(
@@ -183,7 +191,7 @@ public class FragmentMenu extends Fragment {
                                     | Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         break;
-                    case 11:
+                    case 12:
                         Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                         try {
@@ -195,11 +203,11 @@ public class FragmentMenu extends Fragment {
                         break;
 
 
-                    case 12:
+                    case 13:
                         startActivity(new Intent(getActivity(),
                                 SendSMS.class));
                         break;
-                    case 13:
+                    case 14:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         Manifest.permission.READ_CONTACTS)
@@ -213,7 +221,7 @@ public class FragmentMenu extends Fragment {
                         }
 
                         break;
-                    case 14:
+                    case 15:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         Manifest.permission.WRITE_CONTACTS)
@@ -227,7 +235,7 @@ public class FragmentMenu extends Fragment {
                         }
 
                         break;
-                    case 15:
+                    case 16:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -241,7 +249,7 @@ public class FragmentMenu extends Fragment {
                         }
 
                         break;
-                    case 16:
+                    case 17:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -253,7 +261,7 @@ public class FragmentMenu extends Fragment {
                                     EXPORT_INFO_REPORT_REQUEST);
                         }
                         break;
-                    case 17:
+                    case 18:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -267,7 +275,7 @@ public class FragmentMenu extends Fragment {
                         }
 
                         break;
-                    case 18:
+                    case 19:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         Manifest.permission.GET_ACCOUNTS)
@@ -280,7 +288,7 @@ public class FragmentMenu extends Fragment {
                         }
                         break;
 
-                    case 19:
+                    case 20:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -292,7 +300,7 @@ public class FragmentMenu extends Fragment {
                                     EXPORT_FILE_REQUEST);
                         }
                         break;
-                    case 20:
+                    case 21:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -304,7 +312,7 @@ public class FragmentMenu extends Fragment {
                                     EXPORT_EXCEL_REQUEST);
                         }
                         break;
-                    case 21:
+                    case 22:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -320,17 +328,17 @@ public class FragmentMenu extends Fragment {
                         }
 
                         break;
-                    case 22:
+                    case 23:
                         startActivity(new Intent(getActivity(),
                                 Settings.class));
                         break;
-                    case 23:
+                    case 24:
                         renameFields();
                         break;
-                    case 24:
+                    case 25:
                         renameDB();
                         break;
-                    case 25:
+                    case 26:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -348,7 +356,7 @@ public class FragmentMenu extends Fragment {
                         }
 
                         break;
-                    case 26:
+                    case 27:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(getContext(),
                                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -362,7 +370,7 @@ public class FragmentMenu extends Fragment {
                         }
 
                         break;
-                    case 27:
+                    case 28:
                         deleteDB();
                         break;
                 }

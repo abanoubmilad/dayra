@@ -275,6 +275,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public void addConnection(String conA, String conB) {
+        this.dirtyFlag = true;
+
         ContentValues values = new ContentValues();
 
         values.put(CONN_A, conA);
@@ -288,6 +290,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public void removeConnection(String conA, String conB) {
+        this.dirtyFlag = true;
+
         writableDB.delete(TB_CONNECTION, CONN_A + " = ? and " + CONN_B
                         + " = ? or " + CONN_A + " = ? and " + CONN_B + " = ? ",
                 new String[]{conA, conB,
@@ -1231,6 +1235,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public void addDay(String id, String type, String day) {
+        this.dirtyFlag = true;
+
         ContentValues values = new ContentValues();
         values.put(ATTEND_ID, id);
         values.put(ATTEND_DAY, day);
@@ -1239,6 +1245,8 @@ public class DB extends SQLiteOpenHelper {
     }
 
     public void removeDay(String id, String type, String day) {
+        this.dirtyFlag = true;
+
         writableDB.delete(TB_ATTEND, ATTEND_ID + " = ? AND " + ATTEND_TYPE
                         + " = ? AND " + ATTEND_DAY + " = ?",
                 new String[]{id, type,

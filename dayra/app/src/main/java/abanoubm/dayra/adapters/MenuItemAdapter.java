@@ -35,8 +35,7 @@ public class MenuItemAdapter extends Adapter<String> {
         ViewHolder holder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(menuType==1?
-                    R.layout.item_menu: R.layout.item_menu_dark, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_menu_dark, parent, false);
             holder = new ViewHolder();
             holder.item = (TextView) convertView.findViewById(R.id.item);
             holder.img = (ImageView) convertView.findViewById(R.id.img);

@@ -61,8 +61,11 @@ public class DisplayContacts extends AppCompatActivity implements CallBack {
             @Override
             public void onClick(View view) {
 
-onBackPressed();
-
+                DB.getInstant(getApplicationContext()).closeDB();
+                Utility.clearLogin(getApplicationContext());
+                Intent intent = new Intent(getApplicationContext(), Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
             }
         });
         dualMode = findViewById(R.id.display_contacts_fragment_dual) != null;
@@ -106,15 +109,7 @@ onBackPressed();
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        DB.getInstant(getApplicationContext()).closeDB();
-        Utility.clearLogin(getApplicationContext());
-        Intent intent = new Intent(getApplicationContext(), Main.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

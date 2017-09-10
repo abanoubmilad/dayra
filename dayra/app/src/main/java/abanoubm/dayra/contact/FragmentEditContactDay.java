@@ -99,6 +99,9 @@ public class FragmentEditContactDay extends Fragment {
 
         @Override
         protected void onPostExecute(Boolean result) {
+            if(getActivity()==null)
+                return;
+
             isAttendant = result;
             date2.setText(targetDay);
 

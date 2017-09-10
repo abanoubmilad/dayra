@@ -15,7 +15,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,11 +45,16 @@ import java.util.Locale;
 import abanoubm.dayra.BuildConfig;
 import abanoubm.dayra.R;
 import abanoubm.dayra.adapters.MenuItemAdapter;
+import abanoubm.dayra.adapters.StringAdapter;
 import abanoubm.dayra.contacts.DisplayContacts;
 
 public class Main extends Activity {
     private static final int IMPORT_DB = 1;
     private MenuItemAdapter mMenuItemAdapter;
+    private StringAdapter mDayraAdapter;
+    private DrawerLayout nav;
+    private View containerDayras;
+   // private View containerActions;
 
     private final int IMPORT_REQUEST = 700, FOLDER_REQUEST = 900;
 
@@ -130,6 +137,7 @@ public class Main extends Activity {
 
         @Override
         protected void onPostExecute(Integer result) {
+            setupSignList();
             pBar.dismiss();
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT)
                     .show();
@@ -180,10 +188,8 @@ public class Main extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
-        ((TextView) findViewById(R.id.subhead1)).setText(R.string.app_name);
-        ((TextView) findViewById(R.id.subhead2)).setText(BuildConfig.VERSION_NAME);
+        ((TextView) findViewById(R.id.subhead1)).setText(getResources().getString(R.string.app_name)+" "+BuildConfig.VERSION_NAME);
         findViewById(R.id.nav_back).setVisibility(View.GONE);
-
         ((TextView) findViewById(R.id.footer)).setText(String.format(
                 getResources().getString(R.string.copyright_footer), BuildConfig.VERSION_NAME,
                 Calendar.getInstance().get(Calendar.YEAR)+""));
@@ -192,9 +198,60 @@ public class Main extends Activity {
             startActivity(new Intent(getApplicationContext(), DisplayContacts.class));
             finish();
         }
+        containerDayras = findViewById(R.id.container_dayras);
+      //  containerActions = findViewById(R.id.container_actions);
+        nav = (DrawerLayout)findViewById(R.id.drawer_layout);
+        findViewById(R.id.nav_menu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                nav.openDrawer(Gravity.RIGHT);
 
 
-        ListView lv = (ListView) findViewById(R.id.home_list);
+            }
+        });
+        findViewById(R.id.btn_backup).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (Build.VERSION.SDK_INT < 23 ||
+                        ContextCompat.checkSelfPermission(Main.this,
+                                Manifest.permission.READ_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED) {
+                    importDB();
+                } else {
+                    ActivityCompat.requestPermissions(Main.this,
+                            new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
+                            IMPORT_REQUEST);
+                }
+
+
+            }
+        });
+        findViewById(R.id.btn_create).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                register();
+
+
+            }
+        });
+        mDayraAdapter = new StringAdapter(getApplicationContext(), new ArrayList<String>());
+        ListView lvHome = (ListView) findViewById(R.id.home_list);
+        lvHome.setAdapter(mDayraAdapter);
+        lvHome.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                String str = mDayraAdapter.getItem(position);
+                new SignTask().execute(str);
+            }
+        });
+
+        ListView lv = (ListView) findViewById(R.id.list);
 
         mMenuItemAdapter = new MenuItemAdapter(getApplicationContext(),
                 new ArrayList<>(Arrays.asList(getResources()
@@ -206,14 +263,13 @@ public class Main extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                nav.closeDrawers();
+
                 switch (position) {
                     case 0:
-                        sign();
-                        break;
-                    case 1:
                         register();
                         break;
-                    case 2:
+                    case 1:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(Main.this,
                                         Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -225,15 +281,15 @@ public class Main extends Activity {
                                     IMPORT_REQUEST);
                         }
                         break;
-                    case 3:
+                    case 2:
                         startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri
                                 .parse("https://drive.google.com/file/d/0B1rNCm5K9cvwVXJTTzNqSFdrVk0/view")));
                         break;
-                    case 4:
+                    case 3:
                         startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri
                                 .parse("https://drive.google.com/open?id=1flSRdoiIT_hNd96Kxz3Ww3EhXDLZ45FhwFJ2hF9vl7g")));
                         break;
-                    case 5: {
+                    case 4: {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(
                                 Main.this);
@@ -269,7 +325,7 @@ public class Main extends Activity {
 
                     }
                     break;
-                    case 6:
+                    case 5:
                         try {
                             getPackageManager().getPackageInfo(
                                     "com.facebook.katana", 0);
@@ -283,7 +339,7 @@ public class Main extends Activity {
                         }
                         break;
 
-                    case 7:
+                    case 6:
 
                         try {
                             getPackageManager().getPackageInfo(
@@ -297,7 +353,7 @@ public class Main extends Activity {
                                     | Intent.FLAG_ACTIVITY_NEW_TASK));
                         }
                         break;
-                    case 8:
+                    case 7:
                         Uri uri = Uri.parse("market://details?id=" + getPackageName());
                         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                         try {
@@ -307,7 +363,7 @@ public class Main extends Activity {
                                     Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
                         }
                         break;
-                    case 9:
+                    case 8:
                         if (Build.VERSION.SDK_INT < 23 ||
                                 ContextCompat.checkSelfPermission(Main.this,
                                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -322,7 +378,7 @@ public class Main extends Activity {
                                     FOLDER_REQUEST);
                         }
                         break;
-                    case 10:
+                    case 9:
                         LayoutInflater li = LayoutInflater.from(getApplicationContext());
                         final View aboutView = li.inflate(R.layout.dialogue_about, null, false);
                         final AlertDialog ad = new AlertDialog.Builder(Main.this)
@@ -345,6 +401,7 @@ public class Main extends Activity {
                 }
             }
         });
+        setupSignList();
 
     }
 
@@ -430,7 +487,7 @@ public class Main extends Activity {
 
     }
 
-    private void sign() {
+    private void setupSignList() {
         String inpath;
         if (android.os.Build.VERSION.SDK_INT >= 17) {
             inpath = getApplicationContext().getApplicationInfo().dataDir
@@ -442,39 +499,20 @@ public class Main extends Activity {
         File folder = new File(inpath);
         File[] listOfFiles = folder.listFiles();
         if (listOfFiles == null || listOfFiles.length == 0) {
-            Toast.makeText(getApplicationContext(), R.string.msg_no_dayra,
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), R.string.msg_no_dayra,
+//                    Toast.LENGTH_SHORT).show();
+            containerDayras.setVisibility(View.GONE);
+      //      containerActions.setVisibility(View.VISIBLE);
         } else {
             ArrayList<String> names = new ArrayList<>(listOfFiles.length);
             for (File file : listOfFiles) {
                 if (!file.getName().contains("journal"))
                     names.add(file.getName());
             }
+            mDayraAdapter.clearThenAddAll(names);
 
-            LayoutInflater li = LayoutInflater.from(getApplicationContext());
-            View signView = li.inflate(R.layout.dialogue_signin, null, false);
-            final AlertDialog ad = new AlertDialog.Builder(Main.this)
-                    .setCancelable(true).create();
-            ad.setView(signView, 0, 0, 0, 0);
-            ad.show();
-
-            ListView nameslv = (ListView) signView
-                    .findViewById(R.id.databases_lv);
-            nameslv.setAdapter(new ArrayAdapter<>(
-                    getApplicationContext(), R.layout.item_string,
-                    R.id.item, names));
-
-            nameslv.setOnItemClickListener(new OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view,
-                                        int position, long id) {
-                    String str = (String) parent.getItemAtPosition(position);
-                    new SignTask().execute(str);
-                    ad.dismiss();
-                }
-            });
-
+            containerDayras.setVisibility(names.size()!=0?View.VISIBLE:View.GONE);
+           // containerActions.setVisibility(names.size()==0?View.VISIBLE:View.GONE);
         }
 
     }
